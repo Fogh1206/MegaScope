@@ -37,15 +37,7 @@
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button disable="true" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Edit" textAlignment="CENTER" textFill="WHITE" visible="false">
-                     <effect>
-                        <Glow />
-                     </effect>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button disable="true" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Log out" textAlignment="CENTER" textFill="WHITE" visible="false">
+                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Log out" textAlignment="CENTER" textFill="WHITE">
                      <effect>
                         <Glow />
                      </effect>
