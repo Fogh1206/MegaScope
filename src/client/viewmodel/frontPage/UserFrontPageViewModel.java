@@ -14,7 +14,7 @@ public class UserFrontPageViewModel {
 
     public UserFrontPageViewModel(UserModel userModel){
         this.userModel = userModel;
-      //  username = new SimpleStringProperty(user.getUsername());
+      username = new SimpleStringProperty();
 
     }
 
