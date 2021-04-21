@@ -16,4 +16,9 @@ public class ServerModelManager implements ServerModel  {
   {
     return modelManager.acceptUser(user);
   }
+
+
+  public void nothing(){
+
+  }
 }
