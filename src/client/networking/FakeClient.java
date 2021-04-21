@@ -1,6 +1,7 @@
 package client.networking;
 
 import shared.NewRegisteredUser;
+import shared.Request;
 import shared.User;
 
 import java.beans.PropertyChangeListener;
@@ -47,6 +48,16 @@ public class FakeClient implements Client {
     }
 
     @Override public void getMovies()
+    {
+
+    }
+
+    @Override public boolean isRunning()
+    {
+        return false;
+    }
+
+    @Override public void receive(Request req)
     {
 
     }

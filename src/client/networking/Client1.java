@@ -12,53 +12,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class SocketClient implements Client
+public class Client1 implements Client
 {
   private PropertyChangeSupport support;
   private Socket socket;
   private ObjectOutputStream outToServer;
   private boolean running = true;
 
-  public SocketClient()
+  public Client1()
   {
     support = new PropertyChangeSupport(this);
-    startClient();
-  }
-
-  private void startClient()
-  {
     try
     {
       socket = new Socket("localhost", 2910);
       outToServer = new ObjectOutputStream(socket.getOutputStream());
-      Thread thread = new Thread(this::listenToServer);
-      thread.setDaemon(true);
-      thread.start();
     }
     catch (IOException e)
     {
-      e.printStackTrace();
+      throw new RuntimeException("Unable to connect to the server");
     }
-  }
-
-  private void listenToServer()
-  {
-
-    try
-    {
-      ObjectInputStream inFromServer = new ObjectInputStream(
-          socket.getInputStream());
-
-      while (true)
-      {
-        Request req = (Request) inFromServer.readObject();
-        support.firePropertyChange(req.type.toString(), null, req.arg);
-      }
-    }
-    catch (IOException | ClassNotFoundException e)
-    {
-      e.printStackTrace();
-    }
+    ClientSocketHandler clientSocketHandler = new ClientSocketHandler(socket,
+        this);
+    Thread thread = new Thread(clientSocketHandler);
+    thread.setDaemon(true);
+    thread.start();
   }
 
   public void sendToServer(Request request, EventType registerResult)
@@ -88,15 +65,6 @@ public class SocketClient implements Client
     }
   }
 
-  public boolean isRunning()
-  {
-    return running;
-  }
-
-  @Override public void receive(Request req)
-  {
-
-  }
 
   @Override public void registerUser(NewRegisteredUser newUser)
   {
@@ -114,7 +82,6 @@ public class SocketClient implements Client
   {
     Request req = new Request(EventType.GETMOVIES_REQUEST, null);
     sendToServer(req, EventType.GETMOVIES_RESULT);
-    System.out.println(12);
   }
 
   @Override public void addPropertyChangeListener(String name,
@@ -128,5 +95,18 @@ public class SocketClient implements Client
       PropertyChangeListener listener)
   {
     support.removePropertyChangeListener(name, listener);
+  }
+
+
+
+  /** Check if client is still running/online  */
+  @Override public boolean isRunning()
+  {
+    return running;
+  }
+
+  @Override public void receive(Request req)
+  {
+    support.firePropertyChange(req.type.toString(), null, req.arg);
   }
 }

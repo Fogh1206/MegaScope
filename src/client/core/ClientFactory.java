@@ -1,6 +1,7 @@
 package client.core;
 
 import client.networking.Client;
+import client.networking.Client1;
 import client.networking.FakeClient;
 import client.networking.SocketClient;
 
@@ -9,7 +10,7 @@ public class ClientFactory {
 
     public Client getClient() {
         if(client == null) {
-            client = new SocketClient();
+            client = new Client1();
         }
         return client;
     }
