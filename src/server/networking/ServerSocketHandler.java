@@ -103,19 +103,4 @@ public class ServerSocketHandler implements Runnable
     }
   }
 
-  /** Close all connections from the server */
-  private void close()
-  {
-    try
-    {
-      inFromClient.close();
-      outToClient.close();
-      socket.close();
-      this.connected = false;
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-  }
 }
