@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 
 import java.awt.event.ActionEvent;
 
-public class AdminMoviePageController
+public  class AdminMoviePageController
 {
 
   private AdminViewModelMovie adminViewModelMovie;
@@ -25,17 +25,17 @@ public class AdminMoviePageController
 
   }
 
- @FXML private void editMovie(ActionEvent event)
+  @FXML private void editMovie(ActionEvent event)
   {
 
   }
 
- @FXML private void removeMovie(ActionEvent event)
+  @FXML private void removeMovie(ActionEvent event)
   {
 
   }
 
- @FXML private void manageUsers(ActionEvent event)
+  @FXML private void manageUsers(ActionEvent event)
   {
 
   }
@@ -43,3 +43,4 @@ public class AdminMoviePageController
 
 
 }
+
