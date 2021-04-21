@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.frontPage.FrontPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.frontPage.FrontPageController">
    <center>
       <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -37,7 +37,7 @@
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Log out" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButton" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Log in" textAlignment="CENTER" textFill="WHITE">
                      <effect>
                         <Glow />
                      </effect>
