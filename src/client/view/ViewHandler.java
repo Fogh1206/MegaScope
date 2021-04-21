@@ -105,7 +105,7 @@ public class ViewHandler {
         {
             Parent root = loader.load();
             AdminUsersPageController ctrl = loader.getController();
-            ctrl.init(vmf.getAdminMoviePage(), this);
+            ctrl.init(vmf.getAdminViewModelUsers(), this);
             mainStage.setTitle("User management");
             Scene scene = new Scene(root);
             mainStage.setScene(scene);
