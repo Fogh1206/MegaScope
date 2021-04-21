@@ -18,7 +18,5 @@ public class ServerModelManager implements ServerModel  {
   }
 
 
-  public void nothing(){
 
-  }
 }

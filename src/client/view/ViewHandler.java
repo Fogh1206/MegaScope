@@ -1,5 +1,7 @@
 package client.view;
 
+import client.view.Admin.AdminMoviePageController;
+import client.view.Admin.AdminUsersPageController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
@@ -8,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import client.viewmodel.*;
 
 import java.io.IOException;
 
@@ -22,7 +25,7 @@ public class ViewHandler {
     }
 
     public void start() {
-        openLoginView();
+       showFrontPage();
         mainStage.show();
         mainStage.setResizable(false);
     }
@@ -75,9 +78,48 @@ public class ViewHandler {
         }
     }
 
+    public void showAdminMoviePage() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/adminMovies.fxml"));
+        try
+        {
+            Parent root = loader.load();
+            AdminMoviePageController ctrl = loader.getController();
+            ctrl.init(vmf.getAdminMoviePage(), this);
+            mainStage.setTitle("Movie management");
+            Scene scene = new Scene(root);
+            mainStage.setScene(scene);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void showAdminUserPage()
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
+        try
+        {
+            Parent root = loader.load();
+            AdminUsersPageController ctrl = loader.getController();
+            ctrl.init(vmf.getAdminViewModelUsers(), this);
+            mainStage.setTitle("User management");
+            Scene scene = new Scene(root);
+            mainStage.setScene(scene);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     public void close()
     {
         mainStage.close();
     }
 }
+
