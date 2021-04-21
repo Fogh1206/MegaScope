@@ -1,5 +1,7 @@
 package client.view;
 
+import client.view.Admin.AdminMoviePageController;
+import client.view.Admin.AdminUsersPageController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
