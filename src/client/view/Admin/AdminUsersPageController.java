@@ -10,9 +10,9 @@ import java.awt.event.ActionEvent;
 
 public class AdminUsersPageController
 {
-    private AdminViewModelUsers adminViewModelUsers;
-    private UserModel userModel;
-    private ViewHandler viewHandler;
+  private AdminViewModelUsers adminViewModelUsers;
+  private UserModel userModel;
+  private ViewHandler viewHandler;
 
   public void init(AdminViewModelUsers adminViewModelUsers, ViewHandler viewHandler)
   {
