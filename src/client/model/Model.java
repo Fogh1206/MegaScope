@@ -32,7 +32,7 @@ public class Model implements UserModel
 
   private void onGetMoviesResult(PropertyChangeEvent event)
   {
-    System.out.println((String) event.getNewValue());
+    System.out.println( event.getNewValue());
   }
 
   private void onLoginResult(PropertyChangeEvent event)

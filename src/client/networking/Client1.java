@@ -36,6 +36,7 @@ public class Client1 implements Client
     Thread thread = new Thread(clientSocketHandler);
     thread.setDaemon(true);
     thread.start();
+    getMovies();
   }
 
   public void sendToServer(Request request, EventType registerResult)

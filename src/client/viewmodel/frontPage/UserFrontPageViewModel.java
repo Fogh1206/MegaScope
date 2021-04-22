@@ -11,14 +11,21 @@ public class UserFrontPageViewModel {
     private UserModel userModel;
 
     private StringProperty username,button;
+  /*  private ObservableList<ContactTableRow> items = ...
+    private ObjectProperty<ContactTableRow> selectedItem
 
-
+*/
     public UserFrontPageViewModel(UserModel userModel){
         this.userModel = userModel;
       username = new SimpleStringProperty();
       button=new SimpleStringProperty();
 
     }
+
+
+
+
+
 
     public StringProperty usernameProperty() {
         return username;
@@ -27,5 +34,11 @@ public class UserFrontPageViewModel {
 
     public StringProperty buttonProperty() {
         return button;
+    }
+
+    public void getMovies() {
+
+
+
     }
 }
