@@ -24,6 +24,8 @@ public class LoginViewController {
     private ImageView imageView;
     @FXML
     private Label loginText;
+    @FXML
+    private Button frontPageButton;
 
 
     private LoginViewModel loginViewModel;
@@ -70,6 +72,10 @@ public class LoginViewController {
     public void onRegisterAction() {
         loginViewModel.defaultFields();
         viewHandler.openRegisterView();
+    }
+
+    public void frontPageButton() {
+        viewHandler.showFrontPage();
     }
 
 

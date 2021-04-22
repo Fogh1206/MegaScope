@@ -95,7 +95,6 @@ public class ViewHandler {
         }
     }
 
-
     public void showAdminUserPage()
     {
         FXMLLoader loader = new FXMLLoader();
@@ -114,7 +113,6 @@ public class ViewHandler {
             e.printStackTrace();
         }
     }
-
 
     public void close()
     {

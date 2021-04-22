@@ -18,6 +18,7 @@ public class FrontPageController {
 
     @FXML private Label usernameLabel;
     @FXML private Button loginButton;
+    @FXML private Button logoutButton;
 
 
 
@@ -34,4 +35,5 @@ public class FrontPageController {
     public void onLoginButton(ActionEvent event) {
       viewHandler.openLoginView();
     }
+
 }
