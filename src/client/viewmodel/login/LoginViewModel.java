@@ -16,6 +16,7 @@ public class LoginViewModel {
     private StringProperty loginResult;
 
     private UserModel model;
+    private ViewHandler viewHandler;
 
     public LoginViewModel(UserModel model) {
         this.model=model;
@@ -29,9 +30,7 @@ public class LoginViewModel {
         String result = (String) event.getNewValue();
         Platform.runLater(() -> {
             loginResult.set(result);
-
         });
-
     }
 
     public StringProperty usernameProperty() {
@@ -57,5 +56,7 @@ public class LoginViewModel {
         System.out.println(username.get());
         System.out.println(password.get());
         model.login(username.get(), password.get());
+      //  loginResult.set("OK");
+
     }
 }

@@ -1,5 +1,6 @@
 package server.networking;
 
+import client.view.ViewHandler;
 import server.database.ManageUserDAO;
 import server.database.UserDAO;
 import server.modelserver.ServerModel;
@@ -23,6 +24,7 @@ public class ServerSocketHandler implements Runnable
   private ObjectInputStream inFromClient;
   private UserDAO userDAO;
   private boolean connected = true;
+  private ViewHandler viewHandler;
 
   public ServerSocketHandler(ServerModel serverModel, Socket socket)
       throws IOException
@@ -46,6 +48,7 @@ public class ServerSocketHandler implements Runnable
 
         if (request.type.equals(EventType.GETMOVIES_REQUEST))
         {
+          /*
           //          try
           //          {
           //            Statement statement = connection.createStatement();
@@ -66,6 +69,8 @@ public class ServerSocketHandler implements Runnable
           //            System.out.println("Connection failure.");
           //            e.printStackTrace();
           //          }
+
+           */
         }
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
@@ -77,6 +82,7 @@ public class ServerSocketHandler implements Runnable
             {
 
               queryResult = "Correct password";
+
             }
             Request response = new Request(EventType.LOGIN_RESULT, queryResult);
             outToClient.writeObject(response);
