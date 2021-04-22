@@ -35,7 +35,7 @@ public class ClientSocketHandler implements Runnable
       try
       {
         Request req = (Request) inputStream.readObject();
-        System.out.println(req.type);
+        System.out.println("987"+req.type);
         client.receive(req);
       }
       catch (IOException | ClassNotFoundException e)

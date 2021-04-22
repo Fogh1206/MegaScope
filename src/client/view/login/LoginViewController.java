@@ -13,70 +13,79 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
-public class LoginViewController {
+public class LoginViewController
+{
 
-    @FXML
-    private TextField usernameTextField;
-    @FXML
-    private TextField passwordTextField;
+  @FXML private TextField usernameTextField;
+  @FXML private TextField passwordTextField;
 
-    @FXML
-    private ImageView imageView;
-    @FXML
-    private Label loginText;
-    @FXML
-    private Button frontPageButton;
+  @FXML private ImageView imageView;
+  @FXML private Label loginText;
+  @FXML private Button frontPageButton;
 
+  private LoginViewModel loginViewModel;
+  private ViewHandler viewHandler;
 
-    private LoginViewModel loginViewModel;
-    private ViewHandler viewHandler;
-
-    public void init(LoginViewModel loginViewModel, ViewHandler viewHandler) {
-        this.loginViewModel = loginViewModel;
-        this.viewHandler = viewHandler;
-        usernameTextField.textProperty().bindBidirectional(loginViewModel.usernameProperty());
-        passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
-        loginText.textProperty().bindBidirectional(loginViewModel.loginResultProperty());
-        try {
-            File imageFIle = new File("images/cinema.jpg");
-            Image image = new Image(imageFIle.toURI().toString());
-            imageView.setImage(image);
-
-        } catch (NullPointerException e) {
-            System.out.println("image probl");
-        }
-
-        loginViewModel.loginResultProperty().addListener((observableValue, oldValue, newValue) -> login(newValue));
-    }
-
-    private void login(String newValue) {
-        if ("OK".equals(newValue)) {
-            System.out.println("Swap to the main View");
-            viewHandler.showFrontPage();
-        }
+  public void init(LoginViewModel loginViewModel, ViewHandler viewHandler)
+  {
+    this.loginViewModel = loginViewModel;
+    this.viewHandler = viewHandler;
+    usernameTextField.textProperty()
+        .bindBidirectional(loginViewModel.usernameProperty());
+    passwordTextField.textProperty()
+        .bindBidirectional(loginViewModel.passwordProperty());
+    loginText.textProperty()
+        .bindBidirectional(loginViewModel.loginResultProperty());
+    try
+    {
+      File imageFIle = new File("images/cinema.jpg");
+      Image image = new Image(imageFIle.toURI().toString());
+      imageView.setImage(image);
 
     }
-
-    public void onLoginAction(ActionEvent actionEvent) {
-
-        loginViewModel.login();
-        loginViewModel.defaultFields();
-
+    catch (NullPointerException e)
+    {
+      System.out.println("image probl");
     }
 
-    public void onCancelAction() {
-        viewHandler.close();
-        System.out.println("Cancelled");
+    loginViewModel.loginResultProperty()
+        .addListener((observableValue, oldValue, newValue) -> login(newValue));
+  }
+
+  private void login(String newValue)
+  {
+    if ("OK".equals(newValue))
+    {
+      System.out.println("Swap to the main View");
+      viewHandler.showFrontPage();
     }
 
-    public void onRegisterAction() {
-        loginViewModel.defaultFields();
-        viewHandler.openRegisterView();
-    }
+  }
 
-    public void frontPageButton() {
-        viewHandler.showFrontPage();
-    }
+  public void onLoginAction(ActionEvent actionEvent)
+  {
 
+    System.out.println(5);
+    loginViewModel.login();
+    loginViewModel.defaultFields();
+
+  }
+
+  public void onCancelAction()
+  {
+    viewHandler.close();
+    System.out.println("Cancelled");
+  }
+
+  public void onRegisterAction()
+  {
+    loginViewModel.defaultFields();
+    viewHandler.openRegisterView();
+  }
+
+  public void frontPageButton()
+  {
+    viewHandler.showFrontPage();
+  }
 
 }

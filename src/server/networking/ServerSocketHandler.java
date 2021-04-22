@@ -1,9 +1,9 @@
 package server.networking;
 
-import client.view.ViewHandler;
 import server.database.ManageUserDAO;
 import server.database.UserDAO;
 import server.modelserver.ServerModel;
+import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.Request;
 import shared.User;
@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable
 {
@@ -24,7 +25,6 @@ public class ServerSocketHandler implements Runnable
   private ObjectInputStream inFromClient;
   private UserDAO userDAO;
   private boolean connected = true;
-  private ViewHandler viewHandler;
 
   public ServerSocketHandler(ServerModel serverModel, Socket socket)
       throws IOException
@@ -48,29 +48,12 @@ public class ServerSocketHandler implements Runnable
 
         if (request.type.equals(EventType.GETMOVIES_REQUEST))
         {
-          /*
-          //          try
-          //          {
-          //            Statement statement = connection.createStatement();
-          //            ResultSet resultSet = statement
-          //                .executeQuery("SELECT * FROM adapterEx.Movies");
-          //            String queryResult = "";
-          //            while (resultSet.next())
-          //            {
-          //              System.out.println(resultSet.getString(1));
-          //              queryResult = (resultSet.getString(1));
-          //            }
-          //            Request response = new Request(EventType.GETMOVIES_RESULT,
-          //                queryResult);
-          //            outToClient.writeObject(response);
-          //          }
-          //          catch (SQLException e)
-          //          {
-          //            System.out.println("Connection failure.");
-          //            e.printStackTrace();
-          //          }
+          System.out.println("Get Movies Requested");
+          ArrayList<Movie> movies=userDAO.getAllMovies();
+          Request response =new Request(EventType.GETMOVIES_RESULT,movies);
+          outToClient.writeObject(response);
 
-           */
+
         }
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
@@ -82,7 +65,6 @@ public class ServerSocketHandler implements Runnable
             {
 
               queryResult = "Correct password";
-
             }
             Request response = new Request(EventType.LOGIN_RESULT, queryResult);
             outToClient.writeObject(response);

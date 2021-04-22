@@ -1,6 +1,7 @@
 package client.model;
 
 import client.networking.Client;
+import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.User;
 import shared.util.EventType;
@@ -8,6 +9,8 @@ import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Model implements UserModel
 {
@@ -32,7 +35,11 @@ public class Model implements UserModel
 
   private void onGetMoviesResult(PropertyChangeEvent event)
   {
-    System.out.println((String) event.getNewValue());
+    System.out.println(4);
+    ArrayList<Movie> list  = (ArrayList<Movie>) event.getNewValue();
+    System.out.println( event.getNewValue());
+    support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null,
+        list);
   }
 
   private void onLoginResult(PropertyChangeEvent event)
