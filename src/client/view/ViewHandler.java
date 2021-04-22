@@ -24,7 +24,7 @@ public class ViewHandler {
     }
 
     public void start() {
-       showFrontPage();
+       openLoginView();
         mainStage.show();
         mainStage.setResizable(false);
     }
