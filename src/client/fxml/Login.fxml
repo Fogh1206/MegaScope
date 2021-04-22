@@ -37,6 +37,9 @@
                      <font>
                         <Font size="13.0" />
                      </font>
+                     <effect>
+                        <Glow />
+                     </effect>
                   </Button>
                     </children>
                 </AnchorPane>
