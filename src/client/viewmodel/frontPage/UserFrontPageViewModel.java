@@ -8,14 +8,16 @@ import shared.Movie;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserFrontPageViewModel
 {
 
-  public Property<ObservableList<Movie>> getNewItem;
   private UserModel model;
+  private PropertyChangeSupport support;
 
   private StringProperty username, button;
   private ObservableList<Movie> items;
@@ -23,6 +25,7 @@ public class UserFrontPageViewModel
   public UserFrontPageViewModel(UserModel userModel)
   {
     this.model = userModel;
+    support = new PropertyChangeSupport(this);
     username = new SimpleStringProperty();
     button = new SimpleStringProperty();
     items = new SimpleListProperty<>();
@@ -39,6 +42,8 @@ public class UserFrontPageViewModel
 
     items = FXCollections.observableArrayList(list);
 
+    support.firePropertyChange("Update", null,
+        null);
     System.out.println("HAHA" + items.toString());
   }
 
@@ -62,13 +67,12 @@ public class UserFrontPageViewModel
     return items;
   }
 
-  public ObservableList<Movie> getGetNewItem()
-  {
-    return getNewItem.get();
-  }
 
-  public Property<ObservableList<Movie>> getNewItemProperty()
+  public void addPropertyChangeListener(String name,
+      PropertyChangeListener listener)
   {
-    return getNewItem;
+    System.out.println(874);
+    support.addPropertyChangeListener(name, listener);
+
   }
 }

@@ -2,7 +2,7 @@ package shared;
 
 public class MovieTest
 {
-
+  private String name, dateofrelease;
 
   public MovieTest(String name, String dateofrelease)
   {

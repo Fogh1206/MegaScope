@@ -11,13 +11,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import shared.Movie;
+import shared.util.EventType;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeSupport;
 
 public class FrontPageController
 {
 
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
+  private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
@@ -32,13 +36,23 @@ public class FrontPageController
 
     usernameLabel.textProperty()
         .bindBidirectional(userFrontPageViewModel.usernameProperty());
-    movieTableView.itemsProperty().bindBidirectional(userFrontPageViewModel.getNewItem);
+
     movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     dateOfReleaseCol
         .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
 
     movieTableView.setItems(userFrontPageViewModel.getItems());
     System.out.println("369" + movieTableView.getItems().toString());
+
+    userFrontPageViewModel
+        .addPropertyChangeListener("Update",
+            this::update);
+  }
+
+  private void update(PropertyChangeEvent event)
+  {
+    System.out.println("Last");
+    movieTableView.setItems(userFrontPageViewModel.getItems());
   }
 
   public void onLoginButton(ActionEvent event)
@@ -48,7 +62,8 @@ public class FrontPageController
 
   public void onBookMovieButton()
   {
-    movieTableView.setItems(userFrontPageViewModel.getItems());
+
   }
+
 
 }
