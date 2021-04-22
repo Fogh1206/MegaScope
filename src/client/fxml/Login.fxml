@@ -33,6 +33,14 @@
                                 <Image url="@../../../images/cinema.jpg" />
                             </image>
                         </ImageView>
+                  <Button layoutX="110.0" layoutY="274.0" mnemonicParsing="false" onAction="#frontPageButton" style="-fx-background-color: #E96151;" text="Front page" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Button>
                     </children>
                 </AnchorPane>
                 <VBox prefHeight="200.0" prefWidth="300.0">
@@ -71,7 +79,7 @@
                                 </PasswordField>
                             </children>
                         </HBox>
-                        <Label fx:id="loginText" prefHeight="17.0" prefWidth="160.0" />
+                        <Label fx:id="loginText" prefHeight="17.0" prefWidth="86.0" />
                         <Button fx:id="registrationButton" mnemonicParsing="false" onAction="#onRegisterAction" prefHeight="23.0" prefWidth="101.0" style="-fx-background-color: LIGHTBLUE;" text="Register here">
                             <font>
                                 <Font size="10.0" />

@@ -36,10 +36,12 @@ public class Client1 implements Client
     Thread thread = new Thread(clientSocketHandler);
     thread.setDaemon(true);
     thread.start();
+    getMovies();
   }
 
   public void sendToServer(Request request, EventType registerResult)
   {
+    System.out.println(2);
     try
     {
       outToServer.writeObject(request);
@@ -80,6 +82,7 @@ public class Client1 implements Client
 
   @Override public void getMovies()
   {
+    System.out.println(1);
     Request req = new Request(EventType.GETMOVIES_REQUEST, null);
     sendToServer(req, EventType.GETMOVIES_RESULT);
   }
@@ -107,6 +110,8 @@ public class Client1 implements Client
 
   @Override public void receive(Request req)
   {
+    System.out.println(3);
+    System.out.println(req.type.toString());
     support.firePropertyChange(req.type.toString(), null, req.arg);
   }
 }
