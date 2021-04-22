@@ -62,10 +62,6 @@ public class UserFrontPageViewModel
     return items;
   }
 
-  public ObservableList<Movie> getGetNewItem()
-  {
-    return getNewItem.get();
-  }
 
   public Property<ObservableList<Movie>> getNewItemProperty()
   {
