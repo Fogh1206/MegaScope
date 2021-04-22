@@ -77,7 +77,6 @@ public class ViewHandler {
         }
     }
 
-
     public void showAdminMoviePage() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/adminMovies.fxml"));
