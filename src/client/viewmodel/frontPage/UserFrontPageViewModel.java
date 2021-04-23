@@ -75,4 +75,6 @@ public class UserFrontPageViewModel
     support.addPropertyChangeListener(name, listener);
 
   }
+
+
 }
