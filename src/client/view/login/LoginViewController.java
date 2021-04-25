@@ -22,6 +22,7 @@ public class LoginViewController
   @FXML private ImageView imageView;
   @FXML private Label loginText;
   @FXML private Button frontPageButton;
+  private boolean userLoggedIn=false;
 
   private LoginViewModel loginViewModel;
   private ViewHandler viewHandler;
@@ -54,18 +55,27 @@ public class LoginViewController
 
   private void login(String newValue)
   {
-    if ("OK".equals(newValue))
+
+    System.out.println(newValue);
+    if ("Correct password".equals(newValue))
     {
-      System.out.println("Swap to the main View");
+      userLoggedIn=true;
       viewHandler.showFrontPage();
     }
 
   }
 
+  public boolean isUserLoggedIn() {
+    return userLoggedIn;
+  }
+
   public void onLoginAction(ActionEvent actionEvent)
   {
+    if (isUserLoggedIn())
+    {
 
-    System.out.println(5);
+    }
+
     loginViewModel.login();
     loginViewModel.defaultFields();
 
