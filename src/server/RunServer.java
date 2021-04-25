@@ -7,21 +7,23 @@ import server.networking.Server;
 
 import java.io.IOException;
 
-public class RunServer {
-    public static void main(String[] args) {
+public class RunServer
+{
+  public static void main(String[] args)
+  {
 
-        Users users= new Users();
-        ServerModel sm = new ServerModelManager(users);
-        Server server = new Server(sm);
-        try {
-           server.startServer();
-        } catch (IOException e) {
-            System.out.println("Complete failure to launch");
-            e.printStackTrace();
-        }
-
-
-
+    Users users = new Users();
+    ServerModel sm = new ServerModelManager(users);
+    Server server = new Server(sm);
+    try
+    {
+      server.startServer();
     }
+    catch (IOException e)
+    {
+      System.out.println("Complete failure to launch");
+      e.printStackTrace();
+    }
+  }
 }
 
