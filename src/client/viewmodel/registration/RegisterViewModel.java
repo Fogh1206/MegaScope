@@ -140,7 +140,6 @@ public class RegisterViewModel
       }
       else
       {
-
         registerUserAccount();
 
       }

@@ -49,39 +49,31 @@ public class ServerSocketHandler implements Runnable
         if (request.type.equals(EventType.GETMOVIES_REQUEST))
         {
           System.out.println("Get Movies Requested");
-          ArrayList<Movie> movies=userDAO.getAllMovies();
-          Request response =new Request(EventType.GETMOVIES_RESULT,movies);
+          ArrayList<Movie> movies = userDAO.getAllMovies();
+          Request response = new Request(EventType.GETMOVIES_RESULT, movies);
           outToClient.writeObject(response);
-
 
         }
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
           {
             User user = (User) request.arg;
-            String queryResult = "Incorrect password";
-            userDAO.validateUser(user.getUsername(), user.getPassword());
-            if (userDAO.validateUser(user.getUsername(), user.getPassword()))
-            {
-
-              queryResult = "Correct password";
-            }
-            Request response = new Request(EventType.LOGIN_RESULT, queryResult);
+            User temp = userDAO
+                .validateUser(user.getUsername(), user.getPassword());
+            Request response = new Request(EventType.LOGIN_RESULT, temp);
             outToClient.writeObject(response);
           }
-        }
-        if (request.type.equals(EventType.REGISTER_REQUEST))
-        {
-          System.out.println("Register requested");
-          NewRegisteredUser user = (NewRegisteredUser) request.arg;
-          userDAO.createUser(user.getFirstName(), user.getLastName(),
-              user.getUsername(), user.getPassword(), user.getPhoneNumber(),
-              user.getBirthday());
+        } if (request.type.equals(EventType.REGISTER_REQUEST))
+      {
+        System.out.println("Register requested");
+        NewRegisteredUser user = (NewRegisteredUser) request.arg;
+        userDAO.createUser(user.getFirstName(), user.getLastName(),
+            user.getUsername(), user.getPassword(), user.getPhoneNumber(),
+            user.getBirthday());
 
-          Request response = new Request(EventType.REGISTER_RESULT,
-              "Successful");
-          outToClient.writeObject(response);
-        }
+        Request response = new Request(EventType.REGISTER_RESULT, "Successful");
+        outToClient.writeObject(response);
+      }
       }
       catch (Exception e)
       {

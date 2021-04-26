@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import shared.User;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class ViewHandler {
     }
 
     public void start() {
-       showFrontPage();
+       showFrontPage(null);
         mainStage.show();
         mainStage.setResizable(false);
     }
@@ -59,14 +60,32 @@ public class ViewHandler {
         }
     }
 
-    public void showFrontPage() {
+//    public void showFrontPage() {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
+//        try
+//        {
+//            Parent root = loader.load();
+//            FrontPageController ctrl = loader.getController();
+//            ctrl.init(vmf.getFrontPage(),this, null);
+//            mainStage.setTitle("Front page");
+//            Scene frontPageScene = new Scene(root);
+//            mainStage.setScene(frontPageScene);
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public void showFrontPage(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
         try
         {
             Parent root = loader.load();
             FrontPageController ctrl = loader.getController();
-            ctrl.init(vmf.getFrontPage(),this);
+            ctrl.init(vmf.getFrontPage(),this, userLoggedIn);
             mainStage.setTitle("Front page");
             Scene frontPageScene = new Scene(root);
             mainStage.setScene(frontPageScene);

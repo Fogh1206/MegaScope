@@ -36,19 +36,20 @@ public class Model implements UserModel
   private void onGetMoviesResult(PropertyChangeEvent event)
   {
     System.out.println(4);
-    ArrayList<Movie> list  = (ArrayList<Movie>) event.getNewValue();
-    System.out.println( event.getNewValue());
-    support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null,
-        list);
+    ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
+
+    support
+        .firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
   }
 
   private void onLoginResult(PropertyChangeEvent event)
   {
-    String loginResult = (String) event.getNewValue();
+    User loginResult = (User) event.getNewValue();
     support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
         loginResult);
 
   }
+
   private void onRegisterResult(PropertyChangeEvent event)
   {
     String registerResult = (String) event.getNewValue();
