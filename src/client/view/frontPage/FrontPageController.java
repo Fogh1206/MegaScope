@@ -40,7 +40,7 @@ public class FrontPageController
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
     {
-      loginButton.setText("LogOut");
+      loginButton.setText("Log Out");
     }
     else
     {
