@@ -15,4 +15,6 @@ public interface Client extends PropertyChangeSubject {
 
   boolean isRunning();
   void receive(Request req);
+  void deactivateClient();
+
 }

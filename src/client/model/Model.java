@@ -37,9 +37,24 @@ public class Model implements UserModel
   {
     System.out.println(4);
     ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
+    System.out.println("Size"+list.size());
+    System.out.println( list.get(0).getName());
+    System.out.println( list.get(1).getName());
+    System.out.println( list.get(2).getName());
+    System.out.println(5);
+    try
+    {
+      support
+          .firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
+    }
+    catch (Exception e)
+    {
+      System.out.println("starge days");
+    }
 
     support
         .firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
+    System.out.println(5.5);
   }
 
   private void onLoginResult(PropertyChangeEvent event)
@@ -82,5 +97,10 @@ public class Model implements UserModel
     loggedUser = new User(username, password);
     client.login(loggedUser);
 
+  }
+
+  @Override public void deactivateClient()
+  {
+    client.deactivateClient();
   }
 }

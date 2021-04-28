@@ -35,6 +35,7 @@ public class UserFrontPageViewModel
 
   private void onGetMovies(PropertyChangeEvent event)
   {
+    System.out.println(6);
     List<Movie> list = (ArrayList<Movie>) event.getNewValue();
     items = FXCollections.observableArrayList(list);
     support.firePropertyChange("Update", null,
@@ -66,5 +67,10 @@ public class UserFrontPageViewModel
       PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(name, listener);
+  }
+
+  public void close()
+  {
+    model.deactivateClient();
   }
 }

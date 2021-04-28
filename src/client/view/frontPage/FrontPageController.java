@@ -57,15 +57,14 @@ public class FrontPageController
     dateOfReleaseCol
         .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
 
-    movieTableView.setItems(userFrontPageViewModel.getItems());
-
     userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
-
+    movieTableView.setItems(userFrontPageViewModel.getItems());
     setSelectedMovie();
   }
 
   private void update(PropertyChangeEvent event)
   {
+    System.out.println("Upadate Movies");
     movieTableView.setItems(userFrontPageViewModel.getItems());
   }
 
@@ -90,6 +89,7 @@ public class FrontPageController
       movieTableView.setMaxWidth(150);
       Profile.setVisible(true);
       Profile.setMaxWidth(550);
+      movieTableView.setItems(userFrontPageViewModel.getItems());
     }
     else
     {
