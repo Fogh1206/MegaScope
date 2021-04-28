@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import shared.Movie;
 import shared.User;
 
@@ -21,6 +22,7 @@ import java.beans.PropertyChangeSupport;
 public class FrontPageController
 {
 
+  public VBox Profile;
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
   private PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -28,6 +30,7 @@ public class FrontPageController
 
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
+
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<String, Movie> movieTitleCol;
   @FXML private TableColumn<String, Movie> dateOfReleaseCol;
@@ -80,7 +83,22 @@ public class FrontPageController
 
   public void onBookMovieButton()
   {
-
+    if (dateOfReleaseCol.isVisible())
+    {
+      dateOfReleaseCol.setVisible(false);
+      movieTitleCol.setMaxWidth(150);
+      movieTableView.setMaxWidth(150);
+      Profile.setVisible(true);
+      Profile.setMaxWidth(550);
+    }
+    else
+    {
+      dateOfReleaseCol.setVisible(true);
+      movieTableView.setMaxWidth(600);
+      movieTitleCol.setMinWidth(300);
+      Profile.setVisible(false);
+      Profile.setMaxWidth(0);
+    }
   }
 
   /**
@@ -103,4 +121,8 @@ public class FrontPageController
         });
   }
 
+  public void StupidAction(ActionEvent actionEvent)
+  {
+    System.out.println("STupid");
+  }
 }

@@ -135,6 +135,7 @@ public class ViewHandler {
 
     public void close()
     {
+        System.out.println("Me close");
         mainStage.close();
     }
 }

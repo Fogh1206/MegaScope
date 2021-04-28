@@ -19,26 +19,13 @@
             xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="client.view.frontPage.FrontPageController">
-    <center>
-        <TableView fx:id="movieTableView" prefHeight="200.0" prefWidth="200.0"
-                   BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-                <Insets left="25.0" right="25.0" top="10.0"/>
-            </BorderPane.margin>
-            <columns>
-                <TableColumn fx:id="movieTitleCol" prefWidth="249.0"
-                             text="Movie title"/>
-                <TableColumn fx:id="dateOfReleaseCol" prefWidth="300.0"
-                             text="Date of release"/>
-            </columns>
-        </TableView>
-    </center>
     <bottom>
         <VBox spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox alignment="CENTER" spacing="80.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#onBookMovieButton" prefWidth="100.0"
+                        <Button mnemonicParsing="false"
+                                onAction="#onBookMovieButton" prefWidth="100.0"
                                 style="-fx-background-color: #E96151;"
                                 text="Book movie" textAlignment="CENTER"
                                 textFill="WHITE">
@@ -140,4 +127,28 @@
             </children>
         </AnchorPane>
     </top>
+    <left>
+        <TableView fx:id="movieTableView" maxWidth="-Infinity"
+                   prefHeight="320.0" prefWidth="550.0"
+                   BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets left="25.0" right="25.0" top="10.0"/>
+            </BorderPane.margin>
+            <columns>
+                <TableColumn fx:id="movieTitleCol" prefWidth="275.0"
+                             text="Movie title"/>
+                <TableColumn fx:id="dateOfReleaseCol" prefWidth="274.0"
+                             text="Date of release"/>
+            </columns>
+        </TableView>
+    </left>
+    <right>
+        <VBox fx:id="Profile" prefHeight="200.0" prefWidth="100.0"
+              visible="false" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="StupidButton" mnemonicParsing="false"
+                        onAction="#StupidAction" text="Button"/>
+            </children>
+        </VBox>
+    </right>
 </BorderPane>
