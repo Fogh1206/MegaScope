@@ -3,6 +3,7 @@ package client.view;
 
 import client.view.Admin.AdminMoviePageController;
 import client.view.Admin.AdminUsersPageController;
+import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
@@ -142,6 +143,25 @@ public class ViewHandler
       mainStage.setScene(scene);
     }
     catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  public void showCinemaHallPage()
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
+    try
+    {
+      Parent root = loader.load();
+      CinemaHallController ctrl = loader.getController();
+      ctrl.init(vmf.getCinemaHallViewModel(),this);
+      mainStage.setTitle("Cinema Hall");
+      Scene scene = new Scene(root);
+      mainStage.setScene(scene);
+    }
+    catch (Exception e)
     {
       e.printStackTrace();
     }

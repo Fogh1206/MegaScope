@@ -31,6 +31,7 @@ public class FrontPageController
 
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
+  @FXML private Button cinemaHallButton;
 
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<Object, String> movieTitleCol;
@@ -99,6 +100,11 @@ public class FrontPageController
     }
   }
 
+  public void onCinemaHallButton (ActionEvent event)
+  {
+    viewHandler.showCinemaHallPage();
+  }
+
   public void onBookMovieButton()
   {
     userFrontPageViewModel.getMovies();
@@ -120,6 +126,8 @@ public class FrontPageController
     //      Profile.setMaxWidth(0);
     //    }
   }
+
+
 
   /**
    * Sets the selectedMovie.

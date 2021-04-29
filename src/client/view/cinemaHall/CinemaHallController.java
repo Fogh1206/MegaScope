@@ -17,6 +17,8 @@ public class CinemaHallController
     this.viewHandler = viewHandler;
   }
 
+
+
   @FXML private void confirmSeats()
   {
 
