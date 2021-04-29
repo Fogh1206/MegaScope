@@ -75,8 +75,8 @@ public class ServerSocketHandler implements Runnable
           System.out.println("Register requested");
           NewRegisteredUser user = (NewRegisteredUser) request.arg;
           userDAO.createUser(user.getFirstName(), user.getLastName(),
-              user.getUsername(), user.getPassword(), user.getPhoneNumber(),
-              user.getBirthday());
+              user.getUsername(), user.getPassword(), user.getPhoneNumber());
+
 
           Request response = new Request(EventType.REGISTER_RESULT,
               "Successful");

@@ -66,19 +66,21 @@ public class LoginViewController
 
   }
 
-  public boolean isUserLoggedIn() {
-    return userLoggedIn !=null;
+  public User UserLoggedIn() {
+    return userLoggedIn;
   }
 
   public void onLoginAction(ActionEvent actionEvent)
   {
-    if (isUserLoggedIn())
+    if (userLoggedIn!=null)
     {
-
     }
 
     loginViewModel.login();
     loginViewModel.defaultFields();
+
+
+
 
   }
 

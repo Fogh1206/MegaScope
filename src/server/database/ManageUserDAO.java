@@ -86,25 +86,24 @@ public class ManageUserDAO implements UserDAO
   }
 
   @Override public NewRegisteredUser createUser(String firstName,
-      String lastName, String username, String password, String phoneNumber,
-      String birthday)
+      String lastName, String username, String password, String phoneNumber
+      )
   {
 
     try (Connection connection = controller.getConnection())
     {
       PreparedStatement statement = connection.prepareStatement(
-          "INSERT INTO user_account  VALUES (?, ?, ?, ?,?,?);");
+          "INSERT INTO user_account  VALUES (?, ?, ?, ?,?);");
 
       statement.setString(1, firstName);
       statement.setString(2, lastName);
       statement.setString(3, username);
       statement.setString(4, password);
-      statement.setString(5, birthday);
-      statement.setString(6, phoneNumber);
+      statement.setString(5, phoneNumber);
       statement.executeUpdate();
       statement.close();
       return new NewRegisteredUser(firstName, lastName, username, password,
-          phoneNumber, birthday);
+          phoneNumber);
     }
     catch (SQLException throwables)
     {
