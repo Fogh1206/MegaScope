@@ -135,10 +135,16 @@
                 <Insets left="25.0" right="25.0" top="10.0"/>
             </BorderPane.margin>
             <columns>
-                <TableColumn fx:id="movieTitleCol" prefWidth="275.0"
+                <TableColumn fx:id="movieTitleCol" prefWidth="120.0"
                              text="Movie title"/>
-                <TableColumn fx:id="dateOfReleaseCol" prefWidth="274.0"
-                             text="Date of release"/>
+                <TableColumn fx:id="dateOfReleaseCol" prefWidth="99.0"
+                             text="Released"/>
+                <TableColumn fx:id="mainactorsCol" prefWidth="95.0"
+                             text="Main actors"/>
+                <TableColumn fx:id="descriptionCol" prefWidth="131.0"
+                             text="Description"/>
+                <TableColumn fx:id="timeCol" prefWidth="37.0" text="Time "/>
+                <TableColumn fx:id="DateCol" prefWidth="67.0" text="Date"/>
             </columns>
         </TableView>
     </left>
