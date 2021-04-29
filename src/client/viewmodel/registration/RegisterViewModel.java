@@ -11,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 
 public class RegisterViewModel
 {
-  private StringProperty firstName, lastName, username, password, confirmPassword, registrationMessageLabel, confirmPasswordLabel, phoneNumber, birthday;
+  private StringProperty firstName, lastName, username, password, confirmPassword, registrationMessageLabel, confirmPasswordLabel, phoneNumber;
   private UserModel model;
   //private BooleanProperty registerButtonDisabled = new SimpleBooleanProperty(true);
 
@@ -26,7 +26,6 @@ public class RegisterViewModel
     registrationMessageLabel = new SimpleStringProperty();
     confirmPasswordLabel = new SimpleStringProperty();
     phoneNumber = new SimpleStringProperty();
-    birthday = new SimpleStringProperty();
     userModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
         this::onRegister);
 
@@ -46,11 +45,6 @@ public class RegisterViewModel
   public StringProperty phoneNumberProperty()
   {
     return phoneNumber;
-  }
-
-  public StringProperty birthdayProperty()
-  {
-    return birthday;
   }
 
   public StringProperty firstNameProperty()
@@ -105,10 +99,6 @@ public class RegisterViewModel
       registrationMessageLabel.setValue("Please input your last name");
 
     }
-    else if (birthday.get() == null || "".equals(birthday.get()))
-    {
-      registrationMessageLabel.setValue("Please input your birthday");
-    }
     else if (phoneNumber.get() == null || "".equals(phoneNumber.get()))
     {
       registrationMessageLabel.setValue("Please input your phone number");
@@ -152,7 +142,7 @@ public class RegisterViewModel
 
     model.register(
         new NewRegisteredUser(firstName.get(), lastName.get(), username.get(),
-            password.get(), phoneNumber.get(), birthday.get()));
+            password.get(), phoneNumber.get()));
     defaultFields();
 
   }
@@ -162,7 +152,6 @@ public class RegisterViewModel
 
     firstName.setValue("");
     lastName.setValue("");
-    birthday.setValue("");
     phoneNumber.setValue("");
     username.setValue("");
     password.setValue("");

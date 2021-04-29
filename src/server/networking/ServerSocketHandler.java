@@ -27,12 +27,18 @@ public class ServerSocketHandler implements Runnable
   private boolean connected = true;
 
   public ServerSocketHandler(ServerModel serverModel, Socket socket)
-      throws IOException
   {
     this.serverModel = serverModel;
     this.socket = socket;
-    outToClient = new ObjectOutputStream(socket.getOutputStream());
-    inFromClient = new ObjectInputStream(socket.getInputStream());
+    try
+    {
+      this.outToClient = new ObjectOutputStream(socket.getOutputStream());
+      this.inFromClient = new ObjectInputStream(socket.getInputStream());
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
 
     userDAO = new ManageUserDAO();
 
@@ -53,7 +59,6 @@ public class ServerSocketHandler implements Runnable
           Request response = new Request(EventType.GETMOVIES_RESULT, movies);
           System.out.println("Movies size"+movies.size());
           outToClient.writeObject(response);
-
         }
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
@@ -70,8 +75,8 @@ public class ServerSocketHandler implements Runnable
           System.out.println("Register requested");
           NewRegisteredUser user = (NewRegisteredUser) request.arg;
           userDAO.createUser(user.getFirstName(), user.getLastName(),
-              user.getUsername(), user.getPassword(), user.getPhoneNumber(),
-              user.getBirthday());
+              user.getUsername(), user.getPassword(), user.getPhoneNumber());
+
 
           Request response = new Request(EventType.REGISTER_RESULT,
               "Successful");

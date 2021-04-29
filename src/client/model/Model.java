@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Model implements UserModel
 {
@@ -22,11 +23,16 @@ public class Model implements UserModel
   {
     this.client = client;
     support = new PropertyChangeSupport(this);
+    if (true)
+    {
+      System.out.println("Dodano");
+      client.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(),
+          this::onGetMoviesResult);
+      System.out.println("Skonczono dodawac");
+    }
+
     client.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
         this::onLoginResult);
-
-    client.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(),
-        this::onGetMoviesResult);
 
     client.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
         this::onRegisterResult);
@@ -37,23 +43,14 @@ public class Model implements UserModel
   {
     System.out.println(4);
     ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
-    System.out.println("Size"+list.size());
-    System.out.println( list.get(0).getName());
-    System.out.println( list.get(1).getName());
-    System.out.println( list.get(2).getName());
+    System.out.println("Size" + list.size());
     System.out.println(5);
-    try
-    {
-      support
-          .firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
-    }
-    catch (Exception e)
-    {
-      System.out.println("starge days");
-    }
+    System.out
+        .println("Listeners" + support.getPropertyChangeListeners().length);
+    System.out.println("List"+list);
 
-    support
-        .firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
+    support.firePropertyChange("Movie Result", null, list);
+
     System.out.println(5.5);
   }
 
@@ -102,5 +99,10 @@ public class Model implements UserModel
   @Override public void deactivateClient()
   {
     client.deactivateClient();
+  }
+
+  @Override public void getMovies()
+  {
+    client.getMovies();
   }
 }

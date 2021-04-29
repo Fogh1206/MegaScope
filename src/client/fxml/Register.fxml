@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane  prefHeight="619.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.registration.RegisterController">
+<AnchorPane prefHeight="619.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.registration.RegisterController">
     <children>
         <AnchorPane prefHeight="82.0" prefWidth="614.0" style="-fx-background-color: #E96151;">
             <children>
@@ -34,50 +34,42 @@
                 <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="lastnameTextField" layoutX="123.0" layoutY="186.0" prefHeight="25.0" prefWidth="336.0" promptText="Last Name" />
+        <TextField fx:id="lastnameTextField" layoutX="123.0" layoutY="191.0" prefHeight="25.0" prefWidth="336.0" promptText="Last Name" />
 
 
-        <Label layoutX="126.0" layoutY="219.0" text="Birthday">
+        <Label layoutX="123.0" layoutY="230.0" text="Phone Number">
             <font>
                 <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="birthdayTextField" layoutX="123.0" layoutY="239.0" prefHeight="25.0" prefWidth="336.0" promptText="Birthday" />
+        <TextField fx:id="phoneTextField" layoutX="123.0" layoutY="259.0" prefHeight="25.0" prefWidth="336.0" promptText="Phone Number" />
 
 
-        <Label layoutX="126.0" layoutY="278.0" text="Phone Number">
+        <Label layoutX="123.0" layoutY="300.0" text="Username">
             <font>
                 <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="phoneTextField" layoutX="123.0" layoutY="298.0" prefHeight="25.0" prefWidth="336.0" promptText="Phone Number" />
+        <TextField fx:id="usernameTextField" layoutX="123.0" layoutY="330.0" prefHeight="25.0" prefWidth="336.0" promptText="Username" />
 
 
-        <Label layoutX="126.0" layoutY="333.0" text="Username">
+
+        <Label layoutX="123.0" layoutY="373.0" text="Password">
             <font>
                 <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="usernameTextField" layoutX="123.0" layoutY="353.0" prefHeight="25.0" prefWidth="336.0" promptText="Username" />
+        <PasswordField fx:id="setPasswordField" layoutX="123.0" layoutY="398.0" prefHeight="25.0" prefWidth="336.0" promptText="Password" />
 
 
 
-        <Label layoutX="123.0" layoutY="393.0" text="Password">
-            <font>
-                <Font size="13.0" />
-            </font>
-        </Label>
-        <PasswordField fx:id="setPasswordField" layoutX="123.0" layoutY="412.0" prefHeight="25.0" prefWidth="336.0" promptText="Password" />
-
-
-
-        <Label layoutX="123.0" layoutY="450.0" text="Confirm Password">
+        <Label layoutX="123.0" layoutY="441.0" text="Confirm Password">
             <font>
                 <Font size="13.0" />
             </font>
         </Label>
 
-        <PasswordField fx:id="confirmPasswordField" layoutX="123.0" layoutY="469.0" prefHeight="25.0" prefWidth="336.0" promptText="Confirm Password" />
+        <PasswordField fx:id="confirmPasswordField" layoutX="123.0" layoutY="466.0" prefHeight="25.0" prefWidth="336.0" promptText="Confirm Password" />
 
 
         <Button fx:id="registerButton" layoutX="123.0" layoutY="511.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="336.0" style="-fx-background-color: #E96151;" text="Register" textFill="#fcfafa">
