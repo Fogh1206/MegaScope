@@ -25,7 +25,7 @@ public class FrontPageController
   public VBox Profile;
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
-  private PropertyChangeSupport support = new PropertyChangeSupport(this);
+
   private User userLoggedIn;
 
   @FXML private Label usernameLabel;
@@ -38,7 +38,9 @@ public class FrontPageController
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       User userLoggedIn)
   {
+
     this.userFrontPageViewModel = frontPage;
+    userFrontPageViewModel.getMovies();
     this.viewHandler = viewHandler;
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
@@ -49,6 +51,8 @@ public class FrontPageController
     {
       loginButton.setText("Log In");
     }
+    movieTableView.itemsProperty()
+        .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
 
     usernameLabel.textProperty()
         .bindBidirectional(userFrontPageViewModel.usernameProperty());
@@ -82,23 +86,24 @@ public class FrontPageController
 
   public void onBookMovieButton()
   {
-    if (dateOfReleaseCol.isVisible())
-    {
-      dateOfReleaseCol.setVisible(false);
-      movieTitleCol.setMaxWidth(150);
-      movieTableView.setMaxWidth(150);
-      Profile.setVisible(true);
-      Profile.setMaxWidth(550);
-      movieTableView.setItems(userFrontPageViewModel.getItems());
-    }
-    else
-    {
-      dateOfReleaseCol.setVisible(true);
-      movieTableView.setMaxWidth(600);
-      movieTitleCol.setMinWidth(300);
-      Profile.setVisible(false);
-      Profile.setMaxWidth(0);
-    }
+    userFrontPageViewModel.getMovies();
+    //    if (dateOfReleaseCol.isVisible())
+    //    {
+    //      dateOfReleaseCol.setVisible(false);
+    //      movieTitleCol.setMaxWidth(150);
+    //      movieTableView.setMaxWidth(150);
+    //      Profile.setVisible(true);
+    //      Profile.setMaxWidth(550);
+    //      movieTableView.setItems(userFrontPageViewModel.getItems());
+    //    }
+    //    else
+    //    {
+    //      dateOfReleaseCol.setVisible(true);
+    //      movieTableView.setMaxWidth(600);
+    //      movieTitleCol.setMinWidth(300);
+    //      Profile.setVisible(false);
+    //      Profile.setMaxWidth(0);
+    //    }
   }
 
   /**
