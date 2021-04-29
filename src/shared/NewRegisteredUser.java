@@ -10,16 +10,14 @@ public class NewRegisteredUser  implements Serializable
     private String username;
     private String password;
     private String phoneNumber;
-    private String birthday;
 
-    public NewRegisteredUser( String firstName, String lastName, String username, String password,String phoneNumber,String birthday) {
+    public NewRegisteredUser( String firstName, String lastName, String username, String password,String phoneNumber) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.phoneNumber=phoneNumber;
-        this.birthday=birthday;
     }
 
 
@@ -27,9 +25,6 @@ public class NewRegisteredUser  implements Serializable
         return phoneNumber;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -56,7 +51,6 @@ public class NewRegisteredUser  implements Serializable
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", birthday='" + birthday + '\'' +
                 '}';
     }
 }
