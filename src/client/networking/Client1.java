@@ -36,7 +36,7 @@ public class Client1 implements Client
     Thread thread = new Thread(clientSocketHandler);
     thread.setDaemon(true);
     thread.start();
-    getMovies();
+
   }
 
   public void sendToServer(Request request, EventType Result)
@@ -55,8 +55,6 @@ public class Client1 implements Client
   @Override public void deactivateClient()
   {
     System.out.println("CLose please");
-    Request req = new Request(EventType.CLOSE_REQUEST, null);
-    sendToServer(req, EventType.CLOSE_REQUEST);
     running = false;
     try
     {
@@ -112,7 +110,9 @@ public class Client1 implements Client
 
   @Override public void receive(Request req)
   {
-    System.out.println(req.type.toString());
+    System.out.println("Receved "+req.type.toString());
+    System.out.println("Boned in");
     support.firePropertyChange(req.type.toString(), null, req.arg);
+    System.out.println("Boned out");
   }
 }
