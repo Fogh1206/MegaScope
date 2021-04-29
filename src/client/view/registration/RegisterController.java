@@ -28,8 +28,6 @@ public class RegisterController {
     @FXML
     private Button registerButton;
     @FXML
-    private TextField birthdayTextField;
-    @FXML
     private TextField phoneTextField;
 
 
@@ -48,7 +46,6 @@ public class RegisterController {
         registrationMessageLabel.textProperty().bindBidirectional(
                 registerViewModel.registrationMessageLabelProperty());
         phoneTextField.textProperty().bindBidirectional(registerViewModel.phoneNumberProperty());
-        birthdayTextField.textProperty().bindBidirectional(registerViewModel.birthdayProperty());
         registerViewModel.registrationMessageLabelProperty().addListener((observableValue, oldValue, newValue) -> onRegister(newValue));
 //        registerButton.disableProperty().bind(registerVM.);
 
