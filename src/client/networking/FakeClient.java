@@ -62,6 +62,11 @@ public class FakeClient implements Client {
 
     }
 
+    @Override public void deactivateClient()
+    {
+
+    }
+
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);

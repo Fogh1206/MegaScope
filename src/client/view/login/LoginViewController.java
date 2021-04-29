@@ -10,7 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import shared.User;
+import shared.util.EventType;
 
+import java.beans.PropertyChangeEvent;
 import java.io.File;
 
 public class LoginViewController
@@ -22,7 +25,7 @@ public class LoginViewController
   @FXML private ImageView imageView;
   @FXML private Label loginText;
   @FXML private Button frontPageButton;
-  private boolean userLoggedIn=false;
+  private User userLoggedIn=null;
 
   private LoginViewModel loginViewModel;
   private ViewHandler viewHandler;
@@ -49,24 +52,22 @@ public class LoginViewController
       System.out.println("image probl");
     }
 
-    loginViewModel.loginResultProperty()
-        .addListener((observableValue, oldValue, newValue) -> login(newValue));
+    loginViewModel.addPropertyChangeListener("YOLO", this::newLogin);
   }
 
-  private void login(String newValue)
+  private void newLogin(PropertyChangeEvent event)
   {
-
-    System.out.println(newValue);
-    if ("Correct password".equals(newValue))
+    User temp = (User) event.getNewValue();
+    if (temp != null)
     {
-      userLoggedIn=true;
-      viewHandler.showFrontPage();
+      userLoggedIn=temp;
+      viewHandler.showFrontPage(temp);
     }
 
   }
 
   public boolean isUserLoggedIn() {
-    return userLoggedIn;
+    return userLoggedIn !=null;
   }
 
   public void onLoginAction(ActionEvent actionEvent)
@@ -95,7 +96,7 @@ public class LoginViewController
 
   public void frontPageButton()
   {
-    viewHandler.showFrontPage();
+    viewHandler.showFrontPage(null);
   }
 
 }

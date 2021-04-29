@@ -22,4 +22,17 @@ public class Main extends Application {
         viewHandler = new ViewHandler(viewModelFactory);
         viewHandler.start();
     }
+
+    /** Method ro run before client GUI closes */
+    @Override public void stop()
+    {
+        try
+        {
+            viewModelFactory.getFrontPage().close();
+        }
+        catch (NullPointerException e)
+        {
+            System.out.println("Everything closed");
+        }
+    }
 }

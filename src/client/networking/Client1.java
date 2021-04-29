@@ -39,22 +39,24 @@ public class Client1 implements Client
     getMovies();
   }
 
-  public void sendToServer(Request request, EventType registerResult)
+  public void sendToServer(Request request, EventType Result)
   {
-    System.out.println(2);
     try
     {
       outToServer.writeObject(request);
     }
     catch (IOException e)
     {
-      support.firePropertyChange(registerResult.toString(), null,
+      support.firePropertyChange(Result.toString(), null,
           "Connection lost, restart program");
     }
   }
 
-  public void deactivateClient()
+  @Override public void deactivateClient()
   {
+    System.out.println("CLose please");
+    Request req = new Request(EventType.CLOSE_REQUEST, null);
+    sendToServer(req, EventType.CLOSE_REQUEST);
     running = false;
     try
     {
@@ -82,7 +84,7 @@ public class Client1 implements Client
 
   @Override public void getMovies()
   {
-    System.out.println(1);
+    System.out.println("Request getMovies");
     Request req = new Request(EventType.GETMOVIES_REQUEST, null);
     sendToServer(req, EventType.GETMOVIES_RESULT);
   }
@@ -110,7 +112,6 @@ public class Client1 implements Client
 
   @Override public void receive(Request req)
   {
-    System.out.println(3);
     System.out.println(req.type.toString());
     support.firePropertyChange(req.type.toString(), null, req.arg);
   }

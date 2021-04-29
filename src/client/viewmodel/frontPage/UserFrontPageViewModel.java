@@ -31,20 +31,15 @@ public class UserFrontPageViewModel
     items = new SimpleListProperty<>();
     model.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(),
         this::onGetMovies);
-
-    System.out.println(5);
   }
 
   private void onGetMovies(PropertyChangeEvent event)
   {
     System.out.println(6);
     List<Movie> list = (ArrayList<Movie>) event.getNewValue();
-
     items = FXCollections.observableArrayList(list);
-
     support.firePropertyChange("Update", null,
         null);
-    System.out.println("HAHA" + items.toString());
   }
 
   public StringProperty usernameProperty()
@@ -71,10 +66,11 @@ public class UserFrontPageViewModel
   public void addPropertyChangeListener(String name,
       PropertyChangeListener listener)
   {
-    System.out.println(874);
     support.addPropertyChangeListener(name, listener);
-
   }
 
-
+  public void close()
+  {
+    model.deactivateClient();
+  }
 }

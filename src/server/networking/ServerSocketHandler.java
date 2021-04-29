@@ -49,24 +49,19 @@ public class ServerSocketHandler implements Runnable
         if (request.type.equals(EventType.GETMOVIES_REQUEST))
         {
           System.out.println("Get Movies Requested");
-          ArrayList<Movie> movies=userDAO.getAllMovies();
-          Request response =new Request(EventType.GETMOVIES_RESULT,movies);
+          ArrayList<Movie> movies = userDAO.getAllMovies();
+          Request response = new Request(EventType.GETMOVIES_RESULT, movies);
+          System.out.println("Movies size"+movies.size());
           outToClient.writeObject(response);
-
 
         }
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
           {
             User user = (User) request.arg;
-            String queryResult = "Incorrect password";
-            userDAO.validateUser(user.getUsername(), user.getPassword());
-            if (userDAO.validateUser(user.getUsername(), user.getPassword()))
-            {
-
-              queryResult = "Correct password";
-            }
-            Request response = new Request(EventType.LOGIN_RESULT, queryResult);
+            User temp = userDAO
+                .validateUser(user.getUsername(), user.getPassword());
+            Request response = new Request(EventType.LOGIN_RESULT, temp);
             outToClient.writeObject(response);
           }
         }
@@ -82,12 +77,36 @@ public class ServerSocketHandler implements Runnable
               "Successful");
           outToClient.writeObject(response);
         }
+        if (request.type.equals(EventType.CLOSE_REQUEST)){
+          System.out.println("Close requested");
+          Request response = new Request(EventType.CLOSE_RESULT,
+              "Successful");
+          outToClient.writeObject(response);
+          close();
+        }
       }
       catch (Exception e)
       {
-        e.printStackTrace();
+
       }
 
+    }
+  }
+
+  /** Close all connections from the server */
+  private void close()
+  {
+    try
+    {
+      System.out.println("HAHA");
+      inFromClient.close();
+      outToClient.close();
+      socket.close();
+      this.connected = false;
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
     }
   }
 

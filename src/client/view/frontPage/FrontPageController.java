@@ -12,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import shared.Movie;
+import shared.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
@@ -20,20 +22,33 @@ import java.beans.PropertyChangeSupport;
 public class FrontPageController
 {
 
+  public VBox Profile;
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
   private PropertyChangeSupport support = new PropertyChangeSupport(this);
+  private User userLoggedIn;
 
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
+
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<String, Movie> movieTitleCol;
   @FXML private TableColumn<String, Movie> dateOfReleaseCol;
 
-  public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler)
+  public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
+      User userLoggedIn)
   {
     this.userFrontPageViewModel = frontPage;
     this.viewHandler = viewHandler;
+    this.userLoggedIn = userLoggedIn;
+    if (userLoggedIn != null)
+    {
+      loginButton.setText("Log Out");
+    }
+    else
+    {
+      loginButton.setText("Log In");
+    }
 
     usernameLabel.textProperty()
         .bindBidirectional(userFrontPageViewModel.usernameProperty());
@@ -42,30 +57,48 @@ public class FrontPageController
     dateOfReleaseCol
         .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
 
+    userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
     movieTableView.setItems(userFrontPageViewModel.getItems());
-    System.out.println("369" + movieTableView.getItems().toString());
-
-    userFrontPageViewModel
-        .addPropertyChangeListener("Update",
-            this::update);
-
     setSelectedMovie();
   }
 
   private void update(PropertyChangeEvent event)
   {
-    System.out.println("Last");
+    System.out.println("Upadate Movies");
     movieTableView.setItems(userFrontPageViewModel.getItems());
   }
 
   public void onLoginButton(ActionEvent event)
   {
-    viewHandler.openLoginView();
+    if (userLoggedIn != null)
+    {
+      System.out.println(userLoggedIn.getUsername());
+    }
+    else
+    {
+      viewHandler.openLoginView();
+    }
   }
 
   public void onBookMovieButton()
   {
-
+    if (dateOfReleaseCol.isVisible())
+    {
+      dateOfReleaseCol.setVisible(false);
+      movieTitleCol.setMaxWidth(150);
+      movieTableView.setMaxWidth(150);
+      Profile.setVisible(true);
+      Profile.setMaxWidth(550);
+      movieTableView.setItems(userFrontPageViewModel.getItems());
+    }
+    else
+    {
+      dateOfReleaseCol.setVisible(true);
+      movieTableView.setMaxWidth(600);
+      movieTitleCol.setMinWidth(300);
+      Profile.setVisible(false);
+      Profile.setMaxWidth(0);
+    }
   }
 
   /**
@@ -81,11 +114,15 @@ public class FrontPageController
           {
             if (movieTableView.getSelectionModel().getSelectedItem() != null)
             {
-              int index = movieTableView.getSelectionModel()
-                  .getSelectedIndex();
+              int index = movieTableView.getSelectionModel().getSelectedIndex();
               System.out.println(movieTableView.getItems().get(index));
             }
           }
         });
+  }
+
+  public void StupidAction(ActionEvent actionEvent)
+  {
+    System.out.println("STupid");
   }
 }
