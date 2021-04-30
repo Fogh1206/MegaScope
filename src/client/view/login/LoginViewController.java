@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import shared.User;
-import shared.util.EventType;
+
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;

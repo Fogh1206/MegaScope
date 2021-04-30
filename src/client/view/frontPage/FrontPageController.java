@@ -40,6 +40,8 @@ public class FrontPageController
   @FXML private TableColumn<Object, String> DateCol;
   @FXML private TableColumn<Object, String> dateOfReleaseCol;
   @FXML private TableColumn<Object, String> descriptionCol;
+  @FXML private  DatePicker datePicker;
+
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       User userLoggedIn)
@@ -80,6 +82,7 @@ public class FrontPageController
     userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
     movieTableView.setItems(userFrontPageViewModel.getItems());
     setSelectedMovie();
+
   }
 
   private void update(PropertyChangeEvent event)
