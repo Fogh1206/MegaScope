@@ -110,9 +110,7 @@ public class Client1 implements Client
 
   @Override public void receive(Request req)
   {
-    System.out.println("Receved "+req.type.toString());
-    System.out.println("Boned in");
+    System.out.println("Received "+req.type.toString());
     support.firePropertyChange(req.type.toString(), null, req.arg);
-    System.out.println("Boned out");
   }
 }

@@ -7,11 +7,13 @@ import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
+import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import shared.NewRegisteredUser;
 import shared.User;
 
 import java.io.IOException;
@@ -91,7 +93,7 @@ public class ViewHandler
   //        }
   //    }
 
-  public void showFrontPage(User userLoggedIn)
+  public void showFrontPage(NewRegisteredUser userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
@@ -157,6 +159,25 @@ public class ViewHandler
       Parent root = loader.load();
       CinemaHallController ctrl = loader.getController();
       ctrl.init(vmf.getCinemaHallViewModel(),this);
+      mainStage.setTitle("Cinema Hall");
+      Scene scene = new Scene(root);
+      mainStage.setScene(scene);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  public void showUserProfile(NewRegisteredUser userLoggedIn)
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/userProfile.fxml"));
+    try
+    {
+      Parent root = loader.load();
+     UserProfileController ctrl = loader.getController();
+      ctrl.init(vmf.getUserProfileVM(),this,userLoggedIn);
       mainStage.setTitle("Cinema Hall");
       Scene scene = new Scene(root);
       mainStage.setScene(scene);

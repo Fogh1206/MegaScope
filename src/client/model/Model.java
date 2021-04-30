@@ -56,7 +56,7 @@ public class Model implements UserModel
 
   private void onLoginResult(PropertyChangeEvent event)
   {
-    User loginResult = (User) event.getNewValue();
+    NewRegisteredUser loginResult = (NewRegisteredUser) event.getNewValue();
     support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
         loginResult);
 
@@ -104,5 +104,10 @@ public class Model implements UserModel
   @Override public void getMovies()
   {
     client.getMovies();
+  }
+
+  @Override public void saveNewInfo(NewRegisteredUser user)
+  {
+
   }
 }

@@ -10,8 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import shared.NewRegisteredUser;
 import shared.User;
-
+import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
@@ -25,7 +26,7 @@ public class LoginViewController
   @FXML private ImageView imageView;
   @FXML private Label loginText;
   @FXML private Button frontPageButton;
-  private User userLoggedIn=null;
+  private NewRegisteredUser userLoggedIn=null;
 
   private LoginViewModel loginViewModel;
   private ViewHandler viewHandler;
@@ -52,12 +53,12 @@ public class LoginViewController
       System.out.println("image probl");
     }
 
-    loginViewModel.addPropertyChangeListener("YOLO", this::newLogin);
+    loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
   }
 
   private void newLogin(PropertyChangeEvent event)
   {
-    User temp = (User) event.getNewValue();
+    NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
     if (temp != null)
     {
       userLoggedIn=temp;
@@ -66,7 +67,7 @@ public class LoginViewController
 
   }
 
-  public User UserLoggedIn() {
+  public NewRegisteredUser UserLoggedIn() {
     return userLoggedIn;
   }
 

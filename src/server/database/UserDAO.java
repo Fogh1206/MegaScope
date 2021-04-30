@@ -7,7 +7,7 @@ import shared.User;
 import java.util.ArrayList;
 
 public interface UserDAO {
-    User validateUser(String username,String password);
+    NewRegisteredUser validateUser(String username,String password);
     NewRegisteredUser createUser( String firstName, String lastName, String username, String password,String phoneNumber);
     ArrayList<User> getAllUsers();
     ArrayList<Movie> getAllMovies();

@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import shared.Movie;
+import shared.NewRegisteredUser;
 import shared.User;
 
 import java.beans.PropertyChangeEvent;
@@ -23,11 +24,10 @@ public class FrontPageController
 
   @FXML private VBox Profile;
 
-
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
 
-  private User userLoggedIn;
+  private NewRegisteredUser userLoggedIn;
 
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
@@ -40,11 +40,10 @@ public class FrontPageController
   @FXML private TableColumn<Object, String> DateCol;
   @FXML private TableColumn<Object, String> dateOfReleaseCol;
   @FXML private TableColumn<Object, String> descriptionCol;
-  @FXML private  DatePicker datePicker;
-
+  @FXML private DatePicker datePicker;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
-      User userLoggedIn)
+      NewRegisteredUser userLoggedIn)
   {
 
     this.userFrontPageViewModel = frontPage;
@@ -66,9 +65,11 @@ public class FrontPageController
         .bindBidirectional(userFrontPageViewModel.usernameProperty());
 
     movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-    dateOfReleaseCol.setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
+    dateOfReleaseCol
+        .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
     mainactorsCol.setCellValueFactory(new PropertyValueFactory<>("mainActors"));
-    descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+    descriptionCol
+        .setCellValueFactory(new PropertyValueFactory<>("description"));
     timeCol.setCellValueFactory(new PropertyValueFactory<>("timeOfShow"));
     DateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfShow"));
 
@@ -103,14 +104,15 @@ public class FrontPageController
     }
   }
 
-  public void onCinemaHallButton (ActionEvent event)
+  public void onCinemaHallButton(ActionEvent event)
   {
     viewHandler.showCinemaHallPage();
   }
 
   public void onBookMovieButton()
   {
-    userFrontPageViewModel.getMovies();
+    System.out.println(userLoggedIn.getUsername());
+    viewHandler.showUserProfile(userLoggedIn);
     //    if (dateOfReleaseCol.isVisible())
     //    {
     //      dateOfReleaseCol.setVisible(false);
@@ -129,8 +131,6 @@ public class FrontPageController
     //      Profile.setMaxWidth(0);
     //    }
   }
-
-
 
   /**
    * Sets the selectedMovie.

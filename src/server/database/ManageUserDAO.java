@@ -37,9 +37,9 @@ public class ManageUserDAO implements UserDAO
     return instance;
   }
 
-  @Override public User validateUser(String username, String password)
+  @Override public NewRegisteredUser validateUser(String username, String password)
   {
-    User user= null;
+    NewRegisteredUser user= null;
     PreparedStatement statement = null;
     try (Connection connection = controller.getConnection())
     {
@@ -61,7 +61,7 @@ public class ManageUserDAO implements UserDAO
           resultSet = statement.executeQuery();
           while (resultSet.next())
           {
-            User temp = new User(resultSet.getString(3), resultSet.getString(4));
+            NewRegisteredUser temp = new NewRegisteredUser(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3), resultSet.getString(4),resultSet.getString(5));
             user = temp;
             System.out.println(temp);
           }
