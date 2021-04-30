@@ -34,7 +34,7 @@ public class UserProfileController {
     private TextField confirmPasswordField;
 
 
-    public UserProfileController(ViewHandler viewHandler, UserProfileViewModel userProfileViewModel) {
+    public void init(ViewHandler viewHandler, UserProfileViewModel userProfileViewModel) {
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
         userCurrentUsernameLabel.textProperty().bindBidirectional(userProfileViewModel.currentUsernameProperty());
