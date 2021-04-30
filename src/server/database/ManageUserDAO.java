@@ -37,9 +37,10 @@ public class ManageUserDAO implements UserDAO
     return instance;
   }
 
-  @Override public NewRegisteredUser validateUser(String username, String password)
+  @Override public NewRegisteredUser validateUser(String username,
+      String password)
   {
-    NewRegisteredUser user= null;
+    NewRegisteredUser user = null;
     PreparedStatement statement = null;
     try (Connection connection = controller.getConnection())
     {
@@ -61,7 +62,10 @@ public class ManageUserDAO implements UserDAO
           resultSet = statement.executeQuery();
           while (resultSet.next())
           {
-            NewRegisteredUser temp = new NewRegisteredUser(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3), resultSet.getString(4),resultSet.getString(5));
+            NewRegisteredUser temp = new NewRegisteredUser(
+                resultSet.getString(1), resultSet.getString(2),
+                resultSet.getString(3), resultSet.getString(4),
+                resultSet.getString(5));
             user = temp;
             System.out.println(temp);
           }
@@ -86,14 +90,13 @@ public class ManageUserDAO implements UserDAO
   }
 
   @Override public NewRegisteredUser createUser(String firstName,
-      String lastName, String username, String password, String phoneNumber
-      )
+      String lastName, String username, String password, String phoneNumber)
   {
 
     try (Connection connection = controller.getConnection())
     {
       PreparedStatement statement = connection.prepareStatement(
-          "INSERT INTO user_account  VALUES (?, ?, ?, ?,?);");
+          "INSERT INTO users(firstname,lastname,username,password,phonenumber)   VALUES (?, ?, ?, ?,?);");
 
       statement.setString(1, firstName);
       statement.setString(2, lastName);
