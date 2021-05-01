@@ -127,7 +127,6 @@ public class ManageUserDAO implements UserDAO
       statement.setString(3, username);
       statement.setString(4, password);
       statement.setString(5, phoneNumber);
-      statement.executeUpdate();
 
       ResultSet resultSet = statement.executeQuery();
 
