@@ -105,19 +105,41 @@ public class UserProfileViewModel
 
   public void save(NewRegisteredUser userLoggedIn)
   {
+    System.out.println(2);
     saveAccount(userLoggedIn);
   }
 
   public void saveAccount(NewRegisteredUser userLoggedIn)
   {
+    System.out.println(3);
 
-    NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
-        newFirstName.get(), newLastName.get(), newUsername.get(),
-        newPassword.get(), newPhoneNumber.get());
-    model.saveNewInfo(user);
-    System.out.println(newUsername.get());
-    updateCurrentInfo(user);
+    if ((newPassword.isNotEmpty()).getValue() && newPassword.get().equals(confirmPassword.get()) )
+    {
 
+        System.out.println(newPassword);
+
+        System.out.println(confirmPassword);
+
+        System.out.println(5);
+        NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+                newFirstName.get(), newLastName.get(), newUsername.get(),
+                newPassword.get(), newPhoneNumber.get());
+        model.saveNewInfo(user);
+        System.out.println(newUsername.get());
+        updateCurrentInfo(user);
+
+
+    }
+else {
+      System.out.println("password dont match or you dont want to change the password");
+      NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+              newFirstName.get(), newLastName.get(), newUsername.get(),
+              userLoggedIn.getPassword(), newPhoneNumber.get());
+      model.saveNewInfo(user);
+      System.out.println(newUsername.get());
+      updateCurrentInfo(user);
+      System.out.println(userLoggedIn.getPassword());
+    }
   }
 
   public void defaultsValue()
@@ -156,7 +178,8 @@ public class UserProfileViewModel
 
     newPhoneNumber.setValue(currentPhoneNumber.getValue());
 
-    newPassword.setValue(userLoggedIn.getPassword());
+
+
 
   }
 }
