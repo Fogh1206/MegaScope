@@ -76,6 +76,7 @@ public class UserProfileController
 
   public void saveButtonOnAction(ActionEvent event)
   {
+    System.out.println(1);
     userProfileViewModel.save(userLoggedIn);
     userProfileViewModel.defaultsValue();
   }
@@ -83,6 +84,6 @@ public class UserProfileController
   public void closeOnAction(ActionEvent event)
   {
 
-    //viewHandler.showFrontPage(userLoggedIn);
+    viewHandler.showFrontPage(userLoggedIn);
   }
 }
