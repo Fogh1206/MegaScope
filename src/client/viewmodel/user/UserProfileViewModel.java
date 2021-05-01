@@ -12,133 +12,151 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class UserProfileViewModel {
-    private StringProperty currentUsername = new SimpleStringProperty();
-    private StringProperty currentFirstname = new SimpleStringProperty();
-    private StringProperty currentLastname = new SimpleStringProperty();
-    private StringProperty currentPhoneNumber = new SimpleStringProperty();
+public class UserProfileViewModel
+{
+  private StringProperty currentUsername = new SimpleStringProperty();
+  private StringProperty currentFirstname = new SimpleStringProperty();
+  private StringProperty currentLastname = new SimpleStringProperty();
+  private StringProperty currentPhoneNumber = new SimpleStringProperty();
 
-    private StringProperty newFirstName = new SimpleStringProperty();
-    private StringProperty newLastName = new SimpleStringProperty();
-    private StringProperty newPhoneNumber = new SimpleStringProperty();
-    private StringProperty newUsername = new SimpleStringProperty();
-    private StringProperty newPassword = new SimpleStringProperty();
-    private StringProperty confirmPassword = new SimpleStringProperty();
-    private UserModel model;
-    private PropertyChangeSupport support;
+  private StringProperty newFirstName = new SimpleStringProperty();
+  private StringProperty newLastName = new SimpleStringProperty();
+  private StringProperty newPhoneNumber = new SimpleStringProperty();
+  private StringProperty newUsername = new SimpleStringProperty();
+  private StringProperty newPassword = new SimpleStringProperty();
+  private StringProperty confirmPassword = new SimpleStringProperty();
+  private UserModel model;
+  private PropertyChangeSupport support;
 
-    public UserProfileViewModel(UserModel model) {
-        this.model = model;
-        support = new PropertyChangeSupport(this);
+  public UserProfileViewModel(UserModel model)
+  {
+    this.model = model;
+    support = new PropertyChangeSupport(this);
 
-        model.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
-                this::onSavedInfo);
+    model.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
+        this::onSavedInfo);
+  }
+
+  private void onSavedInfo(PropertyChangeEvent event)
+  {
+
+    NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
+    if (result != null)
+    {
+      Platform.runLater(() -> {
+
+        support
+            .firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null,
+                event.getNewValue());
+      });
     }
 
-    private void onSavedInfo(PropertyChangeEvent event) {
+  }
 
-        NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
-        if (result != null)
-        {
-            Platform.runLater(() -> {
+  public StringProperty newPhoneNumberProperty()
+  {
+    return newPhoneNumber;
+  }
 
-                support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null,
-                        event.getNewValue());
-            });
-        }
+  public StringProperty currentUsernameProperty()
+  {
+    return currentUsername;
+  }
 
+  public StringProperty currentFirstnameProperty()
+  {
+    return currentFirstname;
+  }
 
-    }
+  public StringProperty currentLastnameProperty()
+  {
+    return currentLastname;
+  }
 
-    public StringProperty newPhoneNumberProperty() {
-        return newPhoneNumber;
-    }
+  public StringProperty currentPhoneNumberProperty()
+  {
+    return currentPhoneNumber;
+  }
 
-    public StringProperty currentUsernameProperty() {
-        return currentUsername;
-    }
+  public StringProperty newFirstNameProperty()
+  {
+    return newFirstName;
+  }
 
-    public StringProperty currentFirstnameProperty() {
-        return currentFirstname;
-    }
+  public StringProperty newLastNameProperty()
+  {
+    return newLastName;
+  }
 
-    public StringProperty currentLastnameProperty() {
-        return currentLastname;
-    }
+  public StringProperty newUsernameProperty()
+  {
+    return newUsername;
+  }
 
-    public StringProperty currentPhoneNumberProperty() {
-        return currentPhoneNumber;
-    }
+  public StringProperty newPasswordProperty()
+  {
+    return newPassword;
+  }
 
-    public StringProperty newFirstNameProperty() {
-        return newFirstName;
-    }
+  public StringProperty confirmPasswordProperty()
+  {
+    return confirmPassword;
+  }
 
-    public StringProperty newLastNameProperty() {
-        return newLastName;
-    }
+  public void save(NewRegisteredUser userLoggedIn)
+  {
+    saveAccount(userLoggedIn);
+  }
 
-    public StringProperty newUsernameProperty() {
-        return newUsername;
-    }
+  public void saveAccount(NewRegisteredUser userLoggedIn)
+  {
 
-    public StringProperty newPasswordProperty() {
-        return newPassword;
-    }
+    NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+        newFirstName.get(), newLastName.get(), newUsername.get(),
+        newPassword.get(), newPhoneNumber.get());
+    model.saveNewInfo(user);
+    System.out.println(newUsername.get());
+    updateCurrentInfo(user);
 
-    public StringProperty confirmPasswordProperty() {
-        return confirmPassword;
-    }
+  }
 
-    public void save(NewRegisteredUser userLoggedIn) {
-        saveAccount();
+  public void defaultsValue()
+  {
+//    newFirstName.setValue("");
+//    newLastName.setValue("");
+//    newUsername.setValue("");
+//    newPassword.setValue("");
+//    confirmPassword.setValue("");
+//    newPhoneNumber.setValue("");
 
-    }
+  }
 
-    public void saveAccount() {
+  public void addPropertyChangeListener(String name,
+      PropertyChangeListener listener)
+  {
 
-        model.saveNewInfo(
-                new NewRegisteredUser(newFirstName.get(), newLastName.get(),
-                        newUsername.get(), newPassword.get(), newPhoneNumber.get()));
-        System.out.println(newUsername.get());
+    support.addPropertyChangeListener(name, listener);
 
-    }
+  }
 
-    public void defaultsValue() {
-        newFirstName.setValue("");
-        newLastName.setValue("");
-        newUsername.setValue("");
-        newPassword.setValue("");
-        confirmPassword.setValue("");
-        newPhoneNumber.setValue("");
+  public void updateCurrentInfo(NewRegisteredUser userLoggedIn)
+  {
 
-    }
+    currentFirstname.setValue(userLoggedIn.getFirstName());
 
-    public void addPropertyChangeListener(String name,
-                                          PropertyChangeListener listener) {
+    currentLastname.setValue(userLoggedIn.getLastName());
+    currentUsername.setValue(userLoggedIn.getUsername());
+    currentPhoneNumber.setValue(userLoggedIn.getPhoneNumber());
 
-        support.addPropertyChangeListener(name, listener);
+    newFirstName.setValue(currentFirstname.getValue());
 
-    }
+    newLastName.setValue(currentLastname.getValue());
 
-    public void updateCurrentInfo(NewRegisteredUser userLoggedIn) {
+    newUsername.setValue(currentUsername.getValue());
 
-        currentFirstname.setValue(userLoggedIn.getFirstName());
+    newPhoneNumber.setValue(currentPhoneNumber.getValue());
 
-        currentLastname.setValue(userLoggedIn.getLastName());
-        currentUsername.setValue(userLoggedIn.getUsername());
-        currentPhoneNumber.setValue(userLoggedIn.getPhoneNumber());
+    newPassword.setValue(userLoggedIn.getPassword());
 
-        newFirstName.setValue(currentFirstname.getValue());
-
-        newLastName.setValue(currentLastname.getValue());
-
-        newUsername.setValue(currentUsername.getValue());
-
-        newPhoneNumber.setValue(currentPhoneNumber.getValue());
-
-        newPassword.setValue(userLoggedIn.getPassword());
-
-
-    }
+  }
 }

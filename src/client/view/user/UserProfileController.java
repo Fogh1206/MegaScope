@@ -76,7 +76,7 @@ public class UserProfileController
 
   public void saveButtonOnAction(ActionEvent event)
   {
-    userProfileViewModel.save( userLoggedIn);
+    userProfileViewModel.save(userLoggedIn);
     userProfileViewModel.defaultsValue();
   }
 

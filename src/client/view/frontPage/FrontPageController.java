@@ -111,8 +111,12 @@ public class FrontPageController
 
   public void onBookMovieButton()
   {
-    System.out.println(userLoggedIn.getUsername());
-    viewHandler.showUserProfile(userLoggedIn);
+    if (userLoggedIn != null)
+    {
+      System.out.println(userLoggedIn.getUsername());
+      System.out.println(userLoggedIn.getId());
+      viewHandler.showUserProfile(userLoggedIn);
+    }
     //    if (dateOfReleaseCol.isVisible())
     //    {
     //      dateOfReleaseCol.setVisible(false);

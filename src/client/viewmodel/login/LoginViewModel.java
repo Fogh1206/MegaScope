@@ -23,7 +23,6 @@ public class LoginViewModel
 
   private UserModel model;
 
-
   public LoginViewModel(UserModel model)
   {
     this.model = model;
@@ -32,7 +31,6 @@ public class LoginViewModel
     loginResult = new SimpleStringProperty();
     support = new PropertyChangeSupport(this);
 
-
     model.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
         this::onLogin);
   }
@@ -40,6 +38,11 @@ public class LoginViewModel
   private void onLogin(PropertyChangeEvent event)
   {
     NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
+    System.out.println("Kappa");
+    if (result == null)
+    {
+      System.out.println("Kappa");
+    }
     if (result != null)
     {
       Platform.runLater(() -> {
