@@ -11,12 +11,12 @@ import java.util.List;
 
 public class FakeClient implements Client {
 
-    private List<User> users = new ArrayList<>();
+    private List<NewRegisteredUser> users = new ArrayList<>();
     private PropertyChangeSupport support;
 
     public FakeClient()
     {
-        users.add(new User("dorin","123"));
+        users.add(new NewRegisteredUser(1,"dorin","123"));
         support = new PropertyChangeSupport(this);
     }
 
@@ -27,11 +27,11 @@ public class FakeClient implements Client {
     }
 
     @Override
-    public void login(User user) {
+    public void login(NewRegisteredUser user) {
         System.out.println("CLient: " + user);
         String result = "";
         boolean userFound = false;
-        for (User u : users) {
+        for (NewRegisteredUser u : users) {
             if(u.getUsername().equals(user.getUsername())) {
                 if(u.getPassword().equals(user.getPassword())) {
                     result = "OK";
@@ -64,6 +64,11 @@ public class FakeClient implements Client {
 
     @Override public void deactivateClient()
     {
+
+    }
+
+    @Override
+    public void saveNewInfo(NewRegisteredUser user) {
 
     }
 

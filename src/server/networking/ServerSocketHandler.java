@@ -63,9 +63,9 @@ public class ServerSocketHandler implements Runnable
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
           {
-            User user = (User) request.arg;
+            NewRegisteredUser user = (NewRegisteredUser) request.arg;
             NewRegisteredUser temp = userDAO
-                .validateUser(user.getUsername(), user.getPassword());
+                .validateUser(user.getId(),user.getUsername(), user.getPassword());
             Request response = new Request(EventType.LOGIN_RESULT, temp);
             outToClient.writeObject(response);
           }
@@ -82,6 +82,20 @@ public class ServerSocketHandler implements Runnable
               "Successful");
           outToClient.writeObject(response);
         }
+        if (request.type.equals(EventType.SAVENEWINFO_REQUEST))
+        {
+          NewRegisteredUser user=(NewRegisteredUser) request.arg;
+          NewRegisteredUser temp = userDAO.saveNewInfo(user.getId(), user.getFirstName(), user.getLastName(),
+                  user.getUsername(), user.getPassword(), user.getPhoneNumber());
+          Request response=new Request(EventType.SAVENEWINFO_RESULT,temp);
+          outToClient.writeObject(response);
+          System.out.println(temp.getUsername());
+
+
+        }
+
+
+
         if (request.type.equals(EventType.CLOSE_REQUEST))
         {
           System.out.println("Close requested");

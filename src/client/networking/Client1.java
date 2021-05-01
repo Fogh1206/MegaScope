@@ -67,6 +67,13 @@ public class Client1 implements Client
     }
   }
 
+  @Override
+  public void saveNewInfo(NewRegisteredUser user) {
+    Request req = new Request(EventType.SAVENEWINFO_REQUEST, user);
+    sendToServer(req, EventType.SAVENEWINFO_RESULT);
+    System.out.println("client");
+  }
+
 
   @Override public void registerUser(NewRegisteredUser newUser)
   {
@@ -74,10 +81,11 @@ public class Client1 implements Client
     sendToServer(req, EventType.REGISTER_RESULT);
   }
 
-  @Override public void login(User user)
+  @Override public void login(NewRegisteredUser user)
   {
     Request req = new Request(EventType.LOGIN_REQUEST, user);
     sendToServer(req, EventType.LOGIN_REQUEST);
+
   }
 
   @Override public void getMovies()

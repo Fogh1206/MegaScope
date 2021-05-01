@@ -37,7 +37,7 @@ public class ViewHandler
     mainStage.setResizable(false);
   }
 
-  public void openLoginView()
+  public void openLoginView(NewRegisteredUser userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/Login.fxml"));
@@ -45,7 +45,7 @@ public class ViewHandler
     {
       Parent root = loader.load();
       LoginViewController ctrl = loader.getController();
-      ctrl.init(vmf.getLoginViewModel(), this);
+      ctrl.init(vmf.getLoginViewModel(), this,userLoggedIn);
       mainStage.setTitle("Log in");
       Scene loginScene = new Scene(root);
       mainStage.setScene(loginScene);

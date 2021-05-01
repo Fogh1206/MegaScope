@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import shared.NewRegisteredUser;
 import shared.User;
+import shared.util.EventType;
+
+import java.beans.PropertyChangeEvent;
 
 public class UserProfileController
 {
@@ -55,14 +58,31 @@ public class UserProfileController
         .bindBidirectional(userProfileViewModel.confirmPasswordProperty());
 
     userProfileViewModel.updateCurrentInfo(userLoggedIn);
+
+    userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
+  }
+
+  private void newSavedInfo(PropertyChangeEvent event) {
+
+    NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
+    if (temp != null)
+    {
+      userLoggedIn=temp;
+      viewHandler.showUserProfile(temp);
+    }
+
+
   }
 
   public void saveButtonOnAction(ActionEvent event)
   {
-    userProfileViewModel.save();
+    userProfileViewModel.save( userLoggedIn);
+    userProfileViewModel.defaultsValue();
   }
 
   public void closeOnAction(ActionEvent event)
   {
+
+    //viewHandler.showFrontPage(userLoggedIn);
   }
 }

@@ -100,7 +100,7 @@ public class FrontPageController
     }
     else
     {
-      viewHandler.openLoginView();
+      viewHandler.openLoginView(userLoggedIn);
     }
   }
 

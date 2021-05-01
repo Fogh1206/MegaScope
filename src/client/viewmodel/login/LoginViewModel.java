@@ -23,6 +23,7 @@ public class LoginViewModel
 
   private UserModel model;
 
+
   public LoginViewModel(UserModel model)
   {
     this.model = model;
@@ -30,6 +31,7 @@ public class LoginViewModel
     password = new SimpleStringProperty();
     loginResult = new SimpleStringProperty();
     support = new PropertyChangeSupport(this);
+
 
     model.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
         this::onLogin);

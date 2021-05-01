@@ -98,13 +98,18 @@ public class SocketClient implements Client
 
   }
 
+  @Override
+  public void saveNewInfo(NewRegisteredUser user) {
+
+  }
+
   @Override public void registerUser(NewRegisteredUser newUser)
   {
     Request req = new Request(EventType.REGISTER_REQUEST, newUser);
     sendToServer(req, EventType.REGISTER_RESULT);
   }
 
-  @Override public void login(User user)
+  @Override public void login(NewRegisteredUser user)
   {
     Request req = new Request(EventType.LOGIN_REQUEST, user);
     sendToServer(req, EventType.LOGIN_REQUEST);

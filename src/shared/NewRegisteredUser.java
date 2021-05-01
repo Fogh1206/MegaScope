@@ -35,6 +35,25 @@ public class NewRegisteredUser implements Serializable
     this.phoneNumber = phoneNumber;
   }
 
+  public NewRegisteredUser(int id,String username,String password)
+  {
+    this.id = id;
+    this.firstName = null;
+    this.lastName = null;
+    this.username = username;
+    this.password = password;
+    this.phoneNumber = null;
+  }
+  public NewRegisteredUser(String username,String password)
+  {
+    this.id = 0;
+    this.firstName = null;
+    this.lastName = null;
+    this.username = username;
+    this.password = password;
+    this.phoneNumber = null;
+  }
+
   public String getPhoneNumber()
   {
     return phoneNumber;

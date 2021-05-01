@@ -11,11 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import shared.NewRegisteredUser;
-import shared.User;
+
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+
 
 public class LoginViewController
 {
@@ -26,13 +27,14 @@ public class LoginViewController
   @FXML private ImageView imageView;
   @FXML private Label loginText;
   @FXML private Button frontPageButton;
-  private NewRegisteredUser userLoggedIn=null;
+  private NewRegisteredUser userLoggedIn;
 
   private LoginViewModel loginViewModel;
   private ViewHandler viewHandler;
 
-  public void init(LoginViewModel loginViewModel, ViewHandler viewHandler)
+  public void init(LoginViewModel loginViewModel, ViewHandler viewHandler, NewRegisteredUser userLoggedIn)
   {
+    this.userLoggedIn=userLoggedIn;
     this.loginViewModel = loginViewModel;
     this.viewHandler = viewHandler;
     usernameTextField.textProperty()
