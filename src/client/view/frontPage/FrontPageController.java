@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import shared.Movie;
@@ -22,6 +24,10 @@ import java.beans.PropertyChangeEvent;
 public class FrontPageController
 {
 
+  @FXML private Button myProfileButton;
+  @FXML private HBox UserHBox;
+  @FXML private AnchorPane SearchBox;
+  @FXML private Label LabelHAHA;
   @FXML private VBox Profile;
 
   private UserFrontPageViewModel userFrontPageViewModel;
@@ -52,17 +58,26 @@ public class FrontPageController
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
     {
+      SearchBox.setMinHeight(90);
+      UserHBox.setMaxHeight(50);
+      LabelHAHA.setVisible(true);
+      myProfileButton.setVisible(true);
+      LabelHAHA.setText("Logged in as " + userLoggedIn.getUsername());
       loginButton.setText("Log Out");
     }
     else
     {
+
+      LabelHAHA.setVisible(false);
+      myProfileButton.setVisible(false);
+      UserHBox.setMaxHeight(1);
+      SearchBox.setMinHeight(140);
       loginButton.setText("Log In");
     }
     movieTableView.itemsProperty()
         .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
 
-    usernameLabel.textProperty()
-        .bindBidirectional(userFrontPageViewModel.usernameProperty());
+
 
     movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     dateOfReleaseCol
@@ -111,12 +126,6 @@ public class FrontPageController
 
   public void onBookMovieButton()
   {
-    if (userLoggedIn != null)
-    {
-      System.out.println(userLoggedIn.getUsername());
-      System.out.println(userLoggedIn.getId());
-      viewHandler.showUserProfile(userLoggedIn);
-    }
     //    if (dateOfReleaseCol.isVisible())
     //    {
     //      dateOfReleaseCol.setVisible(false);
@@ -160,5 +169,15 @@ public class FrontPageController
   public void StupidAction(ActionEvent actionEvent)
   {
     System.out.println("STupid");
+  }
+
+  @FXML public void goToMyProfile()
+  {
+    if (userLoggedIn != null)
+    {
+      System.out.println(userLoggedIn.getUsername());
+      System.out.println(userLoggedIn.getId());
+      viewHandler.showUserProfile(userLoggedIn);
+    }
   }
 }
