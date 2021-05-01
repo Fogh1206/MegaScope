@@ -119,10 +119,7 @@ public class FrontPageController
     }
   }
 
-  public void onCinemaHallButton(ActionEvent event)
-  {
-    viewHandler.showCinemaHallPage();
-  }
+
 
   public void onBookMovieButton()
   {

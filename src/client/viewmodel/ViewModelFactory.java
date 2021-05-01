@@ -73,12 +73,13 @@ public class ViewModelFactory
     return adminViewModelUsers;
   }
 
-  public CinemaHallViewModel getCinemaHallViewModel()
+  public CinemaHallViewModel getCinemaHallPage()
   {
     if(cinemaHallViewModel == null)
     {
       cinemaHallViewModel = new CinemaHallViewModel(mf.getUserModel());
     }
+
     return cinemaHallViewModel;
   }
 

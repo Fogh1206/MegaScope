@@ -112,6 +112,26 @@ public class ViewHandler
     }
   }
 
+  public void showCinemaHallPage()
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
+    try
+    {
+      Parent root = loader.load();
+      CinemaHallController ctrl = loader.getController();
+      ctrl.init(vmf.getCinemaHallPage(),this);
+      mainStage.setTitle("Cinema Hall");
+      Scene cinemaHallScene = new Scene(root);
+      mainStage.setScene(cinemaHallScene);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+
   public void showAdminMoviePage()
   {
     FXMLLoader loader = new FXMLLoader();
@@ -150,24 +170,6 @@ public class ViewHandler
     }
   }
 
-  public void showCinemaHallPage()
-  {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
-    try
-    {
-      Parent root = loader.load();
-      CinemaHallController ctrl = loader.getController();
-      ctrl.init(vmf.getCinemaHallViewModel(),this);
-      mainStage.setTitle("Cinema Hall");
-      Scene scene = new Scene(root);
-      mainStage.setScene(scene);
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-  }
 
   public void showUserProfile(NewRegisteredUser userLoggedIn)
   {

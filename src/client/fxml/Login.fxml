@@ -41,6 +41,14 @@
                         <Glow />
                      </effect>
                   </Button>
+                  <Button layoutX="109.0" layoutY="235.0" mnemonicParsing="false" onAction="#cinemaHallButton" style="-fx-background-color: #E96151;" text="Cinema Hall" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Button>
                     </children>
                 </AnchorPane>
                 <VBox prefHeight="200.0" prefWidth="300.0">
