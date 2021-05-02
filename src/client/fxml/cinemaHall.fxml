@@ -13,7 +13,7 @@
     <children>
         <AnchorPane prefHeight="437.0" prefWidth="640.0" style="-fx-background-color: white;">
             <children>
-                <Rectangle id="1_1" arcHeight="5.0" arcWidth="5.0" fill="#586f72" height="45.0" layoutX="46.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
+                <Rectangle id="1_1" fx:id="row1Seat1" arcHeight="5.0" arcWidth="5.0" fill="#586f72" height="45.0" layoutX="46.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#586f72" height="45.0" layoutX="46.0" layoutY="178.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#586f72" height="45.0" layoutX="46.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#586f72" height="45.0" layoutX="46.0" layoutY="322.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
@@ -91,7 +91,7 @@
                 <Text layoutX="6.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 2" />
                 <Text layoutX="6.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 3" />
                 <Text layoutX="6.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 4" />
-                <TextArea layoutX="14.0" layoutY="2.0" prefHeight="93.0" prefWidth="172.0" />
+                <TextArea fx:id="textSeats" layoutX="14.0" layoutY="2.0" prefHeight="93.0" prefWidth="172.0" />
             </children>
         </AnchorPane>
     </children>
