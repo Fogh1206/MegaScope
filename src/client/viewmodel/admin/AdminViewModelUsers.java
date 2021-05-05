@@ -3,6 +3,8 @@ package client.viewmodel.admin;
 import client.model.UserModel;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Movie;
@@ -20,6 +22,7 @@ public class AdminViewModelUsers
   private Property<ObservableList<NewRegisteredUser>> observableItems;
   private ObservableList<NewRegisteredUser> items;
   private PropertyChangeSupport support;
+  private StringProperty searchPhrase;
 
   public AdminViewModelUsers(UserModel userModel)
   {
@@ -28,6 +31,7 @@ public class AdminViewModelUsers
     support = new PropertyChangeSupport(this);
     items = new SimpleListProperty<>();
     userModel.addPropertyChangeListener("Users Result", this::onGetUsers);
+    searchPhrase = new SimpleStringProperty();
   }
 
   private void onGetUsers(PropertyChangeEvent event) {
@@ -56,7 +60,39 @@ public class AdminViewModelUsers
 
   public void search() {
 
+    if (searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))
+    {
+      System.out.println("Please");
+      getUsers();
+    }
+    else
+    {
+      try
+      {
+        getUsers();
+        Thread.sleep(500);
+      }
+      catch (InterruptedException e)
+      {
+        e.printStackTrace();
+      }
+      ObservableList<NewRegisteredUser> observableList = FXCollections
+              .observableArrayList();
+      for (int i = 0; i < observableItems.getValue().size(); i++)
+      {
+
+        if (observableItems.getValue().get(i).getUsername()
+                .contains(searchPhrase.getValue()))
+        {
+          observableList.add(observableItems.getValue().get(i));
+        }
+      }
+      observableItems.setValue(observableList);
+    }
+    searchPhrase.setValue(null);
   }
+
+
 
   public void getUsers() {
     userModel.getUsers();

@@ -26,6 +26,7 @@ public class AdminUsersPageController
   @FXML private TableColumn<Object,String> firstNameCol;
   @FXML private TableColumn<Object,String> lastNameCol;
   @FXML private TableColumn<Object,String> phoneNoCol;
+
   private NewRegisteredUser userLoggedIn;
 
 
@@ -40,10 +41,7 @@ public class AdminUsersPageController
     firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-    usernameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
-    firstNameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
-    lastNameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
-    phoneNoCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
+
     adminViewModelUsers.addPropertyChangeListener("Update", this::update);
     userTableView.setItems(adminViewModelUsers.getItems());
     setSelectedUser();
