@@ -39,7 +39,7 @@ public class AdminUsersPageController
     usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
     firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-    phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+    phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
     usernameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
     firstNameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
     lastNameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
