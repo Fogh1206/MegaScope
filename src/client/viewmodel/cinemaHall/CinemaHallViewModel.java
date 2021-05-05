@@ -1,7 +1,7 @@
 package client.viewmodel.cinemaHall;
 
 import client.model.UserModel;
-import javafx.beans.property.StringProperty;
+
 
 import java.beans.PropertyChangeSupport;
 
