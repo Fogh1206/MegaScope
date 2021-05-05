@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -52,7 +53,6 @@ public class FrontPageController
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
   {
-
     this.userFrontPageViewModel = frontPage;
     userFrontPageViewModel.getMovies();
     this.viewHandler = viewHandler;
@@ -68,7 +68,6 @@ public class FrontPageController
     }
     else
     {
-
       LabelHAHA.setVisible(false);
       myProfileButton.setVisible(false);
       UserHBox.setMaxHeight(1);

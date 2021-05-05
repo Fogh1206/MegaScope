@@ -119,17 +119,7 @@ public class ViewHandler
     try
     {
       Parent root = loader.load();
-      CinemaHallController ctrl = new CinemaHallController();
-
-      if(ctrl == null)
-      {
-        System.out.println("Controller is null");
-      }
-      else
-        {
-          System.out.println("Controller is not null");
-      }
-
+      CinemaHallController ctrl = loader.getController();
       ctrl.init(vmf.getCinemaHallPage(),this);
       mainStage.setTitle("Cinema Hall");
       Scene cinemaHallScene = new Scene(root);

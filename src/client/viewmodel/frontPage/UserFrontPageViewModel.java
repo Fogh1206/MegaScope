@@ -43,7 +43,6 @@ public class UserFrontPageViewModel
 
   public void onGetMovies(PropertyChangeEvent event)
   {
-    System.out.println(6);
     List<Movie> list = (ArrayList<Movie>) event.getNewValue();
 
     ObservableList<Movie> observableList = FXCollections.observableArrayList();
@@ -105,6 +104,15 @@ public class UserFrontPageViewModel
     }
     else
     {
+      try
+      {
+        getMovies();
+        Thread.sleep(500);
+      }
+      catch (InterruptedException e)
+      {
+        e.printStackTrace();
+      }
       ObservableList<Movie> observableList = FXCollections
           .observableArrayList();
       for (int i = 0; i < observableItems.getValue().size(); i++)
@@ -119,5 +127,6 @@ public class UserFrontPageViewModel
       }
       observableItems.setValue(observableList);
     }
+    searchPhrase.setValue(null);
   }
 }
