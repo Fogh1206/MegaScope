@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.css.Rect;
+
 import java.util.ArrayList;
 
 public class CinemaHallController
@@ -23,6 +25,8 @@ public class CinemaHallController
   @FXML private TextArea textSeats;
 
   private ArrayList<Rectangle> seats;
+
+  private ArrayList<String> bookedSeats;
 
   public void init(CinemaHallViewModel cinemaHallViewModel, ViewHandler viewHandler)
   {
@@ -60,6 +64,8 @@ public class CinemaHallController
           public void handle(MouseEvent t) {
             // TODO
             System.out.println("Row =" + finalI + " Column = " + finalJ);
+            rectangle.setFill(Color.GREEN);
+
           }
         });
         gridPaneSeats.add(rectangle,column,row);
@@ -75,9 +81,5 @@ public class CinemaHallController
 
   }
 
-  public void click(MouseEvent mouseEvent)
-  {
-
-  }
 
 }
