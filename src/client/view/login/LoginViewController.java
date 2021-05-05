@@ -56,8 +56,7 @@ public class LoginViewController
       System.out.println("image probl");
     }
 
-    loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
-        this::newLogin);
+    loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
   }
 
   private void newLogin(PropertyChangeEvent event)

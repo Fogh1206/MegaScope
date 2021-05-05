@@ -70,6 +70,14 @@ public class ServerSocketHandler implements Runnable
             outToClient.writeObject(response);
           }
         }
+        
+        if (request.type.equals(EventType.ADMIN_CHECK_REQUEST)){
+          NewRegisteredUser user = (NewRegisteredUser) request.arg;
+          boolean temp = userDAO.isAdmin(user.getId());
+          Request response = new Request(EventType.ADMIN_CHECK_RESULT, temp);
+          outToClient.writeObject(response);
+        }
+
         if (request.type.equals(EventType.REGISTER_REQUEST))
         {
           System.out.println("Register requested");

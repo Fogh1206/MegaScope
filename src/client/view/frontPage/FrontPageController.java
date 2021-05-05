@@ -45,6 +45,12 @@ public class FrontPageController
   @FXML private Button loginButton;
   @FXML private Button cinemaHallButton;
 
+  // Admin Buttons
+  @FXML private Button addMovieButton;
+  @FXML private Button editMovieButton;
+  @FXML private Button removeMovieButton;
+
+
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<Object, String> movieTitleCol;
   @FXML private TableColumn<Object, String> mainactorsCol;

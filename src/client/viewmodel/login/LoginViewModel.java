@@ -3,6 +3,7 @@ package client.viewmodel.login;
 import client.model.UserModel;
 import client.view.ViewHandler;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.NewRegisteredUser;
@@ -19,6 +20,7 @@ public class LoginViewModel
   private StringProperty username;
   private StringProperty password;
   private StringProperty loginResult;
+  private BooleanProperty adminResult;
   private PropertyChangeSupport support;
 
   private UserModel model;
@@ -31,8 +33,9 @@ public class LoginViewModel
     loginResult = new SimpleStringProperty();
     support = new PropertyChangeSupport(this);
 
-    model.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
-        this::onLogin);
+    model.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::onLogin);
+    model.addPropertyChangeListener(EventType.ADMIN_CHECK_RESULT.toString(), this::onAdminCheck);
+
   }
 
   private void onLogin(PropertyChangeEvent event)
@@ -47,11 +50,21 @@ public class LoginViewModel
     {
       Platform.runLater(() -> {
         loginResult.set("Correct password");
+        support.firePropertyChange(EventType.ADMIN_CHECK_REQUEST.toString(), null, event.getNewValue());
         support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
             event.getNewValue());
       });
     }
+  }
 
+  private void onAdminCheck(PropertyChangeEvent event){
+    adminResult.set((boolean) event.getNewValue());
+    System.out.println(event.getNewValue());
+    if((boolean) event.getNewValue() == true){
+      System.out.println("\n\n\nADMIN\n\n\n");
+    } else {
+      System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+    }
   }
 
   public StringProperty usernameProperty()
