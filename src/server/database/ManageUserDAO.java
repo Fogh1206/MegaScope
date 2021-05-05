@@ -2,10 +2,10 @@ package server.database;
 
 import shared.Movie;
 import shared.NewRegisteredUser;
-import shared.Request;
-import shared.User;
-import shared.util.EventType;
 
+import shared.User;
+
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -37,15 +37,41 @@ public class ManageUserDAO implements UserDAO
     return instance;
   }
 
-  @Override public User validateUser(String username, String password)
+  @Override public NewRegisteredUser saveNewInfo(int id, String firstName,
+      String lastName, String username, String password, String phoneNumber)
   {
-    User user= null;
+
+    try (Connection connection = controller.getConnection())
+    {
+      PreparedStatement statement = connection.prepareStatement(
+          "UPDATE public.users SET firstname='" + firstName + "',lastname='"
+              + lastName + "',username='" + username + "',password='" + password
+              + "',phonenumber='" + phoneNumber + "' where id=" + id + "");
+
+      System.out.println(statement);
+      statement.executeUpdate();
+      statement.close();
+      System.out.println(username);
+      return new NewRegisteredUser(firstName, lastName, username, password,
+          phoneNumber);
+    }
+    catch (SQLException throwables)
+    {
+      throwables.printStackTrace();
+      return null;
+    }
+
+  }
+
+  @Override public NewRegisteredUser validateUser(int id, String username,
+      String password)
+  {
+    NewRegisteredUser user = null;
     PreparedStatement statement = null;
     try (Connection connection = controller.getConnection())
     {
       statement = connection.prepareStatement(
-          "SELECT password FROM public.user_account WHERE username='" + username
-              + "'");
+          "SELECT password FROM public.users WHERE username='" + username + "'");
 
       ResultSet resultSet = statement.executeQuery();
 
@@ -56,12 +82,14 @@ public class ManageUserDAO implements UserDAO
           statement.close();
 
           statement = connection.prepareStatement(
-              "SELECT * FROM public.user_account WHERE username='" + username
-                  + "'");
+              "SELECT * FROM public.users WHERE username='" + username + "'");
           resultSet = statement.executeQuery();
           while (resultSet.next())
           {
-            User temp = new User(resultSet.getString(3), resultSet.getString(4));
+            NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
+                resultSet.getString(2), resultSet.getString(3),
+                resultSet.getString(4), resultSet.getString(5),
+                resultSet.getString(6));
             user = temp;
             System.out.println(temp);
           }
@@ -86,31 +114,48 @@ public class ManageUserDAO implements UserDAO
   }
 
   @Override public NewRegisteredUser createUser(String firstName,
-      String lastName, String username, String password, String phoneNumber
-      )
+      String lastName, String username, String password, String phoneNumber)
   {
-
+    NewRegisteredUser user = null;
     try (Connection connection = controller.getConnection())
     {
       PreparedStatement statement = connection.prepareStatement(
-          "INSERT INTO user_account  VALUES (?, ?, ?, ?,?);");
+          "INSERT INTO users(firstname,lastname,username,password,phonenumber)   VALUES (?, ?, ?, ?,?);");
 
       statement.setString(1, firstName);
       statement.setString(2, lastName);
       statement.setString(3, username);
       statement.setString(4, password);
       statement.setString(5, phoneNumber);
-      statement.executeUpdate();
-      statement.close();
-      return new NewRegisteredUser(firstName, lastName, username, password,
-          phoneNumber);
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next())
+      {
+
+        statement = connection.prepareStatement(
+            "SELECT * FROM public.users WHERE username='" + username + "'");
+        resultSet = statement.executeQuery();
+        while (resultSet.next())
+        {
+          NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
+              resultSet.getString(2), resultSet.getString(3),
+              resultSet.getString(4), resultSet.getString(5),
+              resultSet.getString(6));
+          user = temp;
+          System.out.println(temp.getId());
+        }
+        statement.close();
+
+      }
+
     }
     catch (SQLException throwables)
     {
       throwables.printStackTrace();
       return null;
     }
-
+    return user;
   }
 
   @Override public ArrayList<Movie> getAllMovies()

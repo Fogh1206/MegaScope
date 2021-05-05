@@ -3,14 +3,17 @@ package client.view;
 
 import client.view.Admin.AdminMoviePageController;
 import client.view.Admin.AdminUsersPageController;
+import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
+import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import shared.NewRegisteredUser;
 import shared.User;
 
 import java.io.IOException;
@@ -34,7 +37,7 @@ public class ViewHandler
     mainStage.setResizable(false);
   }
 
-  public void openLoginView()
+  public void openLoginView(NewRegisteredUser userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/Login.fxml"));
@@ -42,7 +45,7 @@ public class ViewHandler
     {
       Parent root = loader.load();
       LoginViewController ctrl = loader.getController();
-      ctrl.init(vmf.getLoginViewModel(), this);
+      ctrl.init(vmf.getLoginViewModel(), this,userLoggedIn);
       mainStage.setTitle("Log in");
       Scene loginScene = new Scene(root);
       mainStage.setScene(loginScene);
@@ -90,7 +93,7 @@ public class ViewHandler
   //        }
   //    }
 
-  public void showFrontPage(User userLoggedIn)
+  public void showFrontPage(NewRegisteredUser userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
@@ -108,6 +111,36 @@ public class ViewHandler
       e.printStackTrace();
     }
   }
+
+  public void showCinemaHallPage()
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
+    try
+    {
+      Parent root = loader.load();
+      CinemaHallController ctrl = new CinemaHallController();
+
+      if(ctrl == null)
+      {
+        System.out.println("Controller is null");
+      }
+      else
+        {
+          System.out.println("Controller is not null");
+      }
+
+      ctrl.init(vmf.getCinemaHallPage(),this);
+      mainStage.setTitle("Cinema Hall");
+      Scene cinemaHallScene = new Scene(root);
+      mainStage.setScene(cinemaHallScene);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
 
   public void showAdminMoviePage()
   {
@@ -142,6 +175,26 @@ public class ViewHandler
       mainStage.setScene(scene);
     }
     catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+
+  public void showUserProfile(NewRegisteredUser userLoggedIn)
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/userProfile.fxml"));
+    try
+    {
+      Parent root = loader.load();
+     UserProfileController ctrl = loader.getController();
+      ctrl.init(vmf.getUserProfileVM(),this,userLoggedIn);
+      mainStage.setTitle("Cinema Hall");
+      Scene scene = new Scene(root);
+      mainStage.setScene(scene);
+    }
+    catch (Exception e)
     {
       e.printStackTrace();
     }

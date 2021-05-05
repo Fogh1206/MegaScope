@@ -8,5 +8,6 @@ public interface UserModel extends PropertyChangeSubject {
     void login(String username, String password);
     void deactivateClient();
     void getMovies();
+    void saveNewInfo(NewRegisteredUser user);
 
 }

@@ -34,7 +34,6 @@ public final class CustomTextFieldTableCell<S, T>
 
         final EventHandler<MouseEvent> hoverListener = new EventHandler<MouseEvent>()
         {
-
           @Override public void handle(MouseEvent event)
           {
             if (result.getText() != null)

@@ -11,9 +11,12 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import shared.Movie;
+import shared.NewRegisteredUser;
 import shared.User;
 
 import java.beans.PropertyChangeEvent;
@@ -21,16 +24,20 @@ import java.beans.PropertyChangeEvent;
 public class FrontPageController
 {
 
+  @FXML private Button myProfileButton;
+  @FXML private HBox UserHBox;
+  @FXML private AnchorPane SearchBox;
+  @FXML private Label LabelHAHA;
   @FXML private VBox Profile;
-
 
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
 
-  private User userLoggedIn;
+  private NewRegisteredUser userLoggedIn;
 
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
+  @FXML private Button cinemaHallButton;
 
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<Object, String> movieTitleCol;
@@ -39,9 +46,10 @@ public class FrontPageController
   @FXML private TableColumn<Object, String> DateCol;
   @FXML private TableColumn<Object, String> dateOfReleaseCol;
   @FXML private TableColumn<Object, String> descriptionCol;
+  @FXML private DatePicker datePicker;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
-      User userLoggedIn)
+      NewRegisteredUser userLoggedIn)
   {
 
     this.userFrontPageViewModel = frontPage;
@@ -50,22 +58,33 @@ public class FrontPageController
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
     {
+      SearchBox.setMinHeight(90);
+      UserHBox.setMaxHeight(50);
+      LabelHAHA.setVisible(true);
+      myProfileButton.setVisible(true);
+      LabelHAHA.setText("Logged in as " + userLoggedIn.getUsername());
       loginButton.setText("Log Out");
     }
     else
     {
+
+      LabelHAHA.setVisible(false);
+      myProfileButton.setVisible(false);
+      UserHBox.setMaxHeight(1);
+      SearchBox.setMinHeight(140);
       loginButton.setText("Log In");
     }
     movieTableView.itemsProperty()
         .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
 
-    usernameLabel.textProperty()
-        .bindBidirectional(userFrontPageViewModel.usernameProperty());
+
 
     movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-    dateOfReleaseCol.setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
+    dateOfReleaseCol
+        .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
     mainactorsCol.setCellValueFactory(new PropertyValueFactory<>("mainActors"));
-    descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+    descriptionCol
+        .setCellValueFactory(new PropertyValueFactory<>("description"));
     timeCol.setCellValueFactory(new PropertyValueFactory<>("timeOfShow"));
     DateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfShow"));
 
@@ -79,6 +98,7 @@ public class FrontPageController
     userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
     movieTableView.setItems(userFrontPageViewModel.getItems());
     setSelectedMovie();
+
   }
 
   private void update(PropertyChangeEvent event)
@@ -95,13 +115,14 @@ public class FrontPageController
     }
     else
     {
-      viewHandler.openLoginView();
+      viewHandler.openLoginView(userLoggedIn);
     }
   }
 
+
+
   public void onBookMovieButton()
   {
-    userFrontPageViewModel.getMovies();
     //    if (dateOfReleaseCol.isVisible())
     //    {
     //      dateOfReleaseCol.setVisible(false);
@@ -145,5 +166,15 @@ public class FrontPageController
   public void StupidAction(ActionEvent actionEvent)
   {
     System.out.println("STupid");
+  }
+
+  @FXML public void goToMyProfile()
+  {
+    if (userLoggedIn != null)
+    {
+      System.out.println(userLoggedIn.getUsername());
+      System.out.println(userLoggedIn.getId());
+      viewHandler.showUserProfile(userLoggedIn);
+    }
   }
 }

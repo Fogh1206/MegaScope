@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class Model implements UserModel
 {
   private Client client;
-  private User loggedUser;
+  private NewRegisteredUser loggedUser;
   private PropertyChangeSupport support;
 
   public Model(Client client)
@@ -56,7 +56,7 @@ public class Model implements UserModel
 
   private void onLoginResult(PropertyChangeEvent event)
   {
-    User loginResult = (User) event.getNewValue();
+    NewRegisteredUser loginResult = (NewRegisteredUser) event.getNewValue();
     support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
         loginResult);
 
@@ -80,6 +80,11 @@ public class Model implements UserModel
     support.removePropertyChangeListener(name, listener);
   }
 
+  @Override public void saveNewInfo(NewRegisteredUser user)
+  {
+    client.saveNewInfo(user);
+  }
+
   @Override public void register(NewRegisteredUser user)
   {
 
@@ -91,7 +96,7 @@ public class Model implements UserModel
 
   @Override public void login(String username, String password)
   {
-    loggedUser = new User(username, password);
+    loggedUser = new NewRegisteredUser(username, password);
     client.login(loggedUser);
 
   }

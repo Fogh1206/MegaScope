@@ -89,5 +89,4 @@ public class UserFrontPageViewModel
     return observableItems;
   }
 
-
 }

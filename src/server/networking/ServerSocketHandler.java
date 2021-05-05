@@ -57,15 +57,15 @@ public class ServerSocketHandler implements Runnable
           System.out.println("Get Movies Requested");
           ArrayList<Movie> movies = userDAO.getAllMovies();
           Request response = new Request(EventType.GETMOVIES_RESULT, movies);
-          System.out.println("Movies size"+movies.size());
+          System.out.println("Movies size" + movies.size());
           outToClient.writeObject(response);
         }
         if (request.type.equals(EventType.LOGIN_REQUEST))
         {
           {
-            User user = (User) request.arg;
-            User temp = userDAO
-                .validateUser(user.getUsername(), user.getPassword());
+            NewRegisteredUser user = (NewRegisteredUser) request.arg;
+            NewRegisteredUser temp = userDAO
+                .validateUser(user.getId(),user.getUsername(), user.getPassword());
             Request response = new Request(EventType.LOGIN_RESULT, temp);
             outToClient.writeObject(response);
           }
@@ -82,10 +82,24 @@ public class ServerSocketHandler implements Runnable
               "Successful");
           outToClient.writeObject(response);
         }
-        if (request.type.equals(EventType.CLOSE_REQUEST)){
+        if (request.type.equals(EventType.SAVENEWINFO_REQUEST))
+        {
+          NewRegisteredUser user=(NewRegisteredUser) request.arg;
+          NewRegisteredUser temp = userDAO.saveNewInfo(user.getId(), user.getFirstName(), user.getLastName(),
+                  user.getUsername(), user.getPassword(), user.getPhoneNumber());
+          Request response=new Request(EventType.SAVENEWINFO_RESULT,temp);
+          outToClient.writeObject(response);
+          System.out.println(temp.getUsername());
+
+
+        }
+
+
+
+        if (request.type.equals(EventType.CLOSE_REQUEST))
+        {
           System.out.println("Close requested");
-          Request response = new Request(EventType.CLOSE_RESULT,
-              "Successful");
+          Request response = new Request(EventType.CLOSE_RESULT, "Successful");
           outToClient.writeObject(response);
           close();
         }

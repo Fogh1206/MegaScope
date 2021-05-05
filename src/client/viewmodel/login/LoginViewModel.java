@@ -5,6 +5,7 @@ import client.view.ViewHandler;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.NewRegisteredUser;
 import shared.User;
 import shared.util.EventType;
 
@@ -36,12 +37,17 @@ public class LoginViewModel
 
   private void onLogin(PropertyChangeEvent event)
   {
-    User result = (User) event.getNewValue();
+    NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
+    System.out.println("Kappa");
+    if (result == null)
+    {
+      System.out.println("Kappa");
+    }
     if (result != null)
     {
       Platform.runLater(() -> {
         loginResult.set("Correct password");
-        support.firePropertyChange("YOLO", null,
+        support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
             event.getNewValue());
       });
     }

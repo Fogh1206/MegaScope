@@ -10,7 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import shared.User;
+import shared.NewRegisteredUser;
+
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -25,13 +26,16 @@ public class LoginViewController
   @FXML private ImageView imageView;
   @FXML private Label loginText;
   @FXML private Button frontPageButton;
-  private User userLoggedIn=null;
+  @FXML private Button cinemaHallButton;
+  private NewRegisteredUser userLoggedIn;
 
   private LoginViewModel loginViewModel;
   private ViewHandler viewHandler;
 
-  public void init(LoginViewModel loginViewModel, ViewHandler viewHandler)
+  public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
+      NewRegisteredUser userLoggedIn)
   {
+    this.userLoggedIn = userLoggedIn;
     this.loginViewModel = loginViewModel;
     this.viewHandler = viewHandler;
     usernameTextField.textProperty()
@@ -52,35 +56,37 @@ public class LoginViewController
       System.out.println("image probl");
     }
 
-    loginViewModel.addPropertyChangeListener("YOLO", this::newLogin);
+    loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
+        this::newLogin);
   }
 
   private void newLogin(PropertyChangeEvent event)
   {
-    User temp = (User) event.getNewValue();
+    NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
+    System.out.println("What");
     if (temp != null)
     {
-      userLoggedIn=temp;
+      userLoggedIn = temp;
+      System.out.println("first try");
       viewHandler.showFrontPage(temp);
+      System.out.println("Second try");
     }
 
   }
 
-  public User UserLoggedIn() {
+  public NewRegisteredUser UserLoggedIn()
+  {
     return userLoggedIn;
   }
 
   public void onLoginAction(ActionEvent actionEvent)
   {
-    if (userLoggedIn!=null)
+    if (userLoggedIn != null)
     {
     }
 
     loginViewModel.login();
     loginViewModel.defaultFields();
-
-
-
 
   }
 
@@ -99,6 +105,11 @@ public class LoginViewController
   public void frontPageButton()
   {
     viewHandler.showFrontPage(null);
+  }
+
+  public void cinemaHallButton()
+  {
+    viewHandler.showCinemaHallPage();
   }
 
 }

@@ -53,7 +53,7 @@ public class RegisterController {
 
     private void onRegister(String newValue) {
         if (newValue.equals("Register Result")) {
-            viewHandler.openLoginView();
+            viewHandler.openLoginView(null);
             System.out.println(newValue);
         }
 
@@ -66,7 +66,7 @@ public class RegisterController {
 
     public void closeOnAction(ActionEvent event) {
         registerViewModel.defaultFields();
-        viewHandler.openLoginView();
+        viewHandler.openLoginView(null);
 
     }
 }

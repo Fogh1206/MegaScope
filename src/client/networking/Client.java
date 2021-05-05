@@ -10,9 +10,9 @@ import shared.User;
 public interface Client extends PropertyChangeSubject {
     void registerUser(NewRegisteredUser userToCreate);
 
-    void login(User user);
+    void login(NewRegisteredUser user);
     void getMovies();
-
+void saveNewInfo(NewRegisteredUser user);
   boolean isRunning();
   void receive(Request req);
   void deactivateClient();
