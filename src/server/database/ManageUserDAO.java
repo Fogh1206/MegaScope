@@ -196,8 +196,44 @@ public class ManageUserDAO implements UserDAO
     return movieList;
   }
 
-  @Override public ArrayList<User> getAllUsers()
+  @Override public ArrayList<NewRegisteredUser> getAllUsers()
   {
-    return null;
+
+
+    ArrayList<NewRegisteredUser> userList = new ArrayList<>();
+
+    PreparedStatement statement = null;
+    try (Connection connection = controller.getConnection())
+    {
+      statement = connection.prepareStatement("SELECT * FROM public.users ");
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next())
+      {
+
+        NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),resultSet.getString(2),
+                resultSet.getString(3), resultSet.getString(4),
+                resultSet.getString(5), resultSet.getString(6));
+
+        userList.add(temp);
+      }
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+
+    try
+    {
+      statement.close();
+    }
+    catch (SQLException throwables)
+    {
+      throwables.printStackTrace();
+    }
+
+    return userList;
+
   }
 }

@@ -37,21 +37,33 @@ public class Model implements UserModel
     client.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
         this::onRegisterResult);
 
+    client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
+            this::onGetUserResult);
+
+  }
+
+  private void onGetUserResult(PropertyChangeEvent event) {
+
+    ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event.getNewValue();
+    support.firePropertyChange("Users Result", null, list);
+    System.out.println(list.get(0));
+
+  }
+
+  @Override
+  public void getUsers() {
+    client.getUsers();
   }
 
   private void onGetMoviesResult(PropertyChangeEvent event)
   {
-    System.out.println(4);
+
     ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
-    System.out.println("Size" + list.size());
-    System.out.println(5);
-    System.out
-        .println("Listeners" + support.getPropertyChangeListeners().length);
-    System.out.println("List"+list);
+
 
     support.firePropertyChange("Movie Result", null, list);
 
-    System.out.println(5.5);
+
   }
 
   private void onLoginResult(PropertyChangeEvent event)

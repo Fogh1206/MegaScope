@@ -17,4 +17,5 @@ void saveNewInfo(NewRegisteredUser user);
   void receive(Request req);
   void deactivateClient();
 
+    void getUsers();
 }

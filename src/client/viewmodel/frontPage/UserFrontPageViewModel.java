@@ -164,19 +164,7 @@ public class UserFrontPageViewModel
           observableList.add(observableItems.getValue().get(i));
         }
       }
-
-//      for (int i = 0; i < observableItems.getValue().size(); i++)
-//      {
-//        System.out
-//            .println("A" + observableItems.getValue().get(i).getDateOfShow());
-//        System.out.println("B" + observableItems.getValue().size());
-//        if (datePicked.get().toString()
-//            .equals(observableItems.getValue().get(i).getDateOfShow()))
-//        {
-//            observableList.add(observableItems.getValue().get(i));
-//        }
         observableItems.setValue(observableList);
-//      }
 
     }
   }

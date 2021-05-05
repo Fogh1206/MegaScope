@@ -121,4 +121,12 @@ public class Client1 implements Client
     System.out.println("Received "+req.type.toString());
     support.firePropertyChange(req.type.toString(), null, req.arg);
   }
+
+  @Override
+  public void getUsers() {
+
+    Request req = new Request(EventType.GETUSER_REQUEST, null);
+    sendToServer(req, EventType.GETUSER_RESULT);
+
+  }
 }
