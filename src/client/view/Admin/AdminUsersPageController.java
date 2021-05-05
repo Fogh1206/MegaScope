@@ -23,7 +23,9 @@ public class AdminUsersPageController
   private ViewHandler viewHandler;
   @FXML private TableView<NewRegisteredUser> userTableView;
   @FXML private TableColumn<Object,String> usernameCol;
-  @FXML private TableColumn<Object,String> nameCol;
+  @FXML private TableColumn<Object,String> firstNameCol;
+  @FXML private TableColumn<Object,String> lastNameCol;
+  @FXML private TableColumn<Object,String> phoneNoCol;
   private NewRegisteredUser userLoggedIn;
 
 
@@ -35,9 +37,13 @@ public class AdminUsersPageController
     adminViewModelUsers.getUsers();
     userTableView.itemsProperty().bindBidirectional(adminViewModelUsers.observableItemsProperty());
     usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-    nameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"+" lastName"));
+    firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+    lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+    phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
     usernameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
-    nameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
+    firstNameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
+    lastNameCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
+    phoneNoCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
     adminViewModelUsers.addPropertyChangeListener("Update", this::update);
     userTableView.setItems(adminViewModelUsers.getItems());
     setSelectedUser();

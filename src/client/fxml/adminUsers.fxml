@@ -20,8 +20,10 @@
             <Insets left="25.0" right="25.0" top="10.0" />
          </BorderPane.margin>
          <columns>
-            <TableColumn fx:id="usernameCol" prefWidth="265.0" text="Username" />
-            <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="284.0" text="Name" />
+            <TableColumn fx:id="usernameCol" prefWidth="140.0" text="Username" />
+            <TableColumn fx:id="firstNameCol" prefWidth="140.0" text="First Name" />
+            <TableColumn fx:id="lastNameCol" prefWidth="140.0" text="Last Name" />
+            <TableColumn fx:id="phoneNoCol" prefWidth="140.0" text="Phone Number" />
          </columns>
       </TableView>
    </center>
