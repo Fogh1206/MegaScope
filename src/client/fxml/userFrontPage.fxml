@@ -11,10 +11,7 @@
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -176,7 +173,8 @@
                                 <Font size="13.0"/>
                             </font>
                         </TextField>
-                        <DatePicker layoutX="399.0" layoutY="42.0"
+                        <DatePicker fx:id="datePick" layoutX="399.0"
+                                    layoutY="42.0" onAction="#onDatePick"
                                     prefHeight="27.0" prefWidth="181.0"
                                     promptText="Select date"/>
                         <Button layoutX="362.0" layoutY="43.0"

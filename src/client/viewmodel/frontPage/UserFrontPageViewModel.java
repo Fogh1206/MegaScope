@@ -1,17 +1,17 @@
 package client.viewmodel.frontPage;
 
 import client.model.UserModel;
-import com.sun.javafx.scene.control.TabObservableList;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.StringConverter;
 import shared.Movie;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class UserFrontPageViewModel
@@ -22,6 +22,7 @@ public class UserFrontPageViewModel
 
   private StringProperty username, button;
   private StringProperty searchPhrase;
+  private ObjectProperty datePicked;
   private Property<ObservableList<Movie>> observableItems;
   private ObservableList<Movie> items;
 
@@ -30,6 +31,7 @@ public class UserFrontPageViewModel
     this.model = model;
     support = new PropertyChangeSupport(this);
     username = new SimpleStringProperty();
+    datePicked = new SimpleObjectProperty();
     button = new SimpleStringProperty();
     searchPhrase = new SimpleStringProperty();
     items = new SimpleListProperty<>();
@@ -128,5 +130,15 @@ public class UserFrontPageViewModel
       observableItems.setValue(observableList);
     }
     searchPhrase.setValue(null);
+  }
+
+  public void onDatePick()
+  {
+    System.out.println(datePicked.get());
+  }
+
+  public Property<LocalDate> getValue()
+  {
+    return datePicked;
   }
 }
