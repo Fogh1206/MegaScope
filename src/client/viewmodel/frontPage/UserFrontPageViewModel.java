@@ -21,6 +21,7 @@ public class UserFrontPageViewModel
   private PropertyChangeSupport support;
 
   private StringProperty username, button;
+  private StringProperty searchPhrase;
   private Property<ObservableList<Movie>> observableItems;
   private ObservableList<Movie> items;
 
@@ -30,6 +31,7 @@ public class UserFrontPageViewModel
     support = new PropertyChangeSupport(this);
     username = new SimpleStringProperty();
     button = new SimpleStringProperty();
+    searchPhrase = new SimpleStringProperty();
     items = new SimpleListProperty<>();
     observableItems = new SimpleListProperty<>();
 
@@ -89,4 +91,33 @@ public class UserFrontPageViewModel
     return observableItems;
   }
 
+  public StringProperty searchPhraseProperty()
+  {
+    return searchPhrase;
+  }
+
+  public void search()
+  {
+    if (searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))
+    {
+      System.out.println("Please");
+      getMovies();
+    }
+    else
+    {
+      ObservableList<Movie> observableList = FXCollections
+          .observableArrayList();
+      for (int i = 0; i < observableItems.getValue().size(); i++)
+      {
+        System.out.println(observableItems.getValue().get(i).getName());
+        System.out.println(searchPhrase.toString());
+        if (observableItems.getValue().get(i).getName()
+            .contains(searchPhrase.getValue()))
+        {
+          observableList.add(observableItems.getValue().get(i));
+        }
+      }
+      observableItems.setValue(observableList);
+    }
+  }
 }
