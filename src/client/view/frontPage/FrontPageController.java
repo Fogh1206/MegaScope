@@ -56,6 +56,7 @@ public class FrontPageController
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
   {
+    
     this.userFrontPageViewModel = frontPage;
     userFrontPageViewModel.getMovies();
 
