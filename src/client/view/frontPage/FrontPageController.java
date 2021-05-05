@@ -80,6 +80,15 @@ public class FrontPageController
       loginButton.setText("Log In");
     }
 
+    datePick.setDayCellFactory(picker -> new DateCell()
+    {
+      public void updateItem(LocalDate date, boolean empty)
+      {
+        super.updateItem(date, empty);
+        setDisable(empty || date.compareTo(LocalDate.now()) < 1);
+      }
+    });
+
     datePick.valueProperty()
         .bindBidirectional(userFrontPageViewModel.getValue());
 
