@@ -13,11 +13,12 @@ import java.util.ArrayList;
 
 public class CinemaHallController
 {
+  @FXML public GridPane gridPaneSeats;
   private CinemaHallViewModel cinemaHallViewModel;
   private UserModel userModel;
   private ViewHandler viewHandler;
   @FXML private TextArea textSeats;
-  @FXML private GridPane gridPaneSeats;
+
   private ArrayList<Rectangle> seats;
 
  // private TextArea textSeats;
@@ -26,6 +27,7 @@ public class CinemaHallController
   {
     this.cinemaHallViewModel = cinemaHallViewModel;
     this.viewHandler = viewHandler;
+    gridPaneSeats.setVisible(false);
 
    /* if (gridPaneSeats.getChildren() == null)
     {
@@ -33,21 +35,22 @@ public class CinemaHallController
     }
 
     */
-    System.out.println(gridPaneSeats.getChildren().size());
-
-    for (int i = 0; i < gridPaneSeats.getRowCount(); i++)
-    {
-      for (int j = 0; j < gridPaneSeats.getColumnCount(); j++)
-      {
-        gridPaneSeats.getChildren().add(new Rectangle());
-      }
-    }
-    
-    for (int i = 0; i < gridPaneSeats.getChildren().size(); i++)
-    {
-      seats.add((Rectangle) gridPaneSeats.getChildren().get(i));
-      seats.get(i).setOnMouseClicked(e-> confirmSeats());
-    }
+//    System.out.println("col"+gridPaneSeats.getId());
+//    System.out.println(gridPaneSeats.getChildren().size());
+//
+//    for (int i = 0; i < gridPaneSeats.getRowCount(); i++)
+//    {
+//      for (int j = 0; j < gridPaneSeats.getColumnCount(); j++)
+//      {
+//        gridPaneSeats.getChildren().add(new Rectangle());
+//      }
+//    }
+//
+//    for (int i = 0; i < gridPaneSeats.getChildren().size(); i++)
+//    {
+//      seats.add((Rectangle) gridPaneSeats.getChildren().get(i));
+//      seats.get(i).setOnMouseClicked(e-> confirmSeats());
+//    }
   }
 
 
