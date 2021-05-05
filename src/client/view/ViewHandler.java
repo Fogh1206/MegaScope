@@ -1,6 +1,7 @@
 package client.view;
 
 
+
 import client.view.Admin.AdminMoviePageController;
 import client.view.Admin.AdminUsersPageController;
 import client.view.cinemaHall.CinemaHallController;
@@ -14,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import shared.NewRegisteredUser;
-import shared.User;
 
 import java.io.IOException;
 
@@ -151,7 +151,7 @@ public class ViewHandler
     }
   }
 
-  public void showAdminUserPage()
+  public void showAdminUserPage(NewRegisteredUser userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
@@ -159,7 +159,7 @@ public class ViewHandler
     {
       Parent root = loader.load();
       AdminUsersPageController ctrl = loader.getController();
-      ctrl.init(vmf.getAdminViewModelUsers(), this);
+      ctrl.init(vmf.getAdminViewModelUsers(), this,userLoggedIn);
       mainStage.setTitle("User management");
       Scene scene = new Scene(root);
       mainStage.setScene(scene);

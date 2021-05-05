@@ -9,5 +9,6 @@ public interface UserModel extends PropertyChangeSubject {
     void deactivateClient();
     void getMovies();
     void saveNewInfo(NewRegisteredUser user);
+    void getUsers();
 
 }

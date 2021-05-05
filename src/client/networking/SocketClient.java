@@ -134,4 +134,11 @@ public class SocketClient implements Client
   {
     support.removePropertyChangeListener(name, listener);
   }
+
+  @Override
+  public void getUsers() {
+    Request req = new Request(EventType.GETUSER_REQUEST, null);
+    sendToServer(req, EventType.GETUSER_RESULT);
+
+  }
 }

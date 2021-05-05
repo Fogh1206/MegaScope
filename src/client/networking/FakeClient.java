@@ -1,3 +1,4 @@
+/*
 package client.networking;
 
 import shared.NewRegisteredUser;
@@ -20,6 +21,10 @@ public class FakeClient implements Client {
         support = new PropertyChangeSupport(this);
     }
 
+    @Override
+    public void getUsers() {
+
+    }
 
     @Override
     public void registerUser(NewRegisteredUser userToCreate) {
@@ -82,3 +87,4 @@ public class FakeClient implements Client {
         support.removePropertyChangeListener(name, listener);
     }
 }
+*/
