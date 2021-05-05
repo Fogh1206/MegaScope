@@ -7,6 +7,8 @@ import client.viewmodel.frontPage.UserFrontPageViewModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -21,11 +23,13 @@ import shared.NewRegisteredUser;
 import shared.User;
 
 import java.beans.PropertyChangeEvent;
+import java.time.LocalDate;
 
 public class FrontPageController
 {
 
   @FXML public TextField searchBar;
+  @FXML public DatePicker datePick;
   @FXML private Button myProfileButton;
   @FXML private HBox UserHBox;
   @FXML private AnchorPane SearchBox;
@@ -48,13 +52,13 @@ public class FrontPageController
   @FXML private TableColumn<Object, String> DateCol;
   @FXML private TableColumn<Object, String> dateOfReleaseCol;
   @FXML private TableColumn<Object, String> descriptionCol;
-  @FXML private DatePicker datePicker;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
   {
     this.userFrontPageViewModel = frontPage;
     userFrontPageViewModel.getMovies();
+
     this.viewHandler = viewHandler;
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
@@ -74,6 +78,11 @@ public class FrontPageController
       SearchBox.setMinHeight(140);
       loginButton.setText("Log In");
     }
+
+    datePick.valueProperty()
+        .bindBidirectional(userFrontPageViewModel.getValue());
+
+
 
     searchBar.textProperty()
         .bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
@@ -180,5 +189,10 @@ public class FrontPageController
   public void Search(ActionEvent actionEvent)
   {
     userFrontPageViewModel.search();
+  }
+
+  public void onDatePick(ActionEvent actionEvent)
+  {
+    userFrontPageViewModel.onDatePick();
   }
 }
