@@ -85,8 +85,13 @@ public class ServerSocketHandler implements Runnable {
                     Request response = new Request(EventType.SAVENEWINFO_RESULT, temp);
                     outToClient.writeObject(response);
                     System.out.println(temp.getUsername());
+                }
 
-
+                if (request.type.equals(EventType.ADMIN_CHECK_REQUEST)){
+                    NewRegisteredUser user = (NewRegisteredUser) request.arg;
+                    boolean temp = userDAO.isAdmin(user.getId());
+                    Request response = new Request(EventType.ADMIN_CHECK_RESULT, temp);
+                    outToClient.writeObject(response);
                 }
 
 
