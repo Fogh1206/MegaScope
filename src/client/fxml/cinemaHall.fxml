@@ -29,11 +29,11 @@
                         <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                 </GridPane>
-                <Button layoutX="522.0" layoutY="40.0" mnemonicParsing="false" text="Confirm seats" />
-                <Text layoutX="6.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 1" />
-                <Text layoutX="6.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 2" />
-                <Text layoutX="6.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 3" />
-                <Text layoutX="6.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 4" />
+                <Button fx:id="confirmSeatsButton" layoutX="522.0" layoutY="40.0" mnemonicParsing="false" onAction="#confirmSeats" text="Confirm seats" />
+                <Text layoutX="22.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 0" />
+                <Text layoutX="22.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 1" />
+                <Text layoutX="22.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 2" />
+                <Text layoutX="22.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row 3" />
                 <TextArea fx:id="textSeats" layoutX="14.0" layoutY="2.0" prefHeight="93.0" prefWidth="172.0" />
             </children>
         </AnchorPane>

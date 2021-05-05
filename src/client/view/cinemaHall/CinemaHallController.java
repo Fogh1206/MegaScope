@@ -3,6 +3,7 @@ package client.view.cinemaHall;
 import client.model.UserModel;
 import client.view.ViewHandler;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
 
@@ -24,8 +26,7 @@ public class CinemaHallController
   private ViewHandler viewHandler;
   @FXML private TextArea textSeats;
 
-  private ArrayList<Rectangle> seats;
-  private ArrayList<String> bookedSeats;
+  String[][] myBooking = new String[4][6];
 
   public void init(CinemaHallViewModel cinemaHallViewModel, ViewHandler viewHandler)
   {
@@ -40,7 +41,8 @@ public class CinemaHallController
     {
       for (int column = 0; column < gridPaneSeats.getColumnCount(); column++)
       {
-        Rectangle rectangle = new Rectangle();
+       Rectangle rectangle = new Rectangle();
+
         rectangle.setWidth(70);
         rectangle.setHeight(60);
 
@@ -50,31 +52,57 @@ public class CinemaHallController
         }
         else if(row<=2)
         {
-          rectangle.setFill(Color.RED);
+          rectangle.setFill(Color.GREEN);
         }
         int finalI = row;
         int finalJ = column;
+
 
         rectangle.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
           @Override
           public void handle(MouseEvent t) {
 
-            System.out.println("Row =" + finalI + " Column = " + finalJ);
-            rectangle.setFill(Color.GREEN);
-            textSeats.appendText("You chose seats: \n" + "Row: " + finalI + " \nSeat: " + finalJ + "\n");
+            if (rectangle.getFill() == Color.RED)
+            {
+              rectangle.setFill(Color.GREEN);
+              myBooking[finalI][finalJ] = null;
+              //System.out.println("---------------Booked" + finalI+"---" + finalJ);
+            } else if (rectangle.getFill() == Color.GREEN)
+            {
+              rectangle.setFill(Color.RED);
+              myBooking[finalI][finalJ] = "Row[" + finalI + "] Seat[" + finalJ + "] Booked";
+             // System.out.println("---------------Canceled" + finalI+"---" + finalJ);
+
+            }
+            //textSeats.appendText(" \n" + "Row: " + finalI + " \nSeat: " + finalJ + "\n");
+
+         //   System.out.println(textSeats.getLength());
+
           }
         });
         gridPaneSeats.add(rectangle,column,row);
       }
     }
+
+
     System.out.println(gridPaneSeats.getChildren().size());
   }
 
   @FXML private void confirmSeats()
   {
+    textSeats.clear();
 
+    for (int i = 0; i < myBooking.length; i++)
+    {
+      for (int j = 0; j < myBooking[i].length; j++)
+      {
+        if (myBooking[i][j] != null)
+          textSeats.appendText(myBooking[i][j] + "\n");
+      }
+
+     // }
+    }
   }
-
 
 }
