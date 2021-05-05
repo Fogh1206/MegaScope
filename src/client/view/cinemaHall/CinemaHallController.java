@@ -25,7 +25,6 @@ public class CinemaHallController
   @FXML private TextArea textSeats;
 
   private ArrayList<Rectangle> seats;
-
   private ArrayList<String> bookedSeats;
 
   public void init(CinemaHallViewModel cinemaHallViewModel, ViewHandler viewHandler)
@@ -56,25 +55,21 @@ public class CinemaHallController
         int finalI = row;
         int finalJ = column;
 
-        //rectangle.setOnMouseClicked(e-> System.out.println("Row =" + finalI + " Column = " + finalJ));
-
         rectangle.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
           @Override
           public void handle(MouseEvent t) {
-            // TODO
+
             System.out.println("Row =" + finalI + " Column = " + finalJ);
             rectangle.setFill(Color.GREEN);
-
+            textSeats.appendText("You chose seats: \n" + "Row: " + finalI + " \nSeat: " + finalJ + "\n");
           }
         });
         gridPaneSeats.add(rectangle,column,row);
-
       }
     }
     System.out.println(gridPaneSeats.getChildren().size());
   }
-
 
   @FXML private void confirmSeats()
   {
