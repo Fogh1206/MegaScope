@@ -113,7 +113,7 @@ public class FrontPageController
   {
     if (userLoggedIn != null)
     {
-      System.out.println(userLoggedIn.getUsername());
+      viewHandler.showFrontPage(null);
     }
     else
     {
