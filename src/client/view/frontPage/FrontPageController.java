@@ -24,6 +24,7 @@ import java.beans.PropertyChangeEvent;
 public class FrontPageController
 {
 
+  @FXML public TextField searchBar;
   @FXML private Button myProfileButton;
   @FXML private HBox UserHBox;
   @FXML private AnchorPane SearchBox;
@@ -74,10 +75,11 @@ public class FrontPageController
       SearchBox.setMinHeight(140);
       loginButton.setText("Log In");
     }
+
+    searchBar.textProperty()
+        .bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
     movieTableView.itemsProperty()
         .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
-
-
 
     movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     dateOfReleaseCol
@@ -118,8 +120,6 @@ public class FrontPageController
       viewHandler.openLoginView(userLoggedIn);
     }
   }
-
-
 
   public void onBookMovieButton()
   {
@@ -176,5 +176,10 @@ public class FrontPageController
       System.out.println(userLoggedIn.getId());
       viewHandler.showUserProfile(userLoggedIn);
     }
+  }
+
+  public void Search(ActionEvent actionEvent)
+  {
+    userFrontPageViewModel.search();
   }
 }
