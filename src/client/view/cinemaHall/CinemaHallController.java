@@ -89,7 +89,7 @@ public class CinemaHallController
     System.out.println(gridPaneSeats.getChildren().size());
   }
 
-  @FXML private void confirmSeats()
+  @FXML private void updateSeats()
   {
     textSeats.clear();
 
@@ -100,9 +100,13 @@ public class CinemaHallController
         if (myBooking[i][j] != null)
           textSeats.appendText(myBooking[i][j] + "\n");
       }
-
-     // }
     }
   }
 
+    @FXML private void confirmSeats () {
+
+    }
+
+
 }
+
