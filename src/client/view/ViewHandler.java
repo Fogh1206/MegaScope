@@ -9,14 +9,20 @@ import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
 import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import shared.Movie;
 import shared.NewRegisteredUser;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ViewHandler
 {
@@ -74,9 +80,6 @@ public void openAdminUsersPage(NewRegisteredUser userLoggedIn)
   {
     e.printStackTrace();
   }
-
-
-
 }
 
 

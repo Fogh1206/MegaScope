@@ -44,7 +44,7 @@
                 </HBox>
                 <HBox fx:id="adminContainer" alignment="CENTER" spacing="80.0">
                     <children>
-                        <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Add movie" textAlignment="CENTER" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#onAddMovie" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Add movie" textAlignment="CENTER" textFill="WHITE">
                             <effect>
                                 <Glow />
                             </effect>

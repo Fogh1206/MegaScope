@@ -1,5 +1,6 @@
 package client.model;
 
+import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.PropertyChangeSubject;
 
@@ -10,5 +11,6 @@ public interface UserModel extends PropertyChangeSubject {
     void getMovies();
     void saveNewInfo(NewRegisteredUser user);
     void getUsers();
+    void addMovie(Movie movie);
 
 }

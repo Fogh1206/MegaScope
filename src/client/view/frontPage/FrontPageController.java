@@ -24,6 +24,9 @@ import shared.NewRegisteredUser;
 
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class FrontPageController
 {
@@ -224,6 +227,7 @@ public class FrontPageController
   }
 
   public void onAddMovie(ActionEvent actionEvent){
+    userFrontPageViewModel.addMovie();
   }
 
   public void onEditMovie(ActionEvent actionEvent){

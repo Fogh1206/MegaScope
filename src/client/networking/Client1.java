@@ -1,5 +1,6 @@
 package client.networking;
 
+import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.Request;
 import shared.util.EventType;
@@ -82,9 +83,13 @@ public class Client1 implements Client
   {
     Request req = new Request(EventType.LOGIN_REQUEST, user);
     sendToServer(req, EventType.LOGIN_REQUEST);
-
   }
 
+  @Override public void addMovie(Movie movie){
+    Request request = new Request(EventType.ADDMOVIE_REQUEST, movie);
+    sendToServer(request, EventType.ADDMOVIE_REQUEST);
+
+  }
 
   @Override public void getMovies()
   {
