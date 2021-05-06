@@ -2,6 +2,8 @@ package client.viewmodel.user;
 
 import client.model.UserModel;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.NewRegisteredUser;
@@ -18,6 +20,7 @@ public class UserProfileViewModel
   private StringProperty currentLastname = new SimpleStringProperty();
   private StringProperty currentPhoneNumber = new SimpleStringProperty();
   private StringProperty currentUsertype = new SimpleStringProperty();
+  private BooleanProperty banned = new SimpleBooleanProperty();
 
   private StringProperty newFirstName = new SimpleStringProperty();
   private StringProperty newLastName = new SimpleStringProperty();
@@ -35,6 +38,12 @@ public class UserProfileViewModel
 
     model.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
         this::onSavedInfo);
+  }
+
+
+
+  public BooleanProperty bannedProperty() {
+    return banned;
   }
 
   private void onSavedInfo(PropertyChangeEvent event)
@@ -127,7 +136,7 @@ public class UserProfileViewModel
         System.out.println(5);
         NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
                 newFirstName.get(), newLastName.get(), newUsername.get(),
-                newPassword.get(), newPhoneNumber.get(), currentUsertype.get());
+                newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),banned.get());
         model.saveNewInfo(user);
         System.out.println(newUsername.get());
         updateCurrentInfo(user);
@@ -138,7 +147,7 @@ else {
       System.out.println("password dont match or you dont want to change the password");
       NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
               newFirstName.get(), newLastName.get(), newUsername.get(),
-              userLoggedIn.getPassword(), newPhoneNumber.get(), currentUsertype.get());
+              userLoggedIn.getPassword(), newPhoneNumber.get(), currentUsertype.get(),banned.get());
       model.saveNewInfo(user);
       System.out.println(newUsername.get());
       updateCurrentInfo(user);
