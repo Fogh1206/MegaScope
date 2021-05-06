@@ -11,9 +11,10 @@ public class NewRegisteredUser implements Serializable
   private String password;
   private String phoneNumber;
   private String userType;
+  private boolean banned;
 
   public NewRegisteredUser(int id, String firstName, String lastName,
-                           String username, String password, String phoneNumber, String userType)
+                           String username, String password, String phoneNumber, String userType,boolean banned)
   {
 
     this.id = id;
@@ -23,6 +24,7 @@ public class NewRegisteredUser implements Serializable
     this.password = password;
     this.phoneNumber = phoneNumber;
     this.userType = userType;
+    this.banned=banned;
   }
 
   public NewRegisteredUser(int id, String firstName, String lastName,
@@ -68,6 +70,10 @@ public class NewRegisteredUser implements Serializable
     this.phoneNumber = null;
   }
 
+  public boolean getBanned() {
+    return banned;
+  }
+
   public String getPhoneNumber()
   {
     return phoneNumber;
@@ -102,11 +108,21 @@ public class NewRegisteredUser implements Serializable
     return id;
   }
 
-  @Override public String toString()
-  {
-    return "NewRegisteredUser{" + "firstName='" + firstName + '\''
-        + ", lastName='" + lastName + '\'' + ", username='" + username + '\''
-        + ", password='" + password + '\'' + ", phoneNumber='" + phoneNumber + '\''
-        + ", role='" + userType + '}';
+  public void setBanned(boolean banned) {
+    this.banned = banned;
+  }
+
+  @Override
+  public String toString() {
+    return "NewRegisteredUser{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", userType='" + userType + '\'' +
+            ", banned='" + banned + '\'' +
+            '}';
   }
 }

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -53,8 +54,7 @@ public class FrontPageController
 
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
-
-  private Movie selectedMovie = null;
+  private Movie movie;
 
   private NewRegisteredUser userLoggedIn;
 
@@ -170,7 +170,6 @@ public class FrontPageController
             if (movieTableView.getSelectionModel().getSelectedItem() != null)
             {
               int index = movieTableView.getSelectionModel().getSelectedIndex();
-              selectedMovie = movieTableView.getItems().get(index);
 
               System.out.println(movieTableView.getItems().get(index));
             }
@@ -209,14 +208,32 @@ public class FrontPageController
     //    userFrontPageViewModel.onDatePick();
   }
 
+  public void onBookMovieButton(ActionEvent actionEvent)
+  {
+    viewHandler.showCinemaHallPage(userLoggedIn, movie);
+  }
+
+  public void setSelected(MouseEvent mouseEvent)
+  {
+    if (movieTableView.getSelectionModel().getSelectedItem() != null)
+    {
+      int index = movieTableView.getSelectionModel().getSelectedIndex();
+
+      System.out.println(movieTableView.getItems().get(index));
+
+      movie = movieTableView.getItems().get(index);
+    }
+
+  }
+
   public void onAddMovie(ActionEvent actionEvent){
 
     Stage popupWindow = new Stage();
     popupWindow.initModality(Modality.APPLICATION_MODAL);
 
 
-    if(selectedMovie != null){
-      userFrontPageViewModel.addMovie(selectedMovie);
+    if(movie != null){
+      userFrontPageViewModel.addMovie(movie);
     }
   }
 
@@ -227,8 +244,6 @@ public class FrontPageController
   public void onRemoveMovie(ActionEvent actionEvent){
 
   }
-
-
 
 
 

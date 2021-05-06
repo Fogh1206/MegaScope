@@ -23,6 +23,7 @@ public class AdminViewModelUsers {
     private PropertyChangeSupport support;
     private StringProperty searchPhrase;
 
+    private NewRegisteredUser selectedUser;
     public AdminViewModelUsers(UserModel userModel) {
         this.userModel = userModel;
         observableItems = new SimpleListProperty<>();
@@ -30,6 +31,7 @@ public class AdminViewModelUsers {
         items = new SimpleListProperty<>();
         userModel.addPropertyChangeListener("Users Result", this::onGetUsers);
         searchPhrase = new SimpleStringProperty();
+        selectedUser=null;
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
@@ -95,13 +97,21 @@ public class AdminViewModelUsers {
 
     public void manageUsers() {
 
+        boolean temp=true;
+        if (selectedUser!=null && !selectedUser.getBanned())
 
+        {
+           selectedUser.setBanned(true);
+        }
+        else selectedUser.setBanned(false);
 
 
     }
 
-  public void selectedUserToModel(NewRegisteredUser user)
+
+    public void selectedUserToModel(NewRegisteredUser user)
   {
       System.out.println("He im here "+user);
+      selectedUser=user;
   }
 }

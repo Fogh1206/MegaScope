@@ -102,7 +102,7 @@ public class ManageUserDAO implements UserDAO
             NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
                 resultSet.getString(2), resultSet.getString(3),
                 resultSet.getString(4), resultSet.getString(5),
-                resultSet.getString(6), resultSet.getString(7));
+                resultSet.getString(6), resultSet.getString(7),resultSet.getBoolean(8));
             user = temp;
             System.out.println(temp);
           }

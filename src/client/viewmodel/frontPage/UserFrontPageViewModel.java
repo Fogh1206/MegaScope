@@ -33,7 +33,8 @@ public class UserFrontPageViewModel
     this.model = model;
     support = new PropertyChangeSupport(this);
     username = new SimpleStringProperty();
-    datePicked = new SimpleObjectProperty();    button = new SimpleStringProperty();
+    datePicked = new SimpleObjectProperty();
+    button = new SimpleStringProperty();
     searchPhrase = new SimpleStringProperty();
     items = new SimpleListProperty<>();
     observableItems = new SimpleListProperty<>();
@@ -165,5 +166,4 @@ public class UserFrontPageViewModel
   public void removeMovie(Movie movie){
 
   }
-
 }
