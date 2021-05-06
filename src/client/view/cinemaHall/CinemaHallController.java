@@ -41,10 +41,12 @@ public class CinemaHallController
     this.user=user;
     this.movie = movie;
 
-
+    /*
     System.out.println(gridPaneSeats.getChildren().size());
     System.out.println(gridPaneSeats.getRowCount());
     System.out.println(gridPaneSeats.getColumnCount());
+
+     */
 
     for (int row = 0; row < gridPaneSeats.getRowCount(); row++)
     {
