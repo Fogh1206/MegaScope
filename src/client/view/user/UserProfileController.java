@@ -1,14 +1,12 @@
 package client.view.user;
 
 import client.view.ViewHandler;
-import client.viewmodel.frontPage.UserFrontPageViewModel;
 import client.viewmodel.user.UserProfileViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import shared.NewRegisteredUser;
-import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -36,7 +34,7 @@ public class UserProfileController
   {
     this.viewHandler = viewHandler;
     this.userProfileViewModel = userProfileViewModel;
-    this.userLoggedIn= userLoggedIn;
+    this.userLoggedIn = userLoggedIn;
     userCurrentUsernameLabel.textProperty()
         .bindBidirectional(userProfileViewModel.currentUsernameProperty());
     userCurrentFirstNameLabel.textProperty()
@@ -64,29 +62,31 @@ public class UserProfileController
 
     userProfileViewModel.updateCurrentInfo(userLoggedIn);
 
-    userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
+    userProfileViewModel
+        .addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
+            this::newSavedInfo);
   }
 
-  private void newSavedInfo(PropertyChangeEvent event) {
+  private void newSavedInfo(PropertyChangeEvent event)
+  {
 
     NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
     if (temp != null)
     {
-      userLoggedIn=temp;
+      userLoggedIn = temp;
       viewHandler.showUserProfile(temp);
     }
 
-
   }
 
-  public void saveButtonOnAction(ActionEvent event)
+  public void saveButtonOnAction()
   {
     System.out.println(1);
     userProfileViewModel.save(userLoggedIn);
     userProfileViewModel.defaultsValue();
   }
 
-  public void closeOnAction(ActionEvent event)
+  public void closeOnAction()
   {
 
     viewHandler.showFrontPage(userLoggedIn);

@@ -51,9 +51,7 @@ public class UserFrontPageViewModel
     observableList.addAll(list);
     System.out.println("Kappa " + observableList.size());
     observableItems.setValue(observableList);
-    System.out.println("LOLO " + observableItems.getValue().toString());
     items = FXCollections.observableArrayList(list);
-    //support.firePropertyChange("Update", null, null);
   }
 
   public StringProperty usernameProperty()
@@ -119,8 +117,6 @@ public class UserFrontPageViewModel
           .observableArrayList();
       for (int i = 0; i < observableItems.getValue().size(); i++)
       {
-        System.out.println(observableItems.getValue().get(i).getName());
-        System.out.println(searchPhrase.toString());
         if (observableItems.getValue().get(i).getName()
             .contains(searchPhrase.getValue()))
         {
@@ -156,16 +152,13 @@ public class UserFrontPageViewModel
 
       for (int i = 0; i < observableItems.getValue().size(); i++)
       {
-        System.out.println("C"+observableItems.getValue().get(i).getName());
-        System.out.println("D"+searchPhrase.toString());
         if (datePicked.get().toString()
             .equals(observableItems.getValue().get(i).getDateOfShow()))
         {
           observableList.add(observableItems.getValue().get(i));
         }
       }
-        observableItems.setValue(observableList);
-
+      observableItems.setValue(observableList);
     }
   }
 

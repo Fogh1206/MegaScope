@@ -3,9 +3,6 @@ package server.database;
 import shared.Movie;
 import shared.NewRegisteredUser;
 
-import shared.User;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.sql.*;
 import java.util.ArrayList;
 

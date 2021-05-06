@@ -3,15 +3,12 @@ package client.model;
 import client.networking.Client;
 import shared.Movie;
 import shared.NewRegisteredUser;
-import shared.User;
 import shared.util.EventType;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Model implements UserModel
 {
