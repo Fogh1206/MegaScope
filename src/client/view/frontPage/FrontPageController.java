@@ -7,8 +7,7 @@ import client.viewmodel.frontPage.UserFrontPageViewModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -53,6 +52,7 @@ public class FrontPageController
   private ViewHandler viewHandler;
 
   private NewRegisteredUser userLoggedIn;
+  private Movie movie;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
@@ -204,6 +204,21 @@ public class FrontPageController
     //    userFrontPageViewModel.onDatePick();
   }
 
+  public void onBookMovieButton(ActionEvent actionEvent)
+  {
+      viewHandler.showCinemaHallPage(userLoggedIn, movie);
+  }
 
+  public void setSelected(MouseEvent mouseEvent)
+  {
+    if (movieTableView.getSelectionModel().getSelectedItem() != null)
+    {
+      int index = movieTableView.getSelectionModel().getSelectedIndex();
 
+      System.out.println(movieTableView.getItems().get(index));
+
+      movie = movieTableView.getItems().get(index);
+    }
+
+  }
 }
