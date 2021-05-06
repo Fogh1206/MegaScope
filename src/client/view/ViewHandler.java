@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import shared.Movie;
 import shared.NewRegisteredUser;
 
 import java.io.IOException;
@@ -112,7 +113,7 @@ public class ViewHandler
     }
   }
 
-  public void showCinemaHallPage()
+  public void showCinemaHallPage(NewRegisteredUser user, Movie movie)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
@@ -120,7 +121,7 @@ public class ViewHandler
     {
       Parent root = loader.load();
       CinemaHallController ctrl = loader.getController();
-      ctrl.init(vmf.getCinemaHallPage(),this);
+      ctrl.init(vmf.getCinemaHallPage(),this, user, movie);
       mainStage.setTitle("Cinema Hall");
       Scene cinemaHallScene = new Scene(root);
       mainStage.setScene(cinemaHallScene);

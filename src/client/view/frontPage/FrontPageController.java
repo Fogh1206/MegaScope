@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,7 @@ import java.time.LocalDate;
 public class FrontPageController
 {
 
+  @FXML private Button BookButton;
   @FXML private TextField searchBar;
   @FXML private DatePicker datePick;
   @FXML private Button myProfileButton;
@@ -50,6 +52,7 @@ public class FrontPageController
   private ViewHandler viewHandler;
 
   private NewRegisteredUser userLoggedIn;
+  private Movie movie;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
@@ -114,13 +117,11 @@ public class FrontPageController
 
     userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
     movieTableView.setItems(userFrontPageViewModel.getItems());
-    setSelectedMovie();
-
   }
 
   private void update(PropertyChangeEvent event)
   {
-    System.out.println("Upadate Movies");
+    System.out.println("Update Movies");
     movieTableView.setItems(userFrontPageViewModel.getItems());
   }
 
@@ -139,49 +140,11 @@ public class FrontPageController
   public void onBookMovieButton()
   {
     viewHandler.showAdminUserPage(userLoggedIn);
-    //    if (dateOfReleaseCol.isVisible())
-    //    {
-    //      dateOfReleaseCol.setVisible(false);
-    //      movieTitleCol.setMaxWidth(150);
-    //      movieTableView.setMaxWidth(150);
-    //      Profile.setVisible(true);
-    //      Profile.setMaxWidth(550);
-    //      movieTableView.setItems(userFrontPageViewModel.getItems());
-    //    }
-    //    else
-    //    {
-    //      dateOfReleaseCol.setVisible(true);
-    //      movieTableView.setMaxWidth(600);
-    //      movieTitleCol.setMinWidth(300);
-    //      Profile.setVisible(false);
-    //      Profile.setMaxWidth(0);
-    //    }
-  }
-
-  /**
-   * Sets the selectedMovie.
-   */
-  private void setSelectedMovie()
-  {
-    movieTableView.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener()
-        {
-          public void changed(ObservableValue observableValue, Object oldValue,
-              Object newValue)
-          {
-            if (movieTableView.getSelectionModel().getSelectedItem() != null)
-            {
-              int index = movieTableView.getSelectionModel().getSelectedIndex();
-
-              System.out.println(movieTableView.getItems().get(index));
-            }
-          }
-        });
   }
 
   public void StupidAction(ActionEvent actionEvent)
   {
-    System.out.println("STupid");
+    System.out.println("Stupid");
   }
 
   @FXML public void goToMyProfile()
@@ -208,5 +171,24 @@ public class FrontPageController
       userFrontPageViewModel.getMovies();
     }
     //    userFrontPageViewModel.onDatePick();
+  }
+
+  public void setSelected(MouseEvent mouseEvent)
+  {
+    if (movieTableView.getSelectionModel().getSelectedItem() != null)
+    {
+      int index = movieTableView.getSelectionModel().getSelectedIndex();
+
+      System.out.println(movieTableView.getItems().get(index));
+      BookButton.setVisible(true);
+      BookButton
+          .setText("Book " + movieTableView.getItems().get(index).getName());
+      movie = movieTableView.getItems().get(index);
+    }
+  }
+
+  public void BookMovie(ActionEvent actionEvent)
+  {
+    viewHandler.showCinemaHallPage(userLoggedIn, movie);
   }
 }

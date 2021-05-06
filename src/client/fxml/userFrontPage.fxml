@@ -56,6 +56,8 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="80.0">
                     <children>
+                        <Button fx:id="BookButton" visible="false" mnemonicParsing="false"
+                                onAction="#BookMovie"/>
                         <Button disable="true" mnemonicParsing="false"
                                 prefWidth="100.0"
                                 style="-fx-background-color: #E96151;"
@@ -102,8 +104,8 @@
     </bottom>
     <left>
         <TableView fx:id="movieTableView" maxWidth="-Infinity"
-                   prefHeight="246.0" prefWidth="550.0"
-                   BorderPane.alignment="CENTER">
+                   onMouseClicked="#setSelected" prefHeight="246.0"
+                   prefWidth="550.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets left="25.0" right="25.0" top="10.0"/>
             </BorderPane.margin>

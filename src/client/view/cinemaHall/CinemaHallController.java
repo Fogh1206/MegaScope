@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
+import shared.Movie;
+import shared.NewRegisteredUser;
 
 import java.util.ArrayList;
 
@@ -26,13 +28,19 @@ public class CinemaHallController
   private CinemaHallViewModel cinemaHallViewModel;
   private UserModel userModel;
   private ViewHandler viewHandler;
+  private NewRegisteredUser user;
+  private Movie movie;
 
   String[][] myBooking = new String[4][6];
 
-  public void init(CinemaHallViewModel cinemaHallViewModel, ViewHandler viewHandler)
+  public void init(CinemaHallViewModel cinemaHallViewModel,
+      ViewHandler viewHandler, NewRegisteredUser user, Movie movie)
   {
     this.cinemaHallViewModel = cinemaHallViewModel;
     this.viewHandler = viewHandler;
+    this.user=user;
+    this.movie = movie;
+
 
     System.out.println(gridPaneSeats.getChildren().size());
     System.out.println(gridPaneSeats.getRowCount());
@@ -42,49 +50,50 @@ public class CinemaHallController
     {
       for (int column = 0; column < gridPaneSeats.getColumnCount(); column++)
       {
-       Rectangle rectangle = new Rectangle();
+        Rectangle rectangle = new Rectangle();
 
         rectangle.setWidth(70);
         rectangle.setHeight(60);
         //gridPaneSeats.setPadding(new Insets(0, 0, 0, 0));
 
-        if (row>2)
+        if (row > 2)
         {
           rectangle.setFill(Color.DARKSLATEBLUE);
         }
-        else if(row<=2)
+        else if (row <= 2)
         {
           rectangle.setFill(Color.GREEN);
         }
         int finalI = row;
         int finalJ = column;
 
-
         rectangle.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
-          @Override
-          public void handle(MouseEvent t) {
+          @Override public void handle(MouseEvent t)
+          {
 
             if (rectangle.getFill() == Color.RED)
             {
               rectangle.setFill(Color.GREEN);
               myBooking[finalI][finalJ] = null;
-            } else if (rectangle.getFill() == Color.GREEN)
+            }
+            else if (rectangle.getFill() == Color.GREEN)
             {
               rectangle.setFill(Color.RED);
-              myBooking[finalI][finalJ] = "Row[" + finalI + "] Seat[" + finalJ + "] Booked";
+              myBooking[finalI][finalJ] =
+                  "Row[" + finalI + "] Seat[" + finalJ + "] Booked";
             }
           }
         });
-        gridPaneSeats.add(rectangle,column,row);
+        gridPaneSeats.add(rectangle, column, row);
       }
     }
-
 
     System.out.println(gridPaneSeats.getChildren().size());
   }
 
-  @FXML private void updateSeats() {
+  @FXML private void updateSeats()
+  {
     textSeats.clear();
 
     for (int i = 0; i < myBooking.length; i++)
@@ -102,10 +111,10 @@ public class CinemaHallController
     viewHandler.showFrontPage(null);
   }
 
-    @FXML private void confirmSeats () {
+  @FXML private void confirmSeats()
+  {
 
-    }
-
+  }
 
 }
 
