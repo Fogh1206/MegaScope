@@ -127,4 +127,9 @@ public class NewRegisteredUser implements Serializable
             ", banned='" + banned + '\'' +
             '}';
   }
+
+  public void setPhoneNumber(String phoneNumber)
+  {
+    this.phoneNumber = phoneNumber;
+  }
 }

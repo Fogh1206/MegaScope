@@ -40,9 +40,8 @@ public class UserProfileViewModel
         this::onSavedInfo);
   }
 
-
-
-  public BooleanProperty bannedProperty() {
+  public BooleanProperty bannedProperty()
+  {
     return banned;
   }
 
@@ -87,7 +86,8 @@ public class UserProfileViewModel
     return currentPhoneNumber;
   }
 
-  public StringProperty currentUsertypeProperty() {
+  public StringProperty currentUsertypeProperty()
+  {
     return currentUsertype;
   }
 
@@ -126,28 +126,32 @@ public class UserProfileViewModel
   {
     System.out.println(3);
 
-    if ((newPassword.isNotEmpty()).getValue() && newPassword.get().equals(confirmPassword.get()) )
+    if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
+        .equals(confirmPassword.get()))
     {
 
-        System.out.println(newPassword);
+      System.out.println(newPassword);
 
-        System.out.println(confirmPassword);
+      System.out.println(confirmPassword);
 
-        System.out.println(5);
-        NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
-                newFirstName.get(), newLastName.get(), newUsername.get(),
-                newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),banned.get());
-        model.saveNewInfo(user);
-        System.out.println(newUsername.get());
-        updateCurrentInfo(user);
-
+      System.out.println(5);
+      NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+          newFirstName.get(), newLastName.get(), newUsername.get(),
+          newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
+          banned.get());
+      model.saveNewInfo(user);
+      System.out.println(newUsername.get());
+      updateCurrentInfo(user);
 
     }
-else {
-      System.out.println("password dont match or you dont want to change the password");
+    else
+    {
+      System.out.println(
+          "password dont match or you dont want to change the password");
       NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
-              newFirstName.get(), newLastName.get(), newUsername.get(),
-              userLoggedIn.getPassword(), newPhoneNumber.get(), currentUsertype.get(),banned.get());
+          newFirstName.get(), newLastName.get(), newUsername.get(),
+          userLoggedIn.getPassword(), newPhoneNumber.get(),
+          currentUsertype.get(), banned.get());
       model.saveNewInfo(user);
       System.out.println(newUsername.get());
       updateCurrentInfo(user);
@@ -157,12 +161,12 @@ else {
 
   public void defaultsValue()
   {
-//    newFirstName.setValue("");
-//    newLastName.setValue("");
-//    newUsername.setValue("");
-//    newPassword.setValue("");
-//    confirmPassword.setValue("");
-//    newPhoneNumber.setValue("");
+    //    newFirstName.setValue("");
+    //    newLastName.setValue("");
+    //    newUsername.setValue("");
+    //    newPassword.setValue("");
+    //    confirmPassword.setValue("");
+    //    newPhoneNumber.setValue("");
 
   }
 
@@ -191,9 +195,6 @@ else {
     newUsername.setValue(currentUsername.getValue());
 
     newPhoneNumber.setValue(currentPhoneNumber.getValue());
-
-
-
 
   }
 }

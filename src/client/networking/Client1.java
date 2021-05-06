@@ -65,9 +65,12 @@ public class Client1 implements Client
     }
   }
 
-  @Override
-  public void saveNewInfo(NewRegisteredUser user) {
+  @Override public void saveNewInfo(NewRegisteredUser user)
+  {
+    System.out.println("client"+user.toString());
     Request req = new Request(EventType.SAVENEWINFO_REQUEST, user);
+    NewRegisteredUser temp = (NewRegisteredUser) req.arg;
+    System.out.println("Temp "+temp.getBanned());
     sendToServer(req, EventType.SAVENEWINFO_RESULT);
     System.out.println("client");
   }
@@ -82,7 +85,8 @@ public class Client1 implements Client
   @Override public void login(NewRegisteredUser user)
   {
     Request req = new Request(EventType.LOGIN_REQUEST, user);
-    sendToServer(req, EventType.LOGIN_REQUEST);
+    sendToServer(req, EventType.LOGIN_RESULT);
+
   }
 
   @Override public void addMovie(Movie movie){
@@ -121,7 +125,7 @@ public class Client1 implements Client
 
   @Override public void receive(Request req)
   {
-    System.out.println("Received "+req.type.toString());
+    System.out.println("Received " + req.type.toString());
     support.firePropertyChange(req.type.toString(), null, req.arg);
   }
 
