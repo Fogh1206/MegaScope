@@ -97,7 +97,10 @@ public class CinemaHallController
     }
   }
 
-
+  public void frontPageButton()
+  {
+    viewHandler.showFrontPage(null);
+  }
 
     @FXML private void confirmSeats () {
 
