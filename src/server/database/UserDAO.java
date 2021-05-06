@@ -2,7 +2,6 @@ package server.database;
 
 import shared.Movie;
 import shared.NewRegisteredUser;
-import shared.User;
 
 import java.util.ArrayList;
 
