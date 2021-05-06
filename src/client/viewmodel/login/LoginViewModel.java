@@ -1,13 +1,11 @@
 package client.viewmodel.login;
 
 import client.model.UserModel;
-import client.view.ViewHandler;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.NewRegisteredUser;
-import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
