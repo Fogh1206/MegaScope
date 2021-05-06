@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="619.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.user.UserProfileController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.user.UserProfileController">
     <children>
-        <AnchorPane prefHeight="82.0" prefWidth="614.0" style="-fx-background-color: #E96151;">
+        <AnchorPane prefHeight="82.0" prefWidth="900.0" style="-fx-background-color: #E96151;">
             <children>
                 <Label layoutX="125.0" layoutY="27.0" text="Your profile" textFill="#fcf5f5">
                     <font>
@@ -31,13 +31,13 @@
         </AnchorPane>
 
 
-        <Button fx:id="saveButton" layoutX="330.0" layoutY="485.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: #E96151;" text="Save" textFill="#fcfafa">
+        <Button fx:id="saveButton" layoutX="599.0" layoutY="485.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: #E96151;" text="Save" textFill="#fcfafa">
             <font>
                 <Font size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="closeButton" layoutX="448.0" layoutY="485.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: #E96151;" text="Close" textFill="#fcfafa">
+        <Button fx:id="closeButton" layoutX="782.0" layoutY="485.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: #E96151;" text="Close" textFill="#fcfafa">
             <font>
                 <Font size="13.0" />
             </font>
@@ -102,7 +102,7 @@
             <Label fx:id="banned" />
             </children>
         </VBox>
-        <VBox layoutX="330.0" layoutY="130.0" prefHeight="275.0" prefWidth="277.0" style="-fx-border-color: black;">
+        <VBox layoutX="599.0" layoutY="129.0" prefHeight="275.0" prefWidth="277.0" style="-fx-border-color: black;">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Change information" textAlignment="CENTER" underline="true" wrappingWidth="268.9830722808838" />
                 <Label text="First Name">
@@ -143,7 +143,7 @@
                 <PasswordField fx:id="confirmPasswordField" prefHeight="18.0" prefWidth="275.0" promptText="Confirm Password" />
             </children>
         </VBox>
-        <CheckBox fx:id="vipCheckBox" layoutX="330.0" layoutY="433.0" mnemonicParsing="false" text="I want to be a VIP user" />
+        <CheckBox fx:id="vipCheckBox" layoutX="599.0" layoutY="435.0" mnemonicParsing="false" text="I want to be a VIP user" />
         <Label fx:id="userFrontName1" layoutX="10.0" layoutY="10.0" />
         <Label fx:id="userFrontName2" layoutX="10.0" layoutY="10.0" />
 

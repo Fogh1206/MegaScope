@@ -74,23 +74,6 @@ public class ViewHandler
     }
   }
 
-  //    public void showFrontPage() {
-  //        FXMLLoader loader = new FXMLLoader();
-  //        loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
-  //        try
-  //        {
-  //            Parent root = loader.load();
-  //            FrontPageController ctrl = loader.getController();
-  //            ctrl.init(vmf.getFrontPage(),this, null);
-  //            mainStage.setTitle("Front page");
-  //            Scene frontPageScene = new Scene(root);
-  //            mainStage.setScene(frontPageScene);
-  //        }
-  //        catch (IOException e)
-  //        {
-  //            e.printStackTrace();
-  //        }
-  //    }
 
   public void showFrontPage(NewRegisteredUser userLoggedIn)
   {
