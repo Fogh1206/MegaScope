@@ -7,15 +7,19 @@ import client.viewmodel.frontPage.UserFrontPageViewModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import shared.Movie;
 import shared.NewRegisteredUser;
 
@@ -50,9 +54,9 @@ public class FrontPageController
 
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
+  private Movie movie;
 
   private NewRegisteredUser userLoggedIn;
-  private Movie movie;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
@@ -206,7 +210,7 @@ public class FrontPageController
 
   public void onBookMovieButton(ActionEvent actionEvent)
   {
-      viewHandler.showCinemaHallPage(userLoggedIn, movie);
+    viewHandler.showCinemaHallPage(userLoggedIn, movie);
   }
 
 
@@ -222,4 +226,26 @@ public class FrontPageController
     }
 
   }
+
+  public void onAddMovie(ActionEvent actionEvent){
+
+    Stage popupWindow = new Stage();
+    popupWindow.initModality(Modality.APPLICATION_MODAL);
+
+
+    if(movie != null){
+      userFrontPageViewModel.addMovie(movie);
+    }
+  }
+
+  public void onEditMovie(ActionEvent actionEvent){
+
+  }
+
+  public void onRemoveMovie(ActionEvent actionEvent){
+
+  }
+
+
+
 }
