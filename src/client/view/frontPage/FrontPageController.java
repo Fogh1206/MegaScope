@@ -108,6 +108,7 @@ public class FrontPageController
 
     searchBar.textProperty()
         .bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
+
     movieTableView.itemsProperty()
         .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
 
@@ -189,11 +190,17 @@ public class FrontPageController
 
   public void Search(ActionEvent actionEvent)
   {
-    userFrontPageViewModel.search();
+    userFrontPageViewModel.getMovies();
+    //  userFrontPageViewModel.search();
   }
 
   public void onDatePick(ActionEvent actionEvent)
   {
-    userFrontPageViewModel.onDatePick();
+    if (datePick.getValue() != null)
+    {
+      System.out.println("Hey");
+      userFrontPageViewModel.getMovies();
+    }
+    //    userFrontPageViewModel.onDatePick();
   }
 }

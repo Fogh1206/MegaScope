@@ -205,7 +205,7 @@ public class ManageUserDAO implements UserDAO
     PreparedStatement statement = null;
     try (Connection connection = controller.getConnection())
     {
-      statement = connection.prepareStatement("SELECT * FROM public.users ");
+      statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='USER' or type='VIP'");
 
       ResultSet resultSet = statement.executeQuery();
 
