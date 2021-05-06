@@ -3,6 +3,7 @@ package client.networking;
 import shared.NewRegisteredUser;
 import shared.Request;
 import shared.util.EventType;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -64,13 +65,15 @@ public class Client1 implements Client
     }
   }
 
-  @Override
-  public void saveNewInfo(NewRegisteredUser user) {
+  @Override public void saveNewInfo(NewRegisteredUser user)
+  {
+    System.out.println("client"+user.toString());
     Request req = new Request(EventType.SAVENEWINFO_REQUEST, user);
+    NewRegisteredUser temp = (NewRegisteredUser) req.arg;
+    System.out.println("Temp "+temp.getBanned());
     sendToServer(req, EventType.SAVENEWINFO_RESULT);
     System.out.println("client");
   }
-
 
   @Override public void registerUser(NewRegisteredUser newUser)
   {
@@ -81,10 +84,9 @@ public class Client1 implements Client
   @Override public void login(NewRegisteredUser user)
   {
     Request req = new Request(EventType.LOGIN_REQUEST, user);
-    sendToServer(req, EventType.LOGIN_REQUEST);
+    sendToServer(req, EventType.LOGIN_RESULT);
 
   }
-
 
   @Override public void getMovies()
   {
@@ -106,9 +108,7 @@ public class Client1 implements Client
     support.removePropertyChangeListener(name, listener);
   }
 
-
-
-  /** Check if client is still running/online  */
+  /** Check if client is still running/online */
   @Override public boolean isRunning()
   {
     return running;
@@ -116,12 +116,12 @@ public class Client1 implements Client
 
   @Override public void receive(Request req)
   {
-    System.out.println("Received "+req.type.toString());
+    System.out.println("Received " + req.type.toString());
     support.firePropertyChange(req.type.toString(), null, req.arg);
   }
 
-  @Override
-  public void getUsers() {
+  @Override public void getUsers()
+  {
 
     Request req = new Request(EventType.GETUSER_REQUEST, null);
     sendToServer(req, EventType.GETUSER_RESULT);

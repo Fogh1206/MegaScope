@@ -29,11 +29,12 @@ public class Model implements UserModel
         this::onRegisterResult);
     client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
         this::onGetUserResult);
-    client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),this::onMoviesChanged);
-    client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),this::onMoviesChanged);
-    client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),this::onMoviesChanged);
-
-
+    client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),
+        this::onMoviesChanged);
+    client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),
+        this::onMoviesChanged);
+    client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),
+        this::onMoviesChanged);
 
   }
 
@@ -69,8 +70,9 @@ public class Model implements UserModel
     System.out.println(registerResult);
   }
 
-  private void onMoviesChanged(PropertyChangeEvent event){
-    support.firePropertyChange("Update",null,"Update");
+  private void onMoviesChanged(PropertyChangeEvent event)
+  {
+    support.firePropertyChange("Update", null, "Update");
   }
 
   @Override public void addPropertyChangeListener(String name,
