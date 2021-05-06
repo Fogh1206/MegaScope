@@ -18,6 +18,7 @@ public class UserProfileViewModel
   private StringProperty currentFirstname = new SimpleStringProperty();
   private StringProperty currentLastname = new SimpleStringProperty();
   private StringProperty currentPhoneNumber = new SimpleStringProperty();
+  private StringProperty currentUsertype = new SimpleStringProperty();
 
   private StringProperty newFirstName = new SimpleStringProperty();
   private StringProperty newLastName = new SimpleStringProperty();
@@ -78,6 +79,10 @@ public class UserProfileViewModel
     return currentPhoneNumber;
   }
 
+  public StringProperty currentUsertypeProperty() {
+    return currentUsertype;
+  }
+
   public StringProperty newFirstNameProperty()
   {
     return newFirstName;
@@ -123,7 +128,7 @@ public class UserProfileViewModel
         System.out.println(5);
         NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
                 newFirstName.get(), newLastName.get(), newUsername.get(),
-                newPassword.get(), newPhoneNumber.get());
+                newPassword.get(), newPhoneNumber.get(), currentUsertype.get());
         model.saveNewInfo(user);
         System.out.println(newUsername.get());
         updateCurrentInfo(user);
@@ -134,7 +139,7 @@ else {
       System.out.println("password dont match or you dont want to change the password");
       NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
               newFirstName.get(), newLastName.get(), newUsername.get(),
-              userLoggedIn.getPassword(), newPhoneNumber.get());
+              userLoggedIn.getPassword(), newPhoneNumber.get(), currentUsertype.get());
       model.saveNewInfo(user);
       System.out.println(newUsername.get());
       updateCurrentInfo(user);
@@ -169,6 +174,7 @@ else {
     currentLastname.setValue(userLoggedIn.getLastName());
     currentUsername.setValue(userLoggedIn.getUsername());
     currentPhoneNumber.setValue(userLoggedIn.getPhoneNumber());
+    currentUsertype.setValue(userLoggedIn.getUserType());
 
     newFirstName.setValue(currentFirstname.getValue());
 

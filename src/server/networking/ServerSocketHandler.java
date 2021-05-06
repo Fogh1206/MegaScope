@@ -87,14 +87,6 @@ public class ServerSocketHandler implements Runnable {
                     System.out.println(temp.getUsername());
                 }
 
-                if (request.type.equals(EventType.ADMIN_CHECK_REQUEST)){
-                    NewRegisteredUser user = (NewRegisteredUser) request.arg;
-                    boolean temp = userDAO.isAdmin(user.getId());
-                    Request response = new Request(EventType.ADMIN_CHECK_RESULT, temp);
-                    outToClient.writeObject(response);
-                }
-
-
                 if (request.type.equals(EventType.CLOSE_REQUEST)) {
                     System.out.println("Close requested");
                     Request response = new Request(EventType.CLOSE_RESULT, "Successful");

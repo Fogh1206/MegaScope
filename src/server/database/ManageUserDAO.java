@@ -63,29 +63,6 @@ public class ManageUserDAO implements UserDAO
 
   }
 
-  @Override
-  public boolean isAdmin(int id) {
-
-    PreparedStatement statement = null;
-
-    try (Connection connection = controller.getConnection()) {
-      statement = connection.prepareStatement(
-              "SELECT * FROM public.admins WHERE id ='" + id + "'");
-
-      ResultSet resultSet = statement.executeQuery();
-
-      while (resultSet.next()) {
-        if(resultSet.getInt(1) == id){
-          return true;
-        }
-      }
-
-    } catch (SQLException e){
-      e.printStackTrace();
-    }
-    return false;
-  }
-
 
   @Override public NewRegisteredUser validateUser(int id, String username,
       String password)
@@ -113,7 +90,7 @@ public class ManageUserDAO implements UserDAO
             NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
                 resultSet.getString(2), resultSet.getString(3),
                 resultSet.getString(4), resultSet.getString(5),
-                resultSet.getString(6));
+                resultSet.getString(6), resultSet.getString(7));
             user = temp;
             System.out.println(temp);
           }

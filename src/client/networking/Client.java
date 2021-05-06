@@ -12,10 +12,9 @@ public interface Client extends PropertyChangeSubject {
 
     void login(NewRegisteredUser user);
     void getMovies();
-void saveNewInfo(NewRegisteredUser user);
-  boolean isRunning();
-  void receive(Request req);
-  void deactivateClient();
-
+    void saveNewInfo(NewRegisteredUser user);
+    boolean isRunning();
+    void receive(Request req);
+    void deactivateClient();
     void getUsers();
 }

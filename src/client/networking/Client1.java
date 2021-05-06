@@ -88,6 +88,7 @@ public class Client1 implements Client
 
   }
 
+
   @Override public void getMovies()
   {
     System.out.println("Request getMovies");
