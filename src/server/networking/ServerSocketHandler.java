@@ -87,6 +87,18 @@ public class ServerSocketHandler implements Runnable {
                     System.out.println(temp.getUsername());
                 }
 
+                if(request.type.equals(EventType.ADDMOVIE_REQUEST)){
+
+                }
+
+                if(request.type.equals(EventType.EDITMOVIE_RESQUEST)){
+
+                }
+
+                if(request.type.equals(EventType.REMOVEMOVIE_REQUEST)){
+
+                }
+
                 if (request.type.equals(EventType.CLOSE_REQUEST)) {
                     System.out.println("Close requested");
                     Request response = new Request(EventType.CLOSE_RESULT, "Successful");
