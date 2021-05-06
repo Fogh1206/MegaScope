@@ -105,18 +105,9 @@ public class AdminViewModelUsers {
 
     public void manageUsers() {
 
-
-
-
-        if (selectedUser != null && !selectedUser.getBanned()) {
-
-            selectedUser.setBanned(true);
-
+        if (selectedUser != null) {
+            selectedUser.setBanned(!selectedUser.getBanned());
             userModel.saveNewInfo(selectedUser);
-        } else if (selectedUser != null){
-            selectedUser.setBanned(false);
-            userModel.saveNewInfo(selectedUser);
-
         }
 
 

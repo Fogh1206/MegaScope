@@ -64,7 +64,7 @@ public class AdminUsersPageController
     userTableView.setItems(adminViewModelUsers.getItems());
   }
 
-  public void onBanAction(javafx.event.ActionEvent event)
+  public void onBanAction(ActionEvent event)
   {
 
     adminViewModelUsers.manageUsers();

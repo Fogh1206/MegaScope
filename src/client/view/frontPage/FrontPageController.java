@@ -172,10 +172,6 @@ public class FrontPageController
         });
   }
 
-  public void StupidAction(ActionEvent actionEvent)
-  {
-    System.out.println("STupid");
-  }
 
   @FXML public void goToMyProfile()
   {
