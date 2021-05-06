@@ -37,6 +37,9 @@ public class FrontPageController
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
   @FXML private Button cinemaHallButton;
+  @FXML private Button manageUsersButton;
+
+  @FXML private HBox adminContainer;
 
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<Object, String> movieTitleCol;
@@ -55,6 +58,11 @@ public class FrontPageController
       NewRegisteredUser userLoggedIn)
   {
 
+    adminContainer.setVisible(false);
+    adminContainer.setDisable(true);
+    manageUsersButton.setVisible(false);
+    manageUsersButton.setDisable(true);
+
     this.userFrontPageViewModel = frontPage;
     userFrontPageViewModel.getMovies();
 
@@ -62,12 +70,20 @@ public class FrontPageController
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
     {
+      if(userLoggedIn.getUserType().equals("ADMIN")){
+        manageUsersButton.setVisible(true);
+        manageUsersButton.setDisable(false);
+        adminContainer.setVisible(true);
+        adminContainer.setDisable(false);
+      }
+
       SearchBox.setMinHeight(90);
       UserHBox.setMaxHeight(50);
       LabelHAHA.setVisible(true);
       myProfileButton.setVisible(true);
       LabelHAHA.setText("Logged in as " + userLoggedIn.getUsername());
       loginButton.setText("Log Out");
+
     }
     else
     {
@@ -133,28 +149,6 @@ public class FrontPageController
     {
       viewHandler.openLoginView(userLoggedIn);
     }
-  }
-
-  public void onBookMovieButton()
-  {
-    viewHandler.showAdminUserPage(userLoggedIn);
-    //    if (dateOfReleaseCol.isVisible())
-    //    {
-    //      dateOfReleaseCol.setVisible(false);
-    //      movieTitleCol.setMaxWidth(150);
-    //      movieTableView.setMaxWidth(150);
-    //      Profile.setVisible(true);
-    //      Profile.setMaxWidth(550);
-    //      movieTableView.setItems(userFrontPageViewModel.getItems());
-    //    }
-    //    else
-    //    {
-    //      dateOfReleaseCol.setVisible(true);
-    //      movieTableView.setMaxWidth(600);
-    //      movieTitleCol.setMinWidth(300);
-    //      Profile.setVisible(false);
-    //      Profile.setMaxWidth(0);
-    //    }
   }
 
   /**
