@@ -52,6 +52,23 @@ public class UserFrontPageViewModel
     System.out.println("Kappa " + observableList.size());
     observableItems.setValue(observableList);
     items = FXCollections.observableArrayList(list);
+    if (searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))
+    {
+      System.out.println("Please");
+    }
+    else
+    {
+      search();
+    }
+    System.out.println(datePicked.get());
+    if (datePicked.get() == null)
+    {
+      System.out.println("Please datePick");
+    }
+    else
+    {
+      onDatePick();
+    }
   }
 
   public StringProperty usernameProperty()
@@ -97,22 +114,6 @@ public class UserFrontPageViewModel
 
   public void search()
   {
-    if (searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))
-    {
-      System.out.println("Please");
-      getMovies();
-    }
-    else
-    {
-      try
-      {
-        getMovies();
-        Thread.sleep(500);
-      }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
-      }
       ObservableList<Movie> observableList = FXCollections
           .observableArrayList();
       for (int i = 0; i < observableItems.getValue().size(); i++)
@@ -124,42 +125,25 @@ public class UserFrontPageViewModel
         }
       }
       observableItems.setValue(observableList);
-    }
+
     searchPhrase.setValue(null);
   }
 
   public void onDatePick()
   {
-    System.out.println(datePicked.get().toString());
+    ObservableList<Movie> observableList = FXCollections.observableArrayList();
 
-    if (datePicked.get() == null)
+    for (int i = 0; i < observableItems.getValue().size(); i++)
     {
-      getMovies();
+      if (datePicked.get().toString()
+          .equals(observableItems.getValue().get(i).getDateOfShow()))
+      {
+        observableList.add(observableItems.getValue().get(i));
+      }
     }
-    else
-    {
-      try
-      {
-        getMovies();
-        Thread.sleep(1000);
-      }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
-      }
-      ObservableList<Movie> observableList = FXCollections
-          .observableArrayList();
+    observableItems.setValue(observableList);
 
-      for (int i = 0; i < observableItems.getValue().size(); i++)
-      {
-        if (datePicked.get().toString()
-            .equals(observableItems.getValue().get(i).getDateOfShow()))
-        {
-          observableList.add(observableItems.getValue().get(i));
-        }
-      }
-      observableItems.setValue(observableList);
-    }
+    datePicked.setValue(null);
   }
 
   public Property<LocalDate> getValue()
