@@ -6,6 +6,7 @@ import client.viewmodel.cinemaHall.CinemaHallViewModel;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -45,10 +46,11 @@ public class CinemaHallController
 
         rectangle.setWidth(70);
         rectangle.setHeight(60);
+        //gridPaneSeats.setPadding(new Insets(0, 0, 0, 0));
 
         if (row>2)
         {
-          rectangle.setFill(Color.GOLD);
+          rectangle.setFill(Color.DARKSLATEBLUE);
         }
         else if(row<=2)
         {
@@ -71,9 +73,7 @@ public class CinemaHallController
             {
               rectangle.setFill(Color.RED);
               myBooking[finalI][finalJ] = "Row[" + finalI + "] Seat[" + finalJ + "] Booked";
-
             }
-
           }
         });
         gridPaneSeats.add(rectangle,column,row);
