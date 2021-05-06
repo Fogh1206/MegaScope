@@ -2,6 +2,7 @@ package client.view;
 
 
 
+import client.view.Admin.AdminUsersPageController;
 import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
@@ -54,6 +55,30 @@ public class ViewHandler
       e.printStackTrace();
     }
   }
+
+public void openAdminUsersPage(NewRegisteredUser userLoggedIn)
+{
+
+  FXMLLoader loader = new FXMLLoader();
+  loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
+  try
+  {
+    Parent root = loader.load();
+    AdminUsersPageController ctrl = loader.getController();
+    ctrl.init(vmf.getUsersVM(), this,userLoggedIn);
+    mainStage.setTitle("Log in");
+    Scene loginScene = new Scene(root);
+    mainStage.setScene(loginScene);
+  }
+  catch (IOException e)
+  {
+    e.printStackTrace();
+  }
+
+
+
+}
+
 
   public void openRegisterView()
   {

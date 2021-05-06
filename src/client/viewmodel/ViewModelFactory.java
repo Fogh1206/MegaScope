@@ -1,6 +1,7 @@
 package client.viewmodel;
 
 import client.core.ModelFactory;
+import client.viewmodel.admin.AdminViewModelUsers;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 import client.viewmodel.login.LoginViewModel;
@@ -15,6 +16,7 @@ public class ViewModelFactory
   private UserFrontPageViewModel userFrontPageViewModel;
   private CinemaHallViewModel cinemaHallViewModel;
   private UserProfileViewModel userProfileViewModel;
+  private AdminViewModelUsers adminViewModelUsers;
 
   public ViewModelFactory(ModelFactory mf)
   {
@@ -30,6 +32,16 @@ public class ViewModelFactory
       registerViewModel = new RegisterViewModel(mf.getUserModel());
     }
     return registerViewModel;
+  }
+
+  public AdminViewModelUsers getUsersVM()
+  {
+
+    if (adminViewModelUsers == null)
+    {
+      adminViewModelUsers = new AdminViewModelUsers(mf.getUserModel());
+    }
+    return adminViewModelUsers;
   }
 
   public LoginViewModel getLoginViewModel()

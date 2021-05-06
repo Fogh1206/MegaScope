@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ import java.beans.PropertyChangeEvent;
 
 public class AdminUsersPageController
 {
+ @FXML private Button banButton;
   private AdminViewModelUsers adminViewModelUsers;
   private UserModel userModel;
   private ViewHandler viewHandler;
@@ -52,6 +54,7 @@ public class AdminUsersPageController
     adminViewModelUsers.addPropertyChangeListener("Update", this::update);
     userTableView.setItems(adminViewModelUsers.getItems());
 //    setSelectedUser();
+    banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
 
   }
 
@@ -66,6 +69,7 @@ public class AdminUsersPageController
 
     adminViewModelUsers.manageUsers();
 
+
   }
 
   public void onBackAction(javafx.event.ActionEvent event)
@@ -73,23 +77,7 @@ public class AdminUsersPageController
     viewHandler.showFrontPage(userLoggedIn);
   }
 
-//  private void setSelectedUser()
-//  {
-//    userTableView.getSelectionModel().selectedItemProperty()
-//        .addListener(new ChangeListener()
-//        {
-//          public void changed(ObservableValue observableValue, Object oldValue,
-//              Object newValue)
-//          {
-//            if (userTableView.getSelectionModel().getSelectedItem() != null)
-//            {
-//              int index = userTableView.getSelectionModel().getSelectedIndex();
-//
-//              System.out.println(userTableView.getItems().get(index));
-//            }
-//          }
-//        });
-//  }
+
 
   public void Search(ActionEvent event)
   {
@@ -98,9 +86,16 @@ public class AdminUsersPageController
 
   public void selectUser(MouseEvent mouseEvent)
   {
-    if (userTableView.getSelectionModel().getSelectedItem() != null)
+
+      if (userTableView.getSelectionModel().getSelectedItem() != null)
     {
-      int index = userTableView.getSelectionModel().getSelectedIndex();
+        int index = userTableView.getSelectionModel().getSelectedIndex();
+        if (userTableView.getItems().get(index).getBanned())
+        {
+            banButton.setText("Unban");
+        }
+        else banButton.setText("Ban");
+
 
       System.out.println("From new" + userTableView.getItems().get(index));
       adminViewModelUsers.selectedUserToModel(userTableView.getItems().get(index));

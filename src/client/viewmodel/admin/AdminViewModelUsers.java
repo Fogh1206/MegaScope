@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.Movie;
+
 import shared.NewRegisteredUser;
 
 import java.beans.PropertyChangeEvent;
@@ -22,8 +22,10 @@ public class AdminViewModelUsers {
     private ObservableList<NewRegisteredUser> items;
     private PropertyChangeSupport support;
     private StringProperty searchPhrase;
+    private StringProperty banButton=new SimpleStringProperty();
 
     private NewRegisteredUser selectedUser;
+
     public AdminViewModelUsers(UserModel userModel) {
         this.userModel = userModel;
         observableItems = new SimpleListProperty<>();
@@ -31,7 +33,8 @@ public class AdminViewModelUsers {
         items = new SimpleListProperty<>();
         userModel.addPropertyChangeListener("Users Result", this::onGetUsers);
         searchPhrase = new SimpleStringProperty();
-        selectedUser=null;
+        selectedUser = null;
+        banButton.setValue("Ban");
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
@@ -44,6 +47,11 @@ public class AdminViewModelUsers {
         items = FXCollections.observableArrayList(list);
     }
 
+
+
+    public StringProperty banButtonProperty() {
+        return banButton;
+    }
 
     public StringProperty searchPhraseProperty() {
         return searchPhrase;
@@ -97,21 +105,27 @@ public class AdminViewModelUsers {
 
     public void manageUsers() {
 
-        boolean temp=true;
-        if (selectedUser!=null && !selectedUser.getBanned())
 
-        {
-           selectedUser.setBanned(true);
+
+
+        if (selectedUser != null && !selectedUser.getBanned()) {
+
+            selectedUser.setBanned(true);
+
+            userModel.saveNewInfo(selectedUser);
+        } else if (selectedUser != null){
+            selectedUser.setBanned(false);
+            userModel.saveNewInfo(selectedUser);
+
         }
-        else selectedUser.setBanned(false);
 
 
     }
 
 
-    public void selectedUserToModel(NewRegisteredUser user)
-  {
-      System.out.println("He im here "+user);
-      selectedUser=user;
-  }
+    public void selectedUserToModel(NewRegisteredUser user) {
+        System.out.println("He im here " + user);
+        selectedUser = user;
+        System.out.println("           " + user.getBanned());
+    }
 }

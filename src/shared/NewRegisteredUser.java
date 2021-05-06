@@ -37,10 +37,11 @@ public class NewRegisteredUser implements Serializable
     this.username = username;
     this.password = password;
     this.phoneNumber = phoneNumber;
+
   }
 
   public NewRegisteredUser(String firstName, String lastName, String username,
-      String password, String phoneNumber)
+      String password, String phoneNumber,boolean banned)
   {
 
     this.id = 0;
@@ -49,6 +50,7 @@ public class NewRegisteredUser implements Serializable
     this.username = username;
     this.password = password;
     this.phoneNumber = phoneNumber;
+    this.banned=banned;
   }
 
   public NewRegisteredUser(String username,String firstName,String lastName)

@@ -225,6 +225,11 @@ public class FrontPageController
 
   }
 
+  public void onManageUsers(ActionEvent event) {
+    viewHandler.openAdminUsersPage(userLoggedIn);
+
+  }
+
   public void onAddMovie(ActionEvent actionEvent){
 
     Stage popupWindow = new Stage();

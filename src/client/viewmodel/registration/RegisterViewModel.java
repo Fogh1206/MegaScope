@@ -142,7 +142,7 @@ public class RegisterViewModel
 
     model.register(
         new NewRegisteredUser(firstName.get(), lastName.get(), username.get(),
-            password.get(), phoneNumber.get()));
+            password.get(), phoneNumber.get(),false));
     defaultFields();
 
   }

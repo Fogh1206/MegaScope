@@ -81,7 +81,7 @@ public class ServerSocketHandler implements Runnable {
                 if (request.type.equals(EventType.SAVENEWINFO_REQUEST)) {
                     NewRegisteredUser user = (NewRegisteredUser) request.arg;
                     NewRegisteredUser temp = userDAO.saveNewInfo(user.getId(), user.getFirstName(), user.getLastName(),
-                            user.getUsername(), user.getPassword(), user.getPhoneNumber());
+                            user.getUsername(), user.getPassword(), user.getPhoneNumber(),user.getBanned());
                     Request response = new Request(EventType.SAVENEWINFO_RESULT, temp);
                     outToClient.writeObject(response);
                     System.out.println(temp.getUsername());
