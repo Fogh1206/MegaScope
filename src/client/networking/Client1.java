@@ -2,13 +2,10 @@ package client.networking;
 
 import shared.NewRegisteredUser;
 import shared.Request;
-import shared.User;
 import shared.util.EventType;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 

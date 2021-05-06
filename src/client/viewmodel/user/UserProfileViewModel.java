@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.NewRegisteredUser;
-import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
