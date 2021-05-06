@@ -17,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import shared.Movie;
 import shared.NewRegisteredUser;
 
@@ -51,6 +53,8 @@ public class FrontPageController
 
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
+
+  private Movie selectedMovie = null;
 
   private NewRegisteredUser userLoggedIn;
 
@@ -166,6 +170,7 @@ public class FrontPageController
             if (movieTableView.getSelectionModel().getSelectedItem() != null)
             {
               int index = movieTableView.getSelectionModel().getSelectedIndex();
+              selectedMovie = movieTableView.getItems().get(index);
 
               System.out.println(movieTableView.getItems().get(index));
             }
@@ -203,6 +208,27 @@ public class FrontPageController
     }
     //    userFrontPageViewModel.onDatePick();
   }
+
+  public void onAddMovie(ActionEvent actionEvent){
+
+    Stage popupWindow = new Stage();
+    popupWindow.initModality(Modality.APPLICATION_MODAL);
+
+
+    if(selectedMovie != null){
+      userFrontPageViewModel.addMovie(selectedMovie);
+    }
+  }
+
+  public void onEditMovie(ActionEvent actionEvent){
+
+  }
+
+  public void onRemoveMovie(ActionEvent actionEvent){
+
+  }
+
+
 
 
 
