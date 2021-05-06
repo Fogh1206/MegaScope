@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class CinemaHallController
 {
   @FXML public GridPane gridPaneSeats;
+  @FXML private TextArea textSeats;
   private CinemaHallViewModel cinemaHallViewModel;
   private UserModel userModel;
   private ViewHandler viewHandler;
-  @FXML private TextArea textSeats;
 
   String[][] myBooking = new String[4][6];
 
@@ -67,17 +67,12 @@ public class CinemaHallController
             {
               rectangle.setFill(Color.GREEN);
               myBooking[finalI][finalJ] = null;
-              //System.out.println("---------------Booked" + finalI+"---" + finalJ);
             } else if (rectangle.getFill() == Color.GREEN)
             {
               rectangle.setFill(Color.RED);
               myBooking[finalI][finalJ] = "Row[" + finalI + "] Seat[" + finalJ + "] Booked";
-             // System.out.println("---------------Canceled" + finalI+"---" + finalJ);
 
             }
-            //textSeats.appendText(" \n" + "Row: " + finalI + " \nSeat: " + finalJ + "\n");
-
-         //   System.out.println(textSeats.getLength());
 
           }
         });
@@ -89,8 +84,7 @@ public class CinemaHallController
     System.out.println(gridPaneSeats.getChildren().size());
   }
 
-  @FXML private void updateSeats()
-  {
+  @FXML private void updateSeats() {
     textSeats.clear();
 
     for (int i = 0; i < myBooking.length; i++)
@@ -102,6 +96,8 @@ public class CinemaHallController
       }
     }
   }
+
+
 
     @FXML private void confirmSeats () {
 
