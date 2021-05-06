@@ -4,11 +4,11 @@ import client.networking.Client;
 import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.util.EventType;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-
 
 public class Model implements UserModel
 {
@@ -20,13 +20,10 @@ public class Model implements UserModel
   {
     this.client = client;
     support = new PropertyChangeSupport(this);
-    if (true)
-    {
-      System.out.println("Dodano");
+
       client.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(),
           this::onGetMoviesResult);
-      System.out.println("Skonczono dodawac");
-    }
+
 
     client.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
         this::onLoginResult);
@@ -35,32 +32,27 @@ public class Model implements UserModel
         this::onRegisterResult);
 
     client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
-            this::onGetUserResult);
+        this::onGetUserResult);
 
   }
 
-  private void onGetUserResult(PropertyChangeEvent event) {
-
-    ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event.getNewValue();
+  private void onGetUserResult(PropertyChangeEvent event)
+  {
+    ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event
+        .getNewValue();
     support.firePropertyChange("Users Result", null, list);
     System.out.println(list.get(0));
-
   }
 
-  @Override
-  public void getUsers() {
+  @Override public void getUsers()
+  {
     client.getUsers();
   }
 
   private void onGetMoviesResult(PropertyChangeEvent event)
   {
-
     ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
-
-
     support.firePropertyChange("Movie Result", null, list);
-
-
   }
 
   private void onLoginResult(PropertyChangeEvent event)
@@ -68,7 +60,6 @@ public class Model implements UserModel
     NewRegisteredUser loginResult = (NewRegisteredUser) event.getNewValue();
     support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
         loginResult);
-
   }
 
   private void onRegisterResult(PropertyChangeEvent event)
