@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -79,8 +80,6 @@ public class FrontPageController
         adminContainer.setDisable(false);
       }
 
-      SearchBox.setMinHeight(90);
-      UserHBox.setMaxHeight(50);
       LabelHAHA.setVisible(true);
       myProfileButton.setVisible(true);
       LabelHAHA.setText("Logged in as " + userLoggedIn.getUsername());
@@ -91,8 +90,6 @@ public class FrontPageController
     {
       LabelHAHA.setVisible(false);
       myProfileButton.setVisible(false);
-      UserHBox.setMaxHeight(1);
-      SearchBox.setMinHeight(140);
       loginButton.setText("Log In");
     }
 
@@ -231,22 +228,22 @@ public class FrontPageController
   }
 
   public void onAddMovie(ActionEvent actionEvent){
-
-    Stage popupWindow = new Stage();
-    popupWindow.initModality(Modality.APPLICATION_MODAL);
-
-
-    if(movie != null){
-      userFrontPageViewModel.addMovie(movie);
-    }
   }
 
   public void onEditMovie(ActionEvent actionEvent){
+    if(movie != null){
 
+    } else {
+
+    }
   }
 
   public void onRemoveMovie(ActionEvent actionEvent){
+    if(movie != null){
 
+    } else {
+
+    }
   }
 
 
