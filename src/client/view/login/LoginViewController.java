@@ -70,7 +70,6 @@ public class LoginViewController
       viewHandler.showFrontPage(temp);
       System.out.println("Second try");
     }
-
   }
 
   public NewRegisteredUser UserLoggedIn()
@@ -108,7 +107,7 @@ public class LoginViewController
 
   public void cinemaHallButton()
   {
-    viewHandler.showCinemaHallPage();
+
   }
 
 }
