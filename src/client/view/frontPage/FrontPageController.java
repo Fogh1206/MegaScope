@@ -209,6 +209,7 @@ public class FrontPageController
       viewHandler.showCinemaHallPage(userLoggedIn, movie);
   }
 
+
   public void setSelected(MouseEvent mouseEvent)
   {
     if (movieTableView.getSelectionModel().getSelectedItem() != null)

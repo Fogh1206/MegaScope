@@ -114,6 +114,7 @@ public class UserFrontPageViewModel
 
   public void search()
   {
+
       ObservableList<Movie> observableList = FXCollections
           .observableArrayList();
       for (int i = 0; i < observableItems.getValue().size(); i++)
