@@ -32,8 +32,6 @@ public class LoginViewModel
     support = new PropertyChangeSupport(this);
 
     model.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::onLogin);
-    model.addPropertyChangeListener(EventType.ADMIN_CHECK_RESULT.toString(), this::onAdminCheck);
-
   }
 
   private void onLogin(PropertyChangeEvent event)
@@ -48,7 +46,6 @@ public class LoginViewModel
     {
       Platform.runLater(() -> {
         loginResult.set("Correct password");
-        support.firePropertyChange(EventType.ADMIN_CHECK_REQUEST.toString(), null, event.getNewValue());
         support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
             event.getNewValue());
       });
@@ -61,7 +58,6 @@ public class LoginViewModel
     if((boolean) event.getNewValue() == true){
       System.out.println("\n\n\nADMIN\n\n\n");
     } else {
-      System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
     }
   }
 

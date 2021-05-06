@@ -11,5 +11,4 @@ public interface UserDAO {
     ArrayList<NewRegisteredUser> getAllUsers();
     ArrayList<Movie> getAllMovies();
     NewRegisteredUser saveNewInfo(int id,String firstName, String lastName, String username, String password,String phoneNumber);
-    boolean isAdmin(int id);
 }

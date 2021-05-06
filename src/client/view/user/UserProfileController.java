@@ -21,6 +21,7 @@ public class UserProfileController
   @FXML private Label userCurrentLastNameLabel;
   @FXML private Label userCurrentPhoneLabel;
   @FXML private Label userCurrentUsernameLabel;
+  @FXML private Label userCurrentUsertypeLabel;
   @FXML private TextField firstnameTextField;
   @FXML private TextField lastnameTextField;
   @FXML private TextField usernameTextField;
@@ -42,6 +43,10 @@ public class UserProfileController
         .bindBidirectional(userProfileViewModel.currentLastnameProperty());
     userCurrentPhoneLabel.textProperty()
         .bindBidirectional(userProfileViewModel.currentPhoneNumberProperty());
+
+    userCurrentUsertypeLabel.textProperty()
+            .bindBidirectional(userProfileViewModel.currentUsertypeProperty());
+
     firstnameTextField.textProperty()
         .bindBidirectional(userProfileViewModel.newFirstNameProperty());
     lastnameTextField.textProperty()

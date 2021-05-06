@@ -10,10 +10,10 @@ public class NewRegisteredUser implements Serializable
   private String username;
   private String password;
   private String phoneNumber;
-  private boolean isAdmin;
+  private String userType;
 
   public NewRegisteredUser(int id, String firstName, String lastName,
-                           String username, String password, String phoneNumber, boolean isAdmin)
+                           String username, String password, String phoneNumber, String userType)
   {
 
     this.id = id;
@@ -22,7 +22,7 @@ public class NewRegisteredUser implements Serializable
     this.username = username;
     this.password = password;
     this.phoneNumber = phoneNumber;
-    this.isAdmin = isAdmin;
+    this.userType = userType;
   }
 
   public NewRegisteredUser(int id, String firstName, String lastName,
@@ -93,6 +93,10 @@ public class NewRegisteredUser implements Serializable
     return password;
   }
 
+  public String getUserType() {
+    return userType;
+  }
+
   public int getId()
   {
     return id;
@@ -102,7 +106,7 @@ public class NewRegisteredUser implements Serializable
   {
     return "NewRegisteredUser{" + "firstName='" + firstName + '\''
         + ", lastName='" + lastName + '\'' + ", username='" + username + '\''
-        + ", password='" + password + '\'' + ", phoneNumber='" + phoneNumber
-        + '\'' + '}';
+        + ", password='" + password + '\'' + ", phoneNumber='" + phoneNumber + '\''
+        + ", role='" + userType + '}';
   }
 }

@@ -84,11 +84,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="24.0" layoutY="41.0" prefHeight="25.0" prefWidth="550.0" promptText="Search username">
+            <TextField fx:id="searchBar" layoutX="24.0" layoutY="37.0" prefHeight="33.0" prefWidth="479.0" promptText="Search username">
                <font>
                   <Font size="13.0" />
                </font>
             </TextField>
+            <Button layoutX="512.0" layoutY="41.0" mnemonicParsing="false" onAction="#Search" text="Search" />
          </children>
       </AnchorPane>
    </top>

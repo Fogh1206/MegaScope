@@ -34,6 +34,8 @@ public class Model implements UserModel
     client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
         this::onGetUserResult);
 
+
+
   }
 
   private void onGetUserResult(PropertyChangeEvent event)
@@ -98,7 +100,6 @@ public class Model implements UserModel
   {
     loggedUser = new NewRegisteredUser(username, password);
     client.login(loggedUser);
-
   }
 
   @Override public void deactivateClient()
