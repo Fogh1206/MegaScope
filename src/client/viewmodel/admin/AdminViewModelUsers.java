@@ -99,4 +99,9 @@ public class AdminViewModelUsers {
 
 
     }
+
+  public void selectedUserToModel(NewRegisteredUser user)
+  {
+      System.out.println("He im here "+user);
+  }
 }
