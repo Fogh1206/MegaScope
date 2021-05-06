@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,7 +26,6 @@ import java.time.LocalDate;
 public class FrontPageController
 {
 
-  @FXML private Button BookButton;
   @FXML private TextField searchBar;
   @FXML private DatePicker datePick;
   @FXML private Button myProfileButton;
@@ -39,6 +37,9 @@ public class FrontPageController
   @FXML private Label usernameLabel;
   @FXML private Button loginButton;
   @FXML private Button cinemaHallButton;
+  @FXML private Button manageUsersButton;
+
+  @FXML private HBox adminContainer;
 
   @FXML private TableView<Movie> movieTableView;
   @FXML private TableColumn<Object, String> movieTitleCol;
@@ -52,11 +53,15 @@ public class FrontPageController
   private ViewHandler viewHandler;
 
   private NewRegisteredUser userLoggedIn;
-  private Movie movie;
 
   public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
       NewRegisteredUser userLoggedIn)
   {
+
+    adminContainer.setVisible(false);
+    adminContainer.setDisable(true);
+    manageUsersButton.setVisible(false);
+    manageUsersButton.setDisable(true);
 
     this.userFrontPageViewModel = frontPage;
     userFrontPageViewModel.getMovies();
@@ -65,12 +70,20 @@ public class FrontPageController
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
     {
+      if(userLoggedIn.getUserType().equals("ADMIN")){
+        manageUsersButton.setVisible(true);
+        manageUsersButton.setDisable(false);
+        adminContainer.setVisible(true);
+        adminContainer.setDisable(false);
+      }
+
       SearchBox.setMinHeight(90);
       UserHBox.setMaxHeight(50);
       LabelHAHA.setVisible(true);
       myProfileButton.setVisible(true);
       LabelHAHA.setText("Logged in as " + userLoggedIn.getUsername());
       loginButton.setText("Log Out");
+
     }
     else
     {
@@ -117,11 +130,13 @@ public class FrontPageController
 
     userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
     movieTableView.setItems(userFrontPageViewModel.getItems());
+    setSelectedMovie();
+
   }
 
   private void update(PropertyChangeEvent event)
   {
-    System.out.println("Update Movies");
+    System.out.println("Upadate Movies");
     movieTableView.setItems(userFrontPageViewModel.getItems());
   }
 
@@ -137,14 +152,30 @@ public class FrontPageController
     }
   }
 
-  public void onBookMovieButton()
+  /**
+   * Sets the selectedMovie.
+   */
+  private void setSelectedMovie()
   {
-    viewHandler.showAdminUserPage(userLoggedIn);
+    movieTableView.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener()
+        {
+          public void changed(ObservableValue observableValue, Object oldValue,
+              Object newValue)
+          {
+            if (movieTableView.getSelectionModel().getSelectedItem() != null)
+            {
+              int index = movieTableView.getSelectionModel().getSelectedIndex();
+
+              System.out.println(movieTableView.getItems().get(index));
+            }
+          }
+        });
   }
 
   public void StupidAction(ActionEvent actionEvent)
   {
-    System.out.println("Stupid");
+    System.out.println("STupid");
   }
 
   @FXML public void goToMyProfile()
@@ -173,22 +204,6 @@ public class FrontPageController
     //    userFrontPageViewModel.onDatePick();
   }
 
-  public void setSelected(MouseEvent mouseEvent)
-  {
-    if (movieTableView.getSelectionModel().getSelectedItem() != null)
-    {
-      int index = movieTableView.getSelectionModel().getSelectedIndex();
 
-      System.out.println(movieTableView.getItems().get(index));
-      BookButton.setVisible(true);
-      BookButton
-          .setText("Book " + movieTableView.getItems().get(index).getName());
-      movie = movieTableView.getItems().get(index);
-    }
-  }
 
-  public void BookMovie(ActionEvent actionEvent)
-  {
-    viewHandler.showCinemaHallPage(userLoggedIn, movie);
-  }
 }

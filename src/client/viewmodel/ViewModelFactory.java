@@ -1,8 +1,6 @@
 package client.viewmodel;
 
 import client.core.ModelFactory;
-import client.viewmodel.admin.AdminViewModelMovie;
-import client.viewmodel.admin.AdminViewModelUsers;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 import client.viewmodel.login.LoginViewModel;
@@ -15,8 +13,6 @@ public class ViewModelFactory
   private RegisterViewModel registerViewModel;
   private ModelFactory mf;
   private UserFrontPageViewModel userFrontPageViewModel;
-  private AdminViewModelMovie adminViewModelMovie;
-  private AdminViewModelUsers adminViewModelUsers;
   private CinemaHallViewModel cinemaHallViewModel;
   private UserProfileViewModel userProfileViewModel;
 
@@ -53,24 +49,6 @@ public class ViewModelFactory
     }
 
     return userFrontPageViewModel;
-  }
-
-  public AdminViewModelMovie getAdminMoviePage()
-  {
-    if (adminViewModelMovie == null)
-    {
-      adminViewModelMovie = new AdminViewModelMovie(mf.getUserModel());
-    }
-    return adminViewModelMovie;
-  }
-
-  public AdminViewModelUsers getAdminViewModelUsers()
-  {
-    if (adminViewModelUsers == null)
-    {
-      adminViewModelUsers = new AdminViewModelUsers(mf.getUserModel());
-    }
-    return adminViewModelUsers;
   }
 
   public CinemaHallViewModel getCinemaHallPage()

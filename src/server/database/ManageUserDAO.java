@@ -60,6 +60,21 @@ public class ManageUserDAO implements UserDAO
 
   }
 
+  @Override
+  public void addMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
+
+  }
+
+  @Override
+  public void editMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
+
+  }
+
+  @Override
+  public void removeMovie(Movie movie) {
+
+  }
+
 
   @Override public NewRegisteredUser validateUser(int id, String username,
       String password)
@@ -195,6 +210,8 @@ public class ManageUserDAO implements UserDAO
 
     return movieList;
   }
+
+
 
   @Override public ArrayList<NewRegisteredUser> getAllUsers()
   {

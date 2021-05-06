@@ -2,8 +2,6 @@ package client.view;
 
 
 
-import client.view.Admin.AdminMoviePageController;
-import client.view.Admin.AdminUsersPageController;
 import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
@@ -125,45 +123,6 @@ public class ViewHandler
       mainStage.setTitle("Cinema Hall");
       Scene cinemaHallScene = new Scene(root);
       mainStage.setScene(cinemaHallScene);
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-  }
-
-
-  public void showAdminMoviePage()
-  {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("../fxml/adminMovies.fxml"));
-    try
-    {
-      Parent root = loader.load();
-      AdminMoviePageController ctrl = loader.getController();
-      ctrl.init(vmf.getAdminMoviePage(), this);
-      mainStage.setTitle("Movie management");
-      Scene scene = new Scene(root);
-      mainStage.setScene(scene);
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-  }
-
-  public void showAdminUserPage(NewRegisteredUser userLoggedIn)
-  {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
-    try
-    {
-      Parent root = loader.load();
-      AdminUsersPageController ctrl = loader.getController();
-      ctrl.init(vmf.getAdminViewModelUsers(), this,userLoggedIn);
-      mainStage.setTitle("User management");
-      Scene scene = new Scene(root);
-      mainStage.setScene(scene);
     }
     catch (IOException e)
     {
