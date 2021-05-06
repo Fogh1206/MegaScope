@@ -64,6 +64,9 @@ public class AdminUsersPageController {
 
 
     public void onBanAction(javafx.event.ActionEvent event) {
+
+        adminViewModelUsers.manageUsers();
+
     }
 
     public void onBackAction(javafx.event.ActionEvent event) {

@@ -92,4 +92,11 @@ public class AdminViewModelUsers {
     public void getUsers() {
         userModel.getUsers();
     }
+
+    public void manageUsers() {
+
+
+
+
+    }
 }
