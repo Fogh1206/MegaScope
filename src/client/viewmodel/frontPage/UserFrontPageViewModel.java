@@ -237,7 +237,7 @@ public class UserFrontPageViewModel
   public void removeMovie(){
     if (selectedMovie!=null)
     {
-
+      model.removeMovie(selectedMovie);
 
     }
 

@@ -13,5 +13,6 @@ public interface UserModel extends PropertyChangeSubject {
     void getUsers();
     void addMovie(Movie movie);
     void saveNewInfo(Movie movie);
+    void removeMovie(Movie movie);
 
 }

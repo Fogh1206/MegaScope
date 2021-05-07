@@ -80,12 +80,9 @@ public class ServerSocketHandler implements Runnable {
                 }
 
                 if (request.type.equals(EventType.SAVEMOVIEINFO_REQUEST)) {
-
                     Movie movie = (Movie) request.arg;
-
-                    Movie temp = userDAO.saveNewMovieInfo(movie.getId(), movie.getName(), movie.getDateOfRelease(), movie.getMainActors(), movie.getDescription(), movie.getTimeOfShow(), movie.getDateOfShow());
-
-                    Request response = new Request(EventType.SAVEMOVIEINFO_RESULT, temp);
+                    ArrayList<Movie> movies = userDAO.saveNewMovieInfo(movie.getId(), movie.getName(), movie.getDateOfRelease(), movie.getMainActors(), movie.getDescription(), movie.getTimeOfShow(), movie.getDateOfShow());
+                    Request response = new Request(EventType.SAVEMOVIEINFO_RESULT, movies);
                     outToClient.writeObject(response);
 
                 }
@@ -114,7 +111,12 @@ public class ServerSocketHandler implements Runnable {
 
                 if (request.type.equals(EventType.REMOVEMOVIE_REQUEST)) {
 
+                    Movie movie = (Movie) request.arg;
+                    ArrayList<Movie> movies = userDAO.removeMovie(movie);
 
+
+                    Request response = new Request(EventType.REMOVEMOVIE_RESULT, movies);
+                    outToClient.writeObject(response);
 
                 }
 

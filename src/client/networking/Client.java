@@ -17,4 +17,5 @@ public interface Client extends PropertyChangeSubject
   void getUsers();
   void addMovie(Movie movie);
   void saveMovieInfo(Movie movie);
+  void removeMovie(Movie movie);
 }
