@@ -50,6 +50,8 @@ public class Client1 implements Client
     }
   }
 
+
+
   @Override public void deactivateClient()
   {
     System.out.println("CLose please");
@@ -82,9 +84,9 @@ public class Client1 implements Client
   }
 
   @Override
-  public void saveMovieInfo(Movie movie) {
-    Request req=new Request(EventType.SAVEMOVIEINFO_REQUEST,movie);
-    sendToServer(req,EventType.SAVEMOVIEINFO_RESULT);
+  public void editMovie(Movie movie) {
+    Request req=new Request(EventType.EDITMOVIE_RESQUEST,movie);
+    sendToServer(req,EventType.EDITMOVIE_RESULT);
   }
 
   @Override public void registerUser(NewRegisteredUser newUser)

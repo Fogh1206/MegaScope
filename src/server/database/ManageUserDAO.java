@@ -62,7 +62,7 @@ public class ManageUserDAO implements UserDAO
   }
 
   @Override
-  public  ArrayList<Movie> saveNewMovieInfo(int id, String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
+  public  ArrayList<Movie> editMovie(int id, String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
 
     ArrayList<Movie> movieList = new ArrayList<>();
     try (Connection connection = controller.getConnection()) {
@@ -134,12 +134,6 @@ public class ManageUserDAO implements UserDAO
     return null;
   }
 
-  @Override public void editMovie(String name, String dateOfRelease,
-      String mainActors, String description, String timeOfShow,
-      String dateOfShow)
-  {
-
-  }
 
   @Override
   public ArrayList<Movie> removeMovie(Movie movie) {
