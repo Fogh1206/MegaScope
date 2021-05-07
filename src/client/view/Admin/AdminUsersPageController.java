@@ -86,7 +86,7 @@ public class AdminUsersPageController {
                 banButton.setText("Ban");
             }
             else banButton.setText("Unban");
-            System.out.println("From new" + userTableView.getItems().get(index));
+
             adminViewModelUsers
                     .selectedUserToModel(userTableView.getItems().get(index));
         }

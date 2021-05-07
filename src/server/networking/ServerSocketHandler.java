@@ -114,6 +114,8 @@ public class ServerSocketHandler implements Runnable {
 
                 if (request.type.equals(EventType.REMOVEMOVIE_REQUEST)) {
 
+
+
                 }
 
                 if (request.type.equals(EventType.CLOSE_REQUEST)) {
