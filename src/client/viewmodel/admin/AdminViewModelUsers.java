@@ -139,6 +139,7 @@ public class AdminViewModelUsers
 
   public void selectedUserToModel(NewRegisteredUser user)
   {
+
     System.out.println("He im here " + user);
     selectedUser = user;
     System.out.println("           " + user.getBanned());
