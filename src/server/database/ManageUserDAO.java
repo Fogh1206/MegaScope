@@ -95,10 +95,11 @@ public class ManageUserDAO implements UserDAO
 
   }
 
-  @Override public void addMovie(String name, String dateOfRelease,
+  @Override public ArrayList<Movie> addMovie(String name, String dateOfRelease,
                                  String mainActors, String description, String timeOfShow,
                                  String dateOfShow) {
 
+    ArrayList<Movie> movieList = new ArrayList<>();
     PreparedStatement statement = null;
 
     try (Connection connection = controller.getConnection()) {
@@ -110,11 +111,27 @@ public class ManageUserDAO implements UserDAO
                       + mainActors + "','" + description + "','"
                       + timeOfShow + "','" + dateOfShow + "')");
 
-      statement.executeQuery();
+      statement.executeUpdate();
+
+      statement = connection.prepareStatement("SELECT * FROM public.movies ");
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+
+        Movie temp = new Movie(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+                resultSet.getString(4), resultSet.getString(5),
+                resultSet.getString(6), resultSet.getString(7));
+
+        movieList.add(temp);
+      }
+      statement.close();
+      return movieList;
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return null;
   }
 
   @Override public void editMovie(String name, String dateOfRelease,

@@ -55,7 +55,7 @@ public class UserFrontPageViewModel
   public void onGetMovies(PropertyChangeEvent event)
   {
     List<Movie> list = (ArrayList<Movie>) event.getNewValue();
-
+    System.out.println(list);
     ObservableList<Movie> observableList = FXCollections.observableArrayList();
     observableList.addAll(list);
     System.out.println("Kappa " + observableList.size());

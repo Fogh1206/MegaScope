@@ -105,10 +105,11 @@ public class ServerSocketHandler implements Runnable {
 
                     Movie movie = (Movie) request.arg;
 
-                    userDAO.addMovie(
+                    ArrayList<Movie> movies = userDAO.addMovie(
                             movie.getName(), movie.getDateOfRelease(),movie.getMainActors(),
                             movie.getDescription(),movie.getTimeOfShow(),movie.getDateOfShow());
-                    Request response = new Request(EventType.ADDMOVIE_RESULT, EventType.ADDMOVIE_RESULT.toString());
+                    Request response = new Request(EventType.ADDMOVIE_RESULT, movies);
+                    System.out.println(movies);
                     outToClient.writeObject(response);
 
                 }
