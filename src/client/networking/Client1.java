@@ -83,11 +83,6 @@ public class Client1 implements Client
     sendToServer(req,EventType.REMOVEMOVIE_RESULT);
   }
 
-  @Override
-  public void editMovie(Movie movie) {
-    Request req=new Request(EventType.EDITMOVIE_RESQUEST,movie);
-    sendToServer(req,EventType.EDITMOVIE_RESULT);
-  }
 
   @Override public void registerUser(NewRegisteredUser newUser)
   {
@@ -105,6 +100,11 @@ public class Client1 implements Client
   @Override public void addMovie(Movie movie){
     Request request = new Request(EventType.ADDMOVIE_REQUEST, movie);
     sendToServer(request, EventType.ADDMOVIE_REQUEST);
+  }
+
+  @Override public void editMovie(Movie movie){
+    Request request = new Request(EventType.EDITMOVIE_RESQUEST, movie);
+    sendToServer(request, EventType.EDITMOVIE_RESQUEST);
   }
 
   @Override public void getMovies()
