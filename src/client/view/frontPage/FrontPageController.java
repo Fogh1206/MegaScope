@@ -247,8 +247,15 @@ public class FrontPageController
 
   public void onRemoveMovie(ActionEvent actionEvent){
     if(movie != null){
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Warning");
+      alert.setHeaderText("You are about to delete a movie from the database");
+      alert.setContentText("Are you sure you want to delete the movie [" + movie.getName() + "] from the movie database?");
 
-      userFrontPageViewModel.removeMovie();
+      Optional<ButtonType> result = alert.showAndWait();
+      if(result.get() == ButtonType.OK){
+        userFrontPageViewModel.removeMovie();
+      }
     } else {
       System.out.println("no movie");
     }

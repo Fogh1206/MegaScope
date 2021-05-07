@@ -26,63 +26,70 @@ import shared.NewRegisteredUser;
 import java.io.IOException;
 import java.util.Optional;
 
-public class ViewHandler
-{
+public class ViewHandler {
 
   private Stage mainStage;
   private ViewModelFactory vmf;
 
-  public ViewHandler(ViewModelFactory vmf)
-  {
+  public ViewHandler(ViewModelFactory vmf) {
     this.vmf = vmf;
     mainStage = new Stage();
   }
 
-  public void start()
-  {
+  public void start() {
     showFrontPage(null);
     mainStage.show();
     mainStage.setResizable(false);
   }
 
-  public void openLoginView(NewRegisteredUser userLoggedIn)
-  {
+  public void openLoginView(NewRegisteredUser userLoggedIn) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/Login.fxml"));
-    try
-    {
+    try {
       Parent root = loader.load();
       LoginViewController ctrl = loader.getController();
-      ctrl.init(vmf.getLoginViewModel(), this,userLoggedIn);
+      ctrl.init(vmf.getLoginViewModel(), this, userLoggedIn);
       mainStage.setTitle("Log in");
       Scene loginScene = new Scene(root);
       mainStage.setScene(loginScene);
-    }
-    catch (IOException e)
-    {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public void openAdminUsersPage(NewRegisteredUser userLoggedIn)
-  {
+  public void openAdminUsersPage(NewRegisteredUser userLoggedIn) {
 
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
-    try
-    {
+    try {
       Parent root = loader.load();
       AdminUsersPageController ctrl = loader.getController();
-      ctrl.init(vmf.getUsersVM(), this,userLoggedIn);
+      ctrl.init(vmf.getUsersVM(), this, userLoggedIn);
       mainStage.setTitle("Log in");
       Scene loginScene = new Scene(root);
       mainStage.setScene(loginScene);
-    }
-    catch (IOException e)
-    {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
+
+/*  public Alert openRemoveConfiramtion()
+
+  {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmation Dialog");
+    alert.setHeaderText("Look, a Confirmation Dialog");
+    alert.setContentText("Are you ok with this?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK){
+
+
+    } else {
+      alert.close();
+    }
+  }*/
 
   public Dialog<Movie> openAddMovieWindow(){
     Dialog<Movie> dialog = new Dialog<>();
@@ -211,7 +218,7 @@ public class ViewHandler
     dialog.setResultConverter(dialogButton -> {
       if(dialogButton == buttonType){
 
-        return new Movie(movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
+        return new Movie(movie.getId(),movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
                 movieMainActorsTextField.getText(), movieDescriptionTextField.getText(),
                 movieTimeOfShowTextField.getText(), movieDateOfShowTextField.getText());
       }

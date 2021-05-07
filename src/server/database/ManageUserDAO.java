@@ -70,9 +70,15 @@ public class ManageUserDAO implements UserDAO
               "UPDATE public.movies SET name='" + name + "',dateofrelease='"
                       + dateOfRelease + "',mainactors='" + mainActors + "',description='" + description
                       + "',timeofshow='" + timeOfShow + "',dateofshow='" + dateOfShow
-                      + "' where id=" + id + "");
+                      + " 'where id=" + id + "");
+
+
+
 
       statement.executeUpdate();
+
+      System.out.println("       "+ name);
+      System.out.println("          "+id);
       statement = connection.prepareStatement("SELECT * FROM public.movies ");
 
       ResultSet resultSet = statement.executeQuery();
@@ -83,6 +89,7 @@ public class ManageUserDAO implements UserDAO
                 resultSet.getString(4), resultSet.getString(5),
                 resultSet.getString(6), resultSet.getString(7));
 
+        System.out.println(temp);
         movieList.add(temp);
       }
       statement.close();
