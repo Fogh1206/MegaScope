@@ -170,6 +170,9 @@ public class UserFrontPageViewModel
   }
 
   public void editMovie(Movie movie){
+
+
+
     model.editMovie(movie);
   }
 

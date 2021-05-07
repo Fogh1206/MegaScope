@@ -14031,6 +14031,7 @@ UC/10
     </object-type>
     <table id="2758" parent="2699" name="movies">
       <ObjectId>836038</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>seitjdhj</Owner>
       <StateNumber>14560294</StateNumber>
     </table>

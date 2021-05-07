@@ -99,12 +99,13 @@ public class Client1 implements Client
 
   @Override public void addMovie(Movie movie){
     Request request = new Request(EventType.ADDMOVIE_REQUEST, movie);
-    sendToServer(request, EventType.ADDMOVIE_REQUEST);
+    sendToServer(request, EventType.ADDMOVIE_RESULT);
   }
 
   @Override public void editMovie(Movie movie){
     Request request = new Request(EventType.EDITMOVIE_RESQUEST, movie);
-    sendToServer(request, EventType.EDITMOVIE_RESQUEST);
+    sendToServer(request, EventType.EDITMOVIE_RESULT);
+    System.out.println("         L:ALALALLA             "+movie);
   }
 
   @Override public void getMovies()
