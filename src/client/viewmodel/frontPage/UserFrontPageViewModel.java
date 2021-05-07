@@ -33,7 +33,7 @@ public class UserFrontPageViewModel
   private ObjectProperty datePicked;
   private Property<ObservableList<Movie>> observableItems;
   private ObservableList<Movie> items;
-
+  private Movie selectedMovie;
   public UserFrontPageViewModel(UserModel model)
   {
     this.model = model;
@@ -234,7 +234,20 @@ public class UserFrontPageViewModel
 
   }
 
-  public void removeMovie(Movie movie){
+  public void removeMovie(){
+    if (selectedMovie!=null)
+    {
+      model.removeMovie(selectedMovie);
+
+    }
+
+
+
+
+  }
+  public void selectedMovie(Movie movie)
+  {
+    selectedMovie=movie;
 
   }
 }

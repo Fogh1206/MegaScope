@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -18,71 +19,76 @@ import shared.NewRegisteredUser;
 
 import java.beans.PropertyChangeEvent;
 
-public class AdminUsersPageController
-{
-  private AdminViewModelUsers adminViewModelUsers;
-  private UserModel userModel;
-  private ViewHandler viewHandler;
-  @FXML public TextField searchBar;
-  @FXML private TableView<NewRegisteredUser> userTableView;
-  @FXML private TableColumn<Object, String> usernameCol;
-  @FXML private TableColumn<Object, String> firstNameCol;
-  @FXML private TableColumn<Object, String> lastNameCol;
-  @FXML private TableColumn<Object, String> phoneNoCol;
+public class AdminUsersPageController {
+    private AdminViewModelUsers adminViewModelUsers;
+    private UserModel userModel;
+    private ViewHandler viewHandler;
+    @FXML
+    public TextField searchBar;
+    @FXML
+    private TableView<NewRegisteredUser> userTableView;
+    @FXML
+    private TableColumn<Object, String> usernameCol;
+    @FXML
+    private TableColumn<Object, String> firstNameCol;
+    @FXML
+    private TableColumn<Object, String> lastNameCol;
+    @FXML
+    private TableColumn<Object, String> phoneNoCol;
+    @FXML
+    private Button banButton;
+    private NewRegisteredUser userLoggedIn;
 
-  private NewRegisteredUser userLoggedIn;
+    public void init(AdminViewModelUsers adminViewModelUsers,
+                     ViewHandler viewHandler, NewRegisteredUser userLoggedIn) {
+        this.adminViewModelUsers = adminViewModelUsers;
+        this.viewHandler = viewHandler;
+        this.userLoggedIn = userLoggedIn;
+        adminViewModelUsers.getUsers();
+        userTableView.itemsProperty()
+                .bindBidirectional(adminViewModelUsers.observableItemsProperty());
+        usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-  public void init(AdminViewModelUsers adminViewModelUsers,
-      ViewHandler viewHandler, NewRegisteredUser userLoggedIn)
-  {
-    this.adminViewModelUsers = adminViewModelUsers;
-    this.viewHandler = viewHandler;
-    this.userLoggedIn = userLoggedIn;
-    adminViewModelUsers.getUsers();
-    userTableView.itemsProperty()
-        .bindBidirectional(adminViewModelUsers.observableItemsProperty());
-    usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-    firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-    lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-    phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        searchBar.textProperty()
+                .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
 
-    searchBar.textProperty()
-        .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
-
-    adminViewModelUsers.addPropertyChangeListener("Update", this::update);
-    userTableView.setItems(adminViewModelUsers.getItems());
-  }
-
-  private void update(PropertyChangeEvent event)
-  {
-    System.out.println("Upadate Users");
-    userTableView.setItems(adminViewModelUsers.getItems());
-  }
-
-  public void onBanAction(ActionEvent event)
-  {
-    adminViewModelUsers.manageUsers();
-  }
-
-  public void onBackAction(javafx.event.ActionEvent event)
-  {
-    viewHandler.showFrontPage(userLoggedIn);
-  }
-
-  public void Search(ActionEvent event)
-  {
-   // adminViewModelUsers.search();
-  }
-
-  public void selectUser(MouseEvent mouseEvent)
-  {
-    if (userTableView.getSelectionModel().getSelectedItem() != null)
-    {
-      int index = userTableView.getSelectionModel().getSelectedIndex();
-
-      System.out.println("From new" + userTableView.getItems().get(index));
-      adminViewModelUsers
-          .selectedUserToModel(userTableView.getItems().get(index));
+        adminViewModelUsers.addPropertyChangeListener("Update", this::update);
+        userTableView.setItems(adminViewModelUsers.getItems());
+        banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
     }
-  }
+
+    private void update(PropertyChangeEvent event) {
+        System.out.println("Upadate Users");
+        userTableView.setItems(adminViewModelUsers.getItems());
+    }
+
+    public void onBanAction(ActionEvent event) {
+        adminViewModelUsers.manageUsers();
+    }
+
+    public void onBackAction(javafx.event.ActionEvent event) {
+        viewHandler.showFrontPage(userLoggedIn);
+    }
+
+    public void Search(ActionEvent event) {
+        // adminViewModelUsers.search();
+    }
+
+    public void selectUser(MouseEvent mouseEvent) {
+
+        if (userTableView.getSelectionModel().getSelectedItem() != null) {
+            int index = userTableView.getSelectionModel().getSelectedIndex();
+            if ( !userTableView.getItems().get(index).getBanned())
+            {
+                banButton.setText("Ban");
+            }
+            else banButton.setText("Unban");
+
+            adminViewModelUsers
+                    .selectedUserToModel(userTableView.getItems().get(index));
+        }
+    }
 }

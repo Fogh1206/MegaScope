@@ -54,6 +54,7 @@ public class FrontPageController
   @FXML private TableColumn<Object, String> dateOfReleaseCol;
   @FXML private TableColumn<Object, String> descriptionCol;
 
+
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
   private Movie movie;
@@ -217,6 +218,7 @@ public class FrontPageController
       System.out.println(movieTableView.getItems().get(index));
 
       movie = movieTableView.getItems().get(index);
+      userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
     }
 
   }
@@ -241,10 +243,13 @@ public class FrontPageController
   public void onRemoveMovie(ActionEvent actionEvent){
     if(movie != null){
 
+      userFrontPageViewModel.removeMovie();
     } else {
-
+      System.out.println("no movie");
     }
   }
+
+
 
 
 
