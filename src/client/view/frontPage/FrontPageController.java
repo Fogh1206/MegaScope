@@ -24,6 +24,9 @@ import shared.NewRegisteredUser;
 
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class FrontPageController
 {
@@ -172,10 +175,6 @@ public class FrontPageController
         });
   }
 
-  public void StupidAction(ActionEvent actionEvent)
-  {
-    System.out.println("STupid");
-  }
 
   @FXML public void goToMyProfile()
   {
@@ -222,7 +221,13 @@ public class FrontPageController
 
   }
 
+  public void onManageUsers(ActionEvent event) {
+    viewHandler.openAdminUsersPage(userLoggedIn);
+
+  }
+
   public void onAddMovie(ActionEvent actionEvent){
+    userFrontPageViewModel.addMovie();
   }
 
   public void onEditMovie(ActionEvent actionEvent){

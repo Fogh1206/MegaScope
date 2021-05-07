@@ -2,20 +2,27 @@ package client.view;
 
 
 
+import client.view.Admin.AdminUsersPageController;
 import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.registration.RegisterController;
 import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import shared.Movie;
 import shared.NewRegisteredUser;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ViewHandler
 {
@@ -54,6 +61,27 @@ public class ViewHandler
       e.printStackTrace();
     }
   }
+
+public void openAdminUsersPage(NewRegisteredUser userLoggedIn)
+{
+
+  FXMLLoader loader = new FXMLLoader();
+  loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
+  try
+  {
+    Parent root = loader.load();
+    AdminUsersPageController ctrl = loader.getController();
+    ctrl.init(vmf.getUsersVM(), this,userLoggedIn);
+    mainStage.setTitle("Log in");
+    Scene loginScene = new Scene(root);
+    mainStage.setScene(loginScene);
+  }
+  catch (IOException e)
+  {
+    e.printStackTrace();
+  }
+}
+
 
   public void openRegisterView()
   {

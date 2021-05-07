@@ -35,7 +35,8 @@ public class ManageUserDAO implements UserDAO
   }
 
   @Override public NewRegisteredUser saveNewInfo(int id, String firstName,
-      String lastName, String username, String password, String phoneNumber)
+      String lastName, String username, String password, String phoneNumber,
+      boolean banned)
   {
 
     try (Connection connection = controller.getConnection())
@@ -43,14 +44,14 @@ public class ManageUserDAO implements UserDAO
       PreparedStatement statement = connection.prepareStatement(
           "UPDATE public.users SET firstname='" + firstName + "',lastname='"
               + lastName + "',username='" + username + "',password='" + password
-              + "',phonenumber='" + phoneNumber + "' where id=" + id + "");
+              + "',phonenumber='" + phoneNumber + "',banned='" + banned
+              + "' where id=" + id + "");
 
-      System.out.println(statement);
       statement.executeUpdate();
       statement.close();
-      System.out.println(username);
+      System.out.println("Empty"+username + "               " + banned);
       return new NewRegisteredUser(firstName, lastName, username, password,
-          phoneNumber);
+          phoneNumber, banned);
     }
     catch (SQLException throwables)
     {
@@ -60,21 +61,24 @@ public class ManageUserDAO implements UserDAO
 
   }
 
-  @Override
-  public void addMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
+  @Override public void addMovie(String name, String dateOfRelease,
+      String mainActors, String description, String timeOfShow,
+      String dateOfShow)
+  {
 
   }
 
-  @Override
-  public void editMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
+  @Override public void editMovie(String name, String dateOfRelease,
+      String mainActors, String description, String timeOfShow,
+      String dateOfShow)
+  {
 
   }
 
-  @Override
-  public void removeMovie(Movie movie) {
+  @Override public void removeMovie(Movie movie)
+  {
 
   }
-
 
   @Override public NewRegisteredUser validateUser(int id, String username,
       String password)
@@ -84,7 +88,8 @@ public class ManageUserDAO implements UserDAO
     try (Connection connection = controller.getConnection())
     {
       statement = connection.prepareStatement(
-          "SELECT password FROM public.users WHERE username='" + username + "'");
+          "SELECT password FROM public.users WHERE username='" + username
+              + "'");
 
       ResultSet resultSet = statement.executeQuery();
 
@@ -102,7 +107,8 @@ public class ManageUserDAO implements UserDAO
             NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
                 resultSet.getString(2), resultSet.getString(3),
                 resultSet.getString(4), resultSet.getString(5),
-                resultSet.getString(6), resultSet.getString(7),resultSet.getBoolean(8));
+                resultSet.getString(6), resultSet.getString(7),
+                resultSet.getBoolean(8));
             user = temp;
             System.out.println(temp);
           }
@@ -125,8 +131,6 @@ public class ManageUserDAO implements UserDAO
     }
     return user;
   }
-
-
 
   @Override public NewRegisteredUser createUser(String firstName,
       String lastName, String username, String password, String phoneNumber)
@@ -211,27 +215,27 @@ public class ManageUserDAO implements UserDAO
     return movieList;
   }
 
-
-
   @Override public ArrayList<NewRegisteredUser> getAllUsers()
   {
-
 
     ArrayList<NewRegisteredUser> userList = new ArrayList<>();
 
     PreparedStatement statement = null;
     try (Connection connection = controller.getConnection())
     {
-      statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='USER' or type='VIP'");
+      statement = connection.prepareStatement(
+          "SELECT * FROM public.users WHERE type ='USER' or type='VIP'");
 
       ResultSet resultSet = statement.executeQuery();
 
       while (resultSet.next())
       {
 
-        NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),resultSet.getString(2),
-                resultSet.getString(3), resultSet.getString(4),
-                resultSet.getString(5), resultSet.getString(6));
+        NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
+            resultSet.getString(2), resultSet.getString(3),
+            resultSet.getString(4), resultSet.getString(5),
+            resultSet.getString(6), resultSet.getString(7),
+            resultSet.getBoolean(8));
 
         userList.add(temp);
       }

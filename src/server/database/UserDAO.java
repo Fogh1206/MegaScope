@@ -10,7 +10,7 @@ public interface UserDAO {
     NewRegisteredUser createUser( String firstName, String lastName, String username, String password,String phoneNumber);
     ArrayList<NewRegisteredUser> getAllUsers();
     ArrayList<Movie> getAllMovies();
-    NewRegisteredUser saveNewInfo(int id,String firstName, String lastName, String username, String password,String phoneNumber);
+    NewRegisteredUser saveNewInfo(int id,String firstName, String lastName, String username, String password,String phoneNumber,boolean banned);
     void addMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow);
     void editMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow);
     void removeMovie(Movie movie);

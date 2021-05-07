@@ -3,6 +3,7 @@ package client.model;
 import client.networking.Client;
 import shared.Movie;
 import shared.NewRegisteredUser;
+import shared.Request;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -29,11 +30,12 @@ public class Model implements UserModel
         this::onRegisterResult);
     client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
         this::onGetUserResult);
-    client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),this::onMoviesChanged);
-    client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),this::onMoviesChanged);
-    client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),this::onMoviesChanged);
-
-
+    client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),
+        this::onMoviesChanged);
+    client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),
+        this::onMoviesChanged);
+    client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),
+        this::onMoviesChanged);
 
   }
 
@@ -48,6 +50,11 @@ public class Model implements UserModel
   @Override public void getUsers()
   {
     client.getUsers();
+  }
+
+  @Override
+  public void addMovie(Movie movie) {
+    client.addMovie(movie);
   }
 
   private void onGetMoviesResult(PropertyChangeEvent event)
@@ -69,8 +76,9 @@ public class Model implements UserModel
     System.out.println(registerResult);
   }
 
-  private void onMoviesChanged(PropertyChangeEvent event){
-    support.firePropertyChange("Update",null,"Update");
+  private void onMoviesChanged(PropertyChangeEvent event)
+  {
+    support.firePropertyChange("Update", null, "Update");
   }
 
   @Override public void addPropertyChangeListener(String name,
@@ -89,6 +97,8 @@ public class Model implements UserModel
   {
     client.saveNewInfo(user);
   }
+
+
 
   @Override public void register(NewRegisteredUser user)
   {

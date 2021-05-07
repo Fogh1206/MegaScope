@@ -51,8 +51,6 @@ public class AdminUsersPageController
 
     adminViewModelUsers.addPropertyChangeListener("Update", this::update);
     userTableView.setItems(adminViewModelUsers.getItems());
-//    setSelectedUser();
-
   }
 
   private void update(PropertyChangeEvent event)
@@ -61,11 +59,9 @@ public class AdminUsersPageController
     userTableView.setItems(adminViewModelUsers.getItems());
   }
 
-  public void onBanAction(javafx.event.ActionEvent event)
+  public void onBanAction(ActionEvent event)
   {
-
     adminViewModelUsers.manageUsers();
-
   }
 
   public void onBackAction(javafx.event.ActionEvent event)
@@ -73,27 +69,9 @@ public class AdminUsersPageController
     viewHandler.showFrontPage(userLoggedIn);
   }
 
-//  private void setSelectedUser()
-//  {
-//    userTableView.getSelectionModel().selectedItemProperty()
-//        .addListener(new ChangeListener()
-//        {
-//          public void changed(ObservableValue observableValue, Object oldValue,
-//              Object newValue)
-//          {
-//            if (userTableView.getSelectionModel().getSelectedItem() != null)
-//            {
-//              int index = userTableView.getSelectionModel().getSelectedIndex();
-//
-//              System.out.println(userTableView.getItems().get(index));
-//            }
-//          }
-//        });
-//  }
-
   public void Search(ActionEvent event)
   {
-    adminViewModelUsers.search();
+   // adminViewModelUsers.search();
   }
 
   public void selectUser(MouseEvent mouseEvent)
@@ -103,7 +81,8 @@ public class AdminUsersPageController
       int index = userTableView.getSelectionModel().getSelectedIndex();
 
       System.out.println("From new" + userTableView.getItems().get(index));
-      adminViewModelUsers.selectedUserToModel(userTableView.getItems().get(index));
+      adminViewModelUsers
+          .selectedUserToModel(userTableView.getItems().get(index));
     }
   }
 }
