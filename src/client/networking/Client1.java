@@ -75,6 +75,12 @@ public class Client1 implements Client
     System.out.println("client");
   }
 
+  @Override
+  public void saveMovieInfo(Movie movie) {
+    Request req=new Request(EventType.SAVEMOVIEINFO_REQUEST,movie);
+    Movie temp=(Movie)req.arg;
+    sendToServer(req,EventType.SAVEMOVIEINFO_RESULT);
+  }
 
   @Override public void registerUser(NewRegisteredUser newUser)
   {

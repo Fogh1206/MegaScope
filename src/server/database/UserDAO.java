@@ -14,4 +14,5 @@ public interface UserDAO {
     void addMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow);
     void editMovie(String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow);
     void removeMovie(Movie movie);
+    Movie saveNewMovieInfo(int id,String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow);
 }

@@ -236,5 +236,7 @@ public class UserFrontPageViewModel
 
   public void removeMovie(Movie movie){
 
+
+
   }
 }

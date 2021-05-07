@@ -12,5 +12,6 @@ public interface UserModel extends PropertyChangeSubject {
     void saveNewInfo(NewRegisteredUser user);
     void getUsers();
     void addMovie(Movie movie);
+    void saveNewInfo(Movie movie);
 
 }

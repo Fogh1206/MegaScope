@@ -10,7 +10,7 @@ public class Movie implements Serializable
   private String description;
   private String timeOfShow;
   private String dateOfShow;
-
+private int id;
   public Movie(String name, String dateOfRelease, String mainActors,
       String description, String timeOfShow, String dateOfShow)
   {
@@ -20,6 +20,21 @@ public class Movie implements Serializable
     this.description = description;
     this.timeOfShow = timeOfShow;
     this.dateOfShow = dateOfShow;
+  }
+  public Movie(int id,String name, String dateOfRelease, String mainActors,
+               String description, String timeOfShow, String dateOfShow)
+  {
+    this.id=id;
+    this.name = name;
+    this.dateOfRelease = dateOfRelease;
+    this.mainActors = mainActors;
+    this.description = description;
+    this.timeOfShow = timeOfShow;
+    this.dateOfShow = dateOfShow;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public String getName()
