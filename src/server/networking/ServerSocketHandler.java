@@ -106,6 +106,14 @@ public class ServerSocketHandler implements Runnable {
 
                 if (request.type.equals(EventType.ADDMOVIE_REQUEST)) {
 
+                    Movie movie = (Movie) request.arg;
+
+                    userDAO.addMovie(
+                            movie.getName(), movie.getDateOfRelease(),movie.getMainActors(),
+                            movie.getDescription(),movie.getTimeOfShow(),movie.getDateOfShow());
+                    Request response = new Request(EventType.ADDMOVIE_RESULT, EventType.ADDMOVIE_RESULT.toString());
+                    outToClient.writeObject(response);
+
                 }
 
                 if (request.type.equals(EventType.EDITMOVIE_RESQUEST)) {

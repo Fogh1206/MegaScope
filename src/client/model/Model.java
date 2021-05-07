@@ -51,6 +51,7 @@ public class Model implements UserModel {
 
     @Override
     public void addMovie(Movie movie) {
+        System.out.println("Added movie : " + movie.toString());
         client.addMovie(movie);
     }
 

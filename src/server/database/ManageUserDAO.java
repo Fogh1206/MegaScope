@@ -87,12 +87,27 @@ public class ManageUserDAO implements UserDAO
 
   @Override public void addMovie(String name, String dateOfRelease,
                                  String mainActors, String description, String timeOfShow,
-                                 String dateOfShow)
-  {
+                                 String dateOfShow) {
 
+    PreparedStatement statement = null;
+
+    try (Connection connection = controller.getConnection()) {
+
+      statement = connection.prepareStatement(
+              "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description, timeofshow, dateofshow)" +
+                      "VALUES (" + "DEFAULT" + ",'"
+                      + name + "','" + dateOfRelease + "','"
+                      + mainActors + "','" + description + "','"
+                      + timeOfShow + "','" + dateOfShow + "')");
+
+      statement.executeQuery();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Override public void editMovie(String name, String dateOfRelease,
+    @Override public void editMovie(String name, String dateOfRelease,
       String mainActors, String description, String timeOfShow,
       String dateOfShow)
   {
