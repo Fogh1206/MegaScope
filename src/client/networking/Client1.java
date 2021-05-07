@@ -105,6 +105,11 @@ public class Client1 implements Client
     sendToServer(request, EventType.ADDMOVIE_REQUEST);
   }
 
+  @Override public void editMovie(Movie movie){
+    Request request = new Request(EventType.EDITMOVIE_RESQUEST, movie);
+    sendToServer(request, EventType.EDITMOVIE_RESQUEST);
+  }
+
   @Override public void getMovies()
   {
     System.out.println("Request getMovies");

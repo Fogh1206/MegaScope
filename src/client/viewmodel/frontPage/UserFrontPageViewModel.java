@@ -80,13 +80,6 @@ public class UserFrontPageViewModel
     }
   }
 
-  public void addMovie(Movie movie){
-    model.addMovie(movie);
-  }
-
-
-
-
   public StringProperty usernameProperty()
   {
     return username;
@@ -168,24 +161,26 @@ public class UserFrontPageViewModel
     return datePicked;
   }
 
-  public void editMovie(Movie movie){
+  public Movie getSelectedMovie(){
+    return selectedMovie;
+  }
 
+  public void addMovie(Movie movie){
+    model.addMovie(movie);
+  }
+
+  public void editMovie(Movie movie){
+    model.editMovie(movie);
   }
 
   public void removeMovie(){
     if (selectedMovie!=null)
     {
       model.removeMovie(selectedMovie);
-
     }
-
-
-
-
   }
   public void selectedMovie(Movie movie)
   {
     selectedMovie=movie;
-
   }
 }

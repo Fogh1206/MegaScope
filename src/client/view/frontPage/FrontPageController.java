@@ -234,14 +234,14 @@ public class FrontPageController
     if(movie.isPresent()){
       userFrontPageViewModel.addMovie(movie.get());
     }
-
   }
 
   public void onEditMovie(ActionEvent actionEvent){
-    if(movie != null){
-
-    } else {
-
+    if(userFrontPageViewModel.getSelectedMovie() != null){
+      Optional<Movie> movie = viewHandler.openEditMovieWindow(userFrontPageViewModel.getSelectedMovie()).showAndWait();
+      if(movie.isPresent()){
+        userFrontPageViewModel.editMovie(movie.get());
+      }
     }
   }
 

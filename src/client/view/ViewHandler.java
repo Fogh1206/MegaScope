@@ -149,6 +149,78 @@ public class ViewHandler
 
   }
 
+  public Dialog<Movie> openEditMovieWindow(Movie movie){
+    Dialog<Movie> dialog = new Dialog<>();
+    ButtonType buttonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+    dialog.getDialogPane().getButtonTypes().addAll(buttonType, ButtonType.CANCEL);
+
+    VBox sceneContainer = new VBox(5);
+    HBox movieTitleContainer          = new HBox();
+    HBox movieDateOfReleaseContainer  = new HBox();
+    HBox movieMainActorsContainer     = new HBox();
+    HBox movieDescriptionContainer    = new HBox();
+    HBox movieTimeOfShowContainer     = new HBox();
+    HBox movieDateOfShowContainer     = new HBox();
+
+    Label movieTitleLabel             = new Label("Movie title");
+    Label movieDateOfReleaseLabel     = new Label("Date of release");
+    Label movieMainActorsLabel        = new Label("Movie actors");
+    Label movieDescriptionLabel       = new Label("Movie description");
+    Label movieTimeOfShowLabel        = new Label("Time of show");
+    Label movieDateOfShow             = new Label("Date of show");
+
+    movieTitleLabel.setPrefWidth(100);
+    movieDateOfReleaseLabel.setPrefWidth(100);
+    movieMainActorsLabel.setPrefWidth(100);
+    movieDescriptionLabel.setPrefWidth(100);
+    movieTimeOfShowLabel.setPrefWidth(100);
+    movieDateOfShow.setPrefWidth(100);
+
+    TextField movieTitleTextField         = new TextField();
+    TextField movieDateOfReleaseTextField = new TextField();
+    TextField movieMainActorsTextField    = new TextField();
+    TextField movieDescriptionTextField   = new TextField();
+    TextField movieTimeOfShowTextField    = new TextField();
+    TextField movieDateOfShowTextField    = new TextField();
+
+    movieTitleTextField.setText(movie.getName());
+    movieDateOfReleaseTextField.setText(movie.getDateOfRelease());
+    movieMainActorsTextField.setText(movie.getMainActors());
+    movieDescriptionTextField.setText(movie.getDescription());
+    movieTimeOfShowTextField.setText(movie.getTimeOfShow());
+    movieDateOfReleaseTextField.setText(movie.getDateOfRelease());
+
+    movieTitleContainer.getChildren().addAll(movieTitleLabel,movieTitleTextField);
+    movieDateOfReleaseContainer.getChildren().addAll(movieDateOfReleaseLabel,movieDateOfReleaseTextField);
+    movieMainActorsContainer.getChildren().addAll(movieMainActorsLabel,movieMainActorsTextField);
+    movieDescriptionContainer.getChildren().addAll(movieDescriptionLabel,movieDescriptionTextField);
+    movieTimeOfShowContainer.getChildren().addAll(movieTimeOfShowLabel,movieTimeOfShowTextField);
+    movieDateOfShowContainer.getChildren().addAll(movieDateOfShow,movieDateOfShowTextField);
+
+    sceneContainer.getChildren().addAll(movieTitleContainer,movieDateOfReleaseContainer,
+            movieMainActorsContainer,movieDescriptionContainer,movieTimeOfShowContainer,
+            movieDateOfShowContainer);
+
+    Node addButton = dialog.getDialogPane().lookupButton(buttonType);
+    addButton.setDisable(false);
+
+    Platform.runLater(movieTitleTextField::requestFocus);
+
+    dialog.getDialogPane().setContent(sceneContainer);
+
+    dialog.setResultConverter(dialogButton -> {
+      if(dialogButton == buttonType){
+
+        return new Movie(movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
+                movieMainActorsTextField.getText(), movieDescriptionTextField.getText(),
+                movieTimeOfShowTextField.getText(), movieDateOfShowTextField.getText());
+      }
+      return null;
+    });
+    return dialog;
+
+  }
+
   public void openRegisterView()
   {
     FXMLLoader loader = new FXMLLoader();

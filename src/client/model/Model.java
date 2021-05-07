@@ -55,6 +55,11 @@ public class Model implements UserModel {
         client.addMovie(movie);
     }
 
+    @Override
+    public void editMovie(Movie movie){
+
+    }
+
     private void onGetMoviesResult(PropertyChangeEvent event) {
         ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
