@@ -62,10 +62,10 @@ public class ManageUserDAO implements UserDAO
   }
 
   @Override
-  public Movie saveNewMovieInfo(int id,String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow)
-  {
-    try (Connection connection = controller.getConnection())
-    {
+  public  ArrayList<Movie> saveNewMovieInfo(int id, String name, String dateOfRelease, String mainActors, String description, String timeOfShow, String dateOfShow) {
+
+    ArrayList<Movie> movieList = new ArrayList<>();
+    try (Connection connection = controller.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
               "UPDATE public.movies SET name='" + name + "',dateofrelease='"
                       + dateOfRelease + "',mainactors='" + mainActors + "',description='" + description
@@ -73,12 +73,22 @@ public class ManageUserDAO implements UserDAO
                       + "' where id=" + id + "");
 
       statement.executeUpdate();
+      statement = connection.prepareStatement("SELECT * FROM public.movies ");
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+
+        Movie temp = new Movie(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+                resultSet.getString(4), resultSet.getString(5),
+                resultSet.getString(6), resultSet.getString(7));
+
+        movieList.add(temp);
+      }
       statement.close();
 
-      return new Movie(name,dateOfRelease,mainActors,description,timeOfShow,dateOfShow);
-    }
-    catch (SQLException throwables)
-    {
+      return movieList;
+    } catch (SQLException throwables) {
       throwables.printStackTrace();
       return null;
     }
@@ -107,16 +117,41 @@ public class ManageUserDAO implements UserDAO
     }
   }
 
-    @Override public void editMovie(String name, String dateOfRelease,
+  @Override public void editMovie(String name, String dateOfRelease,
       String mainActors, String description, String timeOfShow,
       String dateOfShow)
   {
 
   }
 
-  @Override public void removeMovie(Movie movie)
-  {
+  @Override
+  public ArrayList<Movie> removeMovie(Movie movie) {
 
+    ArrayList<Movie> movieList = new ArrayList<>();
+    try (Connection connection = controller.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement(
+              "delete from movies where id='" + movie.getId() + "'");
+
+
+      statement.executeUpdate();
+      statement = connection.prepareStatement("SELECT * FROM public.movies ");
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+
+        Movie temp = new Movie(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+                resultSet.getString(4), resultSet.getString(5),
+                resultSet.getString(6), resultSet.getString(7));
+
+        movieList.add(temp);
+      }
+      statement.close();
+      return movieList;
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+    return null;
   }
 
   @Override public NewRegisteredUser validateUser(int id, String username,
