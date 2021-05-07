@@ -6,14 +6,12 @@ import server.modelserver.ServerModel;
 import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.Request;
-import shared.User;
 import shared.util.EventType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.*;
 import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
@@ -79,10 +77,10 @@ public class ServerSocketHandler implements Runnable {
                     outToClient.writeObject(response);
                 }
 
-                if (request.type.equals(EventType.SAVEMOVIEINFO_REQUEST)) {
+                if (request.type.equals(EventType.EDITMOVIE_RESQUEST)) {
                     Movie movie = (Movie) request.arg;
-                    ArrayList<Movie> movies = userDAO.saveNewMovieInfo(movie.getId(), movie.getName(), movie.getDateOfRelease(), movie.getMainActors(), movie.getDescription(), movie.getTimeOfShow(), movie.getDateOfShow());
-                    Request response = new Request(EventType.SAVEMOVIEINFO_RESULT, movies);
+                    ArrayList<Movie> movies = userDAO.editMovie(movie.getId(), movie.getName(), movie.getDateOfRelease(), movie.getMainActors(), movie.getDescription(), movie.getTimeOfShow(), movie.getDateOfShow());
+                    Request response = new Request(EventType.EDITMOVIE_RESULT, movies);
                     outToClient.writeObject(response);
 
                 }
@@ -102,6 +100,15 @@ public class ServerSocketHandler implements Runnable {
                 }
 
                 if (request.type.equals(EventType.ADDMOVIE_REQUEST)) {
+
+                    Movie movie = (Movie) request.arg;
+
+                    ArrayList<Movie> movies = userDAO.addMovie(
+                            movie.getName(), movie.getDateOfRelease(),movie.getMainActors(),
+                            movie.getDescription(),movie.getTimeOfShow(),movie.getDateOfShow());
+                    Request response = new Request(EventType.ADDMOVIE_RESULT, movies);
+                    System.out.println(movies);
+                    outToClient.writeObject(response);
 
                 }
 

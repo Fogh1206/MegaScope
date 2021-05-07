@@ -3,7 +3,6 @@ package client.model;
 import client.networking.Client;
 import shared.Movie;
 import shared.NewRegisteredUser;
-import shared.Request;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -37,6 +36,11 @@ public class Model implements UserModel {
 
     }
 
+    @Override
+    public void editMovie(Movie movie) {
+        client.editMovie(movie);
+    }
+
     private void onGetUserResult(PropertyChangeEvent event) {
         ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event
                 .getNewValue();
@@ -51,6 +55,7 @@ public class Model implements UserModel {
 
     @Override
     public void addMovie(Movie movie) {
+        System.out.println("Added movie : " + movie.toString());
         client.addMovie(movie);
     }
 
@@ -99,10 +104,7 @@ public class Model implements UserModel {
         client.saveNewInfo(user);
     }
 
-    @Override
-    public void saveNewInfo(Movie movie) {
-        client.saveMovieInfo(movie);
-    }
+
 
     @Override
     public void register(NewRegisteredUser user) {

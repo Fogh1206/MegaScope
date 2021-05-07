@@ -229,7 +229,12 @@ public class FrontPageController
   }
 
   public void onAddMovie(ActionEvent actionEvent){
-    userFrontPageViewModel.addMovie();
+    Optional<Movie> movie = viewHandler.openAddMovieWindow().showAndWait();
+
+    if(movie.isPresent()){
+      userFrontPageViewModel.addMovie(movie.get());
+    }
+
   }
 
   public void onEditMovie(ActionEvent actionEvent){

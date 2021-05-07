@@ -3,6 +3,7 @@ package client.viewmodel.frontPage;
 import client.model.UserModel;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -54,7 +55,7 @@ public class UserFrontPageViewModel
   public void onGetMovies(PropertyChangeEvent event)
   {
     List<Movie> list = (ArrayList<Movie>) event.getNewValue();
-
+    System.out.println(list);
     ObservableList<Movie> observableList = FXCollections.observableArrayList();
     observableList.addAll(list);
     System.out.println("Kappa " + observableList.size());
@@ -79,75 +80,12 @@ public class UserFrontPageViewModel
     }
   }
 
-  public void addMovie(){
-    Optional<Movie> movie = openAddMovieWindow().showAndWait();
-
-    if(movie.isPresent()){
-      System.out.println(movie.get().toString());
-      model.addMovie(movie.get());
-    }
+  public void addMovie(Movie movie){
+    model.addMovie(movie);
   }
 
-  public Dialog<Movie> openAddMovieWindow(){
-    Dialog<Movie> dialog = new Dialog<>();
-    ButtonType buttonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-    dialog.getDialogPane().getButtonTypes().addAll(buttonType, ButtonType.CANCEL);
 
-    VBox sceneContainer = new VBox(5);
-    HBox movieTitleContainer          = new HBox();
-    HBox movieDateOfReleaseContainer  = new HBox();
-    HBox movieMainActorsContainer     = new HBox();
-    HBox movieDescriptionContainer    = new HBox();
-    HBox movieTimeOfShowContainer     = new HBox();
-    HBox movieDateOfShowContainer     = new HBox();
 
-    Label movieTitleLabel             = new Label("Movie title");
-    Label movieDateOfReleaseLabel     = new Label("Date of release");
-    Label movieMainActorsLabel        = new Label("Movie actors");
-    Label movieDescriptionLabel       = new Label("Movie description");
-    Label movieTimeOfShowLabel        = new Label("Time of show");
-    Label movieDateOfShow             = new Label("Date of show");
-
-    TextField movieTitleTextField         = new TextField();
-    TextField movieDateOfReleaseTextField = new TextField();
-    TextField movieMainActorsTextField    = new TextField();
-    TextField movieDescriptionTextField   = new TextField();
-    TextField movieTimeOfShowTextField    = new TextField();
-    TextField movieDateOfShowTextField    = new TextField();
-
-    movieTitleContainer.getChildren().addAll(movieTitleLabel,movieTitleTextField);
-    movieDateOfReleaseContainer.getChildren().addAll(movieDateOfReleaseLabel,movieDateOfReleaseTextField);
-    movieMainActorsContainer.getChildren().addAll(movieMainActorsLabel,movieMainActorsTextField);
-    movieDescriptionContainer.getChildren().addAll(movieDescriptionLabel,movieDescriptionTextField);
-    movieTimeOfShowContainer.getChildren().addAll(movieTimeOfShowLabel,movieTimeOfShowTextField);
-    movieDateOfShowContainer.getChildren().addAll(movieDateOfShow,movieDateOfShowTextField);
-
-    sceneContainer.getChildren().addAll(movieTitleContainer,movieDateOfReleaseContainer,
-            movieMainActorsContainer,movieDescriptionContainer,movieTimeOfShowContainer,
-            movieDateOfShowContainer);
-
-    Node addButton = dialog.getDialogPane().lookupButton(buttonType);
-    addButton.setDisable(true);
-
-    movieTitleTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-      addButton.setDisable(newValue.trim().isEmpty());
-    });
-    Platform.runLater(movieTitleTextField::requestFocus);
-
-    dialog.getDialogPane().setContent(sceneContainer);
-
-    dialog.setResultConverter(dialogButton -> {
-      if(dialogButton == buttonType){
-
-        return new Movie(movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
-                movieMainActorsTextField.getText(), movieDescriptionTextField.getText(),
-                movieTimeOfShowTextField.getText(), movieDateOfShowTextField.getText());
-      }
-      return null;
-    });
-    return dialog;
-
-  }
 
   public StringProperty usernameProperty()
   {
