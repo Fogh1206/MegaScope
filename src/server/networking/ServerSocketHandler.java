@@ -79,8 +79,10 @@ public class ServerSocketHandler implements Runnable {
 
                 if (request.type.equals(EventType.EDITMOVIE_RESQUEST)) {
                     Movie movie = (Movie) request.arg;
+                    System.out.println(movie);
                     ArrayList<Movie> movies = userDAO.editMovie(movie.getId(), movie.getName(), movie.getDateOfRelease(), movie.getMainActors(), movie.getDescription(), movie.getTimeOfShow(), movie.getDateOfShow());
                     Request response = new Request(EventType.EDITMOVIE_RESULT, movies);
+                    System.out.println(movies);
                     outToClient.writeObject(response);
 
                 }
@@ -112,9 +114,6 @@ public class ServerSocketHandler implements Runnable {
 
                 }
 
-                if (request.type.equals(EventType.EDITMOVIE_RESQUEST)) {
-
-                }
 
                 if (request.type.equals(EventType.REMOVEMOVIE_REQUEST)) {
 
