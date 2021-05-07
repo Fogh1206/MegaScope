@@ -48,22 +48,12 @@ public class LoginViewModel
     {
       System.out.println("Kappa");
     }
-    if (result != null)
-    {
+    if (result != null) {
       Platform.runLater(() -> {
         loginResult.set("Correct password");
         support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
             event.getNewValue());
       });
-    }
-  }
-
-  private void onAdminCheck(PropertyChangeEvent event){
-    adminResult.set((boolean) event.getNewValue());
-    System.out.println(event.getNewValue());
-    if((boolean) event.getNewValue() == true){
-      System.out.println("\n\n\nADMIN\n\n\n");
-    } else {
     }
   }
 
