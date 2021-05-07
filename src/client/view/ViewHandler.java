@@ -218,7 +218,7 @@ public class ViewHandler {
     dialog.setResultConverter(dialogButton -> {
       if(dialogButton == buttonType){
 
-        return new Movie(movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
+        return new Movie(movie.getId(),movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
                 movieMainActorsTextField.getText(), movieDescriptionTextField.getText(),
                 movieTimeOfShowTextField.getText(), movieDateOfShowTextField.getText());
       }
