@@ -61,7 +61,7 @@ public class AdminUsersPageController {
     }
 
     private void update(PropertyChangeEvent event) {
-        System.out.println("Upadate Users");
+        System.out.println("Update Users");
         userTableView.setItems(adminViewModelUsers.getItems());
     }
 
@@ -74,18 +74,16 @@ public class AdminUsersPageController {
     }
 
     public void Search(ActionEvent event) {
-        // adminViewModelUsers.search();
+        adminViewModelUsers.search();
     }
 
     public void selectUser(MouseEvent mouseEvent) {
 
         if (userTableView.getSelectionModel().getSelectedItem() != null) {
             int index = userTableView.getSelectionModel().getSelectedIndex();
-            if ( !userTableView.getItems().get(index).getBanned())
-            {
+            if (!userTableView.getItems().get(index).getBanned()) {
                 banButton.setText("Ban");
-            }
-            else banButton.setText("Unban");
+            } else banButton.setText("Unban");
 
             adminViewModelUsers
                     .selectedUserToModel(userTableView.getItems().get(index));

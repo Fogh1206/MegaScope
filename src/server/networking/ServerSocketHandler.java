@@ -153,20 +153,12 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(getCloseRequest());
                         close();
                         break;
-
-
                 }
-
-
             } catch (Exception e) {
 
             }
         }
     }
-
-
-
-
     /**
      * Close all connections from the server
      */
