@@ -24,7 +24,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="movieNameTextField" prefWidth="200.0" promptText="Enter name">
+            <TextField fx:id="movieNameTextField" prefWidth="200.0" promptText="Enter name" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -41,7 +41,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="dateOfReleaseTextField" prefWidth="200.0" promptText="Enter release year">
+            <TextField fx:id="dateOfReleaseTextField" prefWidth="200.0" promptText="Enter release year" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin></TextField>
@@ -57,7 +57,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <TextArea fx:id="mainActorsTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Enter actors">
+            <TextArea fx:id="mainActorsTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Enter actors" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -74,7 +74,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="descriptionTextField" prefWidth="200.0" promptText="Enter description">
+            <TextField fx:id="descriptionTextField" prefWidth="200.0" promptText="Enter description" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -91,7 +91,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="hourTextField" prefWidth="90.0" promptText="Enter hour">
+            <TextField fx:id="hourTextField" prefWidth="90.0" promptText="Enter hour" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -101,7 +101,7 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="minuteTextField" layoutX="115.0" layoutY="20.0" prefWidth="90.0" promptText="Enter minute">
+            <TextField fx:id="minuteTextField" layoutX="115.0" layoutY="20.0" prefWidth="90.0" promptText="Enter minute" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -118,7 +118,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Label>
-            <DatePicker fx:id="dateOfShowDatePicker" prefWidth="200.0" promptText="Select date">
+            <DatePicker fx:id="dateOfShowDatePicker" prefWidth="200.0" promptText="Select date" style="-fx-focus-color: #000000;">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
