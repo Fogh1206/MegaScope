@@ -26,7 +26,6 @@ public class LoginViewController
   @FXML private ImageView imageView;
   @FXML private Label loginText;
   @FXML private Button frontPageButton;
-  @FXML private Button cinemaHallButton;
   private NewRegisteredUser userLoggedIn;
 
   private LoginViewModel loginViewModel;

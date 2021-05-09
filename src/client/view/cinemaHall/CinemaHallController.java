@@ -38,8 +38,9 @@ public class CinemaHallController
   {
     this.cinemaHallViewModel = cinemaHallViewModel;
     this.viewHandler = viewHandler;
-    this.user = user;
+    this.user=user;
     this.movie = movie;
+
 
     System.out.println(gridPaneSeats.getChildren().size());
     System.out.println(gridPaneSeats.getRowCount());
