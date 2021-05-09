@@ -15,27 +15,20 @@ import shared.NewRegisteredUser;
 
 public class AddMovieController {
 
-    @FXML
-    TextField movieNameTextField;
-    @FXML
-    TextField dateOfReleaseTextField;
-    @FXML
-    TextArea mainActorsTextArea;
-    @FXML
-    TextField descriptionTextField;
-    @FXML
-    TextField hourTextField;
-    @FXML
-    TextField minuteTextField;
-    @FXML
-    DatePicker dateOfShowDatePicker;
+    @FXML TextField movieNameTextField;
+    @FXML TextField dateOfReleaseTextField;
+    @FXML TextArea  mainActorsTextArea;
+    @FXML TextField descriptionTextField;
+    @FXML TextField hourTextField;
+    @FXML TextField minuteTextField;
+    @FXML DatePicker dateOfShowDatePicker;
 
-    private AddMovieViewModel addMovieViewModel;
-    private ViewHandler viewHandler;
+    private AddMovieViewModel   addMovieViewModel;
+    private ViewHandler         viewHandler;
 
     public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler) {
-        this.addMovieViewModel = addMovieViewModel;
-        this.viewHandler = viewHandler;
+        this.addMovieViewModel  = addMovieViewModel;
+        this.viewHandler        = viewHandler;
 
         movieNameTextField.textProperty().bindBidirectional(addMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(addMovieViewModel.dateOfReleaseProperty());
@@ -47,15 +40,19 @@ public class AddMovieController {
     }
 
 
-    public void onSave(ActionEvent actionEvent) {
-        Movie movie = new Movie(movieNameTextField.getText(), dateOfReleaseTextField.getText(),
-                mainActorsTextArea.getText(), descriptionTextField.getText(),
-                hourTextField.getText() + ":" + minuteTextField.getText(),
-                dateOfShowDatePicker.getValue().toString());
-        addMovieViewModel.addMovie(movie);
+    public void onSave(ActionEvent actionEvent){
+            // your code here
+            Movie movie = new Movie(movieNameTextField.getText(), dateOfReleaseTextField.getText(),
+                    mainActorsTextArea.getText(), descriptionTextField.getText(),
+                    hourTextField.getText() + ":" + minuteTextField.getText(),
+                    dateOfShowDatePicker.getValue().toString());
+
+            addMovieViewModel.addMovie();
+
+
     }
 
-    public void onCancel(ActionEvent actionEvent) {
+    public void onCancel(ActionEvent actionEvent){
 
     }
 

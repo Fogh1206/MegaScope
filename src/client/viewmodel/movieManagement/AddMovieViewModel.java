@@ -62,8 +62,15 @@ public class AddMovieViewModel {
         return dateOfShow;
     }
 
-    public void addMovie(Movie movie){
+    public void addMovie(){
+
+        Movie movie = new Movie(movieName.get(), dateOfRelease.get(),
+                mainActors.get(), description.get(),
+                hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
+                dateOfShow.get().toString());
+
         System.out.println(movie);
+
         model.addMovie(movie);
     }
 

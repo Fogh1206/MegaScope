@@ -13,7 +13,6 @@ public class RegisterViewModel
 {
   private StringProperty firstName, lastName, username, password, confirmPassword, registrationMessageLabel, confirmPasswordLabel, phoneNumber;
   private UserModel model;
-  //private BooleanProperty registerButtonDisabled = new SimpleBooleanProperty(true);
 
   public RegisterViewModel(UserModel userModel)
   {
@@ -28,9 +27,6 @@ public class RegisterViewModel
     phoneNumber = new SimpleStringProperty();
     userModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
         this::onRegister);
-
-    // registerButtonDisabled=new SimpleBooleanProperty(true);
-
   }
 
   private void onRegister(PropertyChangeEvent event)
@@ -88,63 +84,34 @@ public class RegisterViewModel
 
   public void register()
   {
-
     if (firstName.get() == null || "".equals(firstName.get()))
-    {
-      registrationMessageLabel.setValue("Please input your first name");
-
-    }
+    { registrationMessageLabel.setValue("Please input your first name"); }
     else if (lastName.get() == null || "".equals(lastName.get()))
-    {
-      registrationMessageLabel.setValue("Please input your last name");
-
-    }
+    { registrationMessageLabel.setValue("Please input your last name"); }
     else if (phoneNumber.get() == null || "".equals(phoneNumber.get()))
-    {
-      registrationMessageLabel.setValue("Please input your phone number");
-
-    }
-
+    { registrationMessageLabel.setValue("Please input your phone number"); }
     else if (username.get() == null || "".equals(username.get()))
-    {
-      registrationMessageLabel.setValue("Please input your username");
-
-    }
+    { registrationMessageLabel.setValue("Please input your username"); }
     else if (password.get() == null || "".equals(password.get()))
-    {
-      registrationMessageLabel.setValue("Please input your password");
-
-    }
+    { registrationMessageLabel.setValue("Please input your password"); }
     else if (confirmPassword.get() == null || "".equals(confirmPassword.get()))
-    {
-
-      registrationMessageLabel
-          .setValue("Please input your password confirmation");
-    }
+    { registrationMessageLabel.setValue("Please input your password confirmation"); }
     if (confirmPassword.get() != null)
     {
       if (!confirmPassword.get().equals(password.get()))
       {
         confirmPasswordLabel.setValue("The password don't match");
-
-      }
-      else
-      {
+      } else {
         registerUserAccount();
-
       }
     }
-
   }
 
-  public void registerUserAccount()
-  {
-
+  public void registerUserAccount() {
     model.register(
         new NewRegisteredUser(firstName.get(), lastName.get(), username.get(),
             password.get(), phoneNumber.get(),false));
     defaultFields();
-
   }
 
   public void defaultFields()
