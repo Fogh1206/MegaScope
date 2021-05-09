@@ -54,6 +54,7 @@ public class FrontPageController
   @FXML private TableColumn<Object, String> dateOfReleaseCol;
   @FXML private TableColumn<Object, String> descriptionCol;
 
+
   private UserFrontPageViewModel userFrontPageViewModel;
   private ViewHandler viewHandler;
   private Movie movie;
@@ -76,8 +77,7 @@ public class FrontPageController
     this.userLoggedIn = userLoggedIn;
     if (userLoggedIn != null)
     {
-      if (userLoggedIn.getUserType().equals("ADMIN"))
-      {
+      if(userLoggedIn.getUserType().equals("ADMIN")){
         manageUsersButton.setVisible(true);
         manageUsersButton.setDisable(false);
         adminContainer.setVisible(true);
@@ -176,6 +176,7 @@ public class FrontPageController
         });
   }
 
+
   @FXML public void goToMyProfile()
   {
     if (userLoggedIn != null)
@@ -207,6 +208,7 @@ public class FrontPageController
     viewHandler.showCinemaHallPage(userLoggedIn, movie);
   }
 
+
   public void setSelected(MouseEvent mouseEvent)
   {
     if (movieTableView.getSelectionModel().getSelectedItem() != null)
@@ -216,63 +218,48 @@ public class FrontPageController
       System.out.println(movieTableView.getItems().get(index));
 
       movie = movieTableView.getItems().get(index);
-      userFrontPageViewModel
-          .selectedMovie(movieTableView.getItems().get(index));
+      userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
     }
 
   }
 
-  public void onManageUsers(ActionEvent event)
-  {
+  public void onManageUsers(ActionEvent event) {
     viewHandler.openAdminUsersPage(userLoggedIn);
 
   }
 
-  public void onAddMovie(ActionEvent actionEvent)
-  {
-    Optional<Movie> movie = viewHandler.openAddMovieWindow().showAndWait();
-
-    if (movie.isPresent())
-    {
-      userFrontPageViewModel.addMovie(movie.get());
-    }
+  public void onAddMovie(ActionEvent actionEvent){
+    System.out.println("Add movie button pressed");
+    viewHandler.openAddMovieView();
   }
 
-  public void onEditMovie(ActionEvent actionEvent)
-  {
-    if (userFrontPageViewModel.getSelectedMovie() != null)
-    {
-      Optional<Movie> movie = viewHandler
-          .openEditMovieWindow(userFrontPageViewModel.getSelectedMovie())
-          .showAndWait();
-      if (movie.isPresent())
-      {
+  public void onEditMovie(ActionEvent actionEvent){
+    if(userFrontPageViewModel.getSelectedMovie() != null){
+      Optional<Movie> movie = viewHandler.openEditMovieWindow(userFrontPageViewModel.getSelectedMovie()).showAndWait();
+      if(movie.isPresent()){
         userFrontPageViewModel.editMovie(movie.get());
       }
     }
   }
 
-  public void onRemoveMovie(ActionEvent actionEvent)
-  {
-    if (movie != null)
-    {
+  public void onRemoveMovie(ActionEvent actionEvent){
+    if(movie != null){
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
       alert.setTitle("Warning");
       alert.setHeaderText("You are about to delete a movie from the database");
-      alert.setContentText(
-          "Are you sure you want to delete the movie [" + movie.getName()
-              + "] from the movie database?");
+      alert.setContentText("Are you sure you want to delete the movie [" + movie.getName() + "] from the movie database?");
 
       Optional<ButtonType> result = alert.showAndWait();
-      if (result.get() == ButtonType.OK)
-      {
+      if(result.get() == ButtonType.OK){
         userFrontPageViewModel.removeMovie();
       }
-    }
-    else
-    {
+    } else {
       System.out.println("no movie");
     }
   }
+
+
+
+
 
 }

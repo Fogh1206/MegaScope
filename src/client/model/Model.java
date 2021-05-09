@@ -42,8 +42,7 @@ public class Model implements UserModel {
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
-        ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event
-                .getNewValue();
+        ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event.getNewValue();
         support.firePropertyChange("Users Result", null, list);
         System.out.println(list.get(0));
     }
