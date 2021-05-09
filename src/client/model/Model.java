@@ -107,11 +107,7 @@ public class Model implements UserModel {
 
     @Override
     public void register(NewRegisteredUser user) {
-
         client.registerUser(user);
-        System.out.println(
-                "Register :>>>> " + "username : " + user.getUsername() + " password:  "
-                        + user.getPassword());
     }
 
     @Override
