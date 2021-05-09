@@ -73,7 +73,7 @@ public class LoginViewController
     }
   }
 
-  public NewRegisteredUser UserLoggedIn()
+  public NewRegisteredUser getUserLoggedIn()
   {
     return userLoggedIn;
   }

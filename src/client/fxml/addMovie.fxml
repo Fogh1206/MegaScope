@@ -133,7 +133,7 @@
             <Insets bottom="10.0" top="10.0" />
          </padding>
          <children>
-            <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: GREEN;" text="Save" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#onSave" prefWidth="100.0" style="-fx-background-color: GREEN;" text="Save" textFill="WHITE">
                <HBox.margin>
                   <Insets left="25.0" right="25.0" />
                </HBox.margin>
@@ -141,7 +141,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: RED;" text="Cancel" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="100.0" style="-fx-background-color: RED;" text="Cancel" textFill="WHITE">
                <HBox.margin>
                   <Insets left="25.0" right="25.0" />
                </HBox.margin>

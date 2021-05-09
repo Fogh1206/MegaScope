@@ -4,10 +4,13 @@ import client.view.ViewHandler;
 import client.viewmodel.login.LoginViewModel;
 import client.viewmodel.movieManagement.AddMovieViewModel;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import shared.Movie;
 import shared.NewRegisteredUser;
 
 public class AddMovieController {
@@ -34,6 +37,22 @@ public class AddMovieController {
         hourTextField.textProperty().bindBidirectional(addMovieViewModel.hourTimeOfShowProperty());
         minuteTextField.textProperty().bindBidirectional(addMovieViewModel.minuteTimeOfShowProperty());
         dateOfShowDatePicker.valueProperty().bindBidirectional(addMovieViewModel.dateOfShowProperty());
+    }
+
+
+    public void onSave(ActionEvent actionEvent){
+            // your code here
+            Movie movie = new Movie(movieNameTextField.getText(), dateOfReleaseTextField.getText(),
+                    mainActorsTextArea.getText(), descriptionTextField.getText(),
+                    hourTextField.getText() + ":" + minuteTextField.getText(),
+                    dateOfShowDatePicker.getValue().toString());
+
+            addMovieViewModel.addMovie(movie);
+
+
+    }
+
+    public void onCancel(ActionEvent actionEvent){
 
     }
 

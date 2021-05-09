@@ -6,6 +6,7 @@ import client.view.Admin.AdminUsersPageController;
 import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
+import client.view.movieManagement.AddMovieController;
 import client.view.registration.RegisterController;
 import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
@@ -52,6 +53,25 @@ public class ViewHandler {
       mainStage.setTitle("Log in");
       Scene loginScene = new Scene(root);
       mainStage.setScene(loginScene);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void openAddMovieView(){
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/addMovie.fxml"));
+    try {
+      Parent root = loader.load();
+      AddMovieController ctrl = loader.getController();
+      ctrl.init(vmf.getAddMovieViewModel(), this);
+      Stage stage = new Stage();
+      stage.initOwner(mainStage);
+      stage.setTitle("Add new movie");
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+
     } catch (IOException e) {
       e.printStackTrace();
     }
