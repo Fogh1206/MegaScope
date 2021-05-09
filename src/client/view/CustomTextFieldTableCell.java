@@ -37,7 +37,7 @@ public final class CustomTextFieldTableCell<S, T>
                             popupContent.setMaxWidth(500);
                             popupContent.setMaxHeight(100);
                             popupContent.setStyle(
-                                    "-fx-background-color: #64b5f6; -fx-border-color: #000000; -fx-border-width: 1px; -fx-padding: 5px; -fx-text-fill: white;");
+                                    "-fx-background-color: #E96151; -fx-border-color: #000000; -fx-border-width: 1px; -fx-padding: 5px; -fx-text-fill: white;");
 
                             popup.getContent().clear();
                             popup.getContent().addAll(popupContent);
