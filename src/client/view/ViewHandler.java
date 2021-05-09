@@ -316,7 +316,7 @@ public class ViewHandler {
       Parent root = loader.load();
      UserProfileController ctrl = loader.getController();
       ctrl.init(vmf.getUserProfileVM(),this,userLoggedIn);
-      mainStage.setTitle("Cinema Hall");
+      mainStage.setTitle("User profile");
       Scene scene = new Scene(root);
       mainStage.setScene(scene);
     }
