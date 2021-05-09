@@ -77,7 +77,7 @@
         </VBox>
     </bottom>
     <left>
-        <TableView fx:id="movieTableView" maxWidth="-Infinity" onMouseClicked="#setSelected" prefHeight="369.0" prefWidth="865.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="movieTableView" maxWidth="-Infinity" onMouseClicked="#setSelected" prefHeight="369.0" prefWidth="865.0" style="-fx-selection-bar: #E96151; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets left="25.0" right="25.0" top="10.0" />
             </BorderPane.margin>
@@ -87,7 +87,7 @@
                 <TableColumn fx:id="mainactorsCol" prefWidth="190.0" text="Main actors" />
                 <TableColumn fx:id="descriptionCol" prefWidth="164.0" text="Description" />
                 <TableColumn fx:id="timeCol" prefWidth="78.0" text="Time " />
-                <TableColumn fx:id="DateCol" prefWidth="168.0" text="Date" />
+                <TableColumn fx:id="DateCol" prefWidth="166.0" text="Date" />
             </columns>
         </TableView>
     </left>
