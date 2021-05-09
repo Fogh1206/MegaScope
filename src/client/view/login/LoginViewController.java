@@ -67,13 +67,11 @@ public class LoginViewController
     if (temp != null)
     {
       userLoggedIn = temp;
-      System.out.println("first try");
       viewHandler.showFrontPage(temp);
-      System.out.println("Second try");
     }
   }
 
-  public NewRegisteredUser UserLoggedIn()
+  public NewRegisteredUser getUserLoggedIn()
   {
     return userLoggedIn;
   }

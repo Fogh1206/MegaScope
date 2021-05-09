@@ -5,6 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.Movie;
 
 import java.time.LocalDate;
 
@@ -59,6 +60,11 @@ public class AddMovieViewModel {
 
     public ObjectProperty dateOfShowProperty(){
         return dateOfShow;
+    }
+
+    public void addMovie(Movie movie){
+        System.out.println(movie);
+        model.addMovie(movie);
     }
 
 }

@@ -134,6 +134,7 @@ public class AdminViewModelUsers
           selectedUser.getPassword(), selectedUser.getPhoneNumber(), selectedUser.getUserType(),
          selectedUser.getBanned());
       userModel.saveNewInfo(user);
+      getUsers();
     }
   }
 

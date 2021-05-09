@@ -77,7 +77,7 @@
         </VBox>
     </bottom>
     <left>
-        <TableView fx:id="movieTableView" maxWidth="-Infinity" onMouseClicked="#setSelected" prefHeight="369.0" prefWidth="865.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="movieTableView" maxWidth="-Infinity" onMouseClicked="#setSelected" prefHeight="369.0" prefWidth="865.0" style="-fx-selection-bar: #E96151; -fx-focus-color: #000000;" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets left="25.0" right="25.0" top="10.0" />
             </BorderPane.margin>
@@ -87,7 +87,7 @@
                 <TableColumn fx:id="mainactorsCol" prefWidth="190.0" text="Main actors" />
                 <TableColumn fx:id="descriptionCol" prefWidth="164.0" text="Description" />
                 <TableColumn fx:id="timeCol" prefWidth="78.0" text="Time " />
-                <TableColumn fx:id="DateCol" prefWidth="168.0" text="Date" />
+                <TableColumn fx:id="DateCol" prefWidth="166.0" text="Date" />
             </columns>
         </TableView>
     </left>
@@ -123,12 +123,12 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="searchBar" layoutX="7.0" layoutY="49.0" prefHeight="29.0" prefWidth="339.0" promptText="Search movie">
+                        <TextField fx:id="searchBar" layoutX="7.0" layoutY="49.0" prefHeight="29.0" prefWidth="339.0" promptText="Search movie" style="-fx-focus-color: #000000;">
                             <font>
                                 <Font size="13.0" />
                             </font>
                         </TextField>
-                        <DatePicker fx:id="datePick" layoutX="421.0" layoutY="50.0" onAction="#onDatePick" prefHeight="27.0" prefWidth="181.0" promptText="Select date" />
+                        <DatePicker fx:id="datePick" layoutX="421.0" layoutY="50.0" onAction="#onDatePick" prefHeight="27.0" prefWidth="181.0" promptText="Select date" style="-fx-focus-color: #000000;" />
                         <Button layoutX="346.0" layoutY="51.0" mnemonicParsing="false" onAction="#Search" prefHeight="25.0" prefWidth="37.0" text="?" />
                     </children>
                 </AnchorPane>
