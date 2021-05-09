@@ -46,9 +46,9 @@
                                 <Font size="13.0"/>
                             </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onBackAction" prefHeight="29.0" prefWidth="120.0"
-                                style="-fx-background-color: #E96151;" text="Back" textAlignment="CENTER"
-                                textFill="WHITE">
+                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackAction" prefHeight="29.0"
+                                prefWidth="120.0" style="-fx-background-color: #E96151;" text="Back"
+                                textAlignment="CENTER" textFill="WHITE">
                             <effect>
                                 <Glow/>
                             </effect>
@@ -103,7 +103,8 @@
                         <Font size="13.0"/>
                     </font>
                 </TextField>
-                <Button layoutX="512.0" layoutY="41.0" mnemonicParsing="false" onAction="#Search" text="Search"/>
+                <Button fx:id="searchButton" layoutX="512.0" layoutY="41.0" mnemonicParsing="false" onAction="#Search"
+                        text="Search"/>
             </children>
         </AnchorPane>
     </top>
