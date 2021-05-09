@@ -85,7 +85,7 @@ public class ViewHandler {
       Parent root = loader.load();
       AdminUsersPageController ctrl = loader.getController();
       ctrl.init(vmf.getUsersVM(), this, userLoggedIn);
-      mainStage.setTitle("Log in");
+      mainStage.setTitle("Manage Users");
       Scene loginScene = new Scene(root);
       mainStage.setScene(loginScene);
     } catch (IOException e) {
@@ -316,7 +316,7 @@ public class ViewHandler {
       Parent root = loader.load();
      UserProfileController ctrl = loader.getController();
       ctrl.init(vmf.getUserProfileVM(),this,userLoggedIn);
-      mainStage.setTitle("User profile");
+      mainStage.setTitle("Manage profile Page");
       Scene scene = new Scene(root);
       mainStage.setScene(scene);
     }
