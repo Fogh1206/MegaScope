@@ -21,24 +21,17 @@ import java.beans.PropertyChangeEvent;
 
 public class AdminUsersPageController {
     private AdminViewModelUsers adminViewModelUsers;
-    private UserModel userModel;
     private ViewHandler viewHandler;
-    @FXML
-    private TextField searchBar;
-    @FXML
-    private TableView<NewRegisteredUser> userTableView;
-    @FXML
-    private TableColumn<Object, String> usernameCol;
-    @FXML
-    private TableColumn<Object, String> firstNameCol;
-    @FXML
-    private TableColumn<Object, String> lastNameCol;
-    @FXML
-    private TableColumn<Object, String> phoneNoCol;
-    @FXML
-    private Button banButton;
-    @FXML
     private NewRegisteredUser userLoggedIn;
+
+    @FXML private TextField searchBar;
+    @FXML private TableView<NewRegisteredUser> userTableView;
+    @FXML private TableColumn<Object, String> usernameCol;
+    @FXML private TableColumn<Object, String> firstNameCol;
+    @FXML private TableColumn<Object, String> lastNameCol;
+    @FXML private TableColumn<Object, String> phoneNoCol;
+    @FXML private Button banButton;
+
 
 
     /**

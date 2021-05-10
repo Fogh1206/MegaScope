@@ -21,16 +21,18 @@ public class UserFrontPageViewModel
 
   private UserModel model;
   private PropertyChangeSupport support;
+  private Movie selectedMovie;
+
 
   private StringProperty username, button;
   private StringProperty searchPhrase;
   private ObjectProperty datePicked;
   private Property<ObservableList<Movie>> observableItems;
   private ObservableList<Movie> items;
-  private Movie selectedMovie;
-  public UserFrontPageViewModel(UserModel model)
+
+  public UserFrontPageViewModel(UserModel userModel)
   {
-    this.model = model;
+    this.model = userModel;
     support = new PropertyChangeSupport(this);
     username = new SimpleStringProperty();
     datePicked = new SimpleObjectProperty();
@@ -39,10 +41,7 @@ public class UserFrontPageViewModel
     items = new SimpleListProperty<>();
     observableItems = new SimpleListProperty<>();
 
-    System.out.println("start");
-    model.addPropertyChangeListener("Movie Result", this::onGetMovies);
-    System.out.println("Koniec");
-
+    userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
   }
 
   public void onGetMovies(PropertyChangeEvent event)
@@ -73,45 +72,21 @@ public class UserFrontPageViewModel
     }
   }
 
-  public StringProperty usernameProperty()
+  public void addPropertyChangeListener(String name,
+                                        PropertyChangeListener listener)
   {
-    return username;
+    support.addPropertyChangeListener(name, listener);
   }
 
-  public StringProperty buttonProperty()
-  {
-    return button;
-  }
 
   public void getMovies()
   {
     model.getMovies();
   }
 
-  public ObservableList<Movie> getItems()
-  {
-    return items;
-  }
-
-  public void addPropertyChangeListener(String name,
-      PropertyChangeListener listener)
-  {
-    support.addPropertyChangeListener(name, listener);
-  }
-
   public void close()
   {
     model.deactivateClient();
-  }
-
-  public Property<ObservableList<Movie>> observableItemsProperty()
-  {
-    return observableItems;
-  }
-
-  public StringProperty searchPhraseProperty()
-  {
-    return searchPhrase;
   }
 
   public void search()
@@ -178,5 +153,30 @@ public class UserFrontPageViewModel
   public void selectedMovie(Movie movie)
   {
     selectedMovie=movie;
+  }
+
+  public StringProperty usernameProperty()
+  {
+    return username;
+  }
+
+  public StringProperty buttonProperty()
+  {
+    return button;
+  }
+
+  public ObservableList<Movie> getItems()
+  {
+    return items;
+  }
+
+  public Property<ObservableList<Movie>> observableItemsProperty()
+  {
+    return observableItems;
+  }
+
+  public StringProperty searchPhraseProperty()
+  {
+    return searchPhrase;
   }
 }

@@ -6,12 +6,10 @@ import client.viewmodel.frontPage.UserFrontPageViewModel;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -39,7 +37,6 @@ public class FrontPageController {
     private Label UsernameLabel;
     @FXML
     private VBox Profile;
-
     @FXML
     private Label usernameLabel;
     @FXML
@@ -69,8 +66,7 @@ public class FrontPageController {
 
     private UserFrontPageViewModel userFrontPageViewModel;
     private ViewHandler viewHandler;
-    private Movie movie;
-
+    private Movie selectedMovie;
     private NewRegisteredUser userLoggedIn;
 
     public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
@@ -137,7 +133,7 @@ public class FrontPageController {
         dateOfReleaseCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
         descriptionCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
 
-        userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
+    //    userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
 
 
         setSelectedMovie();
@@ -149,7 +145,7 @@ public class FrontPageController {
         movieTableView.setItems(userFrontPageViewModel.getItems());
     }
 
-    public void onLoginButton(ActionEvent event) {
+    public void onLoginButton() {
         if (userLoggedIn != null) {
             viewHandler.showFrontPage(null);
         } else {
@@ -179,7 +175,7 @@ public class FrontPageController {
         if (userLoggedIn != null) {
             System.out.println(userLoggedIn.getUsername());
             System.out.println(userLoggedIn.getId());
-            viewHandler.showUserProfile(userLoggedIn);
+            viewHandler.openUserProfile(userLoggedIn);
         }
     }
 
@@ -195,18 +191,16 @@ public class FrontPageController {
     }
 
     public void onBookMovieButton() {
-        viewHandler.showCinemaHallPage(userLoggedIn, movie);
+        viewHandler.openCinemaHallPage(userLoggedIn, selectedMovie);
     }
 
 
     public void setSelected() {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
-
-            movie = movieTableView.getItems().get(index);
+            selectedMovie = movieTableView.getItems().get(index);
             userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
         }
-
     }
 
     public void onManageUsers() {
@@ -231,11 +225,11 @@ public class FrontPageController {
     }
 
     public void onRemoveMovie() {
-        if (movie != null) {
+        if (selectedMovie != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("You are about to delete a movie from the database");
-            alert.setContentText("Are you sure you want to delete the movie [" + movie.getName() + "] from the movie database?");
+            alert.setContentText("Are you sure you want to delete the movie [" + selectedMovie.getName() + "] from the movie database?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
@@ -245,6 +239,4 @@ public class FrontPageController {
             System.out.println("no movie");
         }
     }
-
-
 }

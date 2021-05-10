@@ -38,37 +38,6 @@ public class RegisterViewModel {
         });
     }
 
-    public StringProperty phoneNumberProperty() {
-        return phoneNumber;
-    }
-
-    public StringProperty firstNameProperty() {
-        return firstName;
-    }
-
-    public StringProperty lastNameProperty() {
-        return lastName;
-    }
-
-    public StringProperty usernameProperty() {
-        return username;
-    }
-
-    public StringProperty passwordProperty() {
-        return password;
-    }
-
-    public StringProperty confirmPasswordProperty() {
-        return confirmPassword;
-    }
-
-    public StringProperty registrationMessageLabelProperty() {
-        return registrationMessageLabel;
-    }
-
-    public StringProperty confirmPasswordLabelProperty() {
-        return confirmPasswordLabel;
-    }
 
 
     public void register() {
@@ -118,4 +87,38 @@ public class RegisterViewModel {
                                           PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
+
+    public StringProperty phoneNumberProperty() {
+        return phoneNumber;
+    }
+
+    public StringProperty firstNameProperty() {
+        return firstName;
+    }
+
+    public StringProperty lastNameProperty() {
+        return lastName;
+    }
+
+    public StringProperty usernameProperty() {
+        return username;
+    }
+
+    public StringProperty passwordProperty() {
+        return password;
+    }
+
+    public StringProperty confirmPasswordProperty() {
+        return confirmPassword;
+    }
+
+    public StringProperty registrationMessageLabelProperty() {
+        return registrationMessageLabel;
+    }
+
+    public StringProperty confirmPasswordLabelProperty() {
+        return confirmPasswordLabel;
+    }
+
+
 }

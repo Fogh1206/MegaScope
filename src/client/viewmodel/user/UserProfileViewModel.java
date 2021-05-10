@@ -13,178 +13,132 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class UserProfileViewModel
-{
-  private StringProperty currentUsername = new SimpleStringProperty();
-  private StringProperty currentFirstname = new SimpleStringProperty();
-  private StringProperty currentLastname = new SimpleStringProperty();
-  private StringProperty currentPhoneNumber = new SimpleStringProperty();
-  private StringProperty currentUsertype = new SimpleStringProperty();
-  private BooleanProperty banned = new SimpleBooleanProperty();
+public class UserProfileViewModel {
+    private StringProperty currentUsername = new SimpleStringProperty();
+    private StringProperty currentFirstname = new SimpleStringProperty();
+    private StringProperty currentLastname = new SimpleStringProperty();
+    private StringProperty currentPhoneNumber = new SimpleStringProperty();
+    private StringProperty currentUsertype = new SimpleStringProperty();
+    private BooleanProperty banned = new SimpleBooleanProperty();
 
-  private StringProperty newFirstName = new SimpleStringProperty();
-  private StringProperty newLastName = new SimpleStringProperty();
-  private StringProperty newPhoneNumber = new SimpleStringProperty();
-  private StringProperty newUsername = new SimpleStringProperty();
-  private StringProperty newPassword = new SimpleStringProperty();
-  private StringProperty confirmPassword = new SimpleStringProperty();
-  private UserModel model;
-  private PropertyChangeSupport support;
+    private StringProperty newFirstName = new SimpleStringProperty();
+    private StringProperty newLastName = new SimpleStringProperty();
+    private StringProperty newPhoneNumber = new SimpleStringProperty();
+    private StringProperty newUsername = new SimpleStringProperty();
+    private StringProperty newPassword = new SimpleStringProperty();
+    private StringProperty confirmPassword = new SimpleStringProperty();
 
-  public UserProfileViewModel(UserModel model)
-  {
-    this.model = model;
-    support = new PropertyChangeSupport(this);
+    private UserModel model;
+    private PropertyChangeSupport support;
 
-    model.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
-        this::onSavedInfo);
-  }
+    public UserProfileViewModel(UserModel userModel) {
+        this.model = userModel;
+        support = new PropertyChangeSupport(this);
 
-  public BooleanProperty bannedProperty()
-  {
-    return banned;
-  }
-
-  private void onSavedInfo(PropertyChangeEvent event)
-  {
-
-    NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
-    if (result != null)
-    {
-      Platform.runLater(() -> {
-
-        support
-            .firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null,
-                event.getNewValue());
-      });
+        userModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
+                this::onSavedInfo);
     }
 
-  }
+    private void onSavedInfo(PropertyChangeEvent event) {
 
-  public StringProperty newPhoneNumberProperty()
-  {
-    return newPhoneNumber;
-  }
+        NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
+        if (result != null) {
+            Platform.runLater(() -> {
+                support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, event.getNewValue());
+            });
+        }
+    }
 
-  public StringProperty currentUsernameProperty()
-  {
-    return currentUsername;
-  }
+    public void addPropertyChangeListener(String name,PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
 
-  public StringProperty currentFirstnameProperty()
-  {
-    return currentFirstname;
-  }
+    public void saveAccount(NewRegisteredUser userLoggedIn) {
+        if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
+                .equals(confirmPassword.get())) {
+            System.out.println(newPassword);
+            System.out.println(confirmPassword);
+                        NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+                    newFirstName.get(), newLastName.get(), newUsername.get(),
+                    newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
+                    banned.get());
+            model.saveNewInfo(user);
+            System.out.println(newUsername.get());
+            updateCurrentInfo(user);
 
-  public StringProperty currentLastnameProperty()
-  {
-    return currentLastname;
-  }
-
-  public StringProperty currentPhoneNumberProperty()
-  {
-    return currentPhoneNumber;
-  }
-
-  public StringProperty currentUsertypeProperty()
-  {
-    return currentUsertype;
-  }
-
-  public StringProperty newFirstNameProperty()
-  {
-    return newFirstName;
-  }
-
-  public StringProperty newLastNameProperty()
-  {
-    return newLastName;
-  }
-
-  public StringProperty newUsernameProperty()
-  {
-    return newUsername;
-  }
-
-  public StringProperty newPasswordProperty()
-  {
-    return newPassword;
-  }
-
-  public StringProperty confirmPasswordProperty()
-  {
-    return confirmPassword;
-  }
-
-  public void save(NewRegisteredUser userLoggedIn)
-  {
-
-    saveAccount(userLoggedIn);
-  }
-
-  public void saveAccount(NewRegisteredUser userLoggedIn)
-  {
+        } else {
+            System.out.println(
+                    "password dont match or you dont want to change the password");
+            NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+                    newFirstName.get(), newLastName.get(), newUsername.get(),
+                    userLoggedIn.getPassword(), newPhoneNumber.get(),
+                    currentUsertype.get(), banned.get());
+            model.saveNewInfo(user);
+            System.out.println(newUsername.get());
+            updateCurrentInfo(user);
+            System.out.println(userLoggedIn.getPassword());
+        }
+    }
 
 
-    if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
-        .equals(confirmPassword.get()))
-    {
-
-      System.out.println(newPassword);
-
-      System.out.println(confirmPassword);
-
-      System.out.println(5);
-      NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
-          newFirstName.get(), newLastName.get(), newUsername.get(),
-          newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
-          banned.get());
-      model.saveNewInfo(user);
-      System.out.println(newUsername.get());
-      updateCurrentInfo(user);
+    public void updateCurrentInfo(NewRegisteredUser userLoggedIn) {
+        currentFirstname.setValue(userLoggedIn.getFirstName());
+        currentLastname.setValue(userLoggedIn.getLastName());
+        currentUsername.setValue(userLoggedIn.getUsername());
+        currentPhoneNumber.setValue(userLoggedIn.getPhoneNumber());
+        currentUsertype.setValue(userLoggedIn.getUserType());
+        newFirstName.setValue(currentFirstname.getValue());
+        newLastName.setValue(currentLastname.getValue());
+        newUsername.setValue(currentUsername.getValue());
+        newPhoneNumber.setValue(currentPhoneNumber.getValue());
 
     }
-    else
-    {
-      System.out.println(
-          "password dont match or you dont want to change the password");
-      NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
-          newFirstName.get(), newLastName.get(), newUsername.get(),
-          userLoggedIn.getPassword(), newPhoneNumber.get(),
-          currentUsertype.get(), banned.get());
-      model.saveNewInfo(user);
-      System.out.println(newUsername.get());
-      updateCurrentInfo(user);
-      System.out.println(userLoggedIn.getPassword());
+
+    public StringProperty newPhoneNumberProperty() {
+        return newPhoneNumber;
     }
-  }
 
+    public StringProperty currentUsernameProperty() {
+        return currentUsername;
+    }
 
-  public void addPropertyChangeListener(String name,
-      PropertyChangeListener listener)
-  {
+    public StringProperty currentFirstnameProperty() {
+        return currentFirstname;
+    }
 
-    support.addPropertyChangeListener(name, listener);
+    public StringProperty currentLastnameProperty() {
+        return currentLastname;
+    }
 
-  }
+    public StringProperty currentPhoneNumberProperty() {
+        return currentPhoneNumber;
+    }
 
-  public void updateCurrentInfo(NewRegisteredUser userLoggedIn)
-  {
+    public StringProperty currentUsertypeProperty() {
+        return currentUsertype;
+    }
 
-    currentFirstname.setValue(userLoggedIn.getFirstName());
+    public StringProperty newFirstNameProperty() {
+        return newFirstName;
+    }
 
-    currentLastname.setValue(userLoggedIn.getLastName());
-    currentUsername.setValue(userLoggedIn.getUsername());
-    currentPhoneNumber.setValue(userLoggedIn.getPhoneNumber());
-    currentUsertype.setValue(userLoggedIn.getUserType());
+    public StringProperty newLastNameProperty() {
+        return newLastName;
+    }
 
-    newFirstName.setValue(currentFirstname.getValue());
+    public StringProperty newUsernameProperty() {
+        return newUsername;
+    }
 
-    newLastName.setValue(currentLastname.getValue());
+    public StringProperty newPasswordProperty() {
+        return newPassword;
+    }
 
-    newUsername.setValue(currentUsername.getValue());
+    public StringProperty confirmPasswordProperty() {
+        return confirmPassword;
+    }
 
-    newPhoneNumber.setValue(currentPhoneNumber.getValue());
-
-  }
+    public BooleanProperty bannedProperty() {
+        return banned;
+    }
 }

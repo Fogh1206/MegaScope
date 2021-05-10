@@ -36,25 +36,9 @@ public class Model implements UserModel {
 
     }
 
-    @Override
-    public void editMovie(Movie movie) {
-        client.editMovie(movie);
-    }
-
     private void onGetUserResult(PropertyChangeEvent event) {
         ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event.getNewValue();
         support.firePropertyChange("Users Result", null, list);
-    }
-
-    @Override
-    public void getUsers() {
-        client.getUsers();
-    }
-
-    @Override
-    public void addMovie(Movie movie) {
-        System.out.println("Added movie : " + movie.toString());
-        client.addMovie(movie);
     }
 
     private void onGetMoviesResult(PropertyChangeEvent event) {
@@ -78,6 +62,23 @@ public class Model implements UserModel {
         ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
+
+    @Override
+    public void editMovie(Movie movie) {
+        client.editMovie(movie);
+    }
+
+    @Override
+    public void getUsers() {
+        client.getUsers();
+    }
+
+    @Override
+    public void addMovie(Movie movie) {
+        System.out.println("Added movie : " + movie.toString());
+        client.addMovie(movie);
+    }
+
 
     @Override
     public void removeMovie(Movie movie) {

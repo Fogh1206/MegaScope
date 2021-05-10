@@ -23,9 +23,9 @@ public class LoginViewModel
 
   private UserModel model;
 
-  public LoginViewModel(UserModel model)
+  public LoginViewModel(UserModel userModel)
   {
-    this.model = model;
+    this.model = userModel;
     username = new SimpleStringProperty();
     password = new SimpleStringProperty();
     loginResult = new SimpleStringProperty();
@@ -51,20 +51,6 @@ public class LoginViewModel
     }
   }
 
-  public StringProperty usernameProperty()
-  {
-    return username;
-  }
-
-  public StringProperty passwordProperty()
-  {
-    return password;
-  }
-
-  public StringProperty loginResultProperty()
-  {
-    return loginResult;
-  }
 
   public void defaultFields()
   {
@@ -82,6 +68,21 @@ public class LoginViewModel
       PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(name, listener);
-
   }
+
+  public StringProperty usernameProperty()
+  {
+    return username;
+  }
+
+  public StringProperty passwordProperty()
+  {
+    return password;
+  }
+
+  public StringProperty loginResultProperty()
+  {
+    return loginResult;
+  }
+
 }

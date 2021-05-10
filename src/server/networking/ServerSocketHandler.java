@@ -73,8 +73,7 @@ public class ServerSocketHandler implements Runnable {
     public Request getEditMovieRequest(Movie movie) {
 
         System.out.println(movie);
-        ArrayList<Movie> movies = userDAO
-                .editMovie(movie);
+        ArrayList<Movie> movies = userDAO.editMovie(movie);
         Request response = new Request(EventType.EDITMOVIE_RESULT, movies);
 
         return response;
@@ -82,16 +81,14 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getSaveNewInfoRequest(NewRegisteredUser user) {
 
-        NewRegisteredUser temp = userDAO
-                .saveNewInfo(user);
+        NewRegisteredUser temp = userDAO.saveNewInfo(user);
         Request response = new Request(EventType.SAVENEWINFO_RESULT, temp);
         return response;
     }
 
     public Request getAddMovieRequst(Movie movie) {
 
-        ArrayList<Movie> movies = userDAO
-                .addMovie(movie);
+        ArrayList<Movie> movies = userDAO.addMovie(movie);
         Request response = new Request(EventType.ADDMOVIE_RESULT, movies);
         System.out.println(movies);
         return response;
@@ -151,6 +148,7 @@ public class ServerSocketHandler implements Runnable {
             }
         }
     }
+
     /**
      * Close all connections from the server
      */

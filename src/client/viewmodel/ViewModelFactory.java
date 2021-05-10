@@ -11,21 +11,19 @@ import client.viewmodel.user.UserProfileViewModel;
 
 public class ViewModelFactory
 {
+  private ModelFactory mf;
+
   private LoginViewModel loginViewModel;
   private RegisterViewModel registerViewModel;
-  private ModelFactory mf;
   private UserFrontPageViewModel userFrontPageViewModel;
   private CinemaHallViewModel cinemaHallViewModel;
   private UserProfileViewModel userProfileViewModel;
   private AdminViewModelUsers adminViewModelUsers;
-
   private AddMovieViewModel addMovieViewModel;
 
   public ViewModelFactory(ModelFactory mf)
   {
     this.mf = mf;
-    loginViewModel = new LoginViewModel(mf.getUserModel());
-
   }
 
   public RegisterViewModel getRegisterVM()

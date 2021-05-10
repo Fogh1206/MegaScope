@@ -283,7 +283,7 @@ public class ViewHandler {
     }
   }
 
-  public void showCinemaHallPage(NewRegisteredUser user, Movie movie)
+  public void openCinemaHallPage(NewRegisteredUser userLoggedIn, Movie movie)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
@@ -291,7 +291,7 @@ public class ViewHandler {
     {
       Parent root = loader.load();
       CinemaHallController ctrl = loader.getController();
-      ctrl.init(vmf.getCinemaHallPage(),this, user, movie);
+      ctrl.init(vmf.getCinemaHallPage(),this, userLoggedIn, movie);
       mainStage.setTitle("Cinema Hall");
       Scene cinemaHallScene = new Scene(root);
       mainStage.setScene(cinemaHallScene);
@@ -303,7 +303,7 @@ public class ViewHandler {
   }
 
 
-  public void showUserProfile(NewRegisteredUser userLoggedIn)
+  public void openUserProfile(NewRegisteredUser userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/userProfile.fxml"));

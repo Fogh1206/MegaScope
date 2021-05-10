@@ -2,7 +2,6 @@ package client.view.user;
 
 import client.view.ViewHandler;
 import client.viewmodel.user.UserProfileViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -82,12 +81,12 @@ public class UserProfileController {
         NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
-            viewHandler.showUserProfile(temp);
+            viewHandler.openUserProfile(temp);
         }
     }
 
     public void saveButtonOnAction() {
-        userProfileViewModel.save(userLoggedIn);
+        userProfileViewModel.saveAccount(userLoggedIn);
 
     }
 

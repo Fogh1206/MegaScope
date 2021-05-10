@@ -9,15 +9,10 @@ import java.net.Socket;
 public class Server
 {
 
-  private ServerModel serverModel;
   private ServerSocket serverSocket;
   private boolean running = true;
-
   private Socket socketClient;
 
-  public Server()
-  {
-  }
 
   public void startServer() throws IOException
   {

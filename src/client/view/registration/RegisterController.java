@@ -59,7 +59,6 @@ public class RegisterController
 
   private void onRegister(PropertyChangeEvent event)
   {
-    System.out.println("KOLJ");
     NewRegisteredUser user = (NewRegisteredUser) event.getNewValue();
     if (user != null)
     {
@@ -76,6 +75,5 @@ public class RegisterController
   {
     registerViewModel.defaultFields();
     viewHandler.openLoginView(null);
-
   }
 }
