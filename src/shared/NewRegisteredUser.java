@@ -27,21 +27,8 @@ public class NewRegisteredUser implements Serializable
     this.banned=banned;
   }
 
-  public NewRegisteredUser(int id, String firstName, String lastName,
-      String username, String password, String phoneNumber)
-  {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.username = username;
-    this.password = password;
-    this.phoneNumber = phoneNumber;
-    this.banned = false;
-
-  }
-
   public NewRegisteredUser(String firstName, String lastName, String username,
-      String password, String phoneNumber,boolean banned)
+      String password, String phoneNumber,String userType,boolean banned)
   {
 
     this.id = 0;
@@ -50,6 +37,7 @@ public class NewRegisteredUser implements Serializable
     this.username = username;
     this.password = password;
     this.phoneNumber = phoneNumber;
+    this.userType=userType;
     this.banned=banned;
   }
 

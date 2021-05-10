@@ -218,13 +218,14 @@ public class ManageUserDAO implements UserDAO {
 
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO users(firstname,lastname,username,password,phonenumber)   VALUES (?, ?, ?, ?,?);");
+                    "INSERT INTO users(firstname,lastname,username,password,phonenumber,type)   VALUES (?, ?, ?, ?,?,?);");
 
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getUsername());
             statement.setString(4, user.getPassword());
             statement.setString(5, user.getPhoneNumber());
+            statement.setString(6,"USER");
 
             statement.executeQuery();
 
@@ -235,7 +236,7 @@ public class ManageUserDAO implements UserDAO {
                 NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6));
+                        resultSet.getString(6),resultSet.getString(7),resultSet.getBoolean(8));
                 user = temp;
                 System.out.println(temp.getId());
             }
