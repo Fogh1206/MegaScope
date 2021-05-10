@@ -64,8 +64,7 @@ public class ServerSocketHandler implements Runnable {
     public Request getRegisterRequest(NewRegisteredUser user) {
 
         System.out.println("Register requested");
-        userDAO.createUser(user.getFirstName(), user.getLastName(),
-                user.getUsername(), user.getPassword(), user.getPhoneNumber());
+        userDAO.createUser(user);
 
         Request response = new Request(EventType.REGISTER_RESULT,
                 "Successful");
@@ -76,10 +75,7 @@ public class ServerSocketHandler implements Runnable {
 
         System.out.println(movie);
         ArrayList<Movie> movies = userDAO
-                .editMovie(movie.getId(), movie.getName(),
-                        movie.getDateOfRelease(), movie.getMainActors(),
-                        movie.getDescription(), movie.getTimeOfShow(),
-                        movie.getDateOfShow());
+                .editMovie(movie);
         Request response = new Request(EventType.EDITMOVIE_RESULT, movies);
 
         return response;
@@ -88,9 +84,7 @@ public class ServerSocketHandler implements Runnable {
     public Request getSaveNewInfoRequest(NewRegisteredUser user) {
 
         NewRegisteredUser temp = userDAO
-                .saveNewInfo(user.getId(), user.getFirstName(),
-                        user.getLastName(), user.getUsername(), user.getPassword(),
-                        user.getPhoneNumber(), user.getBanned());
+                .saveNewInfo(user);
         Request response = new Request(EventType.SAVENEWINFO_RESULT, temp);
         return response;
     }
@@ -98,9 +92,7 @@ public class ServerSocketHandler implements Runnable {
     public Request getAddMovieRequst(Movie movie) {
 
         ArrayList<Movie> movies = userDAO
-                .addMovie(movie.getName(), movie.getDateOfRelease(),
-                        movie.getMainActors(), movie.getDescription(),
-                        movie.getTimeOfShow(), movie.getDateOfShow());
+                .addMovie(movie);
         Request response = new Request(EventType.ADDMOVIE_RESULT, movies);
         System.out.println(movies);
         return response;

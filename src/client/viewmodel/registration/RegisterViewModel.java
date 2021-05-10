@@ -101,6 +101,7 @@ public class RegisterViewModel
         confirmPasswordLabel.setValue("The password don't match");
       } else {
         registerUserAccount();
+
       }
     }
   }

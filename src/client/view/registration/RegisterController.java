@@ -52,6 +52,7 @@ public class RegisterController
 
   private void onRegister(String newValue)
   {
+    System.out.println("lalalal");
     if (newValue.equals("Register Result"))
     {
       viewHandler.openLoginView(null);
