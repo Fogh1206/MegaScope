@@ -150,6 +150,7 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(getRemoveMovieRequest((Movie) request.arg));
                         break;
                     case CLOSE_REQUEST:
+                        System.out.println("Closing");
                         outToClient.writeObject(getCloseRequest());
                         close();
                         break;
@@ -164,6 +165,7 @@ public class ServerSocketHandler implements Runnable {
      */
     private void close() {
         try {
+            System.out.println("Closing the socket");
             inFromClient.close();
             outToClient.close();
             socket.close();

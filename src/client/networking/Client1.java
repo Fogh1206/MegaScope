@@ -55,6 +55,8 @@ public class Client1 implements Client
   @Override public void deactivateClient()
   {
     System.out.println("CLose please");
+    Request req = new Request(EventType.CLOSE_REQUEST,null);
+    sendToServer(req, EventType.CLOSE_REQUEST);
     running = false;
     try
     {

@@ -153,7 +153,7 @@ public class UserFrontPageViewModel
     }
     observableItems.setValue(observableList);
 
-    datePicked.setValue(null);
+   datePicked.setValue(null);
   }
 
   public Property<LocalDate> getValue()
