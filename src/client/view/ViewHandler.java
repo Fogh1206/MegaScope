@@ -324,7 +324,7 @@ public class ViewHandler {
 
   public void close()
   {
-    System.out.println("Me close");
+    System.out.println("Closing the client");
     mainStage.close();
   }
 }

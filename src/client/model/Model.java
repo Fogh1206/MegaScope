@@ -44,7 +44,6 @@ public class Model implements UserModel {
     private void onGetUserResult(PropertyChangeEvent event) {
         ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event.getNewValue();
         support.firePropertyChange("Users Result", null, list);
-        System.out.println(list.get(0));
     }
 
     @Override
@@ -75,10 +74,8 @@ public class Model implements UserModel {
     }
 
     private void onMoviesChanged(PropertyChangeEvent event) {
-
         ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
-
     }
 
     @Override
@@ -87,14 +84,12 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void addPropertyChangeListener(String name,
-                                          PropertyChangeListener listener) {
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
     @Override
-    public void removePropertyChangeListener(String name,
-                                             PropertyChangeListener listener) {
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
         support.removePropertyChangeListener(name, listener);
     }
 
@@ -102,7 +97,6 @@ public class Model implements UserModel {
     public void saveNewInfo(NewRegisteredUser user) {
         client.saveNewInfo(user);
     }
-
 
 
     @Override
