@@ -24,7 +24,7 @@ public class AdminUsersPageController {
     private UserModel userModel;
     private ViewHandler viewHandler;
     @FXML
-    public TextField searchBar;
+    private TextField searchBar;
     @FXML
     private TableView<NewRegisteredUser> userTableView;
     @FXML
@@ -37,14 +37,24 @@ public class AdminUsersPageController {
     private TableColumn<Object, String> phoneNoCol;
     @FXML
     private Button banButton;
+    @FXML
     private NewRegisteredUser userLoggedIn;
 
+
+    /**
+     * Initializing Method for the GUI components
+     *
+     * @param adminViewModelUsers AdminViewModelUsers instance for ViewModel
+     * @param viewHandler         object used handling the views
+     * @param userLoggedIn        object used temporarily storing the User
+     */
     public void init(AdminViewModelUsers adminViewModelUsers,
                      ViewHandler viewHandler, NewRegisteredUser userLoggedIn) {
         this.adminViewModelUsers = adminViewModelUsers;
         this.viewHandler = viewHandler;
         this.userLoggedIn = userLoggedIn;
         adminViewModelUsers.getUsers();
+
         userTableView.itemsProperty()
                 .bindBidirectional(adminViewModelUsers.observableItemsProperty());
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -54,10 +64,9 @@ public class AdminUsersPageController {
 
         searchBar.textProperty()
                 .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
+        banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
 
         adminViewModelUsers.addPropertyChangeListener("Update", this::update);
-        userTableView.setItems(adminViewModelUsers.getItems());
-        banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
     }
 
     private void update(PropertyChangeEvent event) {
@@ -65,19 +74,19 @@ public class AdminUsersPageController {
         userTableView.setItems(adminViewModelUsers.getItems());
     }
 
-    public void onBanAction(ActionEvent event) {
+    public void onBanAction() {
         adminViewModelUsers.manageUsers();
     }
 
-    public void onBackAction(javafx.event.ActionEvent event) {
+    public void onBackAction() {
         viewHandler.showFrontPage(userLoggedIn);
     }
 
-    public void Search(ActionEvent event) {
+    public void Search() {
         adminViewModelUsers.search();
     }
 
-    public void selectUser(MouseEvent mouseEvent) {
+    public void selectUser() {
 
         if (userTableView.getSelectionModel().getSelectedItem() != null) {
             int index = userTableView.getSelectionModel().getSelectedIndex();

@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 
 public class RegisterController
 {
-
   @FXML private TextField firstnameTextField;
   @FXML private TextField lastnameTextField;
   @FXML private TextField usernameTextField;
@@ -46,9 +45,9 @@ public class RegisterController
         registerViewModel.registrationMessageLabelProperty());
     phoneTextField.textProperty()
         .bindBidirectional(registerViewModel.phoneNumberProperty());
+
     registerViewModel.registrationMessageLabelProperty().addListener(
         (observableValue, oldValue, newValue) -> onRegister(newValue));
-    //        registerButton.disableProperty().bind(registerVM.);
   }
 
   private void onRegister(String newValue)
@@ -60,12 +59,12 @@ public class RegisterController
     }
   }
 
-  public void registerButtonOnAction(ActionEvent event)
+  public void registerButtonOnAction()
   {
     registerViewModel.register();
   }
 
-  public void closeOnAction(ActionEvent event)
+  public void closeOnAction()
   {
     registerViewModel.defaultFields();
     viewHandler.openLoginView(null);

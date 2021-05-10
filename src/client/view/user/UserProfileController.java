@@ -12,6 +12,7 @@ import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 
 public class UserProfileController {
+
     private ViewHandler viewHandler;
     private UserProfileViewModel userProfileViewModel;
     private NewRegisteredUser userLoggedIn;
@@ -46,6 +47,7 @@ public class UserProfileController {
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
         this.userLoggedIn = userLoggedIn;
+
         userCurrentUsernameLabel.textProperty()
                 .bindBidirectional(userProfileViewModel.currentUsernameProperty());
         userCurrentFirstNameLabel.textProperty()
@@ -54,10 +56,8 @@ public class UserProfileController {
                 .bindBidirectional(userProfileViewModel.currentLastnameProperty());
         userCurrentPhoneLabel.textProperty()
                 .bindBidirectional(userProfileViewModel.currentPhoneNumberProperty());
-
         userCurrentUsertypeLabel.textProperty()
                 .bindBidirectional(userProfileViewModel.currentUsertypeProperty());
-
         firstnameTextField.textProperty()
                 .bindBidirectional(userProfileViewModel.newFirstNameProperty());
         lastnameTextField.textProperty()
@@ -79,7 +79,6 @@ public class UserProfileController {
     }
 
     private void newSavedInfo(PropertyChangeEvent event) {
-
         NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
@@ -88,7 +87,6 @@ public class UserProfileController {
     }
 
     public void saveButtonOnAction() {
-        System.out.println(1);
         userProfileViewModel.save(userLoggedIn);
         userProfileViewModel.defaultsValue();
     }

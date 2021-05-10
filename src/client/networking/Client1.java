@@ -50,8 +50,6 @@ public class Client1 implements Client
     }
   }
 
-
-
   @Override public void deactivateClient()
   {
     System.out.println("CLose please");
@@ -121,7 +119,6 @@ public class Client1 implements Client
       PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(name, listener);
-
   }
 
   @Override public void removePropertyChangeListener(String name,

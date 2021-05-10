@@ -139,7 +139,7 @@
                                 </Glow>
                             </effect>
                         </Button>
-                        <Label fx:id="LabelHAHA" alignment="CENTER" layoutX="619.0" layoutY="1.0" prefHeight="49.0"
+                        <Label fx:id="UsernameLabel" alignment="CENTER" layoutX="619.0" layoutY="1.0" prefHeight="49.0"
                                prefWidth="177.0" text="UsernameLabel" textAlignment="CENTER"/>
                         <Label layoutX="7.0" layoutY="12.0" text="Movies" textFill="#fcf5f5">
                             <font>

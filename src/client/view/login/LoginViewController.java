@@ -17,95 +17,84 @@ import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 
-public class LoginViewController
-{
+public class LoginViewController {
 
-  @FXML private TextField usernameTextField;
-  @FXML private TextField passwordTextField;
+    @FXML
+    private TextField usernameTextField;
+    @FXML
+    private TextField passwordTextField;
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private Label loginText;
+    @FXML
+    private Button frontPageButton;
 
-  @FXML private ImageView imageView;
-  @FXML private Label loginText;
-  @FXML private Button frontPageButton;
-  private NewRegisteredUser userLoggedIn;
+    private NewRegisteredUser userLoggedIn;
 
-  private LoginViewModel loginViewModel;
-  private ViewHandler viewHandler;
+    private LoginViewModel loginViewModel;
+    private ViewHandler viewHandler;
 
-  public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
-      NewRegisteredUser userLoggedIn)
-  {
-    this.userLoggedIn = userLoggedIn;
-    this.loginViewModel = loginViewModel;
-    this.viewHandler = viewHandler;
-    usernameTextField.textProperty()
-        .bindBidirectional(loginViewModel.usernameProperty());
-    passwordTextField.textProperty()
-        .bindBidirectional(loginViewModel.passwordProperty());
-    loginText.textProperty()
-        .bindBidirectional(loginViewModel.loginResultProperty());
-    try
-    {
-      File imageFIle = new File("images/cinema.jpg");
-      Image image = new Image(imageFIle.toURI().toString());
-      imageView.setImage(image);
+    public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
+                     NewRegisteredUser userLoggedIn) {
+        this.userLoggedIn = userLoggedIn;
+        this.loginViewModel = loginViewModel;
+        this.viewHandler = viewHandler;
+        usernameTextField.textProperty()
+                .bindBidirectional(loginViewModel.usernameProperty());
+        passwordTextField.textProperty()
+                .bindBidirectional(loginViewModel.passwordProperty());
+        loginText.textProperty()
+                .bindBidirectional(loginViewModel.loginResultProperty());
+        try {
+            File imageFIle = new File("images/cinema.jpg");
+            Image image = new Image(imageFIle.toURI().toString());
+            imageView.setImage(image);
+        } catch (NullPointerException e) {
+            System.out.println("image problem");
+        }
 
-    }
-    catch (NullPointerException e)
-    {
-      System.out.println("image probl");
-    }
-
-    loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
-        this::newLogin);
-  }
-
-  private void newLogin(PropertyChangeEvent event)
-  {
-    NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
-    System.out.println("What");
-    if (temp != null)
-    {
-      userLoggedIn = temp;
-      viewHandler.showFrontPage(temp);
-    }
-  }
-
-  public NewRegisteredUser getUserLoggedIn()
-  {
-    return userLoggedIn;
-  }
-
-  public void onLoginAction(ActionEvent actionEvent)
-  {
-    if (userLoggedIn != null)
-    {
+        loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
+                this::newLogin);
     }
 
-    loginViewModel.login();
-    loginViewModel.defaultFields();
+    private void newLogin(PropertyChangeEvent event) {
+        NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
+        if (temp != null) {
+            userLoggedIn = temp;
+            viewHandler.showFrontPage(temp);
+        }
+    }
 
-  }
+    public NewRegisteredUser getUserLoggedIn() {
+        return userLoggedIn;
+    }
 
-  public void onCancelAction()
-  {
-    viewHandler.close();
-    System.out.println("Cancelled");
-  }
+    public void onLoginAction() {
+        if (userLoggedIn != null) {
+        }
 
-  public void onRegisterAction()
-  {
-    loginViewModel.defaultFields();
-    viewHandler.openRegisterView();
-  }
+        loginViewModel.login();
+        loginViewModel.defaultFields();
 
-  public void frontPageButton()
-  {
-    viewHandler.showFrontPage(null);
-  }
+    }
 
-  public void cinemaHallButton()
-  {
+    public void onCancelAction() {
+        viewHandler.close();
+        System.out.println("Cancelled");
+    }
 
-  }
+    public void onRegisterAction() {
+        loginViewModel.defaultFields();
+        viewHandler.openRegisterView();
+    }
+
+    public void frontPageButton() {
+        viewHandler.showFrontPage(null);
+    }
+
+    public void cinemaHallButton() {
+
+    }
 
 }

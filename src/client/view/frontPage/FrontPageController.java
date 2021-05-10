@@ -13,19 +13,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import shared.Movie;
 import shared.NewRegisteredUser;
 
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class FrontPageController {
@@ -41,7 +36,7 @@ public class FrontPageController {
     @FXML
     private AnchorPane SearchBox;
     @FXML
-    private Label LabelHAHA;
+    private Label UsernameLabel;
     @FXML
     private VBox Profile;
 
@@ -72,7 +67,6 @@ public class FrontPageController {
     @FXML
     private TableColumn<Object, String> descriptionCol;
 
-
     private UserFrontPageViewModel userFrontPageViewModel;
     private ViewHandler viewHandler;
     private Movie movie;
@@ -100,13 +94,13 @@ public class FrontPageController {
                 adminContainer.setDisable(false);
             }
 
-            LabelHAHA.setVisible(true);
+            UsernameLabel.setVisible(true);
             myProfileButton.setVisible(true);
-            LabelHAHA.setText("Logged in as " + userLoggedIn.getUsername());
+            UsernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
             loginButton.setText("Log Out");
 
         } else {
-            LabelHAHA.setVisible(false);
+            UsernameLabel.setVisible(false);
             myProfileButton.setVisible(false);
             loginButton.setText("Log In");
         }
@@ -124,9 +118,9 @@ public class FrontPageController {
         searchBar.textProperty()
                 .bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
 
+
         movieTableView.itemsProperty()
                 .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
-
         movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         dateOfReleaseCol
                 .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
@@ -144,13 +138,14 @@ public class FrontPageController {
         descriptionCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
 
         userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
-        movieTableView.setItems(userFrontPageViewModel.getItems());
+
+
         setSelectedMovie();
 
     }
 
     private void update(PropertyChangeEvent event) {
-        System.out.println("Upadate Movies");
+        System.out.println("Update Movies");
         movieTableView.setItems(userFrontPageViewModel.getItems());
     }
 
@@ -179,7 +174,6 @@ public class FrontPageController {
                 });
     }
 
-
     @FXML
     public void goToMyProfile() {
         if (userLoggedIn != null) {
@@ -189,38 +183,37 @@ public class FrontPageController {
         }
     }
 
-    public void Search(ActionEvent actionEvent) {
+    public void Search() {
         userFrontPageViewModel.getMovies();
     }
 
-    public void onDatePick(ActionEvent actionEvent) {
+    public void onDatePick() {
         if (datePick.getValue() != null) {
             System.out.println("Hey");
             userFrontPageViewModel.getMovies();
         }
     }
 
-    public void onBookMovieButton(ActionEvent actionEvent) {
+    public void onBookMovieButton() {
         viewHandler.showCinemaHallPage(userLoggedIn, movie);
     }
 
 
-    public void setSelected(MouseEvent mouseEvent) {
+    public void setSelected() {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
 
-            System.out.println(movieTableView.getItems().get(index));
             movie = movieTableView.getItems().get(index);
             userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
         }
 
     }
 
-    public void onManageUsers(ActionEvent event) {
+    public void onManageUsers() {
         viewHandler.openAdminUsersPage(userLoggedIn);
     }
 
-    public void onAddMovie(ActionEvent actionEvent) {
+    public void onAddMovie() {
         Optional<Movie> movie = viewHandler.openAddMovieWindow().showAndWait();
 
         if (movie.isPresent()) {
@@ -228,7 +221,7 @@ public class FrontPageController {
         }
     }
 
-    public void onEditMovie(ActionEvent actionEvent) {
+    public void onEditMovie() {
         if (userFrontPageViewModel.getSelectedMovie() != null) {
             Optional<Movie> movie = viewHandler.openEditMovieWindow(userFrontPageViewModel.getSelectedMovie()).showAndWait();
             if (movie.isPresent()) {
@@ -237,7 +230,7 @@ public class FrontPageController {
         }
     }
 
-    public void onRemoveMovie(ActionEvent actionEvent) {
+    public void onRemoveMovie() {
         if (movie != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
