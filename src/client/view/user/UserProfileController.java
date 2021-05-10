@@ -88,7 +88,7 @@ public class UserProfileController {
 
     public void saveButtonOnAction() {
         userProfileViewModel.save(userLoggedIn);
-        userProfileViewModel.defaultsValue();
+
     }
 
     public void closeOnAction() {

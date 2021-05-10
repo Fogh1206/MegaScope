@@ -78,9 +78,7 @@ public class RegisterViewModel
     return confirmPasswordLabel;
   }
 
- /*   public BooleanProperty registerButtonDisabledProperty() {
-        return registerButtonDisabled;
-    }*/
+
 
   public void register()
   {

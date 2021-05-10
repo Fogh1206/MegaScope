@@ -1,19 +1,12 @@
 package client.viewmodel.frontPage;
 
 import client.model.UserModel;
-import javafx.application.Platform;
+
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
 import shared.Movie;
-import shared.Request;
-import shared.util.EventType;
+
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -21,7 +14,7 @@ import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class UserFrontPageViewModel
 {

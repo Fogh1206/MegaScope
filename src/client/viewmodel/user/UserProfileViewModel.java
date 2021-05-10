@@ -118,13 +118,13 @@ public class UserProfileViewModel
 
   public void save(NewRegisteredUser userLoggedIn)
   {
-    System.out.println(2);
+
     saveAccount(userLoggedIn);
   }
 
   public void saveAccount(NewRegisteredUser userLoggedIn)
   {
-    System.out.println(3);
+
 
     if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
         .equals(confirmPassword.get()))
@@ -159,16 +159,6 @@ public class UserProfileViewModel
     }
   }
 
-  public void defaultsValue()
-  {
-    //    newFirstName.setValue("");
-    //    newLastName.setValue("");
-    //    newUsername.setValue("");
-    //    newPassword.setValue("");
-    //    confirmPassword.setValue("");
-    //    newPhoneNumber.setValue("");
-
-  }
 
   public void addPropertyChangeListener(String name,
       PropertyChangeListener listener)

@@ -83,7 +83,7 @@ public class AdminViewModelUsers
 
     if (searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))
     {
-      System.out.println("Please");
+
       getUsers();
     }
     else
@@ -115,25 +115,19 @@ public class AdminViewModelUsers
 
     if (selectedUser != null)
     {
-      System.out.println("Test1 " + selectedUser.getBanned());
-      selectedUser.setBanned(!selectedUser.getBanned());
-      System.out.println("Test2 " + selectedUser.getPhoneNumber());
-      System.out.println("1" + selectedUser.toString());
 
+      selectedUser.setBanned(!selectedUser.getBanned());
       NewRegisteredUser user = new NewRegisteredUser(selectedUser.getId(),
           selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getUsername(),
           selectedUser.getPassword(), selectedUser.getPhoneNumber(), selectedUser.getUserType(),
          selectedUser.getBanned());
       userModel.saveNewInfo(user);
-      getUsers();
+
     }
   }
 
   public void selectedUserToModel(NewRegisteredUser user)
   {
-
-    System.out.println("He im here " + user);
     selectedUser = user;
-    System.out.println("           " + user.getBanned());
   }
 }
