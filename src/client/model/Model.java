@@ -1,6 +1,6 @@
 package client.model;
 
-import client.networking.Client;
+import client.networking.ClientImpl;
 import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.util.EventType;
@@ -11,11 +11,11 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 public class Model implements UserModel {
-    private Client client;
+    private ClientImpl client;
     private NewRegisteredUser loggedUser;
     private PropertyChangeSupport support;
 
-    public Model(Client client) {
+    public Model(ClientImpl client) {
         this.client = client;
         support = new PropertyChangeSupport(this);
 

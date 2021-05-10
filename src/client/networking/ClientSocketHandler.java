@@ -10,10 +10,10 @@ public class ClientSocketHandler implements Runnable
 {
   private ObjectInputStream inputStream;
   private Socket socket;
-  private Client client;
+  private ClientImpl client;
 
   /** Constructor */
-  public ClientSocketHandler(Socket socket, Client client)
+  public ClientSocketHandler(Socket socket, ClientImpl client)
   {
     this.socket = socket;
     this.client = client;

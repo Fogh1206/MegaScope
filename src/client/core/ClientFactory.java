@@ -1,17 +1,17 @@
 package client.core;
 
+import client.networking.ClientImpl;
 import client.networking.Client;
-import client.networking.Client1;
 
 public class ClientFactory
 {
-  private Client client;
+  private ClientImpl client;
 
-  public Client getClient()
+  public ClientImpl getClient()
   {
     if (client == null)
     {
-      client = new Client1();
+      client = new Client();
     }
     return client;
   }
