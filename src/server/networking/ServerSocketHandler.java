@@ -16,15 +16,14 @@ import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
 
-    private ServerModel serverModel;
+
     private Socket socket;
     private ObjectOutputStream outToClient;
     private ObjectInputStream inFromClient;
     private UserDAO userDAO;
     private boolean connected = true;
 
-    public ServerSocketHandler(ServerModel serverModel, Socket socket) {
-        this.serverModel = serverModel;
+    public ServerSocketHandler(Socket socket) {
         this.socket = socket;
         try {
             this.outToClient = new ObjectOutputStream(socket.getOutputStream());
@@ -32,7 +31,7 @@ public class ServerSocketHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        userDAO = new ManageUserDAO();
+        userDAO = ManageUserDAO.getInstance();
 
     }
 

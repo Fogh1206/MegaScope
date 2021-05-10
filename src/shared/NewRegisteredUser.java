@@ -30,13 +30,13 @@ public class NewRegisteredUser implements Serializable
   public NewRegisteredUser(int id, String firstName, String lastName,
       String username, String password, String phoneNumber)
   {
-
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;
     this.password = password;
     this.phoneNumber = phoneNumber;
+    this.banned = false;
 
   }
 

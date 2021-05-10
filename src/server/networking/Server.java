@@ -15,10 +15,8 @@ public class Server
 
   private Socket socketClient;
 
-  public Server(ServerModel serverModel)
+  public Server()
   {
-    this.serverModel = serverModel;
-
   }
 
   public void startServer() throws IOException
@@ -31,8 +29,7 @@ public class Server
       {
         System.out.println("Waiting for client..");
         socketClient = serverSocket.accept();
-        ServerSocketHandler ssh = new ServerSocketHandler(serverModel,
-            socketClient);
+        ServerSocketHandler ssh = new ServerSocketHandler(socketClient);
         (new Thread(ssh)).start();
         System.out.println("Client connected");
       }

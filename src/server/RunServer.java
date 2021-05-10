@@ -11,9 +11,7 @@ public class RunServer
 {
   public static void main(String[] args)
   {
-    Users users = new Users();
-    ServerModel sm = new ServerModelManager(users);
-    Server server = new Server(sm);
+    Server server = new Server();
     try
     {
       server.startServer();
