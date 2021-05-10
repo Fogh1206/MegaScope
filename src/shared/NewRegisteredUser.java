@@ -53,15 +53,6 @@ public class NewRegisteredUser implements Serializable
     this.banned=banned;
   }
 
-  public NewRegisteredUser(String username,String firstName,String lastName)
-  {
-    this.id = 0;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.username = username;
-    this.password = password;
-    this.phoneNumber = null;
-  }
   public NewRegisteredUser(String username,String password)
   {
     this.id = 0;

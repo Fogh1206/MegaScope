@@ -1,22 +1,22 @@
+/*
 package server.modelserver;
 
 import server.data.UserInt;
 import shared.User;
 
-public class ServerModelManager implements ServerModel  {
+public class ServerModelManager implements ServerModel {
 
-  private UserInt modelManager;
+    private UserInt modelManager;
 
-  public ServerModelManager(UserInt modelManager)
-  {
-    this.modelManager=modelManager;
-  }
+    public ServerModelManager(UserInt modelManager) {
+        this.modelManager = modelManager;
+    }
 
-  @Override public String acceptUser(User user)
-  {
-    return modelManager.acceptUser(user);
-  }
-
+    @Override
+    public String acceptUser(User user) {
+        return modelManager.acceptUser(user);
+    }
 
 
 }
+*/
