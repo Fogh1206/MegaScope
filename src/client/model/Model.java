@@ -69,8 +69,9 @@ public class Model implements UserModel {
     }
 
     private void onRegisterResult(PropertyChangeEvent event) {
-        String registerResult = (String) event.getNewValue();
-        System.out.println(registerResult);
+        NewRegisteredUser user = (NewRegisteredUser) event.getNewValue();
+        support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, user);
+
     }
 
     private void onMoviesChanged(PropertyChangeEvent event) {

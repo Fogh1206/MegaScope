@@ -63,10 +63,10 @@ public class ServerSocketHandler implements Runnable {
     public Request getRegisterRequest(NewRegisteredUser user) {
 
         System.out.println("Register requested");
-        userDAO.createUser(user);
+        NewRegisteredUser temp = userDAO.createUser(user);
 
         Request response = new Request(EventType.REGISTER_RESULT,
-                "Successful");
+                temp);
         return response;
     }
 

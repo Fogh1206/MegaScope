@@ -225,9 +225,9 @@ public class ManageUserDAO implements UserDAO {
             statement.setString(3, user.getUsername());
             statement.setString(4, user.getPassword());
             statement.setString(5, user.getPhoneNumber());
-            statement.setString(6,"USER");
+            statement.setString(6, "USER");
 
-            statement.executeQuery();
+            statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
@@ -236,7 +236,8 @@ public class ManageUserDAO implements UserDAO {
                 NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6),resultSet.getString(7),resultSet.getBoolean(8));
+                        resultSet.getString(6), resultSet.getString(7),
+                        resultSet.getBoolean(8));
                 user = temp;
                 System.out.println(temp.getId());
             }

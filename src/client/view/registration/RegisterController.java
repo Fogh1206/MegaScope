@@ -8,6 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import shared.NewRegisteredUser;
+import shared.util.EventType;
+
+import java.beans.PropertyChangeEvent;
 
 public class RegisterController
 {
@@ -46,17 +50,20 @@ public class RegisterController
     phoneTextField.textProperty()
         .bindBidirectional(registerViewModel.phoneNumberProperty());
 
-    registerViewModel.registrationMessageLabelProperty().addListener(
-        (observableValue, oldValue, newValue) -> onRegister(newValue));
+//    registerViewModel.registrationMessageLabelProperty().addListener(
+//        (observableValue, oldValue, newValue) -> onRegister(newValue));
+
+    registerViewModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
+            this::onRegister);
   }
 
-  private void onRegister(String newValue)
+  private void onRegister(PropertyChangeEvent event)
   {
-    System.out.println("lalalal");
-    if (newValue.equals("Register Result"))
+    System.out.println("KOLJ");
+    NewRegisteredUser user = (NewRegisteredUser) event.getNewValue();
+    if (user != null)
     {
-      viewHandler.openLoginView(null);
-      System.out.println(newValue);
+      viewHandler.openLoginView(user);
     }
   }
 
