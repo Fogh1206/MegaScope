@@ -2,6 +2,7 @@ package server.database;
 
 import shared.Movie;
 import shared.NewRegisteredUser;
+import shared.Reservation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -163,8 +164,40 @@ public class ManageUserDAO implements UserDAO {
         return null;
     }
 
-
     @Override
+    public Reservation reserveMovie(Reservation reservation) {
+        PreparedStatement statement = null;
+        Reservation temp = null;
+        try (Connection connection = controller.getConnection()) {
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO public.reservation (res_id,seat_id,movie_id ,user_id)" +
+                            "VALUES (" + "DEFAULT" + ",'"
+                            + reservation.getSeat_no() + "','" + reservation.getMovie_id() + "','"
+                            + reservation.getUser_id() + "')");
+
+            statement.executeUpdate();
+            statement.close();
+            statement = connection.prepareStatement(
+                    "SELECT * FROM public.reservation WHERE id='" + reservation.getReservation_id() + "'");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                temp = new Reservation(resultSet.getInt(1),
+                        resultSet.getInt(2), resultSet.getInt(3),
+                        resultSet.getInt(4));
+                System.out.println(temp);
+            }
+
+            return temp;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+
+        @Override
     public ArrayList<Movie> removeMovie(Movie movie) {
 
         ArrayList<Movie> movieList = new ArrayList<>();

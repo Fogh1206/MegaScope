@@ -22,5 +22,5 @@ public interface UserDAO {
 
     ArrayList<Movie> editMovie(Movie movie);
 
-    ArrayList<String> getReservations(Movie movie);
-}
+}  ArrayList<String> getReservations(Movie movie);
+    reserveMovie(Reservation reservation);
