@@ -27,6 +27,7 @@ public class RegisterViewModel {
         registrationMessageLabel = new SimpleStringProperty();
         confirmPasswordLabel = new SimpleStringProperty();
         phoneNumber = new SimpleStringProperty();
+
         userModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
                 this::onRegister);
     }
@@ -37,7 +38,6 @@ public class RegisterViewModel {
                     event.getNewValue());
         });
     }
-
 
 
     public void register() {
@@ -65,14 +65,12 @@ public class RegisterViewModel {
     }
 
     public void registerUserAccount() {
-        model.register(
-                new NewRegisteredUser(firstName.get(), lastName.get(), username.get(),
-                        password.get(), phoneNumber.get(), "USER", false));
+        model.register(new NewRegisteredUser(firstName.get(), lastName.get(), username.get(),
+                password.get(), phoneNumber.get(), "USER", false));
         defaultFields();
     }
 
     public void defaultFields() {
-
         firstName.setValue("");
         lastName.setValue("");
         phoneNumber.setValue("");
@@ -80,11 +78,9 @@ public class RegisterViewModel {
         password.setValue("");
         confirmPassword.setValue("");
         confirmPasswordLabel.setValue("");
-
     }
 
-    public void addPropertyChangeListener(String name,
-                                          PropertyChangeListener listener) {
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 

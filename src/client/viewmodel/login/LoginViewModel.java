@@ -64,8 +64,7 @@ public class LoginViewModel
     model.login(username.get(), password.get());
   }
 
-  public void addPropertyChangeListener(String name,
-      PropertyChangeListener listener)
+  public void addPropertyChangeListener(String name,PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(name, listener);
   }

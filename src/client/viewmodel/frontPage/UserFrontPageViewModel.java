@@ -16,164 +16,123 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserFrontPageViewModel
-{
+public class UserFrontPageViewModel {
 
-  private UserModel model;
-  private PropertyChangeSupport support;
-  private Movie selectedMovie;
+    private UserModel model;
+    private PropertyChangeSupport support;
+    private Movie selectedMovie;
 
 
-  private StringProperty username, button;
-  private StringProperty searchPhrase;
-  private ObjectProperty datePicked;
-  private Property<ObservableList<Movie>> observableItems;
-  private ObservableList<Movie> items;
+    private StringProperty username, button;
+    private StringProperty searchPhrase;
+    private ObjectProperty datePicked;
+    private Property<ObservableList<Movie>> observableItems;
 
-  public UserFrontPageViewModel(UserModel userModel)
-  {
-    this.model = userModel;
-    support = new PropertyChangeSupport(this);
-    username = new SimpleStringProperty();
-    datePicked = new SimpleObjectProperty();
-    button = new SimpleStringProperty();
-    searchPhrase = new SimpleStringProperty();
-    items = new SimpleListProperty<>();
-    observableItems = new SimpleListProperty<>();
+    public UserFrontPageViewModel(UserModel userModel) {
+        this.model = userModel;
+        support = new PropertyChangeSupport(this);
+        username = new SimpleStringProperty();
+        datePicked = new SimpleObjectProperty();
+        button = new SimpleStringProperty();
+        searchPhrase = new SimpleStringProperty();
+        observableItems = new SimpleListProperty<>();
 
-    userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
-  }
-
-  public void onGetMovies(PropertyChangeEvent event)
-  {
-    List<Movie> list = (ArrayList<Movie>) event.getNewValue();
-    System.out.println(list);
-    ObservableList<Movie> observableList = FXCollections.observableArrayList();
-    observableList.addAll(list);
-    System.out.println("Kappa " + observableList.size());
-    observableItems.setValue(observableList);
-    items = FXCollections.observableArrayList(list);
-    if (searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))
-    {
-      System.out.println("Please");
+        userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
     }
-    else
-    {
-      search();
-    }
-    System.out.println("nope "+datePicked.get());
-    if (datePicked.get() == null)
-    {
-      System.out.println("Please datePick");
-    }
-    else
-    {
-      onDatePick();
-    }
-  }
 
-  public void addPropertyChangeListener(String name,
-                                        PropertyChangeListener listener)
-  {
-    support.addPropertyChangeListener(name, listener);
-  }
-
-
-  public void getMovies()
-  {
-    model.getMovies();
-  }
-
-  public void close()
-  {
-    model.deactivateClient();
-  }
-
-  public void search()
-  {
-
-      ObservableList<Movie> observableList = FXCollections
-          .observableArrayList();
-      for (int i = 0; i < observableItems.getValue().size(); i++)
-      {
-        if (observableItems.getValue().get(i).getName()
-            .contains(searchPhrase.getValue()))
-        {
-          observableList.add(observableItems.getValue().get(i));
+    public void onGetMovies(PropertyChangeEvent event) {
+        ObservableList<Movie> observableList = FXCollections.observableArrayList();
+        observableList.addAll((ArrayList<Movie>) event.getNewValue());
+        observableItems.setValue(observableList);
+        if (!(searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))) {
+            System.out.println("Not null searchbar");
+            search();
         }
-      }
-      observableItems.setValue(observableList);
-
-    searchPhrase.setValue(null);
-  }
-
-  public void onDatePick()
-  {
-    ObservableList<Movie> observableList = FXCollections.observableArrayList();
-
-    for (int i = 0; i < observableItems.getValue().size(); i++)
-    {
-      if (datePicked.get().toString()
-          .equals(observableItems.getValue().get(i).getDateOfShow()))
-      {
-        observableList.add(observableItems.getValue().get(i));
-      }
+        if (!(datePicked.get() == null)) {
+            System.out.println("Not null date");
+            onDatePick();
+        }
     }
-    observableItems.setValue(observableList);
 
-   datePicked.setValue(null);
-  }
-
-  public Property<LocalDate> getValue()
-  {
-    return datePicked;
-  }
-
-  public Movie getSelectedMovie(){
-    return selectedMovie;
-  }
-
-  public void addMovie(Movie movie){
-    model.addMovie(movie);
-  }
-
-  public void editMovie(Movie movie){
-    model.editMovie(movie);
-  }
-
-  public void removeMovie(){
-    if (selectedMovie!=null)
-    {
-      model.removeMovie(selectedMovie);
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
     }
-  }
-  public void selectedMovie(Movie movie)
-  {
-    selectedMovie=movie;
-  }
 
-  public StringProperty usernameProperty()
-  {
-    return username;
-  }
 
-  public StringProperty buttonProperty()
-  {
-    return button;
-  }
+    public void getMovies() {
+        model.getMovies();
+    }
 
-  public ObservableList<Movie> getItems()
-  {
-    return items;
-  }
+    public void close() {
+        model.deactivateClient();
+    }
 
-  public Property<ObservableList<Movie>> observableItemsProperty()
-  {
-    return observableItems;
-  }
+    public void search() {
 
-  public StringProperty searchPhraseProperty()
-  {
-    return searchPhrase;
-  }
+        ObservableList<Movie> observableList = FXCollections.observableArrayList();
+        for (int i = 0; i < observableItems.getValue().size(); i++) {
+            if (observableItems.getValue().get(i).getName().contains(searchPhrase.getValue())) {
+                observableList.add(observableItems.getValue().get(i));
+            }
+        }
+        observableItems.setValue(observableList);
+
+        searchPhrase.setValue(null);
+    }
+
+    public void onDatePick() {
+        ObservableList<Movie> observableList = FXCollections.observableArrayList();
+
+        for (int i = 0; i < observableItems.getValue().size(); i++) {
+            if (datePicked.get().toString().equals(observableItems.getValue().get(i).getDateOfShow())) {
+                observableList.add(observableItems.getValue().get(i));
+            }
+        }
+        observableItems.setValue(observableList);
+
+        datePicked.setValue(null);
+    }
+
+    public Property<LocalDate> getValue() {
+        return datePicked;
+    }
+
+    public Movie getSelectedMovie() {
+        return selectedMovie;
+    }
+
+    public void addMovie(Movie movie) {
+        model.addMovie(movie);
+    }
+
+    public void editMovie(Movie movie) {
+        model.editMovie(movie);
+    }
+
+    public void removeMovie() {
+        if (selectedMovie != null) {
+            model.removeMovie(selectedMovie);
+        }
+    }
+
+    public void selectedMovie(Movie movie) {
+        selectedMovie = movie;
+    }
+
+    public StringProperty usernameProperty() {
+        return username;
+    }
+
+    public StringProperty buttonProperty() {
+        return button;
+    }
+
+
+    public Property<ObservableList<Movie>> observableItemsProperty() {
+        return observableItems;
+    }
+
+    public StringProperty searchPhraseProperty() {
+        return searchPhrase;
+    }
 }
