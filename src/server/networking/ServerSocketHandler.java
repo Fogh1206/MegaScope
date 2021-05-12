@@ -114,10 +114,9 @@ public class ServerSocketHandler implements Runnable {
         return response;
     }
 
-    public Request getReserveMovieRequest(Reservation reservation)
-    {
-        Reservation reserv= userDAO.reserveMovie(reservation);
-        Request request=new Request(EventType.RESERVEMOVIE_RESULT,reserv);
+    public Request getReserveMovieRequest(Reservation reservation) {
+        Reservation reserv = userDAO.reserveMovie(reservation);
+        Request request = new Request(EventType.RESERVEMOVIE_RESULT, reserv);
         return request;
     }
 
@@ -150,6 +149,12 @@ public class ServerSocketHandler implements Runnable {
                         break;
                     case REMOVEMOVIE_REQUEST:
                         outToClient.writeObject(getRemoveMovieRequest((Movie) request.arg));
+                        break;
+                    case GETRESERVATIONS_REQUEST:
+                        outToClient.writeObject(getReservationsRequest((Movie) request.arg));
+                        break;
+                    case RESERVEMOVIE_REQUEST:
+                        outToClient.writeObject(getReserveMovieRequest((Reservation) request.arg));
                         break;
                     case CLOSE_REQUEST:
                         System.out.println("Closing");
