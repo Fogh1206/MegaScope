@@ -6,6 +6,7 @@ import server.modelserver.ServerModel;
 import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.Request;
+import shared.Reservation;
 import shared.util.EventType;
 
 import java.io.IOException;
@@ -154,6 +155,12 @@ public class ServerSocketHandler implements Runnable {
                         System.out.println("Closing");
                         outToClient.writeObject(getCloseRequest());
                         close();
+                        break;
+                    case GETRESERVATIONS_REQUEST:
+                        outToClient.writeObject(getReservationsRequest((Movie) request.arg));
+                        break;
+                    case RESERVEMOVIE_REQUEST:
+                        outToClient.writeObject(getReserveMovieRequest((Reservation) request.arg));
                         break;
                 }
             } catch (Exception e) {

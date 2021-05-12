@@ -84,7 +84,7 @@ public class CinemaHallController {
                 });
                 gridPaneSeats.add(rectangle, column, row);
                 rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
-                rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
+//                rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
 
             }
         }
