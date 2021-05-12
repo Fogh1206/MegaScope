@@ -65,20 +65,26 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public ArrayList<Movie> editMovie(Movie movie) {
 
+        System.out.println("I'm editting the movie " + movie.getId());
         ArrayList<Movie> movieList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE public.movies SET name='" + movie.getName() + "',dateofrelease='"
+                    "UPDATE public.movies2 SET name='" + movie.getName() + "',dateofrelease='"
                             + movie.getDateOfRelease() + "',mainactors='" + movie.getMainActors() + "',description='" + movie.getDescription()
-                            + "',timeofshow='" + movie.getTimeOfShow() + "',dateofshow='" + movie.getDateOfShow()
-                            + " 'where id=" + movie.getId() + "");
+                            + " 'where id='" + movie.getId() + "'");
 
 
             statement.executeUpdate();
 
+            statement = connection.prepareStatement(
+                    "UPDATE public.show SET id='" + movie.getId() + "',time_show='" + movie.getTimeOfShow() + "',date_show='" + movie.getDateOfShow()
+                            + "' where id='" + movie.getId() + "'");
+            statement.executeUpdate();
+
             System.out.println("       " + movie.getName());
             System.out.println("          " + movie.getId());
-            statement = connection.prepareStatement("SELECT * FROM public.movies ");
+            statement = connection.prepareStatement("select movies2.id, name, dateofrelease, mainactors, description, time_show, date_show from public.movies2 join public.show on show.movie_id = movies2.id");
+
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -89,7 +95,6 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7));
 
-                System.out.println(temp);
                 movieList.add(temp);
             }
             statement.close();
@@ -134,17 +139,36 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controller.getConnection()) {
 
             statement = connection.prepareStatement(
-                    "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description, timeofshow, dateofshow)" +
+                    "INSERT INTO public.movies2 (id, name, dateofrelease, mainactors, description)" +
                             "VALUES (" + "DEFAULT" + ",'"
                             + movie.getName() + "','" + movie.getDateOfRelease() + "','"
-                            + movie.getMainActors() + "','" + movie.getDescription() + "','"
-                            + movie.getTimeOfShow() + "','" + movie.getDateOfShow() + "')");
+                            + movie.getMainActors() + "','" + movie.getDescription() + "')");
 
             statement.executeUpdate();
 
-            statement = connection.prepareStatement("SELECT * FROM public.movies ");
+            int id = 0;
+            statement = connection.prepareStatement(
+                    "select movies2.id from movies2 where name='" + movie.getName() + "'");
 
             ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+
+                id = resultSet.getInt(1);
+            }
+            System.out.println(id);
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO public.show (id, movie_id, time_show, date_show)" +
+                            "VALUES (" + "DEFAULT" + ",'"
+                            + id + "','" + movie.getTimeOfShow() + "','"
+                            + movie.getDateOfShow() + "')");
+
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("select movies2.id, name, dateofrelease, mainactors, description, time_show, date_show from public.movies2 join public.show on show.movie_id = movies2.id");
+
+
+            resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
 
@@ -203,7 +227,7 @@ public class ManageUserDAO implements UserDAO {
         ArrayList<Movie> movieList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from movies where id='" + movie.getId() + "'");
+                    "Delete from movies2 where id='" + movie.getId() + "' cascade ");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("SELECT * FROM public.movies ");
@@ -312,7 +336,8 @@ public class ManageUserDAO implements UserDAO {
 
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
-            statement = connection.prepareStatement("SELECT * FROM public.movies ");
+            //  statement = connection.prepareStatement("SELECT * FROM public.movies ");
+            statement = connection.prepareStatement("select movies2.id, name, dateofrelease, mainactors, description, time_show, date_show from public.movies2 join public.show on show.movie_id = movies2.id");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -322,7 +347,7 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7));
-
+                System.out.println(1);
                 movieList.add(temp);
             }
         } catch (SQLException e) {

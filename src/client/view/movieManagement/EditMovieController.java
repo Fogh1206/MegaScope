@@ -24,11 +24,14 @@ public class EditMovieController {
 
     private EditMovieViewModel editMovieViewModel;
     private ViewHandler viewHandler;
+    private Movie movie;
 
     public void init(EditMovieViewModel editMovieViewModel, ViewHandler viewHandler, Movie movie) {
         this.editMovieViewModel  = editMovieViewModel;
         this.viewHandler        = viewHandler;
+        this.movie = movie;
 
+        System.out.println("Id from edit movie controller"+movie.getId());
         movieNameTextField.textProperty().bindBidirectional(editMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(editMovieViewModel.dateOfReleaseProperty());
         mainActorsTextArea.textProperty().bindBidirectional(editMovieViewModel.mainActorsProperty());
@@ -46,15 +49,14 @@ public class EditMovieController {
 
         hourTextField.setText(times[0]);
         minuteTextField.setText(times[1]);
+        System.out.println(movie.getDateOfShow());
         dateOfShowDatePicker.setValue(LocalDate.parse(movie.getDateOfShow()));
 
     }
 
     public void onSave(ActionEvent actionEvent){
         // your code here
-        editMovieViewModel.editMovie();
-
-
+        editMovieViewModel.editMovie(movie.getId());
     }
 
     public void onCancel(){

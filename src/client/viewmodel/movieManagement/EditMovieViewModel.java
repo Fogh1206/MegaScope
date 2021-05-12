@@ -22,7 +22,6 @@ public class EditMovieViewModel {
     private UserModel model;
 
     public EditMovieViewModel(UserModel model){
-
         this.model = model;
         movieName       = new SimpleStringProperty();
         dateOfRelease   = new SimpleStringProperty();
@@ -62,8 +61,8 @@ public class EditMovieViewModel {
         return dateOfShow;
     }
 
-    public void editMovie(){
-        Movie movie = new Movie(movieName.get(), dateOfRelease.get(),
+    public void editMovie(int id){
+        Movie movie = new Movie(id,movieName.get(), dateOfRelease.get(),
                 mainActors.get(), description.get(),
                 hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
                 dateOfShow.get().toString());

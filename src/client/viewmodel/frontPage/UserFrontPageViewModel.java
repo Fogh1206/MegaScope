@@ -61,7 +61,7 @@ public class UserFrontPageViewModel
     {
       search();
     }
-    System.out.println(datePicked.get());
+    System.out.println("nope "+datePicked.get());
     if (datePicked.get() == null)
     {
       System.out.println("Please datePick");
@@ -138,9 +138,6 @@ public class UserFrontPageViewModel
   }
 
   public void editMovie(Movie movie){
-
-
-
     model.editMovie(movie);
   }
 

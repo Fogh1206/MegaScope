@@ -110,13 +110,11 @@ public class FrontPageController {
 
         datePick.valueProperty()
                 .bindBidirectional(userFrontPageViewModel.getValue());
-
         searchBar.textProperty()
                 .bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
-
-
         movieTableView.itemsProperty()
                 .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
+
         movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         dateOfReleaseCol
                 .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
@@ -165,6 +163,8 @@ public class FrontPageController {
                             int index = movieTableView.getSelectionModel().getSelectedIndex();
 
                             System.out.println(movieTableView.getItems().get(index));
+                            System.out.println(movieTableView.getItems().get(index).getId());
+                          //  System.out.println(selectedMovie.getId());
                         }
                     }
                 });
@@ -201,6 +201,7 @@ public class FrontPageController {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
             selectedMovie = movieTableView.getItems().get(index);
+            System.out.println("HAHAHA"+selectedMovie.getId());
             userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
         }
     }
