@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class ManageUserDAO implements UserDAO {
 
-    private static ManageUserDAO instance;
     private Controller controller;
+    private static ManageUserDAO instance;
 
     private ManageUserDAO() {
         try {

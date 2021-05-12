@@ -5,6 +5,7 @@ import client.view.cinemaHall.CinemaHallController;
 import client.view.frontPage.FrontPageController;
 import client.view.login.LoginViewController;
 import client.view.movieManagement.AddMovieController;
+import client.view.movieManagement.EditMovieController;
 import client.view.registration.RegisterController;
 import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
@@ -64,6 +65,25 @@ public class ViewHandler {
       Stage stage = new Stage();
       stage.initOwner(mainStage);
       stage.setTitle("Add new movie");
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void openEditMovie(Movie movie){
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("../fxml/editMovie.fxml"));
+    try {
+      Parent root = loader.load();
+      EditMovieController ctrl = loader.getController();
+      ctrl.init(vmf.getEditMovieViewModel(), this, movie);
+      Stage stage = new Stage();
+      stage.initOwner(mainStage);
+      stage.setTitle("Edit movie");
       Scene scene = new Scene(root);
       stage.setScene(scene);
       stage.show();

@@ -208,20 +208,11 @@ public class FrontPageController {
     }
 
     public void onAddMovie() {
-        Optional<Movie> movie = viewHandler.openAddMovieWindow().showAndWait();
-
-        if (movie.isPresent()) {
-            userFrontPageViewModel.addMovie(movie.get());
-        }
+        viewHandler.openAddMovieView();
     }
 
     public void onEditMovie() {
-        if (userFrontPageViewModel.getSelectedMovie() != null) {
-            Optional<Movie> movie = viewHandler.openEditMovieWindow(userFrontPageViewModel.getSelectedMovie()).showAndWait();
-            if (movie.isPresent()) {
-                userFrontPageViewModel.editMovie(movie.get());
-            }
-        }
+        viewHandler.openEditMovie(selectedMovie);
     }
 
     public void onRemoveMovie() {
