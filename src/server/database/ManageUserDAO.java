@@ -197,7 +197,7 @@ public class ManageUserDAO implements UserDAO {
     }
 
 
-        @Override
+    @Override
     public ArrayList<Movie> removeMovie(Movie movie) {
 
         ArrayList<Movie> movieList = new ArrayList<>();

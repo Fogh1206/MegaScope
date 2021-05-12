@@ -108,6 +108,6 @@ public class CinemaHallViewModel {
     }
 
     public Property<Boolean> getDisableProperty(String id) {
-
+        return null;
     }
 }

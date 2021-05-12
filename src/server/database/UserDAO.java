@@ -2,6 +2,7 @@ package server.database;
 
 import shared.Movie;
 import shared.NewRegisteredUser;
+import shared.Reservation;
 
 import java.util.ArrayList;
 
@@ -22,5 +23,7 @@ public interface UserDAO {
 
     ArrayList<Movie> editMovie(Movie movie);
 
-}  ArrayList<String> getReservations(Movie movie);
-    reserveMovie(Reservation reservation);
+    ArrayList<String> getReservations(Movie movie);
+
+    Reservation reserveMovie(Reservation reservation);
+}
