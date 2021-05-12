@@ -319,8 +319,7 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public NewRegisteredUser validateUser(int id, String username,
-                                          String password) {
+    public NewRegisteredUser validateUser(int id, String username,String password) {
         NewRegisteredUser user = null;
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
@@ -394,6 +393,4 @@ public class ManageUserDAO implements UserDAO {
         }
 
     }
-
-
 }
