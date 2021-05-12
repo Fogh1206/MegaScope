@@ -101,6 +101,30 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
+    public ArrayList<String> getReservations(Movie movie) {
+        ArrayList<String> strings = new ArrayList<>();
+
+        PreparedStatement statement = null;
+        try (Connection connection = controller.getConnection()) {
+            statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE movie_id='" + movie.getId() + "'");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                strings.add(resultSet.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return strings;
+    }
+
+    @Override
     public ArrayList<Movie> addMovie(Movie movie) {
 
         ArrayList<Movie> movieList = new ArrayList<>();

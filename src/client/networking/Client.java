@@ -71,6 +71,13 @@ public class Client implements ClientImpl {
         sendToServer(req, EventType.REMOVEMOVIE_RESULT);
     }
 
+    @Override
+    public void getReservation(Movie movie) {
+        System.out.println("Client: GetReservations Req");
+        Request req = new Request(EventType.GETRESERVATIONS_REQUEST, movie);
+        sendToServer(req, EventType.GETRESERVATIONS_RESULT);
+    }
+
 
     @Override
     public void registerUser(NewRegisteredUser newUser) {

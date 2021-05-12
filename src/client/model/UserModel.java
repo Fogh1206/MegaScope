@@ -14,5 +14,5 @@ public interface UserModel extends PropertyChangeSubject {
     void addMovie(Movie movie);
     void editMovie(Movie movie);
     void removeMovie(Movie movie);
-
+    void getReservation(Movie movie);
 }

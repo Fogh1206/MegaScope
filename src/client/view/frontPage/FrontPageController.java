@@ -133,7 +133,7 @@ public class FrontPageController {
         dateOfReleaseCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
         descriptionCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
 
-    //    userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
+        //    userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
 
 
         setSelectedMovie();
@@ -191,7 +191,9 @@ public class FrontPageController {
     }
 
     public void onBookMovieButton() {
-        viewHandler.openCinemaHallPage(userLoggedIn, selectedMovie);
+        if (userLoggedIn != null && selectedMovie != null) {
+            viewHandler.openCinemaHallPage(userLoggedIn, selectedMovie);
+        }
     }
 
 

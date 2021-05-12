@@ -107,6 +107,12 @@ public class ServerSocketHandler implements Runnable {
         return response;
     }
 
+    public Object getReservationsRequest(Movie movie) {
+        ArrayList<String> seats = userDAO.getReservations(movie);
+        Request response = new Request(EventType.GETRESERVATIONS_RESULT, seats);
+        return response;
+    }
+
     @Override
     public void run() {
         while (connected) {
@@ -137,6 +143,9 @@ public class ServerSocketHandler implements Runnable {
                     case REMOVEMOVIE_REQUEST:
                         outToClient.writeObject(getRemoveMovieRequest((Movie) request.arg));
                         break;
+                    case GETRESERVATIONS_REQUEST:
+                        outToClient.writeObject(getReservationsRequest((Movie) request.arg));
+                        break;
                     case CLOSE_REQUEST:
                         System.out.println("Closing");
                         outToClient.writeObject(getCloseRequest());
@@ -148,6 +157,8 @@ public class ServerSocketHandler implements Runnable {
             }
         }
     }
+
+
 
     /**
      * Close all connections from the server

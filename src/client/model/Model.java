@@ -33,7 +33,15 @@ public class Model implements UserModel {
                 this::onMoviesChanged);
         client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),
                 this::onMoviesChanged);
+        client.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(),
+                this::onGetReservation);
 
+    }
+
+    private void onGetReservation(PropertyChangeEvent event) {
+        System.out.println("Model: onGetReservation");
+        ArrayList<String> list = (ArrayList<String>) event.getNewValue();
+        support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, list);
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
@@ -83,6 +91,11 @@ public class Model implements UserModel {
     @Override
     public void removeMovie(Movie movie) {
         client.removeMovie(movie);
+    }
+
+    @Override
+    public void getReservation(Movie movie) {
+        client.getReservation(movie);
     }
 
     @Override
