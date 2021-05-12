@@ -22,4 +22,6 @@ public interface UserDAO {
 
     ArrayList<Movie> editMovie(Movie movie);
 
+
+
 }
