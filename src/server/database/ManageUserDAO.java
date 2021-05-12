@@ -227,10 +227,10 @@ public class ManageUserDAO implements UserDAO {
         ArrayList<Movie> movieList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from movies2 where id='" + movie.getId() + "' cascade ");
+                    "Delete from movies2 where id='" + movie.getId() + "'");
             statement.executeUpdate();
 
-            statement = connection.prepareStatement("SELECT * FROM public.movies ");
+            statement = connection.prepareStatement("select movies2.id, name, dateofrelease, mainactors, description, time_show, date_show from public.movies2 join public.show on show.movie_id = movies2.id");
 
             ResultSet resultSet = statement.executeQuery();
 
