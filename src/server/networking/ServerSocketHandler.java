@@ -6,6 +6,7 @@ import server.modelserver.ServerModel;
 import shared.Movie;
 import shared.NewRegisteredUser;
 import shared.Request;
+import shared.Reservation;
 import shared.util.EventType;
 
 import java.io.IOException;
@@ -107,6 +108,13 @@ public class ServerSocketHandler implements Runnable {
         return response;
     }
 
+    public Request getReserveMovieRequest(Reservation reservation)
+    {
+        Reservation reserv= userDAO.reserveMovie(reservation);
+        Request request=new Request(EventType.RESERVEMOVIE_RESULT,reserv);
+        return request;
+    }
+
     @Override
     public void run() {
         while (connected) {
@@ -141,6 +149,9 @@ public class ServerSocketHandler implements Runnable {
                         System.out.println("Closing");
                         outToClient.writeObject(getCloseRequest());
                         close();
+                        break;
+                    case RESERVEMOVIE_REQUEST:
+                        outToClient.writeObject(getReserveMovieRequest((Reservation) request.arg));
                         break;
                 }
             } catch (Exception e) {
