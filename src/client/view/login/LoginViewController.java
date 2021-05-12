@@ -40,12 +40,9 @@ public class LoginViewController {
         this.userLoggedIn = userLoggedIn;
         this.loginViewModel = loginViewModel;
         this.viewHandler = viewHandler;
-        usernameTextField.textProperty()
-                .bindBidirectional(loginViewModel.usernameProperty());
-        passwordTextField.textProperty()
-                .bindBidirectional(loginViewModel.passwordProperty());
-        loginText.textProperty()
-                .bindBidirectional(loginViewModel.loginResultProperty());
+        usernameTextField.textProperty().bindBidirectional(loginViewModel.usernameProperty());
+        passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
+        loginText.textProperty().bindBidirectional(loginViewModel.loginResultProperty());
         try {
             File imageFIle = new File("images/cinema.jpg");
             Image image = new Image(imageFIle.toURI().toString());
@@ -73,10 +70,8 @@ public class LoginViewController {
     public void onLoginAction() {
         if (userLoggedIn != null) {
         }
-
         loginViewModel.login();
         loginViewModel.defaultFields();
-
     }
 
     public void onCancelAction() {

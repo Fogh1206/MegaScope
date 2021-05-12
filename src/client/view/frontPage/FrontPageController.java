@@ -119,8 +119,7 @@ public class FrontPageController {
         dateOfReleaseCol
                 .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
         mainactorsCol.setCellValueFactory(new PropertyValueFactory<>("mainActors"));
-        descriptionCol
-                .setCellValueFactory(new PropertyValueFactory<>("description"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("timeOfShow"));
         DateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfShow"));
 
@@ -131,16 +130,6 @@ public class FrontPageController {
         dateOfReleaseCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
         descriptionCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
 
-        //    userFrontPageViewModel.addPropertyChangeListener("Update", this::update);
-
-
-        setSelectedMovie();
-
-    }
-
-    private void update(PropertyChangeEvent event) {
-        System.out.println("Update Movies");
-        movieTableView.setItems(userFrontPageViewModel.getItems());
     }
 
     public void onLoginButton() {
@@ -151,24 +140,6 @@ public class FrontPageController {
         }
     }
 
-    /**
-     * Sets the selectedMovie.
-     */
-    private void setSelectedMovie() {
-        movieTableView.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener() {
-                    public void changed(ObservableValue observableValue, Object oldValue,
-                                        Object newValue) {
-                        if (movieTableView.getSelectionModel().getSelectedItem() != null) {
-                            int index = movieTableView.getSelectionModel().getSelectedIndex();
-
-                            System.out.println(movieTableView.getItems().get(index));
-                            System.out.println(movieTableView.getItems().get(index).getId());
-                          //  System.out.println(selectedMovie.getId());
-                        }
-                    }
-                });
-    }
 
     @FXML
     public void goToMyProfile() {
@@ -185,7 +156,6 @@ public class FrontPageController {
 
     public void onDatePick() {
         if (datePick.getValue() != null) {
-            System.out.println("Hey");
             userFrontPageViewModel.getMovies();
         }
     }
@@ -201,7 +171,6 @@ public class FrontPageController {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
             selectedMovie = movieTableView.getItems().get(index);
-            System.out.println("HAHAHA"+selectedMovie.getId());
             userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
         }
     }
