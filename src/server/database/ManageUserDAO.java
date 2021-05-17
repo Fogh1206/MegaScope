@@ -1,6 +1,6 @@
 package server.database;
 
-import shared.Movie;
+import shared.Show;
 import shared.NewRegisteredUser;
 import shared.Reservation;
 
@@ -28,49 +28,49 @@ public class ManageUserDAO implements UserDAO {
         return instance;
     }
 
-    private void getMovieList(ArrayList<Movie> movieList, Connection connection) throws SQLException {
+    private void getMovieList(ArrayList<Show> showList, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("select movies2.id, name, dateofrelease, mainactors," +
-                " description, time_show, date_show from public.movies2 join public.show on show.movie_id = movies2.id");
+                " description, time_show, date_show, show.id from public.movies2 join public.show on show.movie_id = movies2.id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            Movie temp = new Movie(resultSet.getInt(1), resultSet.getString(2),
+            Show temp = new Show(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
-                    resultSet.getString(7));
-            movieList.add(temp);
+                    resultSet.getString(7),resultSet.getInt(8));
+            showList.add(temp);
         }
         statement.close();
     }
 
     @Override
-    public ArrayList<Movie> getAllMovies() {
-        ArrayList<Movie> movieList = new ArrayList<>();
+    public ArrayList<Show> getAllMovies() {
+        ArrayList<Show> showList = new ArrayList<>();
 
         try (Connection connection = controller.getConnection()) {
-            getMovieList(movieList, connection);
+            getMovieList(showList, connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return movieList;
+        return showList;
     }
 
     @Override
-    public ArrayList<Movie> addMovie(Movie movie) {
+    public ArrayList<Show> addMovie(Show show) {
 
-        ArrayList<Movie> movieList = new ArrayList<>();
+        ArrayList<Show> showList = new ArrayList<>();
         PreparedStatement statement = null;
 
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement(
                     "INSERT INTO public.movies2 (id, name, dateofrelease, mainactors, description)" +
                             "VALUES (" + "DEFAULT" + ",'"
-                            + movie.getName() + "','" + movie.getDateOfRelease() + "','"
-                            + movie.getMainActors() + "','" + movie.getDescription() + "')");
+                            + show.getName() + "','" + show.getDateOfRelease() + "','"
+                            + show.getMainActors() + "','" + show.getDescription() + "')");
             statement.executeUpdate();
 
             int id = 0;
             statement = connection.prepareStatement(
-                    "select movies2.id from movies2 where name='" + movie.getName() + "'");
+                    "select movies2.id from movies2 where name='" + show.getName() + "'");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -81,13 +81,13 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement(
                     "INSERT INTO public.show (id, movie_id, time_show, date_show)" +
                             "VALUES (" + "DEFAULT" + ",'"
-                            + id + "','" + movie.getTimeOfShow() + "','"
-                            + movie.getDateOfShow() + "')");
+                            + id + "','" + show.getTimeOfShow() + "','"
+                            + show.getDateOfShow() + "')");
 
             statement.executeUpdate();
             statement.close();
-            getMovieList(movieList, connection);
-            return movieList;
+            getMovieList(showList, connection);
+            return showList;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,26 +96,27 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<Movie> editMovie(Movie movie) {
-        ArrayList<Movie> movieList = new ArrayList<>();
+    public ArrayList<Show> editMovie(Show show) {
+        ArrayList<Show> showList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE public.movies2 SET name='" + movie.getName() + "',dateofrelease='" +
-                            movie.getDateOfRelease() + "',mainactors='" + movie.getMainActors() +
-                            "',description='" + movie.getDescription() +
-                            " 'where id='" + movie.getId() + "'");
+                    "UPDATE public.movies2 SET name='" + show.getName() + "',dateofrelease='" +
+                            show.getDateOfRelease() + "',mainactors='" + show.getMainActors() +
+                            "',description='" + show.getDescription() +
+                            " 'where id='" + show.getMovie_id() + "'");
 
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "UPDATE public.show SET id='" + movie.getId() + "',time_show='" + movie.getTimeOfShow() +
-                            "',date_show='" + movie.getDateOfShow() +
-                            "' where id='" + movie.getId() + "'");
+                    "UPDATE public.show SET id='" + show.getMovie_id() + "',time_show='" + show
+                        .getTimeOfShow() +
+                            "',date_show='" + show.getDateOfShow() +
+                            "' where id='" + show.getMovie_id() + "'");
             statement.executeUpdate();
             statement.close();
 
-            getMovieList(movieList, connection);
-            return movieList;
+            getMovieList(showList, connection);
+            return showList;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
@@ -123,16 +124,16 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<Movie> removeMovie(Movie movie) {
+    public ArrayList<Show> removeMovie(Show show) {
 
-        ArrayList<Movie> movieList = new ArrayList<>();
+        ArrayList<Show> showList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from movies2 where id='" + movie.getId() + "'");
+                    "Delete from movies2 where id='" + show.getMovie_id() + "'");
             statement.executeUpdate();
             statement.close();
-            getMovieList(movieList, connection);
-            return movieList;
+            getMovieList(showList, connection);
+            return showList;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -140,13 +141,15 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<String> getReservations(Movie movie) {
+    public ArrayList<String> getReservations(Show show) {
         ArrayList<String> strings = new ArrayList<>();
 
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
-            statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE movie_id='" +
-                    movie.getId() + "'");
+            System.out.println(show.getShow_id() + "----------Show ID");
+            System.out.println(show.getMovie_id()+ "----------Movie ID");
+            statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
+                    show.getShow_id() + "'");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -165,30 +168,39 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public Reservation reserveMovie(Reservation reservation) {
+    public ArrayList<Reservation> reserveMovie(ArrayList<Reservation> list) {
+
+        ArrayList<Reservation> returnList = new ArrayList<>();
+
         PreparedStatement statement = null;
         Reservation temp = null;
+
         try (Connection connection = controller.getConnection()) {
 
-            statement = connection.prepareStatement(
-                    "INSERT INTO public.reservation (res_id,seat_id,movie_id ,user_id)" +
-                            "VALUES (" + "DEFAULT" + ",'" +
-                            reservation.getSeat_no() + "','" + reservation.getMovie_id() + "','" +
-                            reservation.getUser_id() + "')");
+            for (int i = 0; i < list.size(); i++)
+            {
 
-            statement.executeUpdate();
-            statement.close();
-            statement = connection.prepareStatement(
-                    "SELECT * FROM public.reservation WHERE id='" +
-                            reservation.getReservation_id() + "'");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                temp = new Reservation(resultSet.getInt(1),
+                statement = connection.prepareStatement(
+                    "INSERT INTO public.reservations (reservation_id,seat_id,show_id ,user_id)"
+                        + "VALUES (" + "DEFAULT" + ",'" + list.get(i).getSeat_no() + "','" + list.get(i).getShow_id()
+                        + "','" + list.get(i).getUser_id() + "')");
+
+                statement.executeUpdate();
+            }
+                statement.close();
+                statement = connection.prepareStatement(
+                    "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next())
+                {
+                    temp = new Reservation(resultSet.getInt(1),
                         resultSet.getInt(2), resultSet.getInt(3),
                         resultSet.getInt(4));
-                System.out.println(temp);
-            }
-            return temp;
+                    System.out.println(temp);
+                    returnList.add(temp);
+                }
+            return returnList;
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

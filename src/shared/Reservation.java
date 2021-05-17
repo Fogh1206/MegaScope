@@ -6,13 +6,20 @@ public class Reservation implements Serializable {
 
     private int reservation_id;
     private int seat_no;
-    private int movie_id;
+    private int show_id;
     private int user_id;
 
-    public Reservation(int reservation_id, int seat_no, int movie_id, int user_id) {
+    public Reservation(int reservation_id, int seat_no, int show_id, int user_id) {
         this.reservation_id = reservation_id;
         this.seat_no = seat_no;
-        this.movie_id=movie_id;
+        this.show_id = show_id;
+        this.user_id = user_id;
+    }
+
+    public Reservation(int seat_no, int show_id, int user_id)
+    {
+        this.seat_no = seat_no;
+        this.show_id = show_id;
         this.user_id = user_id;
     }
 
@@ -27,8 +34,8 @@ public class Reservation implements Serializable {
     }
 
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getShow_id() {
+        return show_id;
     }
 
     public int getUser_id() {
@@ -40,7 +47,7 @@ public class Reservation implements Serializable {
         return "Reservation{" +
                 "reservation_id=" + reservation_id +
                 ", seat_no=" + seat_no +
-                ", movie=" + movie_id +
+                ", show=" + show_id +
                 ", user=" + user_id +
                 '}';
     }

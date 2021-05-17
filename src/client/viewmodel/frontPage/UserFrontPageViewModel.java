@@ -5,28 +5,25 @@ import client.model.UserModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.Movie;
-
+import shared.Show;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class UserFrontPageViewModel {
 
     private UserModel model;
     private PropertyChangeSupport support;
-    private Movie selectedMovie;
+    private Show selectedShow;
 
 
     private StringProperty username, button;
     private StringProperty searchPhrase;
     private ObjectProperty datePicked;
-    private Property<ObservableList<Movie>> observableItems;
+    private Property<ObservableList<Show>> observableItems;
 
     public UserFrontPageViewModel(UserModel userModel) {
         this.model = userModel;
@@ -41,8 +38,8 @@ public class UserFrontPageViewModel {
     }
 
     public void onGetMovies(PropertyChangeEvent event) {
-        ObservableList<Movie> observableList = FXCollections.observableArrayList();
-        observableList.addAll((ArrayList<Movie>) event.getNewValue());
+        ObservableList<Show> observableList = FXCollections.observableArrayList();
+        observableList.addAll((ArrayList<Show>) event.getNewValue());
         observableItems.setValue(observableList);
         if (!(searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))) {
             System.out.println("Not null searchbar");
@@ -69,7 +66,7 @@ public class UserFrontPageViewModel {
 
     public void search() {
 
-        ObservableList<Movie> observableList = FXCollections.observableArrayList();
+        ObservableList<Show> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (observableItems.getValue().get(i).getName().contains(searchPhrase.getValue())) {
                 observableList.add(observableItems.getValue().get(i));
@@ -81,7 +78,7 @@ public class UserFrontPageViewModel {
     }
 
     public void onDatePick() {
-        ObservableList<Movie> observableList = FXCollections.observableArrayList();
+        ObservableList<Show> observableList = FXCollections.observableArrayList();
 
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (datePicked.get().toString().equals(observableItems.getValue().get(i).getDateOfShow())) {
@@ -97,26 +94,26 @@ public class UserFrontPageViewModel {
         return datePicked;
     }
 
-    public Movie getSelectedMovie() {
-        return selectedMovie;
+    public Show getSelectedMovie() {
+        return selectedShow;
     }
 
-    public void addMovie(Movie movie) {
-        model.addMovie(movie);
+    public void addMovie(Show show) {
+        model.addMovie(show);
     }
 
-    public void editMovie(Movie movie) {
-        model.editMovie(movie);
+    public void editMovie(Show show) {
+        model.editMovie(show);
     }
 
     public void removeMovie() {
-        if (selectedMovie != null) {
-            model.removeMovie(selectedMovie);
+        if (selectedShow != null) {
+            model.removeMovie(selectedShow);
         }
     }
 
-    public void selectedMovie(Movie movie) {
-        selectedMovie = movie;
+    public void selectedMovie(Show show) {
+        selectedShow = show;
     }
 
     public StringProperty usernameProperty() {
@@ -128,7 +125,7 @@ public class UserFrontPageViewModel {
     }
 
 
-    public Property<ObservableList<Movie>> observableItemsProperty() {
+    public Property<ObservableList<Show>> observableItemsProperty() {
         return observableItems;
     }
 

@@ -4,8 +4,6 @@ import client.view.CustomTextFieldTableCell;
 import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -14,10 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import shared.Movie;
+import shared.Show;
 import shared.NewRegisteredUser;
 
-import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -50,7 +47,7 @@ public class FrontPageController {
     private HBox adminContainer;
 
     @FXML
-    private TableView<Movie> movieTableView;
+    private TableView<Show> movieTableView;
     @FXML
     private TableColumn<Object, String> movieTitleCol;
     @FXML
@@ -66,7 +63,7 @@ public class FrontPageController {
 
     private UserFrontPageViewModel userFrontPageViewModel;
     private ViewHandler viewHandler;
-    private Movie selectedMovie;
+    private Show selectedShow;
     private NewRegisteredUser userLoggedIn;
 
     public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
@@ -161,8 +158,8 @@ public class FrontPageController {
     }
 
     public void onBookMovieButton() {
-        if (userLoggedIn != null && selectedMovie != null) {
-            viewHandler.openCinemaHallPage(userLoggedIn, selectedMovie);
+        if (userLoggedIn != null && selectedShow != null) {
+            viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
         }
     }
 
@@ -170,7 +167,7 @@ public class FrontPageController {
     public void setSelected() {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
-            selectedMovie = movieTableView.getItems().get(index);
+            selectedShow = movieTableView.getItems().get(index);
             userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
         }
     }
@@ -184,15 +181,16 @@ public class FrontPageController {
     }
 
     public void onEditMovie() {
-        viewHandler.openEditMovie(selectedMovie);
+        viewHandler.openEditMovie(selectedShow);
     }
 
     public void onRemoveMovie() {
-        if (selectedMovie != null) {
+        if (selectedShow != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("You are about to delete a movie from the database");
-            alert.setContentText("Are you sure you want to delete the movie [" + selectedMovie.getName() + "] from the movie database?");
+            alert.setContentText("Are you sure you want to delete the movie [" + selectedShow
+                .getName() + "] from the movie database?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {

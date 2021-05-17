@@ -1,6 +1,6 @@
 package server.database;
 
-import shared.Movie;
+import shared.Show;
 import shared.NewRegisteredUser;
 import shared.Reservation;
 
@@ -13,17 +13,19 @@ public interface UserDAO {
 
     ArrayList<NewRegisteredUser> getAllUsers();
 
-    ArrayList<Movie> getAllMovies();
+    ArrayList<Show> getAllMovies();
 
     NewRegisteredUser saveNewInfo(NewRegisteredUser user);
 
-    ArrayList<Movie> addMovie(Movie movie);
+    ArrayList<Show> addMovie(Show show);
 
-    ArrayList<Movie> removeMovie(Movie movie);
+    ArrayList<Show> removeMovie(Show show);
 
-    ArrayList<Movie> editMovie(Movie movie);
+    ArrayList<Show> editMovie(Show show);
 
-    ArrayList<String> getReservations(Movie movie);
+    ArrayList<String> getReservations(Show show);
 
-    Reservation reserveMovie(Reservation reservation);
+    ArrayList<Reservation> reserveMovie(ArrayList<Reservation> list);
+
+
 }

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import shared.Movie;
+import shared.Show;
 
 public class AddMovieController {
 
@@ -38,7 +38,7 @@ public class AddMovieController {
 
     public void onSave(ActionEvent actionEvent){
             // your code here
-            Movie movie = new Movie(movieNameTextField.getText(), dateOfReleaseTextField.getText(),
+            Show show = new Show(movieNameTextField.getText(), dateOfReleaseTextField.getText(),
                     mainActorsTextArea.getText(), descriptionTextField.getText(),
                     hourTextField.getText() + ":" + minuteTextField.getText(),
                     dateOfShowDatePicker.getValue().toString());

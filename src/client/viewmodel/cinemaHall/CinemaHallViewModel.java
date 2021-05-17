@@ -6,7 +6,8 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import shared.Movie;
+import shared.Reservation;
+import shared.Show;
 import shared.util.EventType;
 
 
@@ -19,6 +20,7 @@ public class CinemaHallViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
     private ArrayList<ObjectProperty<Paint>> colors;
+    private ArrayList<Reservation> reservationList;
 
     private HashMap<String,ObjectProperty<Paint>> colorIdMap;
 
@@ -27,32 +29,54 @@ public class CinemaHallViewModel {
         colors = new ArrayList<>();
         colorIdMap = new HashMap<>();
         support = new PropertyChangeSupport(this);
+        reservationList = new ArrayList<>();
+
 
         for(int i = 0 ; i < 25 ; i++){
-            colors.add(i,new SimpleObjectProperty<>(Color.YELLOW));
+            colors.add(i,new SimpleObjectProperty<>(Color.GREEN));
             colorIdMap.put(""+i,colors.get(i));
             System.out.println(colorIdMap.size());
         }
-
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
     }
 
     private void onGetReservations(PropertyChangeEvent event) {
+        reservationList = new ArrayList<>();
+       /* for(int i = 0 ; i < 25 ; i++){
+            colors.set(i,new SimpleObjectProperty<>(Color.GREEN));
+            colorIdMap.replace(""+i,colors.get(i));
+
+        }
+
+        */
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
+
         System.out.println(list.toString() + " Hello Guys");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(Integer.valueOf(list.get(i)));
-            System.out.println(colorIdMap.get(Integer.valueOf(list.get(i))));
-            if(colorIdMap.get(Integer.valueOf(list.get(i))) != null){
-                colors.get(i).setValue(Color.RED);
-                System.out.println(colors.get(i));
-                System.out.println(colorIdMap.get(list.get(i)));
+            System.out.println("1" + list.get(i));
+            System.out.println("2" + Integer.valueOf(list.get(i)));
+            System.out.println("3 " + colorIdMap.get((list.get(i))));
+            if(colorIdMap.get(list.get(i)) != null){
+                colors.get(Integer.valueOf(list.get(i))).setValue(Color.RED);
+                System.out.println("4" + colors.get(i));
+                System.out.println("5" +colorIdMap.get(list.get(i)));
             }
+
         }
+        for (int i = 0; i < colors.size(); i++)
+        {
+            System.out.println(i + " " + colors.get(i).toString());
+        }
+        for (int i = 0; i < colorIdMap.size(); i++)
+        {
+            System.out.println(i + " " + colorIdMap.get(""+i).toString());
+        }
+
+
     }
 
-    public void getReservation(Movie movie) {
-        model.getReservation(movie);
+    public void getReservation(Show show) {
+        model.getReservation(show);
     }
 
     public Property<Paint> getFillProperty(String id) {
@@ -66,5 +90,15 @@ public class CinemaHallViewModel {
 
     public Property<Boolean> getDisableProperty(String id) {
         return null;
+    }
+
+    public void confirmSeats()
+    {
+        model.confirmSeats(reservationList);
+    }
+
+    public void addReservation(Reservation reservation)
+    {
+        reservationList.add(reservation);
     }
 }

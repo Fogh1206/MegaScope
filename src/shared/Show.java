@@ -2,7 +2,7 @@ package shared;
 
 import java.io.Serializable;
 
-public class Movie implements Serializable
+public class Show implements Serializable
 {
   private String name;
   private String dateOfRelease;
@@ -10,8 +10,10 @@ public class Movie implements Serializable
   private String description;
   private String timeOfShow;
   private String dateOfShow;
-private int id;
-  public Movie(String name, String dateOfRelease, String mainActors,
+  private int movie_id;
+  private int show_id;
+
+  public Show(String name, String dateOfRelease, String mainActors,
       String description, String timeOfShow, String dateOfShow)
   {
     this.name = name;
@@ -21,20 +23,37 @@ private int id;
     this.timeOfShow = timeOfShow;
     this.dateOfShow = dateOfShow;
   }
-  public Movie(int id,String name, String dateOfRelease, String mainActors,
-               String description, String timeOfShow, String dateOfShow)
+  public Show(int movie_id,String name, String dateOfRelease, String mainActors,
+               String description, String timeOfShow, String dateOfShow,int show_id)
   {
-    this.id=id;
+    this.movie_id=movie_id;
     this.name = name;
     this.dateOfRelease = dateOfRelease;
     this.mainActors = mainActors;
     this.description = description;
     this.timeOfShow = timeOfShow;
     this.dateOfShow = dateOfShow;
+    this.show_id = show_id;
   }
 
-  public int getId() {
-    return id;
+  public int getMovie_id()
+  {
+    return movie_id;
+  }
+
+  public int getShow_id()
+  {
+    return show_id;
+  }
+
+  public void setMovie_id(int movie_id)
+  {
+    this.movie_id = movie_id;
+  }
+
+  public void setShow_id(int show_id)
+  {
+    this.show_id = show_id;
   }
 
   public String getName()
@@ -67,9 +86,7 @@ private int id;
     return dateOfShow;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+
 
   @Override public String toString()
   {

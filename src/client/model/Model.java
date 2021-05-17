@@ -1,7 +1,8 @@
 package client.model;
 
 import client.networking.ClientImpl;
-import shared.Movie;
+import shared.Reservation;
+import shared.Show;
 import shared.NewRegisteredUser;
 import shared.util.EventType;
 
@@ -35,7 +36,22 @@ public class Model implements UserModel {
                 this::onMoviesChanged);
         client.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(),
                 this::onGetReservation);
+        client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(),
+            this::onReserveShow);
 
+    }
+
+    private void onReserveShow(PropertyChangeEvent propertyChangeEvent)
+    {
+
+        ArrayList<Reservation> reservations = (ArrayList<Reservation>) propertyChangeEvent.getNewValue();
+        ArrayList<String> whatever = new ArrayList<>();
+        for (int i = 0; i < reservations.size(); i++)
+        {
+            whatever.add(String.valueOf(reservations.get(i).getSeat_no()));
+        }
+        support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, whatever);
+        // support.firePropertyChange(EventType.RESERVEMOVIE_RESULT.toString(),null,reservations);
     }
 
     private void onGetReservation(PropertyChangeEvent event) {
@@ -50,7 +66,7 @@ public class Model implements UserModel {
     }
 
     private void onGetMoviesResult(PropertyChangeEvent event) {
-        ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
+        ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
@@ -67,13 +83,13 @@ public class Model implements UserModel {
     }
 
     private void onMoviesChanged(PropertyChangeEvent event) {
-        ArrayList<Movie> list = (ArrayList<Movie>) event.getNewValue();
+        ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
     @Override
-    public void editMovie(Movie movie) {
-        client.editMovie(movie);
+    public void editMovie(Show show) {
+        client.editMovie(show);
     }
 
     @Override
@@ -82,20 +98,25 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void addMovie(Movie movie) {
-        System.out.println("Added movie : " + movie.toString());
-        client.addMovie(movie);
+    public void addMovie(Show show) {
+        System.out.println("Added movie : " + show.toString());
+        client.addMovie(show);
     }
 
 
     @Override
-    public void removeMovie(Movie movie) {
-        client.removeMovie(movie);
+    public void removeMovie(Show show) {
+        client.removeMovie(show);
     }
 
     @Override
-    public void getReservation(Movie movie) {
-        client.getReservation(movie);
+    public void getReservation(Show show) {
+        client.getReservation(show);
+    }
+
+    @Override public void confirmSeats(ArrayList<Reservation> reservationList)
+    {
+        client.confirmSeats(reservationList);
     }
 
     @Override

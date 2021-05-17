@@ -5,7 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import shared.Movie;
+import shared.Show;
 
 import java.time.LocalDate;
 
@@ -61,12 +61,12 @@ public class EditMovieViewModel {
         return dateOfShow;
     }
 
-    public void editMovie(int id){
-        Movie movie = new Movie(id,movieName.get(), dateOfRelease.get(),
+    public void editMovie(int id,int show_id){
+        Show show = new Show(id,movieName.get(), dateOfRelease.get(),
                 mainActors.get(), description.get(),
                 hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
-                dateOfShow.get().toString());
-        model.editMovie(movie);
+                dateOfShow.get().toString(),show_id);
+        model.editMovie(show);
     }
 
 }

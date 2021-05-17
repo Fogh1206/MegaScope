@@ -18,8 +18,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import shared.Movie;
+import shared.Show;
 import shared.NewRegisteredUser;
+
 import java.io.IOException;
 
 public class ViewHandler {
@@ -74,13 +75,13 @@ public class ViewHandler {
     }
   }
 
-  public void openEditMovie(Movie movie){
+  public void openEditMovie(Show show){
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/editMovie.fxml"));
     try {
       Parent root = loader.load();
       EditMovieController ctrl = loader.getController();
-      ctrl.init(vmf.getEditMovieViewModel(), this, movie);
+      ctrl.init(vmf.getEditMovieViewModel(), this, show);
       Stage stage = new Stage();
       stage.initOwner(mainStage);
       stage.setTitle("Edit movie");
@@ -127,8 +128,8 @@ public class ViewHandler {
     }
   }*/
 
-  public Dialog<Movie> openAddMovieWindow(){
-    Dialog<Movie> dialog = new Dialog<>();
+  public Dialog<Show> openAddMovieWindow(){
+    Dialog<Show> dialog = new Dialog<>();
     ButtonType buttonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
     dialog.getDialogPane().getButtonTypes().addAll(buttonType, ButtonType.CANCEL);
 
@@ -182,7 +183,7 @@ public class ViewHandler {
     dialog.setResultConverter(dialogButton -> {
       if(dialogButton == buttonType){
 
-        return new Movie(movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
+        return new Show(movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
                 movieMainActorsTextField.getText(), movieDescriptionTextField.getText(),
                 movieTimeOfShowTextField.getText(), movieDateOfShowTextField.getText());
       }
@@ -191,9 +192,9 @@ public class ViewHandler {
     return dialog;
 
   }
-
-  public Dialog<Movie> openEditMovieWindow(Movie movie){
-    Dialog<Movie> dialog = new Dialog<>();
+/*
+  public Dialog<Show> openEditMovieWindow(Show show){
+    Dialog<Show> dialog = new Dialog<>();
     ButtonType buttonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
     dialog.getDialogPane().getButtonTypes().addAll(buttonType, ButtonType.CANCEL);
 
@@ -226,12 +227,12 @@ public class ViewHandler {
     TextField movieTimeOfShowTextField    = new TextField();
     TextField movieDateOfShowTextField    = new TextField();
 
-    movieTitleTextField.setText(movie.getName());
-    movieDateOfReleaseTextField.setText(movie.getDateOfRelease());
-    movieMainActorsTextField.setText(movie.getMainActors());
-    movieDescriptionTextField.setText(movie.getDescription());
-    movieTimeOfShowTextField.setText(movie.getTimeOfShow());
-    movieDateOfReleaseTextField.setText(movie.getDateOfRelease());
+    movieTitleTextField.setText(show.getName());
+    movieDateOfReleaseTextField.setText(show.getDateOfRelease());
+    movieMainActorsTextField.setText(show.getMainActors());
+    movieDescriptionTextField.setText(show.getDescription());
+    movieTimeOfShowTextField.setText(show.getTimeOfShow());
+    movieDateOfReleaseTextField.setText(show.getDateOfRelease());
 
     movieTitleContainer.getChildren().addAll(movieTitleLabel,movieTitleTextField);
     movieDateOfReleaseContainer.getChildren().addAll(movieDateOfReleaseLabel,movieDateOfReleaseTextField);
@@ -254,15 +255,16 @@ public class ViewHandler {
     dialog.setResultConverter(dialogButton -> {
       if(dialogButton == buttonType){
 
-        return new Movie(movie.getId(),movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
+        return new Show(show.getMovie_id(),movieTitleTextField.getText(), movieDateOfReleaseTextField.getText(),
                 movieMainActorsTextField.getText(), movieDescriptionTextField.getText(),
                 movieTimeOfShowTextField.getText(), movieDateOfShowTextField.getText());
       }
       return null;
     });
     return dialog;
-
   }
+
+ */
 
   public void openRegisterView()
   {
@@ -303,7 +305,7 @@ public class ViewHandler {
     }
   }
 
-  public void openCinemaHallPage(NewRegisteredUser userLoggedIn, Movie movie)
+  public void openCinemaHallPage(NewRegisteredUser userLoggedIn, Show show)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
@@ -311,7 +313,7 @@ public class ViewHandler {
     {
       Parent root = loader.load();
       CinemaHallController ctrl = loader.getController();
-      ctrl.init(vmf.getCinemaHallPage(),this, userLoggedIn, movie);
+      ctrl.init(vmf.getCinemaHallPage(),this, userLoggedIn, show);
       mainStage.setTitle("Cinema Hall");
       Scene cinemaHallScene = new Scene(root);
       mainStage.setScene(cinemaHallScene);

@@ -1,6 +1,7 @@
 package client.networking;
 
-import shared.Movie;
+import shared.Reservation;
+import shared.Show;
 import shared.NewRegisteredUser;
 import shared.Request;
 import shared.util.EventType;
@@ -10,6 +11,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client implements ClientImpl {
     private PropertyChangeSupport support;
@@ -65,19 +67,24 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void removeMovie(Movie movie) {
+    public void removeMovie(Show show) {
         System.out.println("Client: RemoveMovie Req");
-        Request req = new Request(EventType.REMOVEMOVIE_REQUEST, movie);
+        Request req = new Request(EventType.REMOVEMOVIE_REQUEST, show);
         sendToServer(req, EventType.REMOVEMOVIE_RESULT);
     }
 
     @Override
-    public void getReservation(Movie movie) {
+    public void getReservation(Show show) {
         System.out.println("Client: GetReservations Req");
-        Request req = new Request(EventType.GETRESERVATIONS_REQUEST, movie);
+        Request req = new Request(EventType.GETRESERVATIONS_REQUEST, show);
         sendToServer(req, EventType.GETRESERVATIONS_RESULT);
     }
 
+    @Override public void confirmSeats(ArrayList<Reservation> reservationList)
+    {
+        Request req = new Request(EventType.RESERVEMOVIE_REQUEST,reservationList);
+        sendToServer(req,EventType.RESERVEMOVIE_RESULT);
+    }
 
     @Override
     public void registerUser(NewRegisteredUser newUser) {
@@ -95,16 +102,16 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void addMovie(Movie movie) {
+    public void addMovie(Show show) {
         System.out.println("Client: AddMovie Req");
-        Request request = new Request(EventType.ADDMOVIE_REQUEST, movie);
+        Request request = new Request(EventType.ADDMOVIE_REQUEST, show);
         sendToServer(request, EventType.ADDMOVIE_RESULT);
     }
 
     @Override
-    public void editMovie(Movie movie) {
+    public void editMovie(Show show) {
         System.out.println("Client: EditMovie Req");
-        Request request = new Request(EventType.EDITMOVIE_RESQUEST, movie);
+        Request request = new Request(EventType.EDITMOVIE_RESQUEST, show);
         sendToServer(request, EventType.EDITMOVIE_RESULT);
     }
 

@@ -3,20 +3,16 @@ package client.view.cinemaHall;
 import client.model.UserModel;
 import client.view.ViewHandler;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
-import shared.Movie;
+import shared.Reservation;
+import shared.Show;
 import shared.NewRegisteredUser;
 
 import java.util.ArrayList;
@@ -25,25 +21,31 @@ public class CinemaHallController {
     @FXML
     public GridPane gridPaneSeats;
     @FXML
+    public Label movieTitleLabel;
+    @FXML
+    public Label userLabel;
+    @FXML
     private TextArea textSeats;
     private CinemaHallViewModel cinemaHallViewModel;
     private ArrayList<Integer> seats;
     private UserModel userModel;
     private ViewHandler viewHandler;
     private NewRegisteredUser user;
-    private Movie movie;
+    private Show show;
 
     String[][] myBooking = new String[4][6];
 
     public void init(CinemaHallViewModel cinemaHallViewModel,
-                     ViewHandler viewHandler, NewRegisteredUser user, Movie movie) {
+                     ViewHandler viewHandler, NewRegisteredUser user, Show show) {
         this.cinemaHallViewModel = cinemaHallViewModel;
         this.viewHandler = viewHandler;
         this.user = user;
-        this.movie = movie;
+        this.show = show;
+        movieTitleLabel.setText(show.getName());
+        userLabel.setText(user.getUsername());
 
         System.out.println(user.getUsername());
-        System.out.println(movie.getName());
+        System.out.println(show.getName());
         System.out.println(gridPaneSeats.getChildren().size());
         System.out.println(gridPaneSeats.getRowCount());
         System.out.println(gridPaneSeats.getColumnCount());
@@ -70,17 +72,21 @@ public class CinemaHallController {
                 rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent t) {
-
-                        if (rectangle.getFill() == Color.RED) {
+                        System.out.println(rectangle.getFill().toString());
+                        if (rectangle.getFill() == Color.YELLOW) {
                             rectangle.setFill(Color.GREEN);
                             myBooking[finalI][finalJ] = null;
                         } else if (rectangle.getFill() == Color.GREEN) {
-                            rectangle.setFill(Color.RED);
+                            rectangle.setFill(Color.YELLOW);
+                            Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()),show.getShow_id(),user.getId());
+                            cinemaHallViewModel.addReservation(reservation);
                             myBooking[finalI][finalJ] =
                                     "Row[" + finalI + "] Seat[" + finalJ + "] " + rectangle.getId() + " Booked";
-
                         }
+                        updateSeats();
+
                     }
+
                 });
                 gridPaneSeats.add(rectangle, column, row);
                 rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
@@ -90,10 +96,9 @@ public class CinemaHallController {
         }
 
         System.out.println(gridPaneSeats.getChildren().size());
-        cinemaHallViewModel.getReservation(movie);
+        cinemaHallViewModel.getReservation(show);
     }
 
-    @FXML
     private void updateSeats() {
         textSeats.clear();
 
@@ -111,6 +116,8 @@ public class CinemaHallController {
 
     @FXML
     private void confirmSeats() {
+
+        cinemaHallViewModel.confirmSeats();
 
     }
 

@@ -22,7 +22,7 @@
             <children>
                 <HBox alignment="CENTER" spacing="80.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#onBookMovieButton" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Book movie" textAlignment="CENTER" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#onBookMovieButton" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Book show" textAlignment="CENTER" textFill="WHITE">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -45,7 +45,7 @@
                 </HBox>
                 <HBox fx:id="adminContainer" alignment="CENTER" spacing="80.0">
                     <children>
-                        <Button fx:id="addMovieButton" mnemonicParsing="false" onAction="#onAddMovie" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Add movie" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="addMovieButton" mnemonicParsing="false" onAction="#onAddMovie" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Add show" textAlignment="CENTER" textFill="WHITE">
                             <effect>
                                 <Glow />
                             </effect>
@@ -53,7 +53,7 @@
                                 <Font size="13.0" />
                             </font>
                         </Button>
-                        <Button fx:id="editMovieButton" mnemonicParsing="false" onAction="#onEditMovie" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Edit movie" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="editMovieButton" mnemonicParsing="false" onAction="#onEditMovie" prefWidth="100.0" style="-fx-background-color: #E96151;" text="Edit show" textAlignment="CENTER" textFill="WHITE">
                             <effect>
                                 <Glow />
                             </effect>
@@ -61,7 +61,7 @@
                                 <Font size="13.0" />
                             </font>
                         </Button>
-                        <Button fx:id="removeMovieButton" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRemoveMovie" prefHeight="29.0" prefWidth="110.0" style="-fx-background-color: #E96151;" text="Remove movie" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="removeMovieButton" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRemoveMovie" prefHeight="29.0" prefWidth="110.0" style="-fx-background-color: #E96151;" text="Remove show" textAlignment="CENTER" textFill="WHITE">
                             <effect>
                                 <Glow />
                             </effect>
@@ -124,7 +124,7 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="searchBar" layoutX="7.0" layoutY="49.0" prefHeight="29.0" prefWidth="339.0" promptText="Search movie" style="-fx-focus-color: #000000;">
+                        <TextField fx:id="searchBar" layoutX="7.0" layoutY="49.0" prefHeight="29.0" prefWidth="339.0" promptText="Search show" style="-fx-focus-color: #000000;">
                             <font>
                                 <Font size="13.0" />
                             </font>
