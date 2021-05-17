@@ -22,7 +22,7 @@ public class CinemaHallViewModel {
     private ArrayList<ObjectProperty<Paint>> colors;
     private ArrayList<Reservation> reservationList;
 
-    private HashMap<String,ObjectProperty<Paint>> colorIdMap;
+    private HashMap<String, ObjectProperty<Paint>> colorIdMap;
 
     public CinemaHallViewModel(UserModel model) {
         this.model = model;
@@ -31,24 +31,24 @@ public class CinemaHallViewModel {
         support = new PropertyChangeSupport(this);
         reservationList = new ArrayList<>();
 
-
-        for(int i = 0 ; i < 25 ; i++){
-            colors.add(i,new SimpleObjectProperty<>(Color.GREEN));
-            colorIdMap.put(""+i,colors.get(i));
+        for (int i = 0; i < 25; i++) {
+            colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
+            colorIdMap.put("" + i, colors.get(i));
             System.out.println(colorIdMap.size());
         }
+
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
+    }
+
+    public void resetColors() {
+        for (int i = 0; i < 25; i++) {
+            colors.get(i).setValue(Color.GREEN);
+        }
     }
 
     private void onGetReservations(PropertyChangeEvent event) {
         reservationList = new ArrayList<>();
-       /* for(int i = 0 ; i < 25 ; i++){
-            colors.set(i,new SimpleObjectProperty<>(Color.GREEN));
-            colorIdMap.replace(""+i,colors.get(i));
 
-        }
-
-        */
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
 
         System.out.println(list.toString() + " Hello Guys");
@@ -56,20 +56,18 @@ public class CinemaHallViewModel {
             System.out.println("1" + list.get(i));
             System.out.println("2" + Integer.valueOf(list.get(i)));
             System.out.println("3 " + colorIdMap.get((list.get(i))));
-            if(colorIdMap.get(list.get(i)) != null){
+            if (colorIdMap.get(list.get(i)) != null) {
                 colors.get(Integer.valueOf(list.get(i))).setValue(Color.RED);
                 System.out.println("4" + colors.get(i));
-                System.out.println("5" +colorIdMap.get(list.get(i)));
+                System.out.println("5" + colorIdMap.get(list.get(i)));
             }
 
         }
-        for (int i = 0; i < colors.size(); i++)
-        {
+        for (int i = 0; i < colors.size(); i++) {
             System.out.println(i + " " + colors.get(i).toString());
         }
-        for (int i = 0; i < colorIdMap.size(); i++)
-        {
-            System.out.println(i + " " + colorIdMap.get(""+i).toString());
+        for (int i = 0; i < colorIdMap.size(); i++) {
+            System.out.println(i + " " + colorIdMap.get("" + i).toString());
         }
 
 
@@ -82,7 +80,7 @@ public class CinemaHallViewModel {
     public Property<Paint> getFillProperty(String id) {
         try {
             return colors.get(Integer.valueOf(id));
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             // Not in list
             return null;
         }
@@ -92,13 +90,11 @@ public class CinemaHallViewModel {
         return null;
     }
 
-    public void confirmSeats()
-    {
+    public void confirmSeats() {
         model.confirmSeats(reservationList);
     }
 
-    public void addReservation(Reservation reservation)
-    {
+    public void addReservation(Reservation reservation) {
         reservationList.add(reservation);
     }
 }

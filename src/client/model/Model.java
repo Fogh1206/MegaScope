@@ -103,7 +103,6 @@ public class Model implements UserModel {
         client.addMovie(show);
     }
 
-
     @Override
     public void removeMovie(Show show) {
         client.removeMovie(show);
@@ -133,7 +132,6 @@ public class Model implements UserModel {
     public void saveNewInfo(NewRegisteredUser user) {
         client.saveNewInfo(user);
     }
-
 
     @Override
     public void register(NewRegisteredUser user) {

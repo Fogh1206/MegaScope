@@ -38,6 +38,7 @@ public class CinemaHallController {
     public void init(CinemaHallViewModel cinemaHallViewModel,
                      ViewHandler viewHandler, NewRegisteredUser user, Show show) {
         this.cinemaHallViewModel = cinemaHallViewModel;
+        cinemaHallViewModel.resetColors();
         this.viewHandler = viewHandler;
         this.user = user;
         this.show = show;
