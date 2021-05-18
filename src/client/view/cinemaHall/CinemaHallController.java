@@ -65,6 +65,7 @@ public class CinemaHallController {
                 if(!user.getUserType().equals("VIP") && row == 3){
                     rectangle.setDisable(true);
                     cinemaHallViewModel.disableProperty(rectangle.getId());
+                    rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
                 }
 
                 int finalRow = row;
