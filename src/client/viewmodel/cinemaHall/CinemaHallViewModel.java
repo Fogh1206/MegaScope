@@ -62,7 +62,6 @@ public class CinemaHallViewModel {
                 System.out.println("4" + colors.get(i));
                 System.out.println("5" + colorIdMap.get(list.get(i)));
             }
-
         }
         for (int i = 0; i < colors.size(); i++) {
             System.out.println(i + " " + colors.get(i).toString());
@@ -70,8 +69,6 @@ public class CinemaHallViewModel {
         for (int i = 0; i < colorIdMap.size(); i++) {
             System.out.println(i + " " + colorIdMap.get("" + i).toString());
         }
-
-
     }
 
     public void getReservation(Show show) {
@@ -94,6 +91,7 @@ public class CinemaHallViewModel {
     public void disableProperty(String id) {
         Property<Paint> objectProperty = getFillProperty(id);
         objectProperty.setValue(Color.GRAY);
+
     }
 
     public void confirmSeats() {
