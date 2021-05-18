@@ -38,6 +38,7 @@ public class UserFrontPageViewModel {
     }
 
     public void onGetMovies(PropertyChangeEvent event) {
+        System.out.println("On get movies");
         ObservableList<Show> observableList = FXCollections.observableArrayList();
         observableList.addAll((ArrayList<Show>) event.getNewValue());
         observableItems.setValue(observableList);
@@ -86,7 +87,7 @@ public class UserFrontPageViewModel {
             }
         }
         observableItems.setValue(observableList);
-
+        datePicked = new SimpleObjectProperty();
         datePicked.setValue(null);
     }
 

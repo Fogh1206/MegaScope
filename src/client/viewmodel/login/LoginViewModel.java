@@ -51,6 +51,10 @@ public class LoginViewModel
     }
   }
 
+  public void clearMessages(){
+    loginResult.set("");
+  }
+
 
   public void defaultFields()
   {

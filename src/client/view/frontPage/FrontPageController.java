@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,8 +27,6 @@ public class FrontPageController {
     private DatePicker datePick;
     @FXML
     private Button myProfileButton;
-    @FXML
-    private HBox UserHBox;
     @FXML
     private AnchorPane SearchBox;
     @FXML
@@ -66,37 +65,18 @@ public class FrontPageController {
     private Show selectedShow;
     private User userLoggedIn;
 
-    public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
-                     User userLoggedIn) {
-
+    public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler, User userLoggedIn) {
+        System.out.println("Init");
+        this.userFrontPageViewModel = frontPage;
+        userFrontPageViewModel.getMovies();
         adminContainer.setVisible(false);
         adminContainer.setDisable(true);
         manageUsersButton.setVisible(false);
         manageUsersButton.setDisable(true);
 
-        this.userFrontPageViewModel = frontPage;
-        userFrontPageViewModel.getMovies();
 
         this.viewHandler = viewHandler;
-        this.userLoggedIn = userLoggedIn;
-        if (userLoggedIn != null) {
-            if (userLoggedIn.getUserType().equals("ADMIN")) {
-                manageUsersButton.setVisible(true);
-                manageUsersButton.setDisable(false);
-                adminContainer.setVisible(true);
-                adminContainer.setDisable(false);
-            }
 
-            UsernameLabel.setVisible(true);
-            myProfileButton.setVisible(true);
-            UsernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
-            loginButton.setText("Log Out");
-
-        } else {
-            UsernameLabel.setVisible(false);
-            myProfileButton.setVisible(false);
-            loginButton.setText("Log In");
-        }
 
         datePick.setDayCellFactory(picker -> new DateCell() {
             public void updateItem(LocalDate date, boolean empty) {
@@ -127,6 +107,25 @@ public class FrontPageController {
         dateOfReleaseCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
         descriptionCol.setCellFactory(CustomTextFieldTableCell.forTableColumn());
 
+        this.userLoggedIn = userLoggedIn;
+        if (userLoggedIn != null) {
+            if (userLoggedIn.getUserType().equals("ADMIN")) {
+                manageUsersButton.setVisible(true);
+                manageUsersButton.setDisable(false);
+                adminContainer.setVisible(true);
+                adminContainer.setDisable(false);
+            }
+
+            UsernameLabel.setVisible(true);
+            myProfileButton.setVisible(true);
+            UsernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
+            loginButton.setText("Log Out");
+
+        } else {
+            UsernameLabel.setVisible(false);
+            myProfileButton.setVisible(false);
+            loginButton.setText("Log In");
+        }
     }
 
     public void onLoginButton() {
@@ -136,7 +135,6 @@ public class FrontPageController {
             viewHandler.openLoginView(userLoggedIn);
         }
     }
-
 
     @FXML
     public void goToMyProfile() {
@@ -152,6 +150,7 @@ public class FrontPageController {
     }
 
     public void onDatePick() {
+        System.out.println("OnDatePick");
         if (datePick.getValue() != null) {
             userFrontPageViewModel.getMovies();
         }
@@ -162,7 +161,6 @@ public class FrontPageController {
             viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
         }
     }
-
 
     public void setSelected() {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
@@ -190,7 +188,7 @@ public class FrontPageController {
             alert.setTitle("Warning");
             alert.setHeaderText("You are about to delete a movie from the database");
             alert.setContentText("Are you sure you want to delete the movie [" + selectedShow
-                .getName() + "] from the movie database?");
+                    .getName() + "] from the movie database?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
@@ -200,4 +198,5 @@ public class FrontPageController {
             System.out.println("no movie");
         }
     }
+
 }

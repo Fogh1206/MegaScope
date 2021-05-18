@@ -54,10 +54,13 @@ public class ServerSocketHandler implements Runnable {
     }
 
     public Request getRegisterRequest(User user) {
-
         System.out.println("Register requested");
-        User temp = userDAO.createUser(user);
-        return new Request(EventType.REGISTER_RESULT, temp);
+        User temp = userDAO.registerUser(user);
+        if (temp != null) {
+            return new Request(EventType.REGISTER_RESULT, temp);
+        } else {
+            return new Request(EventType.REGISTERFAIL_RESULT, temp);
+        }
     }
 
     public Request getEditMovieRequest(Show show) {

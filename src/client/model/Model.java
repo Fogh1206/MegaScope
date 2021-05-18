@@ -38,7 +38,12 @@ public class Model implements UserModel {
             this::onReserveShow);
         client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
                 this::onNewInfo);
+        client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
+                this::onFailedRegister);
+    }
 
+    private void onFailedRegister(PropertyChangeEvent propertyChangeEvent) {
+        support.firePropertyChange(EventType.REGISTERFAIL_RESULT.toString(), null, null);
     }
 
     private void onNewInfo(PropertyChangeEvent propertyChangeEvent) {
