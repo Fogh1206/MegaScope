@@ -90,6 +90,11 @@ public class CinemaHallViewModel {
         return null;
     }
 
+    public void disableProperty(String id) {
+        Property<Paint> objectProperty = getFillProperty(id);
+        objectProperty.setValue(Color.GRAY);
+    }
+
     public void confirmSeats() {
         model.confirmSeats(reservationList);
     }
