@@ -2,30 +2,113 @@ package shared;
 
 import java.io.Serializable;
 
+public class User implements Serializable
+{
+  private int id;
+  private String firstName;
+  private String lastName;
+  private String username;
+  private String password;
+  private String phoneNumber;
+  private String userType;
+  private boolean banned;
 
-public class User implements Serializable {
+  public User(int id, String firstName, String lastName,
+              String username, String password, String phoneNumber, String userType, boolean banned)
+  {
 
-    private String username;
-    private String password;
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.username = username;
+    this.password = password;
+    this.phoneNumber = phoneNumber;
+    this.userType = userType;
+    this.banned=banned;
+  }
 
-    public User(String username,String password) {
-        this.username = username;
-        this.password = password;
-    }
+  public User(String firstName, String lastName, String username,
+              String password, String phoneNumber, String userType, boolean banned)
+  {
 
-    public String getUsername() {
-        return username;
-    }
+    this.id = 0;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.username = username;
+    this.password = password;
+    this.phoneNumber = phoneNumber;
+    this.userType=userType;
+    this.banned=banned;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public User(String username, String password)
+  {
+    this.id = 0;
+    this.firstName = null;
+    this.lastName = null;
+    this.username = username;
+    this.password = password;
+    this.phoneNumber = null;
+  }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+  public boolean getBanned() {
+    return banned;
+  }
+
+  public String getPhoneNumber()
+  {
+    return phoneNumber;
+  }
+
+  public String getFirstName()
+  {
+    return firstName;
+  }
+
+  public String getLastName()
+  {
+    return lastName;
+  }
+
+  public String getUsername()
+  {
+    return username;
+  }
+
+  public String getPassword()
+  {
+    return password;
+  }
+
+  public String getUserType() {
+    return userType;
+  }
+
+  public int getId()
+  {
+    return id;
+  }
+
+  public void setBanned(boolean banned) {
+    this.banned = banned;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", userType='" + userType + '\'' +
+            ", banned='" + banned + '\'' +
+            '}';
+  }
+
+  public void setPhoneNumber(String phoneNumber)
+  {
+    this.phoneNumber = phoneNumber;
+  }
 }

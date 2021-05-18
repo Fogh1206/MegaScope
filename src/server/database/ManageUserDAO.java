@@ -1,7 +1,7 @@
 package server.database;
 
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.Reservation;
 
 import java.sql.*;
@@ -209,9 +209,9 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<NewRegisteredUser> getAllUsers() {
+    public ArrayList<User> getAllUsers() {
 
-        ArrayList<NewRegisteredUser> userList = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<>();
 
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
@@ -222,7 +222,7 @@ public class ManageUserDAO implements UserDAO {
 
             while (resultSet.next()) {
 
-                NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
+                User temp = new User(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7),
@@ -242,7 +242,7 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public NewRegisteredUser createUser(NewRegisteredUser user) {
+    public User createUser(User user) {
 
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -261,7 +261,7 @@ public class ManageUserDAO implements UserDAO {
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
+                User temp = new User(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7),
@@ -278,8 +278,8 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public NewRegisteredUser validateUser(int id, String username, String password) {
-        NewRegisteredUser user = null;
+    public User validateUser(int id, String username, String password) {
+        User user = null;
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement(
@@ -296,7 +296,7 @@ public class ManageUserDAO implements UserDAO {
                             "SELECT * FROM public.users WHERE username='" + username + "'");
                     resultSet = statement.executeQuery();
                     while (resultSet.next()) {
-                        NewRegisteredUser temp = new NewRegisteredUser(resultSet.getInt(1),
+                        User temp = new User(resultSet.getInt(1),
                                 resultSet.getString(2), resultSet.getString(3),
                                 resultSet.getString(4), resultSet.getString(5),
                                 resultSet.getString(6), resultSet.getString(7),
@@ -320,8 +320,8 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public NewRegisteredUser saveNewInfo(NewRegisteredUser user) {
-        NewRegisteredUser temp = null;
+    public User saveNewInfo(User user) {
+        User temp = null;
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
@@ -337,7 +337,7 @@ public class ManageUserDAO implements UserDAO {
                     "SELECT * FROM public.users WHERE id='" + user.getId() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new NewRegisteredUser(resultSet.getInt(1),
+                temp = new User(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7),

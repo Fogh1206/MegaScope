@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import shared.Reservation;
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 
 import java.util.ArrayList;
 
@@ -30,13 +30,13 @@ public class CinemaHallController {
     private ArrayList<Integer> seats;
     private UserModel userModel;
     private ViewHandler viewHandler;
-    private NewRegisteredUser user;
+    private User user;
     private Show show;
 
     String[][] myBooking = new String[4][6];
 
     public void init(CinemaHallViewModel cinemaHallViewModel,
-                     ViewHandler viewHandler, NewRegisteredUser user, Show show) {
+                     ViewHandler viewHandler, User user, Show show) {
         this.cinemaHallViewModel = cinemaHallViewModel;
         cinemaHallViewModel.resetColors();
         this.viewHandler = viewHandler;

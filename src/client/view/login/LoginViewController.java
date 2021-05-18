@@ -2,7 +2,6 @@ package client.view.login;
 
 import client.view.ViewHandler;
 import client.viewmodel.login.LoginViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -10,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import shared.NewRegisteredUser;
+import shared.User;
 
 import shared.util.EventType;
 
@@ -30,13 +29,13 @@ public class LoginViewController {
     @FXML
     private Button frontPageButton;
 
-    private NewRegisteredUser userLoggedIn;
+    private User userLoggedIn;
 
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
     public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
-                     NewRegisteredUser userLoggedIn) {
+                     User userLoggedIn) {
         this.userLoggedIn = userLoggedIn;
         this.loginViewModel = loginViewModel;
         this.viewHandler = viewHandler;
@@ -56,14 +55,14 @@ public class LoginViewController {
     }
 
     private void newLogin(PropertyChangeEvent event) {
-        NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
+        User temp = (User) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
             viewHandler.showFrontPage(temp);
         }
     }
 
-    public NewRegisteredUser getUserLoggedIn() {
+    public User getUserLoggedIn() {
         return userLoggedIn;
     }
 

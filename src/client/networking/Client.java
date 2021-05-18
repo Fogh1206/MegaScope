@@ -2,7 +2,7 @@ package client.networking;
 
 import shared.Reservation;
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.Request;
 import shared.util.EventType;
 
@@ -59,10 +59,10 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void saveNewInfo(NewRegisteredUser user) {
+    public void saveNewInfo(User user) {
         System.out.println("Client: SaveNewInfo Req");
         Request req = new Request(EventType.SAVENEWINFO_REQUEST, user);
-        NewRegisteredUser temp = (NewRegisteredUser) req.arg;
+        User temp = (User) req.arg;
         sendToServer(req, EventType.SAVENEWINFO_RESULT);
     }
 
@@ -87,14 +87,14 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void registerUser(NewRegisteredUser newUser) {
+    public void registerUser(User newUser) {
         System.out.println("Client: RegisterUser Req");
         Request req = new Request(EventType.REGISTER_REQUEST, newUser);
         sendToServer(req, EventType.REGISTER_RESULT);
     }
 
     @Override
-    public void login(NewRegisteredUser user) {
+    public void login(User user) {
         System.out.println("Client: Login Req");
         Request req = new Request(EventType.LOGIN_REQUEST, user);
         sendToServer(req, EventType.LOGIN_RESULT);

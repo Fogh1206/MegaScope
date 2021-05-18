@@ -4,7 +4,7 @@ import client.model.UserModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -65,7 +65,7 @@ public class RegisterViewModel {
     }
 
     public void registerUserAccount() {
-        model.register(new NewRegisteredUser(firstName.get(), lastName.get(), username.get(),
+        model.register(new User(firstName.get(), lastName.get(), username.get(),
                 password.get(), phoneNumber.get(), "USER", false));
         defaultFields();
     }

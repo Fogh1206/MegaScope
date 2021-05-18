@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 
 import java.io.IOException;
 
@@ -41,7 +41,7 @@ public class ViewHandler {
     mainStage.setResizable(false);
   }
 
-  public void openLoginView(NewRegisteredUser userLoggedIn) {
+  public void openLoginView(User userLoggedIn) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/Login.fxml"));
     try {
@@ -94,7 +94,7 @@ public class ViewHandler {
     }
   }
 
-  public void openAdminUsersPage(NewRegisteredUser userLoggedIn) {
+  public void openAdminUsersPage(User userLoggedIn) {
 
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/adminUsers.fxml"));
@@ -286,7 +286,7 @@ public class ViewHandler {
   }
 
 
-  public void showFrontPage(NewRegisteredUser userLoggedIn)
+  public void showFrontPage(User userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
@@ -305,7 +305,7 @@ public class ViewHandler {
     }
   }
 
-  public void openCinemaHallPage(NewRegisteredUser userLoggedIn, Show show)
+  public void openCinemaHallPage(User userLoggedIn, Show show)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
@@ -325,7 +325,7 @@ public class ViewHandler {
   }
 
 
-  public void openUserProfile(NewRegisteredUser userLoggedIn)
+  public void openUserProfile(User userLoggedIn)
   {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/userProfile.fxml"));

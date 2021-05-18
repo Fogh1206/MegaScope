@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -36,7 +36,7 @@ public class LoginViewModel
 
   private void onLogin(PropertyChangeEvent event)
   {
-    NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
+    User result = (User) event.getNewValue();
 
     if (result == null)
     {

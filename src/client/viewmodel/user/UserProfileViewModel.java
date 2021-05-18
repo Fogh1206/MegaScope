@@ -6,7 +6,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -41,7 +41,7 @@ public class UserProfileViewModel {
 
     private void onSavedInfo(PropertyChangeEvent event) {
 
-        NewRegisteredUser result = (NewRegisteredUser) event.getNewValue();
+        User result = (User) event.getNewValue();
         if (result != null) {
             Platform.runLater(() -> {
                 support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, event.getNewValue());
@@ -53,12 +53,12 @@ public class UserProfileViewModel {
         support.addPropertyChangeListener(name, listener);
     }
 
-    public void saveAccount(NewRegisteredUser userLoggedIn) {
+    public void saveAccount(User userLoggedIn) {
         if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
                 .equals(confirmPassword.get())) {
             System.out.println(newPassword);
             System.out.println(confirmPassword);
-                        NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+                        User user = new User(userLoggedIn.getId(),
                     newFirstName.get(), newLastName.get(), newUsername.get(),
                     newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
                     banned.get());
@@ -69,7 +69,7 @@ public class UserProfileViewModel {
         } else {
             System.out.println(
                     "password dont match or you dont want to change the password");
-            NewRegisteredUser user = new NewRegisteredUser(userLoggedIn.getId(),
+            User user = new User(userLoggedIn.getId(),
                     newFirstName.get(), newLastName.get(), newUsername.get(),
                     userLoggedIn.getPassword(), newPhoneNumber.get(),
                     currentUsertype.get(), banned.get());
@@ -81,7 +81,7 @@ public class UserProfileViewModel {
     }
 
 
-    public void updateCurrentInfo(NewRegisteredUser userLoggedIn) {
+    public void updateCurrentInfo(User userLoggedIn) {
         currentFirstname.setValue(userLoggedIn.getFirstName());
         currentLastname.setValue(userLoggedIn.getLastName());
         currentUsername.setValue(userLoggedIn.getUsername());

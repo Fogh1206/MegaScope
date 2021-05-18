@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -64,10 +64,10 @@ public class FrontPageController {
     private UserFrontPageViewModel userFrontPageViewModel;
     private ViewHandler viewHandler;
     private Show selectedShow;
-    private NewRegisteredUser userLoggedIn;
+    private User userLoggedIn;
 
     public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler,
-                     NewRegisteredUser userLoggedIn) {
+                     User userLoggedIn) {
 
         adminContainer.setVisible(false);
         adminContainer.setDisable(true);

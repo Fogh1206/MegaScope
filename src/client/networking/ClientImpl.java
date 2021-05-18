@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public interface ClientImpl extends PropertyChangeSubject
 {
-  void registerUser(NewRegisteredUser userToCreate);
-  void login(NewRegisteredUser user);
+  void registerUser(User userToCreate);
+  void login(User user);
   void getMovies();
-  void saveNewInfo(NewRegisteredUser user);
+  void saveNewInfo(User user);
   boolean isRunning();
   void receive(Request req);
   void deactivateClient();

@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import shared.NewRegisteredUser;
+import shared.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -19,10 +19,10 @@ import java.util.List;
 public class AdminViewModelUsers {
     private UserModel userModel;
     private PropertyChangeSupport support;
-    private NewRegisteredUser selectedUser;
+    private User selectedUser;
 
-    private Property<ObservableList<NewRegisteredUser>> observableItems;
-    private ObservableList<NewRegisteredUser> items;
+    private Property<ObservableList<User>> observableItems;
+    private ObservableList<User> items;
     private StringProperty searchPhrase;
     private StringProperty banButton;
 
@@ -41,10 +41,10 @@ public class AdminViewModelUsers {
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
-        List<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event
+        List<User> list = (ArrayList<User>) event
                 .getNewValue();
 
-        ObservableList<NewRegisteredUser> observableList = FXCollections
+        ObservableList<User> observableList = FXCollections
                 .observableArrayList();
         observableList.addAll(list);
         observableItems.setValue(observableList);
@@ -64,7 +64,7 @@ public class AdminViewModelUsers {
 
             getUsers();
         } else {
-            ObservableList<NewRegisteredUser> observableList = FXCollections
+            ObservableList<User> observableList = FXCollections
                     .observableArrayList();
             for (int i = 0; i < observableItems.getValue().size(); i++) {
                 System.out.println(observableItems.getValue().get(i).getUsername());
@@ -88,7 +88,7 @@ public class AdminViewModelUsers {
         if (selectedUser != null) {
 
             selectedUser.setBanned(!selectedUser.getBanned());
-            NewRegisteredUser user = new NewRegisteredUser(selectedUser.getId(),
+            User user = new User(selectedUser.getId(),
                     selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getUsername(),
                     selectedUser.getPassword(), selectedUser.getPhoneNumber(), selectedUser.getUserType(),
                     selectedUser.getBanned());
@@ -97,7 +97,7 @@ public class AdminViewModelUsers {
         }
     }
 
-    public void selectedUserToModel(NewRegisteredUser user) {
+    public void selectedUserToModel(User user) {
         selectedUser = user;
     }
 
@@ -109,11 +109,11 @@ public class AdminViewModelUsers {
         return searchPhrase;
     }
 
-    public Property<ObservableList<NewRegisteredUser>> observableItemsProperty() {
+    public Property<ObservableList<User>> observableItemsProperty() {
         return observableItems;
     }
 
-    public ObservableList<NewRegisteredUser> getItems() {
+    public ObservableList<User> getItems() {
         return items;
     }
 

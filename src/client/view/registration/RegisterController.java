@@ -2,13 +2,12 @@ package client.view.registration;
 
 import client.view.ViewHandler;
 import client.viewmodel.registration.RegisterViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -59,7 +58,7 @@ public class RegisterController
 
   private void onRegister(PropertyChangeEvent event)
   {
-    NewRegisteredUser user = (NewRegisteredUser) event.getNewValue();
+    User user = (User) event.getNewValue();
     if (user != null)
     {
       viewHandler.openLoginView(user);

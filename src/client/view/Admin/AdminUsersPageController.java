@@ -1,31 +1,25 @@
 package client.view.Admin;
 
-import client.model.UserModel;
-import client.view.CustomTextFieldTableCell;
 import client.view.ViewHandler;
 
 import client.viewmodel.admin.AdminViewModelUsers;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import shared.NewRegisteredUser;
+import shared.User;
 
 import java.beans.PropertyChangeEvent;
 
 public class AdminUsersPageController {
     private AdminViewModelUsers adminViewModelUsers;
     private ViewHandler viewHandler;
-    private NewRegisteredUser userLoggedIn;
+    private User userLoggedIn;
 
     @FXML private TextField searchBar;
-    @FXML private TableView<NewRegisteredUser> userTableView;
+    @FXML private TableView<User> userTableView;
     @FXML private TableColumn<Object, String> usernameCol;
     @FXML private TableColumn<Object, String> firstNameCol;
     @FXML private TableColumn<Object, String> lastNameCol;
@@ -42,7 +36,7 @@ public class AdminUsersPageController {
      * @param userLoggedIn        object used temporarily storing the User
      */
     public void init(AdminViewModelUsers adminViewModelUsers,
-                     ViewHandler viewHandler, NewRegisteredUser userLoggedIn) {
+                     ViewHandler viewHandler, User userLoggedIn) {
         this.adminViewModelUsers = adminViewModelUsers;
         this.viewHandler = viewHandler;
         this.userLoggedIn = userLoggedIn;

@@ -1,21 +1,21 @@
 package server.database;
 
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.Reservation;
 
 import java.util.ArrayList;
 
 public interface UserDAO {
-    NewRegisteredUser validateUser(int id, String username, String password);
+    User validateUser(int id, String username, String password);
 
-    NewRegisteredUser createUser(NewRegisteredUser user);
+    User createUser(User user);
 
-    ArrayList<NewRegisteredUser> getAllUsers();
+    ArrayList<User> getAllUsers();
 
     ArrayList<Show> getAllMovies();
 
-    NewRegisteredUser saveNewInfo(NewRegisteredUser user);
+    User saveNewInfo(User user);
 
     ArrayList<Show> addMovie(Show show);
 

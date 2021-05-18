@@ -3,7 +3,7 @@ package server.networking;
 import server.database.ManageUserDAO;
 import server.database.UserDAO;
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.Request;
 import shared.Reservation;
 import shared.util.EventType;
@@ -38,7 +38,7 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getUserRequest() {
         System.out.println("Get Users Requested");
-        ArrayList<NewRegisteredUser> users = userDAO.getAllUsers();
+        ArrayList<User> users = userDAO.getAllUsers();
         Request response = new Request(EventType.GETUSER_RESULT, users);
         return response;
     }
@@ -51,19 +51,19 @@ public class ServerSocketHandler implements Runnable {
         return response;
     }
 
-    public Request getLoginRequest(NewRegisteredUser user) {
+    public Request getLoginRequest(User user) {
 
-        NewRegisteredUser temp = userDAO
+        User temp = userDAO
                 .validateUser(user.getId(), user.getUsername(),
                         user.getPassword());
         Request response = new Request(EventType.LOGIN_RESULT, temp);
         return response;
     }
 
-    public Request getRegisterRequest(NewRegisteredUser user) {
+    public Request getRegisterRequest(User user) {
 
         System.out.println("Register requested");
-        NewRegisteredUser temp = userDAO.createUser(user);
+        User temp = userDAO.createUser(user);
 
         Request response = new Request(EventType.REGISTER_RESULT,
                 temp);
@@ -79,9 +79,9 @@ public class ServerSocketHandler implements Runnable {
         return response;
     }
 
-    public Request getSaveNewInfoRequest(NewRegisteredUser user) {
+    public Request getSaveNewInfoRequest(User user) {
 
-        NewRegisteredUser temp = userDAO.saveNewInfo(user);
+        User temp = userDAO.saveNewInfo(user);
         Request response = new Request(EventType.SAVENEWINFO_RESULT, temp);
         return response;
     }
@@ -133,16 +133,16 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(getMoviesRequest());
                         break;
                     case LOGIN_REQUEST:
-                        outToClient.writeObject(getLoginRequest((NewRegisteredUser) request.arg));
+                        outToClient.writeObject(getLoginRequest((User) request.arg));
                         break;
                     case REGISTER_REQUEST:
-                        outToClient.writeObject(getRegisterRequest((NewRegisteredUser) request.arg));
+                        outToClient.writeObject(getRegisterRequest((User) request.arg));
                         break;
                     case EDITMOVIE_RESQUEST:
                         outToClient.writeObject(getEditMovieRequest((Show) request.arg));
                         break;
                     case SAVENEWINFO_REQUEST:
-                        outToClient.writeObject(getSaveNewInfoRequest((NewRegisteredUser) request.arg));
+                        outToClient.writeObject(getSaveNewInfoRequest((User) request.arg));
                         break;
                     case ADDMOVIE_REQUEST:
                         outToClient.writeObject(getAddMovieRequst((Show) request.arg));

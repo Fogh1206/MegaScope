@@ -3,7 +3,7 @@ package client.model;
 import client.networking.ClientImpl;
 import shared.Reservation;
 import shared.Show;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Model implements UserModel {
     private ClientImpl client;
-    private NewRegisteredUser loggedUser;
+    private User loggedUser;
     private PropertyChangeSupport support;
 
     public Model(ClientImpl client) {
@@ -61,7 +61,7 @@ public class Model implements UserModel {
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
-        ArrayList<NewRegisteredUser> list = (ArrayList<NewRegisteredUser>) event.getNewValue();
+        ArrayList<User> list = (ArrayList<User>) event.getNewValue();
         support.firePropertyChange("Users Result", null, list);
     }
 
@@ -71,13 +71,13 @@ public class Model implements UserModel {
     }
 
     private void onLoginResult(PropertyChangeEvent event) {
-        NewRegisteredUser loginResult = (NewRegisteredUser) event.getNewValue();
+        User loginResult = (User) event.getNewValue();
         support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
                 loginResult);
     }
 
     private void onRegisterResult(PropertyChangeEvent event) {
-        NewRegisteredUser user = (NewRegisteredUser) event.getNewValue();
+        User user = (User) event.getNewValue();
         support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, user);
 
     }
@@ -129,18 +129,18 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void saveNewInfo(NewRegisteredUser user) {
+    public void saveNewInfo(User user) {
         client.saveNewInfo(user);
     }
 
     @Override
-    public void register(NewRegisteredUser user) {
+    public void register(User user) {
         client.registerUser(user);
     }
 
     @Override
     public void login(String username, String password) {
-        loggedUser = new NewRegisteredUser(username, password);
+        loggedUser = new User(username, password);
         client.login(loggedUser);
     }
 

@@ -5,7 +5,7 @@ import client.viewmodel.user.UserProfileViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import shared.NewRegisteredUser;
+import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -14,7 +14,7 @@ public class UserProfileController {
 
     private ViewHandler viewHandler;
     private UserProfileViewModel userProfileViewModel;
-    private NewRegisteredUser userLoggedIn;
+    private User userLoggedIn;
 
     @FXML
     private Label userCurrentFirstNameLabel;
@@ -42,7 +42,7 @@ public class UserProfileController {
     private Label banned;
 
     public void init(UserProfileViewModel userProfileViewModel,
-                     ViewHandler viewHandler, NewRegisteredUser userLoggedIn) {
+                     ViewHandler viewHandler, User userLoggedIn) {
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
         this.userLoggedIn = userLoggedIn;
@@ -78,7 +78,7 @@ public class UserProfileController {
     }
 
     private void newSavedInfo(PropertyChangeEvent event) {
-        NewRegisteredUser temp = (NewRegisteredUser) event.getNewValue();
+        User temp = (User) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
             viewHandler.openUserProfile(temp);
