@@ -112,7 +112,7 @@ public class CinemaHallController {
     }
 
     public void frontPageButton() {
-        viewHandler.showFrontPage(null);
+        viewHandler.showFrontPage(user);
     }
 
     @FXML
