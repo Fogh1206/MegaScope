@@ -39,86 +39,67 @@ public class ServerSocketHandler implements Runnable {
     public Request getUserRequest() {
         System.out.println("Get Users Requested");
         ArrayList<User> users = userDAO.getAllUsers();
-        Request response = new Request(EventType.GETUSER_RESULT, users);
-        return response;
+        return new Request(EventType.GETUSER_RESULT, users);
     }
 
     public Request getMoviesRequest() {
         System.out.println("Get Movies Requested");
         ArrayList<Show> shows = userDAO.getAllMovies();
-        Request response = new Request(EventType.GETMOVIES_RESULT, shows);
         System.out.println("Movies size" + shows.size());
-        return response;
+        return new Request(EventType.GETMOVIES_RESULT, shows);
     }
 
     public Request getLoginRequest(User user) {
-
-        User temp = userDAO
-                .validateUser(user.getId(), user.getUsername(),
-                        user.getPassword());
-        Request response = new Request(EventType.LOGIN_RESULT, temp);
-        return response;
+        System.out.println("Login requested");
+        User temp = userDAO.validateUser(user.getId(), user.getUsername(), user.getPassword());
+        return new Request(EventType.LOGIN_RESULT, temp);
     }
 
     public Request getRegisterRequest(User user) {
-
         System.out.println("Register requested");
         User temp = userDAO.createUser(user);
-
-        Request response = new Request(EventType.REGISTER_RESULT,
-                temp);
-        return response;
+        return new Request(EventType.REGISTER_RESULT, temp);
     }
 
     public Request getEditMovieRequest(Show show) {
-
-        System.out.println(show);
+        System.out.println("EditMovie requested");
         ArrayList<Show> shows = userDAO.editMovie(show);
-        Request response = new Request(EventType.EDITMOVIE_RESULT, shows);
-
-        return response;
+        return new Request(EventType.EDITMOVIE_RESULT, shows);
     }
 
     public Request getSaveNewInfoRequest(User user) {
-
+        System.out.println("SaveNewInfo requested");
         User temp = userDAO.saveNewInfo(user);
-        Request response = new Request(EventType.SAVENEWINFO_RESULT, temp);
-        return response;
+        return new Request(EventType.SAVENEWINFO_RESULT, temp);
     }
 
-    public Request getAddMovieRequst(Show show) {
-
+    public Request getAddMovieRequest(Show show) {
+        System.out.println("AddMovie requested");
         ArrayList<Show> shows = userDAO.addMovie(show);
-        Request response = new Request(EventType.ADDMOVIE_RESULT, shows);
-        System.out.println(shows);
-        return response;
+        return new Request(EventType.ADDMOVIE_RESULT, shows);
     }
 
     public Request getRemoveMovieRequest(Show show) {
-
+        System.out.println("RemoveMovie requested");
         ArrayList<Show> shows = userDAO.removeMovie(show);
-        Request response = new Request(EventType.REMOVEMOVIE_RESULT, shows);
-        return response;
+        return new Request(EventType.REMOVEMOVIE_RESULT, shows);
     }
 
     public Request getCloseRequest() {
         System.out.println("Close requested");
-        Request response = new Request(EventType.CLOSE_RESULT, "Successful");
-        return response;
+        return new Request(EventType.CLOSE_RESULT, "Successful");
     }
 
     public Request getReservationsRequest(Show show) {
+        System.out.println("GetReservations requested");
         ArrayList<String> seats = userDAO.getReservations(show);
-        Request response = new Request(EventType.GETRESERVATIONS_RESULT, seats);
-        return response;
+        return new Request(EventType.GETRESERVATIONS_RESULT, seats);
     }
 
     public Request getReserveMovieRequest(ArrayList arrayList) {
         ArrayList<Reservation> list = userDAO.reserveMovie(arrayList);
-        Request request = new Request(EventType.RESERVEMOVIE_RESULT, list);
-        return request;
+        return new Request(EventType.RESERVEMOVIE_RESULT, list);
     }
-
 
     @Override
     public void run() {
@@ -145,7 +126,7 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(getSaveNewInfoRequest((User) request.arg));
                         break;
                     case ADDMOVIE_REQUEST:
-                        outToClient.writeObject(getAddMovieRequst((Show) request.arg));
+                        outToClient.writeObject(getAddMovieRequest((Show) request.arg));
                         break;
                     case REMOVEMOVIE_REQUEST:
                         outToClient.writeObject(getRemoveMovieRequest((Show) request.arg));

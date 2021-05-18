@@ -36,7 +36,7 @@ public class ManageUserDAO implements UserDAO {
             Show temp = new Show(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
-                    resultSet.getString(7),resultSet.getInt(8));
+                    resultSet.getString(7), resultSet.getInt(8));
             showList.add(temp);
         }
         statement.close();
@@ -109,7 +109,7 @@ public class ManageUserDAO implements UserDAO {
 
             statement = connection.prepareStatement(
                     "UPDATE public.show SET id='" + show.getMovie_id() + "',time_show='" + show
-                        .getTimeOfShow() +
+                            .getTimeOfShow() +
                             "',date_show='" + show.getDateOfShow() +
                             "' where id='" + show.getMovie_id() + "'");
             statement.executeUpdate();
@@ -147,7 +147,7 @@ public class ManageUserDAO implements UserDAO {
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
             System.out.println(show.getShow_id() + "----------Show ID");
-            System.out.println(show.getMovie_id()+ "----------Movie ID");
+            System.out.println(show.getMovie_id() + "----------Movie ID");
             statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
                     show.getShow_id() + "'");
 
@@ -177,31 +177,27 @@ public class ManageUserDAO implements UserDAO {
 
         try (Connection connection = controller.getConnection()) {
 
-            for (int i = 0; i < list.size(); i++)
-            {
+            for (int i = 0; i < list.size(); i++) {
 
                 statement = connection.prepareStatement(
-                    "INSERT INTO public.reservations (reservation_id,seat_id,show_id ,user_id)"
-                        + "VALUES (" + "DEFAULT" + ",'" + list.get(i).getSeat_no() + "','" + list.get(i).getShow_id()
-                        + "','" + list.get(i).getUser_id() + "')");
+                        "INSERT INTO public.reservations (reservation_id,seat_id,show_id ,user_id)"
+                                + "VALUES (" + "DEFAULT" + ",'" + list.get(i).getSeat_no() + "','" + list.get(i).getShow_id()
+                                + "','" + list.get(i).getUser_id() + "')");
 
                 statement.executeUpdate();
             }
-                statement.close();
-                statement = connection.prepareStatement(
+            statement.close();
+            statement = connection.prepareStatement(
                     "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
-                ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next())
-                {
-                    temp = new Reservation(resultSet.getInt(1),
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                temp = new Reservation(resultSet.getInt(1),
                         resultSet.getInt(2), resultSet.getInt(3),
                         resultSet.getInt(4));
-                    System.out.println(temp);
-                    returnList.add(temp);
-                }
+                System.out.println(temp);
+                returnList.add(temp);
+            }
             return returnList;
-
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -322,11 +318,12 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public User saveNewInfo(User user) {
         User temp = null;
+        System.out.println("Shout from dao"+user.getUserType());
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
                             + user.getLastName() + "',username='" + user.getUsername() + "',password='" + user.getPassword()
-                            + "',phonenumber='" + user.getPhoneNumber() + "',banned='" + user.getBanned()
+                            + "',phonenumber='" + user.getPhoneNumber()+ "',type='" + user.getUserType() + "',banned='" + user.getBanned()
                             + "' where id=" + user.getId() + "");
 
             statement.executeUpdate();

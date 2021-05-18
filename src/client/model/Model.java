@@ -38,12 +38,19 @@ public class Model implements UserModel {
                 this::onGetReservation);
         client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(),
             this::onReserveShow);
+        client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
+                this::onNewInfo);
 
+    }
+
+    private void onNewInfo(PropertyChangeEvent propertyChangeEvent) {
+        User user = (User) propertyChangeEvent.getNewValue();
+        System.out.println(user);
+        support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, user);
     }
 
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent)
     {
-
         ArrayList<Reservation> reservations = (ArrayList<Reservation>) propertyChangeEvent.getNewValue();
         ArrayList<String> whatever = new ArrayList<>();
         for (int i = 0; i < reservations.size(); i++)
@@ -79,7 +86,6 @@ public class Model implements UserModel {
     private void onRegisterResult(PropertyChangeEvent event) {
         User user = (User) event.getNewValue();
         support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, user);
-
     }
 
     private void onMoviesChanged(PropertyChangeEvent event) {
