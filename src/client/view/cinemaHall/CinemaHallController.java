@@ -5,6 +5,7 @@ import client.view.ViewHandler;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -56,16 +57,18 @@ public class CinemaHallController {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
                 Rectangle rectangle = new Rectangle();
                 rectangle.setId(String.valueOf(id));
-
+                rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
                 id++;
                 rectangle.setWidth(70);
                 rectangle.setHeight(60);
-                //gridPaneSeats.setPadding(new Insets(0, 0, 0, 0));
+                gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
 
+                if (row == 3){
+                    rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
+                }
                 if(!user.getUserType().equals("VIP") && row == 3){
                     rectangle.setDisable(true);
                     cinemaHallViewModel.disableProperty(rectangle.getId());
-                    rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
                 }
 
                 int finalRow = row;
