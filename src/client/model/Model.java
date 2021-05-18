@@ -1,9 +1,7 @@
 package client.model;
 
 import client.networking.ClientImpl;
-import shared.Reservation;
-import shared.Show;
-import shared.User;
+import shared.*;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -44,7 +42,7 @@ public class Model implements UserModel {
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent)
     {
 
-        ArrayList<Reservation> reservations = (ArrayList<Reservation>) propertyChangeEvent.getNewValue();
+        ReservationList reservations = (ReservationList) propertyChangeEvent.getNewValue();
         ArrayList<String> whatever = new ArrayList<>();
         for (int i = 0; i < reservations.size(); i++)
         {
@@ -61,8 +59,10 @@ public class Model implements UserModel {
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
-        ArrayList<User> list = (ArrayList<User>) event.getNewValue();
-        support.firePropertyChange("Users Result", null, list);
+        System.out.println("a1");
+        UserList users = (UserList) event.getNewValue();
+        System.out.println("a2");
+        support.firePropertyChange("Users Result", null, users);
     }
 
     private void onGetMoviesResult(PropertyChangeEvent event) {
@@ -113,7 +113,7 @@ public class Model implements UserModel {
         client.getReservation(show);
     }
 
-    @Override public void confirmSeats(ArrayList<Reservation> reservationList)
+    @Override public void confirmSeats(ReservationList reservationList)
     {
         client.confirmSeats(reservationList);
     }

@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import shared.User;
+import shared.UserList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -41,14 +42,15 @@ public class AdminViewModelUsers {
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
-        List<User> list = (ArrayList<User>) event
-                .getNewValue();
+        UserList users = (UserList) event.getNewValue();
 
-        ObservableList<User> observableList = FXCollections
-                .observableArrayList();
-        observableList.addAll(list);
+        ObservableList<User> observableList = FXCollections.observableArrayList();
+        for(int i = 0 ; i < users.size() ; i++){
+            observableList.add(users.get(i));
+            System.out.println("Added user: " + users.get(i).getUsername());
+        }
         observableItems.setValue(observableList);
-        items = FXCollections.observableArrayList(list);
+        items = FXCollections.observableArrayList(observableList);
     }
 
 

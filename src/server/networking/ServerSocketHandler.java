@@ -2,10 +2,7 @@ package server.networking;
 
 import server.database.ManageUserDAO;
 import server.database.UserDAO;
-import shared.Show;
-import shared.User;
-import shared.Request;
-import shared.Reservation;
+import shared.*;
 import shared.util.EventType;
 
 import java.io.IOException;
@@ -38,8 +35,9 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getUserRequest() {
         System.out.println("Get Users Requested");
-        ArrayList<User> users = userDAO.getAllUsers();
+        UserList users = userDAO.getAllUsers();
         Request response = new Request(EventType.GETUSER_RESULT, users);
+        System.out.println(users.size());
         return response;
     }
 
@@ -113,9 +111,10 @@ public class ServerSocketHandler implements Runnable {
         return response;
     }
 
-    public Request getReserveMovieRequest(ArrayList arrayList) {
-        ArrayList<Reservation> list = userDAO.reserveMovie(arrayList);
-        Request request = new Request(EventType.RESERVEMOVIE_RESULT, list);
+    public Request getReserveMovieRequest(ReservationList reservationList) {
+
+        ReservationList reservations = userDAO.reserveMovie(reservationList);
+        Request request = new Request(EventType.RESERVEMOVIE_RESULT, reservations);
         return request;
     }
 
@@ -159,7 +158,7 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(getReservationsRequest((Show) request.arg));
                         break;
                     case RESERVEMOVIE_REQUEST:
-                        outToClient.writeObject(getReserveMovieRequest((ArrayList) request.arg));
+                        outToClient.writeObject(getReserveMovieRequest((ReservationList) request.arg));
                         break;
                 }
             } catch (Exception e) {

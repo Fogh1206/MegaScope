@@ -1,9 +1,6 @@
 package client.model;
 
-import shared.Reservation;
-import shared.Show;
-import shared.User;
-import shared.PropertyChangeSubject;
+import shared.*;
 
 import java.util.ArrayList;
 
@@ -18,5 +15,5 @@ public interface UserModel extends PropertyChangeSubject {
     void editMovie(Show show);
     void removeMovie(Show show);
     void getReservation(Show show);
-  void confirmSeats(ArrayList<Reservation> reservationList);
+  void confirmSeats(ReservationList reservationList);
 }

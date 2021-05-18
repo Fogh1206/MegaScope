@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import shared.Reservation;
+import shared.ReservationList;
 import shared.Show;
 import shared.util.EventType;
 
@@ -20,7 +21,7 @@ public class CinemaHallViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
     private ArrayList<ObjectProperty<Paint>> colors;
-    private ArrayList<Reservation> reservationList;
+    private ReservationList reservationList;
 
     private HashMap<String, ObjectProperty<Paint>> colorIdMap;
 
@@ -29,7 +30,7 @@ public class CinemaHallViewModel {
         colors = new ArrayList<>();
         colorIdMap = new HashMap<>();
         support = new PropertyChangeSupport(this);
-        reservationList = new ArrayList<>();
+        reservationList = new ReservationList();
 
         for (int i = 0; i < 25; i++) {
             colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
@@ -47,7 +48,7 @@ public class CinemaHallViewModel {
     }
 
     private void onGetReservations(PropertyChangeEvent event) {
-        reservationList = new ArrayList<>();
+        reservationList = new ReservationList();
 
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
 

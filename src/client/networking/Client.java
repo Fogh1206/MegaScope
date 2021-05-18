@@ -1,9 +1,6 @@
 package client.networking;
 
-import shared.Reservation;
-import shared.Show;
-import shared.User;
-import shared.Request;
+import shared.*;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeListener;
@@ -80,7 +77,7 @@ public class Client implements ClientImpl {
         sendToServer(req, EventType.GETRESERVATIONS_RESULT);
     }
 
-    @Override public void confirmSeats(ArrayList<Reservation> reservationList)
+    @Override public void confirmSeats(ReservationList reservationList)
     {
         Request req = new Request(EventType.RESERVEMOVIE_REQUEST,reservationList);
         sendToServer(req,EventType.RESERVEMOVIE_RESULT);

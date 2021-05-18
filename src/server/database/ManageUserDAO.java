@@ -1,8 +1,6 @@
 package server.database;
 
-import shared.Show;
-import shared.User;
-import shared.Reservation;
+import shared.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -168,9 +166,9 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<Reservation> reserveMovie(ArrayList<Reservation> list) {
+    public ReservationList reserveMovie(ReservationList list) {
 
-        ArrayList<Reservation> returnList = new ArrayList<>();
+        ReservationList reservations = new ReservationList();
 
         PreparedStatement statement = null;
         Reservation temp = null;
@@ -197,9 +195,9 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getInt(2), resultSet.getInt(3),
                         resultSet.getInt(4));
                     System.out.println(temp);
-                    returnList.add(temp);
+                    reservations.add(temp);
                 }
-            return returnList;
+            return reservations;
 
 
         } catch (SQLException throwables) {
@@ -209,9 +207,9 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<User> getAllUsers() {
+    public UserList getAllUsers() {
 
-        ArrayList<User> userList = new ArrayList<>();
+        UserList users = new UserList();
 
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
@@ -228,7 +226,7 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getString(6), resultSet.getString(7),
                         resultSet.getBoolean(8));
 
-                userList.add(temp);
+                users.add(temp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -238,7 +236,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return userList;
+        return users;
     }
 
     @Override

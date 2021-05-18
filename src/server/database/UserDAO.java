@@ -1,8 +1,6 @@
 package server.database;
 
-import shared.Show;
-import shared.User;
-import shared.Reservation;
+import shared.*;
 
 import java.util.ArrayList;
 
@@ -11,7 +9,7 @@ public interface UserDAO {
 
     User createUser(User user);
 
-    ArrayList<User> getAllUsers();
+    UserList getAllUsers();
 
     ArrayList<Show> getAllMovies();
 
@@ -25,7 +23,7 @@ public interface UserDAO {
 
     ArrayList<String> getReservations(Show show);
 
-    ArrayList<Reservation> reserveMovie(ArrayList<Reservation> list);
+    ReservationList reserveMovie(ReservationList list);
 
 
 }

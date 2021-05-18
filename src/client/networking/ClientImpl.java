@@ -19,5 +19,5 @@ public interface ClientImpl extends PropertyChangeSubject
   void removeMovie(Show show);
 
   void getReservation(Show show);
-  void confirmSeats(ArrayList<Reservation> reservationList);
+  void confirmSeats(ReservationList reservationList);
 }
