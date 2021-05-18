@@ -31,8 +31,6 @@
                 </ImageView>
             </children>
         </AnchorPane>
-
-
         <Button fx:id="saveButton" layoutX="599.0" layoutY="485.0" mnemonicParsing="false"
                 onAction="#saveButtonOnAction" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: #E96151;"
                 text="Save" textFill="#fcfafa">
@@ -101,12 +99,6 @@
                     </VBox.margin>
                 </Label>
                 <Label fx:id="userCurrentUsertypeLabel" layoutX="11.0" layoutY="305.0"/>
-                <Label text="Banned">
-                    <font>
-                        <Font size="13.0"/>
-                    </font>
-                </Label>
-                <Label fx:id="banned"/>
             </children>
         </VBox>
         <VBox layoutX="599.0" layoutY="129.0" prefHeight="275.0" prefWidth="277.0" style="-fx-border-color: black;">

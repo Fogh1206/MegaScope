@@ -2,10 +2,7 @@ package client.viewmodel.user;
 
 import client.model.UserModel;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import shared.User;
 import shared.util.EventType;
 
@@ -27,6 +24,7 @@ public class UserProfileViewModel {
     private StringProperty newUsername = new SimpleStringProperty();
     private StringProperty newPassword = new SimpleStringProperty();
     private StringProperty confirmPassword = new SimpleStringProperty();
+    private BooleanProperty vipCheck = new SimpleBooleanProperty();
 
     private UserModel model;
     private PropertyChangeSupport support;
@@ -40,25 +38,34 @@ public class UserProfileViewModel {
     }
 
     private void onSavedInfo(PropertyChangeEvent event) {
-
+        System.out.println("hi");
         User result = (User) event.getNewValue();
         if (result != null) {
+            currentFirstname.setValue(result.getFirstName());
+            currentLastname.setValue(result.getLastName());
+            currentUsertype.setValue(result.getUserType());
+            currentUsername.setValue(result.getUsername());
+            currentPhoneNumber.setValue(result.getPhoneNumber());
+            currentUsertype.setValue(result.getUserType());
             Platform.runLater(() -> {
                 support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, event.getNewValue());
             });
         }
     }
 
-    public void addPropertyChangeListener(String name,PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
-    }
 
     public void saveAccount(User userLoggedIn) {
+        if (vipCheck.getValue()){
+            currentUsertype.setValue("VIP");
+        }
+        else {
+            currentUsertype.setValue("USER");
+        }
         if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
                 .equals(confirmPassword.get())) {
             System.out.println(newPassword);
             System.out.println(confirmPassword);
-                        User user = new User(userLoggedIn.getId(),
+            User user = new User(userLoggedIn.getId(),
                     newFirstName.get(), newLastName.get(), newUsername.get(),
                     newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
                     banned.get());
@@ -69,6 +76,8 @@ public class UserProfileViewModel {
         } else {
             System.out.println(
                     "password dont match or you dont want to change the password");
+            System.out.println("Current "+currentUsertype.get());
+            System.out.println("Prop"+vipCheck.getValue());
             User user = new User(userLoggedIn.getId(),
                     newFirstName.get(), newLastName.get(), newUsername.get(),
                     userLoggedIn.getPassword(), newPhoneNumber.get(),
@@ -91,7 +100,7 @@ public class UserProfileViewModel {
         newLastName.setValue(currentLastname.getValue());
         newUsername.setValue(currentUsername.getValue());
         newPhoneNumber.setValue(currentPhoneNumber.getValue());
-
+        vipCheck.set(userLoggedIn.getUserType().equals("VIP"));
     }
 
     public StringProperty newPhoneNumberProperty() {
@@ -138,7 +147,13 @@ public class UserProfileViewModel {
         return confirmPassword;
     }
 
-    public BooleanProperty bannedProperty() {
-        return banned;
+
+
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    public Property<Boolean> vipCheckProperty() {
+        return vipCheck;
     }
 }

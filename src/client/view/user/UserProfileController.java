@@ -3,6 +3,7 @@ package client.view.user;
 import client.view.ViewHandler;
 import client.viewmodel.user.UserProfileViewModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import shared.User;
@@ -11,7 +12,6 @@ import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 
 public class UserProfileController {
-
     private ViewHandler viewHandler;
     private UserProfileViewModel userProfileViewModel;
     private User userLoggedIn;
@@ -39,7 +39,8 @@ public class UserProfileController {
     @FXML
     private TextField confirmPasswordField;
     @FXML
-    private Label banned;
+    private CheckBox vipCheckBox;
+
 
     public void init(UserProfileViewModel userProfileViewModel,
                      ViewHandler viewHandler, User userLoggedIn) {
@@ -69,19 +70,21 @@ public class UserProfileController {
                 .bindBidirectional(userProfileViewModel.newPasswordProperty());
         confirmPasswordField.textProperty()
                 .bindBidirectional(userProfileViewModel.confirmPasswordProperty());
+        vipCheckBox.selectedProperty().bindBidirectional(userProfileViewModel.vipCheckProperty());
 
         userProfileViewModel.updateCurrentInfo(userLoggedIn);
 
-        userProfileViewModel
-                .addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
-                        this::newSavedInfo);
+        userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
+                this::newSavedInfo);
     }
 
     private void newSavedInfo(PropertyChangeEvent event) {
+        System.out.println("hello");
         User temp = (User) event.getNewValue();
         if (temp != null) {
-            userLoggedIn = temp;
-            viewHandler.openUserProfile(temp);
+            System.out.println("Every "+temp);
+           this.userLoggedIn = temp;
+           userProfileViewModel.updateCurrentInfo(userLoggedIn);
         }
     }
 

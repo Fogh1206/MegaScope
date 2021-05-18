@@ -36,7 +36,15 @@ public class Model implements UserModel {
                 this::onGetReservation);
         client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(),
             this::onReserveShow);
+        client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
+                this::onNewInfo);
 
+    }
+
+    private void onNewInfo(PropertyChangeEvent propertyChangeEvent) {
+        User user = (User) propertyChangeEvent.getNewValue();
+        System.out.println(user);
+        support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, user);
     }
 
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent)
@@ -59,9 +67,7 @@ public class Model implements UserModel {
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
-        System.out.println("a1");
         UserList users = (UserList) event.getNewValue();
-        System.out.println("a2");
         support.firePropertyChange("Users Result", null, users);
     }
 
@@ -79,7 +85,6 @@ public class Model implements UserModel {
     private void onRegisterResult(PropertyChangeEvent event) {
         User user = (User) event.getNewValue();
         support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, user);
-
     }
 
     private void onMoviesChanged(PropertyChangeEvent event) {
