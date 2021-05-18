@@ -4,6 +4,7 @@ import client.core.ModelFactory;
 import client.viewmodel.admin.AdminViewModelUsers;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
+import client.viewmodel.frontPage.UserReservationViewModel;
 import client.viewmodel.login.LoginViewModel;
 import client.viewmodel.movieManagement.AddMovieViewModel;
 import client.viewmodel.movieManagement.EditMovieViewModel;
@@ -22,6 +23,7 @@ public class ViewModelFactory
   private AdminViewModelUsers adminViewModelUsers;
   private AddMovieViewModel addMovieViewModel;
   private EditMovieViewModel editMovieViewModel;
+  private UserReservationViewModel userReservationViewModel;
 
   public ViewModelFactory(ModelFactory mf)
   {
@@ -98,6 +100,14 @@ public class ViewModelFactory
     }
     return userProfileViewModel;
   }
+
+  public UserReservationViewModel getUserReservationVM(){
+    if(userReservationViewModel == null){
+      userReservationViewModel = new UserReservationViewModel(mf.getUserModel());
+    }
+    return userReservationViewModel;
+  }
+
 
 }
 
