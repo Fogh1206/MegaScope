@@ -30,15 +30,24 @@ public class RegisterViewModel {
 
         userModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
                 this::onRegister);
+        userModel.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
+                this::onRegisterFail);
     }
 
-    private void onRegister(PropertyChangeEvent event) {
+
+    public void onRegister(PropertyChangeEvent event) {
         Platform.runLater(() -> {
             support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null,
                     event.getNewValue());
         });
     }
 
+
+    public void onRegisterFail(PropertyChangeEvent event) {
+        Platform.runLater(() -> {
+            registrationMessageLabel.setValue("Username already exist");
+        });
+    }
 
     public void register() {
         if (firstName.get() == null || "".equals(firstName.get())) {
@@ -51,15 +60,18 @@ public class RegisterViewModel {
             registrationMessageLabel.setValue("Please input your username");
         } else if (password.get() == null || "".equals(password.get())) {
             registrationMessageLabel.setValue("Please input your password");
+        } else if (password.get().length() < 3 || password.get().length() > 15) {
+            registrationMessageLabel.setValue("Password needs to be between 3 and 15 characters");
         } else if (confirmPassword.get() == null || "".equals(confirmPassword.get())) {
             registrationMessageLabel.setValue("Please input your password confirmation");
-        }
-        if (confirmPassword.get() != null) {
-            if (!confirmPassword.get().equals(password.get())) {
-                confirmPasswordLabel.setValue("The password don't match");
-            } else {
-                registerUserAccount();
+        } else {
+            if (confirmPassword.get() != null) {
+                if (!confirmPassword.get().equals(password.get())) {
+                    confirmPasswordLabel.setValue("The password don't match");
+                } else {
+                    registerUserAccount();
 
+                }
             }
         }
     }
@@ -68,6 +80,10 @@ public class RegisterViewModel {
         model.register(new User(firstName.get(), lastName.get(), username.get(),
                 password.get(), phoneNumber.get(), "USER", false));
         defaultFields();
+    }
+
+    public void clearMessages(){
+        registrationMessageLabel.setValue("");
     }
 
     public void defaultFields() {

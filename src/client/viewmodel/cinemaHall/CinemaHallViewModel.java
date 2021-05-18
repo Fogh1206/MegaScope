@@ -54,13 +54,13 @@ public class CinemaHallViewModel {
 
         System.out.println(list.toString() + " Hello Guys");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("1" + list.get(i));
-            System.out.println("2" + Integer.valueOf(list.get(i)));
-            System.out.println("3 " + colorIdMap.get((list.get(i))));
+//            System.out.println("1" + list.get(i));
+//            System.out.println("2" + Integer.valueOf(list.get(i)));
+//            System.out.println("3 " + colorIdMap.get((list.get(i))));
             if (colorIdMap.get(list.get(i)) != null) {
                 colors.get(Integer.valueOf(list.get(i))).setValue(Color.RED);
-                System.out.println("4" + colors.get(i));
-                System.out.println("5" + colorIdMap.get(list.get(i)));
+//                System.out.println("4" + colors.get(i));
+//                System.out.println("5" + colorIdMap.get(list.get(i)));
             }
         }
         for (int i = 0; i < colors.size(); i++) {

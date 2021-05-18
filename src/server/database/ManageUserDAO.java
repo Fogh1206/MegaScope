@@ -13,8 +13,8 @@ public class ManageUserDAO implements UserDAO {
     private ManageUserDAO() {
         try {
             DriverManager.registerDriver(new org.postgresql.Driver());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         controller = Controller.getInstance();
     }
@@ -27,8 +27,8 @@ public class ManageUserDAO implements UserDAO {
     }
 
     private void getMovieList(ArrayList<Show> showList, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("select movies2.id, name, dateofrelease, mainactors," +
-                " description, time_show, date_show, show.id from public.movies2 join public.show on show.movie_id = movies2.id");
+        PreparedStatement statement = connection.prepareStatement("select movies.id, name, dateofrelease, mainactors," +
+                " description, time_show, date_show, show.id from public.movies join public.show on show.movie_id = movies.id order by movies.id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             Show temp = new Show(resultSet.getInt(1), resultSet.getString(2),
@@ -56,11 +56,11 @@ public class ManageUserDAO implements UserDAO {
     public ArrayList<Show> addMovie(Show show) {
 
         ArrayList<Show> showList = new ArrayList<>();
-        PreparedStatement statement = null;
+        PreparedStatement statement ;
 
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement(
-                    "INSERT INTO public.movies2 (id, name, dateofrelease, mainactors, description)" +
+                    "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" +
                             "VALUES (" + "DEFAULT" + ",'"
                             + show.getName() + "','" + show.getDateOfRelease() + "','"
                             + show.getMainActors() + "','" + show.getDescription() + "')");
@@ -68,7 +68,7 @@ public class ManageUserDAO implements UserDAO {
 
             int id = 0;
             statement = connection.prepareStatement(
-                    "select movies2.id from movies2 where name='" + show.getName() + "'");
+                    "select movies.id from movies where name='" + show.getName() + "'");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -98,7 +98,7 @@ public class ManageUserDAO implements UserDAO {
         ArrayList<Show> showList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE public.movies2 SET name='" + show.getName() + "',dateofrelease='" +
+                    "UPDATE public.movies SET name='" + show.getName() + "',dateofrelease='" +
                             show.getDateOfRelease() + "',mainactors='" + show.getMainActors() +
                             "',description='" + show.getDescription() +
                             " 'where id='" + show.getMovie_id() + "'");
@@ -115,8 +115,8 @@ public class ManageUserDAO implements UserDAO {
 
             getMovieList(showList, connection);
             return showList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
             return null;
         }
     }
@@ -127,13 +127,13 @@ public class ManageUserDAO implements UserDAO {
         ArrayList<Show> showList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from movies2 where id='" + show.getMovie_id() + "'");
+                    "Delete from movies where id='" + show.getMovie_id() + "'");
             statement.executeUpdate();
             statement.close();
             getMovieList(showList, connection);
             return showList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return null;
     }
@@ -159,8 +159,8 @@ public class ManageUserDAO implements UserDAO {
         }
         try {
             statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return strings;
     }
@@ -196,8 +196,8 @@ public class ManageUserDAO implements UserDAO {
                 reservations.add(temp);
             }
             return reservations;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return null;
     }
@@ -229,17 +229,32 @@ public class ManageUserDAO implements UserDAO {
         }
         try {
             statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return users;
     }
 
     @Override
-    public User createUser(User user) {
+    public User registerUser(User user) {
 
         try (Connection connection = controller.getConnection()) {
+
             PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User temp = new User(resultSet.getInt(1),
+                        resultSet.getString(2), resultSet.getString(3),
+                        resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getString(6), resultSet.getString(7),
+                        resultSet.getBoolean(8));
+                user = temp;
+                System.out.println(temp.getId());
+            }
+            statement.close();
+
+            statement = connection.prepareStatement(
                     "INSERT INTO users(firstname,lastname,username,password,phonenumber,type)   VALUES (?, ?, ?, ?,?,?);");
 
             statement.setString(1, user.getFirstName());
@@ -253,7 +268,7 @@ public class ManageUserDAO implements UserDAO {
 
             statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User temp = new User(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
@@ -264,8 +279,12 @@ public class ManageUserDAO implements UserDAO {
                 System.out.println(temp.getId());
             }
             statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            if (throwable.toString().contains("duplicate key"))
+            {
+                System.out.println("MAMA");
+            }
+            throwable.printStackTrace();
             return null;
         }
         return user;
@@ -302,13 +321,8 @@ public class ManageUserDAO implements UserDAO {
                     return user;
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
-            statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return user;
     }
@@ -341,8 +355,8 @@ public class ManageUserDAO implements UserDAO {
             }
 
             return temp;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
             return null;
         }
 

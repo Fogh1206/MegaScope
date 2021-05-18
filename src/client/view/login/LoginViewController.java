@@ -38,6 +38,7 @@ public class LoginViewController {
                      User userLoggedIn) {
         this.userLoggedIn = userLoggedIn;
         this.loginViewModel = loginViewModel;
+        loginViewModel.clearMessages();
         this.viewHandler = viewHandler;
         usernameTextField.textProperty().bindBidirectional(loginViewModel.usernameProperty());
         passwordTextField.textProperty().bindBidirectional(loginViewModel.passwordProperty());
