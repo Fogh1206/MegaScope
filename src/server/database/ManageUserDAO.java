@@ -203,10 +203,51 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<ArrayList<String>> getUserReservation(User user){
+    public ArrayList<UserReservationInfo> cancelReservation(UserReservationInfo userReservationInfo) {
+        User user = null;
+        try (Connection connection = controller.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT user_id FROM reservations WHERE reservation_id = " + userReservationInfo.getReservation_id());
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                statement = connection.prepareStatement(
+                        "SELECT * FROM users WHERE id = " + resultSet.getInt(1));
+                resultSet = statement.executeQuery();
+                while(resultSet.next()){
+                    user = new User(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            resultSet.getString(5),
+                            resultSet.getString(6),
+                            resultSet.getString(7),
+                            resultSet.getBoolean(8));
+                }
+            }
+            statement.close();
+
+            statement = connection.prepareStatement(
+                    "DELETE FROM reservations WHERE reservation_id=" + userReservationInfo.getReservation_id());
+            statement.executeUpdate();
+            statement.close();
+
+
+            statement.close();
+            return getUserReservation(user);
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public ArrayList<UserReservationInfo> getUserReservation(User user){
 
         PreparedStatement statement = null;
-        ArrayList<ArrayList<String>> bigList = new ArrayList<>();
+        ArrayList<UserReservationInfo> userReservations = new ArrayList<>();
+        UserReservationInfo temp;
 
         try (Connection connection = controller.getConnection()) {
 
@@ -218,16 +259,18 @@ public class ManageUserDAO implements UserDAO {
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
-                ArrayList<String> smallList = new ArrayList<>();
-                smallList.add(String.valueOf(resultSet.getInt(1)));
-                smallList.add(resultSet.getString(2));
-                smallList.add(resultSet.getString(3));
-                smallList.add(resultSet.getString(4));
-                smallList.add(String.valueOf(resultSet.getInt(5)));
-                bigList.add(smallList);
+                temp = new UserReservationInfo(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5)
+                );
+                userReservations.add(temp);
             }
             statement.close();
-            return bigList;
+            System.out.println(userReservations);
+            return userReservations;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }

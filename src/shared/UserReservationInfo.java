@@ -1,8 +1,9 @@
 package shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserReservationInfo {
+public class UserReservationInfo implements Serializable {
 
     private int reservation_id;
     private String name;
@@ -10,12 +11,12 @@ public class UserReservationInfo {
     private String date_show;
     private int seat_id;
 
-    public UserReservationInfo(ArrayList<String> details){
-        reservation_id = Integer.valueOf(details.get(0));
-        name = details.get(1);
-        time_show = details.get(2);
-        date_show = details.get(3);
-        seat_id = Integer.valueOf(details.get(4));
+    public UserReservationInfo(int reservation_id, String name, String time_show, String date_show, int seat_id){
+        this.reservation_id=reservation_id;
+        this.name = name;
+        this.time_show=time_show;
+        this.date_show = date_show;
+        this.seat_id = seat_id;
     }
 
     public int getReservation_id() {
@@ -36,12 +37,6 @@ public class UserReservationInfo {
 
     public int getSeat_id() {
         return seat_id;
-    }
-
-    public String toString(){
-
-        return reservation_id + " " + name + " " + time_show + " " + date_show + " " + seat_id + ":";
-
     }
 
 }

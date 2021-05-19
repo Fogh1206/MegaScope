@@ -9,7 +9,7 @@ public interface UserDAO {
 
     User registerUser(User user);
 
-    ArrayList<ArrayList<String>> getUserReservation(User user);
+    ArrayList<UserReservationInfo> getUserReservation(User user);
 
     UserList getAllUsers();
 
@@ -28,4 +28,5 @@ public interface UserDAO {
     ReservationList reserveMovie(ReservationList list);
 
 
+    ArrayList<UserReservationInfo> cancelReservation(UserReservationInfo userReservationInfo);
 }

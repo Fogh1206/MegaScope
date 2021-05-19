@@ -2,8 +2,6 @@ package client.networking;
 
 import shared.*;
 
-import java.util.ArrayList;
-
 public interface ClientImpl extends PropertyChangeSubject
 {
   void registerUser(User userToCreate);
@@ -23,4 +21,5 @@ public interface ClientImpl extends PropertyChangeSubject
 
   void getReservation(Show show);
   void confirmSeats(ReservationList reservationList);
+  void cancelReservation(UserReservationInfo userReservationInfo);
 }

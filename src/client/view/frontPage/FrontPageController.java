@@ -217,9 +217,7 @@ public class FrontPageController {
     }
 
     public void onMyShowsButton(ActionEvent actionEvent) {
-
         viewHandler.showUserReservationPage(userLoggedIn);
-
     }
 
 }

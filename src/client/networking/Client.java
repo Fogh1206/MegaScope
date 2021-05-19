@@ -8,7 +8,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Client implements ClientImpl {
     private PropertyChangeSupport support;
@@ -84,6 +83,12 @@ public class Client implements ClientImpl {
     }
 
     @Override
+    public void cancelReservation(UserReservationInfo userReservationInfo) {
+        Request req = new Request(EventType.REMOVERESERVATION_REQUEST, userReservationInfo);
+        sendToServer(req, EventType.REMOVERESERVATION_RESULT);
+    }
+
+    @Override
     public void registerUser(User newUser) {
         System.out.println("Client: RegisterUser Req");
         Request req = new Request(EventType.REGISTER_REQUEST, newUser);
@@ -128,6 +133,7 @@ public class Client implements ClientImpl {
 
     @Override
     public void getUserReservations(User user){
+        System.out.println("Client: GetUserReservations Req");
         Request req = new Request(EventType.GETUSERRESERVATIONS_REQUEST, user);
         sendToServer(req, EventType.GETUSERRESERVATIONS_RESULT);
     }

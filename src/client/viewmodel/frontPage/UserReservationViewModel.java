@@ -38,14 +38,7 @@ public class UserReservationViewModel {
     }
 
     public void onGetReservations(PropertyChangeEvent event){
-
-        ArrayList<ArrayList<String>> stringList = (ArrayList<ArrayList<String>>) event.getNewValue();
-        ArrayList<UserReservationInfo> userReservationInfos = new ArrayList<>();
-        for(int i = 0 ; i < stringList.size() ; i++){
-            UserReservationInfo userReservationInfo = new UserReservationInfo(stringList.get(i));
-            userReservationInfos.add(userReservationInfo);
-        }
-
+        ArrayList<UserReservationInfo> userReservationInfos = (ArrayList<UserReservationInfo>) event.getNewValue();
         ObservableList<UserReservationInfo> observableList = FXCollections.observableArrayList();
         observableList.addAll(userReservationInfos);
         observableItems.setValue(observableList);
@@ -64,4 +57,9 @@ public class UserReservationViewModel {
     }
 
 
+    public void cancelReservation(UserReservationInfo userReservationInfo) {
+
+        model.cancelReservation(userReservationInfo);
+
+    }
 }

@@ -104,8 +104,13 @@ public class ServerSocketHandler implements Runnable {
     }
 
     public Request getUserReservations(User user) {
-        ArrayList<ArrayList<String>> information = userDAO.getUserReservation(user);
+        ArrayList<UserReservationInfo> information = userDAO.getUserReservation(user);
         return new Request(EventType.GETUSERRESERVATIONS_RESULT, information);
+    }
+
+    public Request cancelReservation(UserReservationInfo userReservationInfo){
+        ArrayList<UserReservationInfo> updatedReservations = userDAO.cancelReservation(userReservationInfo);
+        return new Request(EventType.REMOVERESERVATION_RESULT, updatedReservations);
     }
 
 
@@ -153,6 +158,8 @@ public class ServerSocketHandler implements Runnable {
                     case GETUSERRESERVATIONS_REQUEST:
                         outToClient.writeObject(getUserReservations((User)request.arg));
                         break;
+                    case REMOVERESERVATION_REQUEST:
+                        outToClient.writeObject(cancelReservation((UserReservationInfo)request.arg));
                 }
             } catch (Exception e) {
 

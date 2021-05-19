@@ -64,6 +64,10 @@ public class UserReservationController {
 
 
     public void onCancelReservation(ActionEvent actionEvent) {
+
+        if(selectedInfo != null) {
+            userReservationViewModel.cancelReservation(selectedInfo);
+        }
     }
 
     public void onGoBack(ActionEvent actionEvent) {
