@@ -10,6 +10,9 @@ public interface ClientImpl extends PropertyChangeSubject
   void login(User user);
   void getMovies();
   void saveNewInfo(User user);
+
+  void getUserReservations(User user);
+
   boolean isRunning();
   void receive(Request req);
   void deactivateClient();

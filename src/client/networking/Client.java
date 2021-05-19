@@ -127,6 +127,12 @@ public class Client implements ClientImpl {
     }
 
     @Override
+    public void getUserReservations(User user){
+        Request req = new Request(EventType.GETUSERRESERVATIONS_REQUEST, user);
+        sendToServer(req, EventType.GETUSERRESERVATIONS_RESULT);
+    }
+
+    @Override
     public void addPropertyChangeListener(String name,
                                           PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);

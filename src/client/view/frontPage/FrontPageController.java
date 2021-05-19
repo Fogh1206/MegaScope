@@ -4,6 +4,7 @@ import client.view.CustomTextFieldTableCell;
 import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -199,4 +200,9 @@ public class FrontPageController {
         }
     }
 
+    public void onMyShowsButton(ActionEvent actionEvent) {
+
+        viewHandler.showUserReservationPage(userLoggedIn);
+
+    }
 }

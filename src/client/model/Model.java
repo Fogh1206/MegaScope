@@ -40,6 +40,8 @@ public class Model implements UserModel {
                 this::onNewInfo);
         client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
                 this::onFailedRegister);
+        client.addPropertyChangeListener(EventType.GETUSERRESERVATIONS_RESULT.toString(),
+                this::onGetUserReservations);
     }
 
     private void onFailedRegister(PropertyChangeEvent propertyChangeEvent) {
@@ -69,6 +71,12 @@ public class Model implements UserModel {
         System.out.println("Model: onGetReservation");
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
         support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, list);
+    }
+
+    private void onGetUserReservations(PropertyChangeEvent event){
+        System.out.println("Model: onGetUserReservations");
+        ArrayList<ArrayList<String>> reservations = (ArrayList<ArrayList<String>>) event.getNewValue();
+        support.firePropertyChange("Reservations result", null, reservations);
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
@@ -162,5 +170,10 @@ public class Model implements UserModel {
     @Override
     public void getMovies() {
         client.getMovies();
+    }
+
+    @Override
+    public void getUserReservations(User user){
+        client.getUserReservations(user);
     }
 }

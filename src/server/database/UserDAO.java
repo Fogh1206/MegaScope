@@ -9,6 +9,8 @@ public interface UserDAO {
 
     User registerUser(User user);
 
+    ArrayList<ArrayList<String>> getUserReservation(User user);
+
     UserList getAllUsers();
 
     ArrayList<Show> getAllMovies();

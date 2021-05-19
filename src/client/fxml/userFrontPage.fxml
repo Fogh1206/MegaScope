@@ -41,6 +41,14 @@
                                 <Font size="13.0" />
                             </font>
                         </Button>
+                  <Button fx:id="loginButton1" layoutX="500.0" layoutY="10.0" mnemonicParsing="false" onAction="#onMyShowsButton" prefWidth="100.0" style="-fx-background-color: #E96151;" text="My shows" textAlignment="CENTER" textFill="WHITE">
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
                     </children>
                 </HBox>
                 <HBox fx:id="adminContainer" alignment="CENTER" spacing="80.0">

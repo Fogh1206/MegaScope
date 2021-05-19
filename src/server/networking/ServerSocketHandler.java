@@ -103,6 +103,11 @@ public class ServerSocketHandler implements Runnable {
         return new Request(EventType.RESERVEMOVIE_RESULT, reservations);
     }
 
+    public Request getUserReservations(User user) {
+        ArrayList<ArrayList<String>> information = userDAO.getUserReservation(user);
+        return new Request(EventType.GETUSERRESERVATIONS_RESULT, information);
+    }
+
 
     @Override
     public void run() {
@@ -144,6 +149,9 @@ public class ServerSocketHandler implements Runnable {
                         break;
                     case RESERVEMOVIE_REQUEST:
                         outToClient.writeObject(getReserveMovieRequest((ReservationList) request.arg));
+                        break;
+                    case GETUSERRESERVATIONS_REQUEST:
+                        outToClient.writeObject(getUserReservations((User)request.arg));
                         break;
                 }
             } catch (Exception e) {

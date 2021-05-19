@@ -203,6 +203,38 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
+    public ArrayList<ArrayList<String>> getUserReservation(User user){
+
+        PreparedStatement statement = null;
+        ArrayList<ArrayList<String>> bigList = new ArrayList<>();
+
+        try (Connection connection = controller.getConnection()) {
+
+            statement = connection.prepareStatement(
+                    "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show, reservations.seat_id " +
+                            "FROM ((reservations " +
+                            "INNER JOIN show ON reservations.show_id = show.id) " +
+                            "INNER JOIN movies ON show.movie_id = movies.id) " +
+                            "WHERE user_id = " + user.getId() + ";");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                ArrayList<String> smallList = new ArrayList<>();
+                smallList.add(String.valueOf(resultSet.getInt(1)));
+                smallList.add(resultSet.getString(2));
+                smallList.add(resultSet.getString(3));
+                smallList.add(resultSet.getString(4));
+                smallList.add(String.valueOf(resultSet.getInt(5)));
+                bigList.add(smallList);
+            }
+            statement.close();
+            return bigList;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public UserList getAllUsers() {
 
         UserList users = new UserList();

@@ -24,4 +24,6 @@ public interface UserModel extends PropertyChangeSubject {
     void getReservation(Show show);
 
     void confirmSeats(ReservationList reservationList);
+
+    void getUserReservations(User user);
 }
