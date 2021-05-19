@@ -63,12 +63,6 @@ public class CinemaHallViewModel {
 //                System.out.println("5" + colorIdMap.get(list.get(i)));
             }
         }
-        for (int i = 0; i < colors.size(); i++) {
-            System.out.println(i + " " + colors.get(i).toString());
-        }
-        for (int i = 0; i < colorIdMap.size(); i++) {
-            System.out.println(i + " " + colorIdMap.get("" + i).toString());
-        }
     }
 
     public void getReservation(Show show) {
