@@ -129,7 +129,7 @@
                                 <Font size="13.0" />
                             </font>
                         </TextField>
-                        <DatePicker fx:id="datePick" layoutX="421.0" layoutY="50.0" onAction="#onDatePick" prefHeight="27.0" prefWidth="181.0" promptText="Select date" style="-fx-focus-color: #000000;" />
+                        <DatePicker fx:id="datePick" layoutX="421.0" layoutY="50.0" onHiding="#onDatePick" prefHeight="27.0" prefWidth="181.0" promptText="Select date" style="-fx-focus-color: #000000;" />
                         <Button layoutX="346.0" layoutY="51.0" mnemonicParsing="false" onAction="#Search" prefHeight="25.0" prefWidth="37.0" text="?" />
                     </children>
                 </AnchorPane>

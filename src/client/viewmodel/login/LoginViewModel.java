@@ -72,6 +72,10 @@ public class LoginViewModel
   {
     support.addPropertyChangeListener(name, listener);
   }
+  public void removePropertyChangeListener(String name,PropertyChangeListener listener)
+  {
+    support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+  }
 
   public StringProperty usernameProperty()
   {

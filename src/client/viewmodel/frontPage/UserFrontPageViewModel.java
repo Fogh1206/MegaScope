@@ -18,11 +18,9 @@ public class UserFrontPageViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
     private Show selectedShow;
-
-
     private StringProperty username, button;
     private StringProperty searchPhrase;
-    private ObjectProperty datePicked;
+    private ObjectProperty<LocalDate> datePicked;
     private Property<ObservableList<Show>> observableItems;
 
     public UserFrontPageViewModel(UserModel userModel) {
@@ -64,22 +62,12 @@ public class UserFrontPageViewModel {
         model.getMovies();
     }
 
-    public void getDateMovies(LocalDate date) {
-        datePicked.setValue(date);
-        model.getMovies();
-    }
-
-    public void getSearchMovies() {
-        datePicked.setValue(null);
-        model.getMovies();
-    }
 
     public void close() {
         model.deactivateClient();
     }
 
     public void search() {
-
         ObservableList<Show> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (observableItems.getValue().get(i).getName().contains(searchPhrase.getValue())) {
@@ -101,7 +89,7 @@ public class UserFrontPageViewModel {
         }
         observableItems.setValue(observableList);
 
-//      datePicked.setValue(null);
+        datePicked.set(null);
     }
 
     public ObjectProperty<LocalDate> getValue() {
