@@ -38,6 +38,8 @@ public class FrontPageController {
     private Button myShowsButton;
     @FXML
     private Button manageUsersButton;
+    @FXML
+    private Button bookButton;
 
     @FXML
     private HBox adminContainer;
@@ -116,6 +118,7 @@ public class FrontPageController {
                 adminContainer.setVisible(true);
                 adminContainer.setDisable(false);
                 myShowsButton.setVisible(false);
+                bookButton.setVisible(false);
             }
 
         } else {
@@ -123,6 +126,7 @@ public class FrontPageController {
             myProfileButton.setVisible(false);
             myShowsButton.setVisible(false);
             loginButton.setText("Log In");
+            bookButton.setVisible(false);
         }
     }
 
@@ -174,9 +178,11 @@ public class FrontPageController {
     }
 
     public void onBookMovieButton() {
+
         if (userLoggedIn != null && selectedShow != null) {
             viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
         }
+
     }
 
     public void setSelected() {
