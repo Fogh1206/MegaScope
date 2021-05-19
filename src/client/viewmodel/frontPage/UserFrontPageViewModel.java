@@ -37,6 +37,7 @@ public class UserFrontPageViewModel {
         userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
     }
 
+
     public void onGetMovies(PropertyChangeEvent event) {
         System.out.println("On get movies");
         ObservableList<Show> observableList = FXCollections.observableArrayList();
@@ -44,10 +45,12 @@ public class UserFrontPageViewModel {
         observableItems.setValue(observableList);
         if (!(searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))) {
             System.out.println("Not null searchbar");
+            System.out.println("725" + datePicked.get());
             search();
         }
         if (!(datePicked.get() == null)) {
             System.out.println("Not null date");
+            System.out.println("726" + datePicked.get());
             onDatePick();
         }
     }
@@ -58,6 +61,16 @@ public class UserFrontPageViewModel {
 
 
     public void getMovies() {
+        model.getMovies();
+    }
+
+    public void getDateMovies(LocalDate date) {
+        datePicked.setValue(date);
+        model.getMovies();
+    }
+
+    public void getSearchMovies() {
+        datePicked.setValue(null);
         model.getMovies();
     }
 
@@ -87,11 +100,11 @@ public class UserFrontPageViewModel {
             }
         }
         observableItems.setValue(observableList);
-        datePicked = new SimpleObjectProperty();
-        datePicked.setValue(null);
+
+//      datePicked.setValue(null);
     }
 
-    public Property<LocalDate> getValue() {
+    public ObjectProperty<LocalDate> getValue() {
         return datePicked;
     }
 
@@ -133,4 +146,6 @@ public class UserFrontPageViewModel {
     public StringProperty searchPhraseProperty() {
         return searchPhrase;
     }
+
+
 }

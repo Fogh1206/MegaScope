@@ -5,11 +5,12 @@ import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,17 +30,9 @@ public class FrontPageController {
     @FXML
     private Button myProfileButton;
     @FXML
-    private AnchorPane SearchBox;
-    @FXML
     private Label UsernameLabel;
     @FXML
-    private VBox Profile;
-    @FXML
-    private Label usernameLabel;
-    @FXML
     private Button loginButton;
-    @FXML
-    private Button cinemaHallButton;
     @FXML
     private Button manageUsersButton;
 
@@ -70,11 +63,11 @@ public class FrontPageController {
         System.out.println("Init");
         this.userFrontPageViewModel = frontPage;
         userFrontPageViewModel.getMovies();
+
         adminContainer.setVisible(false);
         adminContainer.setDisable(true);
         manageUsersButton.setVisible(false);
         manageUsersButton.setDisable(true);
-
 
         this.viewHandler = viewHandler;
 
@@ -86,8 +79,7 @@ public class FrontPageController {
             }
         });
 
-        datePick.valueProperty()
-                .bindBidirectional(userFrontPageViewModel.getValue());
+       // datePick.valueProperty().bindBidirectional(userFrontPageViewModel.getValue());
         searchBar.textProperty()
                 .bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
         movieTableView.itemsProperty()
@@ -127,6 +119,7 @@ public class FrontPageController {
             myProfileButton.setVisible(false);
             loginButton.setText("Log In");
         }
+
     }
 
     public void onLoginButton() {
@@ -147,14 +140,31 @@ public class FrontPageController {
     }
 
     public void Search() {
-        userFrontPageViewModel.getMovies();
+        userFrontPageViewModel.getSearchMovies();
     }
 
     public void onDatePick() {
-        System.out.println("OnDatePick");
+        System.out.println("Calling the datePicker");
         if (datePick.getValue() != null) {
-            userFrontPageViewModel.getMovies();
+            LocalDate date = datePick.getValue();
+            System.err.println("Selected date: " + date);
+            datePick.setValue(null);
+            userFrontPageViewModel.getDateMovies(date);
+
         }
+//        if (userLoggedIn == null) {
+//            System.out.println("Bad");
+//            datePick.setOnAction(new EventHandler() {
+//                public void handle(Event t) {
+//                    LocalDate date = datePick.getValue();
+//                    if (datePick.getValue() != null) {
+//                        userFrontPageViewModel.getMovies();
+//                        System.err.println("Selected date not null: " + date);
+//                    }
+//                    System.err.println("Selected date: " + date);
+//                }
+//            });
+//        }
     }
 
     public void onBookMovieButton() {
@@ -205,4 +215,5 @@ public class FrontPageController {
         viewHandler.showUserReservationPage(userLoggedIn);
 
     }
+
 }
