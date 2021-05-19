@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="414.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.view.login.LoginViewController">
+<VBox prefHeight="414.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.login.LoginViewController">
     <children>
         <AnchorPane prefHeight="82.0" prefWidth="600.0" style="-fx-background-color: #E96151;">
             <children>
-                <Label layoutX="384.0" layoutY="28.0" text="User login" textFill="#fcf5f5">
+            <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="503.0" pickOnBounds="true" preserveRatio="true" />
+                <Label layoutX="14.0" layoutY="27.0" prefHeight="28.0" prefWidth="159.0" text="Login page" textFill="WHITE">
                     <font>
-                        <Font size="18.0"/>
+                        <Font name="Georgia Bold" size="24.0" />
                     </font>
                 </Label>
             </children>
@@ -29,20 +29,17 @@
             <children>
                 <AnchorPane prefHeight="303.0" prefWidth="263.0">
                     <children>
-                        <ImageView fx:id="imageView" fitHeight="196.0" fitWidth="263.0" layoutX="-2.0" layoutY="34.0"
-                                   pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0"
-                                   AnchorPane.rightAnchor="10.0">
+                        <ImageView fx:id="imageView" fitHeight="196.0" fitWidth="263.0" layoutX="-2.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                             <image>
-                                <Image url="@../../../images/cinema.jpg"/>
+                                <Image url="@../../../images/cinema.jpg" />
                             </image>
                         </ImageView>
-                        <Button layoutX="100.0" layoutY="242.0" mnemonicParsing="false" onAction="#frontPageButton"
-                                style="-fx-background-color: #E96151;" text="Front page" textFill="WHITE">
+                        <Button layoutX="100.0" layoutY="242.0" mnemonicParsing="false" onAction="#frontPageButton" style="-fx-background-color: #E96151;" text="Front page" textFill="WHITE">
                             <font>
-                                <Font size="13.0"/>
+                                <Font size="13.0" />
                             </font>
                             <effect>
-                                <Glow/>
+                                <Glow />
                             </effect>
                         </Button>
                     </children>
@@ -53,94 +50,85 @@
                             <children>
                                 <Label prefWidth="100.0" text="Username ">
                                     <font>
-                                        <Font size="13.0"/>
+                                        <Font size="13.0" />
                                     </font>
                                     <padding>
-                                        <Insets top="20.0"/>
+                                        <Insets top="20.0" />
                                     </padding>
                                 </Label>
-                                <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="203.0"
-                                           promptText="Username" style="-fx-focus-color: #000000;">
+                                <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="203.0" promptText="Username" style="-fx-focus-color: #000000;">
                                     <HBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets top="20.0" />
                                     </HBox.margin>
                                 </TextField>
                             </children>
                             <padding>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </padding>
                         </HBox>
                         <HBox prefHeight="48.0" prefWidth="305.0">
                             <children>
                                 <Label prefWidth="100.0" text="Password">
                                     <font>
-                                        <Font size="13.0"/>
+                                        <Font size="13.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </HBox.margin>
                                 </Label>
-                                <PasswordField fx:id="passwordTextField" prefHeight="26.0" prefWidth="203.0"
-                                               promptText="Password" style="-fx-focus-color: #000000;">
+                                <PasswordField fx:id="passwordTextField" prefHeight="26.0" prefWidth="203.0" promptText="Password" style="-fx-focus-color: #000000;">
                                     <HBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </HBox.margin>
                                 </PasswordField>
                             </children>
                             <padding>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </padding>
                         </HBox>
-                        <Label fx:id="loginText" prefHeight="17.0" prefWidth="294.0"/>
-                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginAction" prefHeight="32.0"
-                                prefWidth="303.0" style="-fx-background-color: #E96151;" text="Login"
-                                textAlignment="CENTER" textFill="#fefdfd">
+                        <Label fx:id="loginText" prefHeight="17.0" prefWidth="294.0" />
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginAction" prefHeight="32.0" prefWidth="303.0" style="-fx-background-color: #E96151;" text="Login" textAlignment="CENTER" textFill="#fefdfd">
                             <font>
-                                <Font size="13.0"/>
+                                <Font size="13.0" />
                             </font>
                             <effect>
-                                <Glow/>
+                                <Glow />
                             </effect>
                             <VBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0"/>
+                                <Insets bottom="10.0" left="10.0" right="10.0" />
                             </VBox.margin>
                             <padding>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </padding>
                         </Button>
                         <HBox prefWidth="200.0">
                             <children>
-                                <Label fx:id="registrationButton" prefHeight="40.0" prefWidth="159.0"
-                                       text="You don't have an account account?" wrapText="true">
+                                <Label fx:id="registrationButton" prefHeight="40.0" prefWidth="159.0" text="You don't have an account account?" wrapText="true">
                                     <padding>
-                                        <Insets left="10.0"/>
+                                        <Insets left="10.0" />
                                     </padding>
                                 </Label>
-                                <Button fx:id="registrationButton" mnemonicParsing="false" onAction="#onRegisterAction"
-                                        prefHeight="38.0" prefWidth="134.0" style="-fx-background-color: LIGHTBLUE;"
-                                        text="Register here">
+                                <Button fx:id="registrationButton" mnemonicParsing="false" onAction="#onRegisterAction" prefHeight="38.0" prefWidth="134.0" style="-fx-background-color: LIGHTBLUE;" text="Register here">
                                     <HBox.margin>
-                                        <Insets/>
+                                        <Insets />
                                     </HBox.margin>
                                 </Button>
                             </children>
                         </HBox>
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelAction"
-                                prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #E96151;" text="Cancel"
-                                textAlignment="CENTER" textFill="#fefdfd">
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #E96151;" text="Cancel" textAlignment="CENTER" textFill="#fefdfd">
                             <font>
-                                <Font size="13.0"/>
+                                <Font size="13.0" />
                             </font>
                             <effect>
-                                <Glow/>
+                                <Glow />
                             </effect>
                             <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="10.0"/>
+                                <Insets left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
                         </Button>
                     </children>
                     <HBox.margin>
-                        <Insets top="40.0"/>
+                        <Insets top="40.0" />
                     </HBox.margin>
                 </VBox>
             </children>

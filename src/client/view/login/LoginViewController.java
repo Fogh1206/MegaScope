@@ -25,6 +25,8 @@ public class LoginViewController {
     @FXML
     private ImageView imageView;
     @FXML
+    private ImageView logoView;
+    @FXML
     private Label loginText;
     @FXML
     private Button frontPageButton;
@@ -48,12 +50,14 @@ public class LoginViewController {
             File imageFIle = new File("images/cinema.jpg");
             Image image = new Image(imageFIle.toURI().toString());
             imageView.setImage(image);
+
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
-
         loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
-
     }
 
     private void newLogin(PropertyChangeEvent event) {

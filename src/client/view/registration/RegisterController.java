@@ -7,10 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 
 public class RegisterController {
     @FXML
@@ -31,6 +34,8 @@ public class RegisterController {
     private Button registerButton;
     @FXML
     private TextField phoneTextField;
+    @FXML
+    private ImageView logoView;
 
     private RegisterViewModel registerViewModel;
     private ViewHandler viewHandler;
@@ -56,8 +61,15 @@ public class RegisterController {
                 registerViewModel.registrationMessageLabelProperty());
         phoneTextField.textProperty()
                 .bindBidirectional(registerViewModel.phoneNumberProperty());
-
-
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        }
+        catch (NullPointerException e)
+        {
+            System.out.println("Problems with image");
+        }
         registerViewModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
                 this::onRegister);
     }

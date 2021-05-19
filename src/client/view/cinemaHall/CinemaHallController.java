@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -16,6 +18,7 @@ import shared.Reservation;
 import shared.Show;
 import shared.User;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class CinemaHallController {
@@ -25,6 +28,8 @@ public class CinemaHallController {
     public Label movieTitleLabel;
     @FXML
     public Label userLabel;
+    @FXML
+    private ImageView logoView;
     @FXML
     private TextArea textSeats;
     private CinemaHallViewModel cinemaHallViewModel;
@@ -101,6 +106,13 @@ public class CinemaHallController {
                 //rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
 
             }
+        }
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        } catch (NullPointerException e) {
+            System.out.println("image problem");
         }
 
         System.out.println(gridPaneSeats.getChildren().size());
