@@ -34,6 +34,7 @@ public class LoginViewController {
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
+
     public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
                      User userLoggedIn) {
         this.userLoggedIn = userLoggedIn;
@@ -51,15 +52,17 @@ public class LoginViewController {
             System.out.println("image problem");
         }
 
-        loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
-                this::newLogin);
+        loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+
     }
 
     private void newLogin(PropertyChangeEvent event) {
+        System.out.println("Karamba");
         User temp = (User) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
-            viewHandler.showFrontPage(temp);
+            loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+            viewHandler.showFrontPage(userLoggedIn);
         }
     }
 
@@ -81,10 +84,12 @@ public class LoginViewController {
 
     public void onRegisterAction() {
         loginViewModel.defaultFields();
+        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.openRegisterView();
     }
 
     public void frontPageButton() {
+        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.showFrontPage(null);
     }
 

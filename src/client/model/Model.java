@@ -90,6 +90,7 @@ public class Model implements UserModel {
     }
 
     private void onLoginResult(PropertyChangeEvent event) {
+        System.out.println("Karamba 2");
         User loginResult = (User) event.getNewValue();
         support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
                 loginResult);
