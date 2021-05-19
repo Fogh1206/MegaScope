@@ -152,7 +152,7 @@ public class ManageUserDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                strings.add(resultSet.getString(2));
+                strings.add(resultSet.getString(4));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,8 +190,8 @@ public class ManageUserDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 temp = new Reservation(resultSet.getInt(1),
-                        resultSet.getInt(2), resultSet.getInt(3),
-                        resultSet.getInt(4));
+                        resultSet.getInt(4), resultSet.getInt(3),
+                        resultSet.getInt(2));
                 System.out.println(temp);
                 reservations.add(temp);
             }
