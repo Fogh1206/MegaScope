@@ -89,7 +89,7 @@ public class LoginViewController {
     }
 
     public void frontPageButton() {
-        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+      loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.showFrontPage(null);
     }
 

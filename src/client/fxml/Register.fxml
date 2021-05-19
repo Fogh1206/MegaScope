@@ -7,14 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.registration.RegisterController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.registration.RegisterController">
     <children>
         <AnchorPane prefHeight="82.0" prefWidth="614.0" style="-fx-background-color: #E96151;">
             <children>
                 <Label layoutX="125.0" layoutY="27.0" text="User Registration" textFill="#fcf5f5">
                     <font>
-                        <Font size="18.0"/>
+                        <Font size="18.0" />
                     </font>
                 </Label>
             </children>
@@ -22,87 +21,75 @@
 
         <Label layoutX="126.0" layoutY="111.0" text="First Name">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="firstnameTextField" layoutX="123.0" layoutY="131.0" prefHeight="25.0" prefWidth="336.0"
-                   promptText="First Name" style="-fx-focus-color: #000000;"/>
+        <TextField fx:id="firstnameTextField" layoutX="123.0" layoutY="131.0" prefHeight="25.0" prefWidth="336.0" promptText="First Name" style="-fx-focus-color: #000000;" />
 
 
         <Label layoutX="126.0" layoutY="166.0" text="Last Name">
             <font>
 
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="lastnameTextField" layoutX="123.0" layoutY="191.0" prefHeight="25.0" prefWidth="336.0"
-                   promptText="Last Name" style="-fx-focus-color: #000000;"/>
+        <TextField fx:id="lastnameTextField" layoutX="123.0" layoutY="191.0" prefHeight="25.0" prefWidth="336.0" promptText="Last Name" style="-fx-focus-color: #000000;" />
 
 
         <Label layoutX="123.0" layoutY="230.0" text="Phone Number">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="phoneTextField" layoutX="123.0" layoutY="259.0" prefHeight="25.0" prefWidth="336.0"
-                   promptText="Phone Number" style="-fx-focus-color: #000000;"/>
+        <TextField fx:id="phoneTextField" layoutX="123.0" layoutY="259.0" prefHeight="25.0" prefWidth="336.0" promptText="Phone Number" style="-fx-focus-color: #000000;" />
 
 
         <Label layoutX="123.0" layoutY="300.0" text="Username">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="usernameTextField" layoutX="123.0" layoutY="330.0" prefHeight="25.0" prefWidth="336.0"
-                   promptText="Username" style="-fx-focus-color: #000000;"/>
+        <TextField fx:id="usernameTextField" layoutX="123.0" layoutY="330.0" prefHeight="25.0" prefWidth="336.0" promptText="Username" style="-fx-focus-color: #000000;" />
 
 
         <Label layoutX="123.0" layoutY="373.0" text="Password">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
-        <PasswordField fx:id="setPasswordField" layoutX="123.0" layoutY="398.0" prefHeight="25.0" prefWidth="336.0"
-                       promptText="Password" style="-fx-focus-color: #000000;"/>
+        <PasswordField fx:id="setPasswordField" layoutX="123.0" layoutY="398.0" prefHeight="25.0" prefWidth="336.0" promptText="Password" style="-fx-focus-color: #000000;" />
 
 
         <Label layoutX="123.0" layoutY="441.0" text="Confirm Password">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
 
-        <PasswordField fx:id="confirmPasswordField" layoutX="123.0" layoutY="466.0" prefHeight="25.0" prefWidth="336.0"
-                       promptText="Confirm Password" style="-fx-focus-color: #000000;"/>
+        <PasswordField fx:id="confirmPasswordField" layoutX="123.0" layoutY="466.0" prefHeight="25.0" prefWidth="336.0" promptText="Confirm Password" style="-fx-focus-color: #000000;" />
 
 
-        <Button fx:id="registerButton" layoutX="123.0" layoutY="511.0" mnemonicParsing="false"
-                onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="336.0"
-                style="-fx-background-color: #E96151;" text="Register" textFill="#fcfafa">
+        <Button fx:id="registerButton" layoutX="123.0" layoutY="511.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="336.0" style="-fx-background-color: #E96151;" text="Register" textFill="#fcfafa">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="closeButton" layoutX="123.0" layoutY="551.0" mnemonicParsing="false" onAction="#closeOnAction"
-                prefHeight="25.0" prefWidth="336.0" style="-fx-background-color: #E96151;" text="Close"
-                textFill="#fcfafa">
+        <Button fx:id="closeButton" layoutX="123.0" layoutY="551.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="25.0" prefWidth="336.0" style="-fx-background-color: #E96151;" text="Close" textFill="#fcfafa">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Button>
 
-        <Label fx:id="registrationMessageLabel" alignment="CENTER" layoutY="94.0" prefHeight="17.0" prefWidth="600.0"
-               textFill="#a0e32b">
+        <Label fx:id="registrationMessageLabel" alignment="CENTER" layoutY="94.0" prefHeight="17.0" prefWidth="600.0" textFill="#a0e32b">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
 
-        <Label fx:id="confirmPasswordLabel" alignment="CENTER" layoutX="310.0" layoutY="323.0" prefHeight="19.0"
-               prefWidth="304.0" textFill="#f72e0a">
+        <Label fx:id="confirmPasswordLabel" alignment="CENTER" layoutX="187.0" layoutY="373.0" prefHeight="19.0" prefWidth="271.0" textFill="#f72e0a">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
 
