@@ -33,6 +33,9 @@ public class FrontPageController {
     private Label UsernameLabel;
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Button myShowsButton;
     @FXML
     private Button manageUsersButton;
 
@@ -102,21 +105,25 @@ public class FrontPageController {
 
         this.userLoggedIn = userLoggedIn;
         if (userLoggedIn != null) {
-            if (userLoggedIn.getUserType().equals("ADMIN")) {
-                manageUsersButton.setVisible(true);
-                manageUsersButton.setDisable(false);
-                adminContainer.setVisible(true);
-                adminContainer.setDisable(false);
-            }
 
+            myShowsButton.setVisible(true);
             UsernameLabel.setVisible(true);
             myProfileButton.setVisible(true);
             UsernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
             loginButton.setText("Log Out");
 
+            if (userLoggedIn.getUserType().equals("ADMIN")) {
+                manageUsersButton.setVisible(true);
+                manageUsersButton.setDisable(false);
+                adminContainer.setVisible(true);
+                adminContainer.setDisable(false);
+                myShowsButton.setVisible(false);
+            }
+
         } else {
             UsernameLabel.setVisible(false);
             myProfileButton.setVisible(false);
+            myShowsButton.setVisible(false);
             loginButton.setText("Log In");
         }
 
