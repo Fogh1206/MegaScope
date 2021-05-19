@@ -50,10 +50,10 @@
                 <Insets left="25.0" right="25.0" top="10.0" />
             </BorderPane.margin>
             <columns>
-            <TableColumn fx:id="reservationIdCol" prefWidth="106.0" text="Reservation ID" />
-                <TableColumn fx:id="movieTitleCol" prefWidth="338.0" text="Movie title" />
-                <TableColumn fx:id="timeCol" minWidth="0.0" prefWidth="116.0" text="Time " />
-                <TableColumn fx:id="dateCol" prefWidth="156.0" text="Date" />
+            <TableColumn fx:id="reservationIdCol" prefWidth="173.0" text="Reservation Number" />
+                <TableColumn fx:id="movieTitleCol" prefWidth="297.0" text="Movie title" />
+                <TableColumn fx:id="timeCol" minWidth="0.0" prefWidth="130.0" text="Time " />
+                <TableColumn fx:id="dateCol" prefWidth="116.0" text="Date" />
                 <TableColumn fx:id="seatCol" prefWidth="133.0" text="Seat" />
             </columns>
         </TableView>
