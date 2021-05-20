@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class CinemaHallController {
     @FXML
+    private Rectangle greenToGrey;
+    @FXML
     public GridPane gridPaneSeats;
     @FXML
     public Label movieTitleLabel;
@@ -76,6 +78,7 @@ public class CinemaHallController {
 
                 if (!user.getUserType().equals("VIP") && row == 3) {
                     rectangle.setDisable(true);
+                    greenToGrey.setFill(Color.GREY);
                     cinemaHallViewModel.disableProperty(rectangle.getId());
                 }
 

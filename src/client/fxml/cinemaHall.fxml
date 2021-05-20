@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -54,7 +55,7 @@
                 </Text>
                 <AnchorPane prefHeight="108.0" prefWidth="903.0" style="-fx-background-color: #E96151;">
                <children>
-                  <Label fx:id="movieTitleLabel" layoutX="20.0" layoutY="28.0" text="Movie title">
+                  <Label fx:id="movieTitleLabel" layoutX="20.0" layoutY="28.0" text="Movie title" textFill="WHITE">
                      <font>
                         <Font name="Georgia Bold" size="24.0" />
                      </font>
@@ -64,8 +65,71 @@
                         <Font name="Georgia Italic" size="12.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="logoView" fitHeight="108.0" fitWidth="132.0" layoutX="779.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
-               </children></AnchorPane>
+                  <ImageView fx:id="logoView" fitHeight="108.0" fitWidth="132.0" layoutX="779.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <VBox layoutX="778.0" layoutY="112.0" prefHeight="99.0" prefWidth="61.0">
+               <children>
+                  <Label text="Available">
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label text="Selected">
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label text="Booked">
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label text="VIP Seats">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+               </children>
+            </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GOLD" height="30.0" layoutX="844.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="30.0" layoutX="844.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="30.0" layoutX="844.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="30.0" layoutX="844.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+            <Rectangle fx:id="greenToGrey" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="24.0" layoutX="847.0" layoutY="203.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
             </children>
         </AnchorPane>
       <Label text="Label" />
