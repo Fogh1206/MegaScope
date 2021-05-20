@@ -10,10 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import shared.User;
 import shared.UserReservationInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class UserReservationController {
@@ -37,6 +40,8 @@ public class UserReservationController {
     private TableColumn<Object, String> dateCol;
     @FXML
     private TableColumn<Object, String> seatCol;
+    @FXML
+    private ImageView logoView;
 
     private UserReservationViewModel userReservationViewModel;
     private ViewHandler viewHandler;
@@ -59,6 +64,13 @@ public class UserReservationController {
 
         this.userLoggedIn = userLoggedIn;
         usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        } catch (NullPointerException e) {
+            System.out.println("image problem");
+        }
     }
 
 

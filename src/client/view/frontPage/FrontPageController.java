@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +20,7 @@ import javafx.scene.layout.VBox;
 import shared.Show;
 import shared.User;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -58,6 +61,8 @@ public class FrontPageController {
     private TableColumn<Object, String> dateOfReleaseCol;
     @FXML
     private TableColumn<Object, String> descriptionCol;
+    @FXML
+    private ImageView logoView;
 
     private UserFrontPageViewModel userFrontPageViewModel;
     private ViewHandler viewHandler;
@@ -127,6 +132,13 @@ public class FrontPageController {
             myShowsButton.setVisible(false);
             loginButton.setText("Log In");
             bookButton.setVisible(false);
+        }
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        } catch (NullPointerException e) {
+            System.out.println("image problem");
         }
     }
 

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -66,12 +67,13 @@
             <children>
                 <AnchorPane fx:id="SearchBox" prefHeight="90.0" prefWidth="900.0" style="-fx-background-color: #E96151;">
                     <children>
-                        <Label fx:id="usernameLabel" alignment="CENTER" layoutX="619.0" layoutY="1.0" prefHeight="49.0" prefWidth="177.0" text="UsernameLabel" textAlignment="CENTER" />
-                        <Label layoutX="7.0" layoutY="12.0" text="Reservations" textFill="#fcf5f5">
+                        <Label fx:id="usernameLabel" alignment="CENTER" layoutX="587.0" layoutY="1.0" prefHeight="49.0" prefWidth="177.0" text="UsernameLabel" textAlignment="CENTER" />
+                        <Label layoutX="14.0" layoutY="31.0" text="Reservations" textFill="#fcf5f5">
                             <font>
-                                <Font name="System Bold" size="18.0" />
+                                <Font name="Georgia Bold" size="24.0" />
                             </font>
                         </Label>
+                  <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="803.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </AnchorPane>
             </children>

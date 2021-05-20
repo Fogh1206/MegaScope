@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 
 public class UserProfileController {
     private ViewHandler viewHandler;
@@ -40,6 +43,8 @@ public class UserProfileController {
     private TextField confirmPasswordField;
     @FXML
     private CheckBox vipCheckBox;
+    @FXML
+    private ImageView logoView;
 
 
     public void init(UserProfileViewModel userProfileViewModel,
@@ -73,6 +78,16 @@ public class UserProfileController {
         vipCheckBox.selectedProperty().bindBidirectional(userProfileViewModel.vipCheckProperty());
 
         userProfileViewModel.updateCurrentInfo(userLoggedIn);
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        }
+        catch (NullPointerException e)
+        {
+            System.out.println("Problems with image");
+        }
+
 
         userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
                 this::newSavedInfo);

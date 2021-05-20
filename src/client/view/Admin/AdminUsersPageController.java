@@ -9,9 +9,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import shared.User;
 
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 
 public class AdminUsersPageController {
     private AdminViewModelUsers adminViewModelUsers;
@@ -25,6 +28,8 @@ public class AdminUsersPageController {
     @FXML private TableColumn<Object, String> lastNameCol;
     @FXML private TableColumn<Object, String> phoneNoCol;
     @FXML private Button banButton;
+    @FXML
+    private ImageView logoView;
 
 
 
@@ -48,10 +53,17 @@ public class AdminUsersPageController {
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-
         searchBar.textProperty()
                 .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
         banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
+
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        } catch (NullPointerException e) {
+            System.out.println("image problem");
+        }
 
         adminViewModelUsers.addPropertyChangeListener("Update", this::update);
     }
