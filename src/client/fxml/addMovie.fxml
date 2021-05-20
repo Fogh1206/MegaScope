@@ -76,11 +76,7 @@
                         <Insets left="5.0" />
                     </HBox.margin>
                 </Label>
-                <TextField fx:id="descriptionTextField" prefHeight="220.0" prefWidth="201.0" promptText="Enter description" style="-fx-focus-color: #000000;">
-                    <HBox.margin>
-                        <Insets right="5.0" />
-                    </HBox.margin>
-                </TextField>
+            <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Enter description" />
             </children>
             <padding>
                 <Insets bottom="10.0" top="10.0" />

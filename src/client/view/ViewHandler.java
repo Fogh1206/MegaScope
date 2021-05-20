@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.Show;
 import shared.User;
@@ -34,7 +35,7 @@ public class ViewHandler {
   public ViewHandler(ViewModelFactory vmf) {
     this.vmf = vmf;
     mainStage = new Stage();
-    stage=new Stage();
+
 //    Image image = new Image("file:logo.png");
 //    mainStage.getIcons().add(image);
   }
@@ -60,14 +61,16 @@ public class ViewHandler {
     }
   }
 
-  public void openAddMovieView(User user){
+  public void openAddMovieView(User user)
+  {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/addMovie.fxml"));
     try {
       Parent root = loader.load();
       AddMovieController ctrl = loader.getController();
       ctrl.init(vmf.getAddMovieViewModel(), this,user);
-      stage.initOwner(mainStage);
+      stage=new Stage();
+      stage.initModality(Modality.APPLICATION_MODAL);
       stage.setTitle("Add new movie");
       Scene scene = new Scene(root);
       stage.setScene(scene);
@@ -79,7 +82,8 @@ public class ViewHandler {
   }
 
   public void closeStage()
-  {stage.close();
+  {
+    stage.close();
 
   }
 

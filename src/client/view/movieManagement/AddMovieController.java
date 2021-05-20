@@ -23,7 +23,7 @@ public class AddMovieController {
     @FXML
     TextArea mainActorsTextArea;
     @FXML
-    TextField descriptionTextField;
+    TextArea descriptionTextArea;
     @FXML
     TextField hourTextField;
     @FXML
@@ -41,15 +41,16 @@ public class AddMovieController {
         this.addMovieViewModel = addMovieViewModel;
         this.viewHandler = viewHandler;
         userloggedin = user;
-
         movieNameTextField.textProperty().bindBidirectional(addMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(addMovieViewModel.dateOfReleaseProperty());
         mainActorsTextArea.textProperty().bindBidirectional(addMovieViewModel.mainActorsProperty());
-        descriptionTextField.textProperty().bindBidirectional(addMovieViewModel.descriptionProperty());
+        descriptionTextArea.textProperty().bindBidirectional(addMovieViewModel.descriptionProperty());
         hourTextField.textProperty().bindBidirectional(addMovieViewModel.hourTimeOfShowProperty());
         minuteTextField.textProperty().bindBidirectional(addMovieViewModel.minuteTimeOfShowProperty());
         dateOfShowDatePicker.valueProperty().bindBidirectional(addMovieViewModel.dateOfShowProperty());
         addMovieLabel.textProperty().bindBidirectional(addMovieViewModel.addMovieLabelProperty());
+        mainActorsTextArea.setWrapText(true);
+        descriptionTextArea.setWrapText(true);
 
 
     }
@@ -66,7 +67,6 @@ public class AddMovieController {
 
     public void onCancel(ActionEvent actionEvent) {
 
-        System.out.println("lalalala");
         addMovieViewModel.defaultFields();
         viewHandler.closeStage();
 
