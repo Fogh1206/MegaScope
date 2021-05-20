@@ -4,15 +4,13 @@ import client.view.ViewHandler;
 import client.viewmodel.movieManagement.AddMovieViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import shared.Show;
 import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
+import java.time.LocalDate;
 
 public class AddMovieController {
 
@@ -47,6 +45,12 @@ public class AddMovieController {
         descriptionTextArea.textProperty().bindBidirectional(addMovieViewModel.descriptionProperty());
         hourTextField.textProperty().bindBidirectional(addMovieViewModel.hourTimeOfShowProperty());
         minuteTextField.textProperty().bindBidirectional(addMovieViewModel.minuteTimeOfShowProperty());
+        dateOfShowDatePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(LocalDate.now()) < 1);
+            }
+        });
         dateOfShowDatePicker.valueProperty().bindBidirectional(addMovieViewModel.dateOfShowProperty());
         addMovieLabel.textProperty().bindBidirectional(addMovieViewModel.addMovieLabelProperty());
         mainActorsTextArea.setWrapText(true);
@@ -54,7 +58,6 @@ public class AddMovieController {
 
 
     }
-
 
 
     public void onSave(ActionEvent actionEvent) {

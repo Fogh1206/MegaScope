@@ -215,7 +215,12 @@ public class FrontPageController {
     }
 
     public void onEditMovie() {
-        viewHandler.openEditMovie(selectedShow);
+
+        if (selectedShow!=null)
+        {
+
+            viewHandler.openEditMovie(selectedShow);
+        }
     }
 
     public void onRemoveMovie() {

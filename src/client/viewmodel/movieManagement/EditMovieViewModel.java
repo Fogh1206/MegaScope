@@ -17,6 +17,7 @@ public class EditMovieViewModel {
     private StringProperty description;
     private StringProperty hourTimeOfShow;
     private StringProperty minuteTimeOfShow;
+    private StringProperty editMovieLabel;
     private ObjectProperty<LocalDate> dateOfShow;
 
     private UserModel model;
@@ -30,6 +31,7 @@ public class EditMovieViewModel {
         hourTimeOfShow  = new SimpleStringProperty();
         minuteTimeOfShow= new SimpleStringProperty();
         dateOfShow      = new SimpleObjectProperty<>();
+        editMovieLabel=new SimpleStringProperty();
 
     }
 
@@ -61,12 +63,26 @@ public class EditMovieViewModel {
         return dateOfShow;
     }
 
-    public void editMovie(int id,int show_id){
-        Show show = new Show(id,movieName.get(), dateOfRelease.get(),
+
+
+    public StringProperty editMovieLabelProperty() {
+        return editMovieLabel;
+    }
+
+    public void editMovie(int id, int show_id){
+
+    if (movieName.get().isEmpty() || dateOfRelease.get().isEmpty() || dateOfShow.get().equals(null) || mainActors.get().isEmpty() || description.get().isEmpty() || hourTimeOfShow.get().isEmpty() || minuteTimeOfShow.get().isEmpty())
+    {
+        editMovieLabel.setValue("Each field must be filled!!!");
+    }
+    else {
+
+        Show show = new Show(id, movieName.get(), dateOfRelease.get(),
                 mainActors.get(), description.get(),
                 hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
-                dateOfShow.get().toString(),show_id);
+                dateOfShow.get().toString(), show_id);
         model.editMovie(show);
+    }
     }
 
 }

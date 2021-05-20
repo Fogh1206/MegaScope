@@ -97,8 +97,6 @@ public class LoginViewController {
         viewHandler.showFrontPage(null);
     }
 
-    public void cinemaHallButton() {
 
-    }
 
 }

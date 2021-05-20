@@ -94,8 +94,8 @@ public class ViewHandler {
       Parent root = loader.load();
       EditMovieController ctrl = loader.getController();
       ctrl.init(vmf.getEditMovieViewModel(), this, show);
-      Stage stage = new Stage();
-      stage.initOwner(mainStage);
+      stage = new Stage();
+      stage.initModality(Modality.APPLICATION_MODAL);
       stage.setTitle("Edit movie");
       Scene scene = new Scene(root);
       stage.setScene(scene);
@@ -122,23 +122,6 @@ public class ViewHandler {
     }
   }
 
-
-/*  public Alert openRemoveConfiramtion()
-
-  {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmation Dialog");
-    alert.setHeaderText("Look, a Confirmation Dialog");
-    alert.setContentText("Are you ok with this?");
-
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.get() == ButtonType.OK){
-
-
-    } else {
-      alert.close();
-    }
-  }*/
 
 
   public void openRegisterView()
