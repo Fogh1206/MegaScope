@@ -5,26 +5,42 @@ import client.viewmodel.movieManagement.AddMovieViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import shared.Show;
+import shared.User;
+import shared.util.EventType;
+
+import java.beans.PropertyChangeEvent;
 
 public class AddMovieController {
 
-    @FXML TextField movieNameTextField;
-    @FXML TextField dateOfReleaseTextField;
-    @FXML TextArea  mainActorsTextArea;
-    @FXML TextField descriptionTextField;
-    @FXML TextField hourTextField;
-    @FXML TextField minuteTextField;
-    @FXML DatePicker dateOfShowDatePicker;
+    @FXML
+    TextField movieNameTextField;
+    @FXML
+    TextField dateOfReleaseTextField;
+    @FXML
+    TextArea mainActorsTextArea;
+    @FXML
+    TextField descriptionTextField;
+    @FXML
+    TextField hourTextField;
+    @FXML
+    TextField minuteTextField;
+    @FXML
+    DatePicker dateOfShowDatePicker;
+    @FXML
+    Label addMovieLabel;
 
-    private AddMovieViewModel   addMovieViewModel;
-    private ViewHandler         viewHandler;
+    private AddMovieViewModel addMovieViewModel;
+    private ViewHandler viewHandler;
+    private User userloggedin;
 
-    public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler) {
-        this.addMovieViewModel  = addMovieViewModel;
-        this.viewHandler        = viewHandler;
+    public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler, User user) {
+        this.addMovieViewModel = addMovieViewModel;
+        this.viewHandler = viewHandler;
+        userloggedin = user;
 
         movieNameTextField.textProperty().bindBidirectional(addMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(addMovieViewModel.dateOfReleaseProperty());
@@ -33,22 +49,26 @@ public class AddMovieController {
         hourTextField.textProperty().bindBidirectional(addMovieViewModel.hourTimeOfShowProperty());
         minuteTextField.textProperty().bindBidirectional(addMovieViewModel.minuteTimeOfShowProperty());
         dateOfShowDatePicker.valueProperty().bindBidirectional(addMovieViewModel.dateOfShowProperty());
-    }
-
-
-    public void onSave(ActionEvent actionEvent){
-            // your code here
-            Show show = new Show(movieNameTextField.getText(), dateOfReleaseTextField.getText(),
-                    mainActorsTextArea.getText(), descriptionTextField.getText(),
-                    hourTextField.getText() + ":" + minuteTextField.getText(),
-                    dateOfShowDatePicker.getValue().toString());
-
-            addMovieViewModel.addMovie();
+        addMovieLabel.textProperty().bindBidirectional(addMovieViewModel.addMovieLabelProperty());
 
 
     }
 
-    public void onCancel(ActionEvent actionEvent){
+
+
+    public void onSave(ActionEvent actionEvent) {
+
+
+        addMovieViewModel.addMovie();
+
+
+    }
+
+    public void onCancel(ActionEvent actionEvent) {
+
+        System.out.println("lalalala");
+        addMovieViewModel.defaultFields();
+        viewHandler.closeStage();
 
     }
 

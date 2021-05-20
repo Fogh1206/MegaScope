@@ -51,6 +51,7 @@ public class UserProfileViewModel {
         System.out.println("hi");
         User result = (User) event.getNewValue();
         if (result != null) {
+
             currentFirstname.setValue(result.getFirstName());
             currentLastname.setValue(result.getLastName());
             currentUsertype.setValue(result.getUserType());
@@ -59,6 +60,7 @@ public class UserProfileViewModel {
             currentUsertype.setValue(result.getUserType());
             Platform.runLater(() -> {
                 support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, event.getNewValue());
+                saveInfoLabel.setValue("Successful");
             });
         }
     }
@@ -82,7 +84,7 @@ public class UserProfileViewModel {
                         newFirstName.get(), newLastName.get(), newUsername.get(),
                         newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
                         banned.get());
-                saveInfoLabel.setValue("Successful");
+
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
                 updateCurrentInfo(user);
@@ -97,7 +99,6 @@ public class UserProfileViewModel {
                     newFirstName.get(), newLastName.get(), newUsername.get(),
                     userLoggedIn.getPassword(), newPhoneNumber.get(),
                     currentUsertype.get(), banned.get());
-            saveInfoLabel.setValue("Successful");
             model.saveNewInfo(user);
             System.out.println(newUsername.get());
             updateCurrentInfo(user);

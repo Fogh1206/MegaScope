@@ -211,7 +211,7 @@ public class FrontPageController {
     }
 
     public void onAddMovie() {
-        viewHandler.openAddMovieView();
+        viewHandler.openAddMovieView(userLoggedIn);
     }
 
     public void onEditMovie() {

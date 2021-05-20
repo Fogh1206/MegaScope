@@ -28,10 +28,13 @@ public class ViewHandler {
 
   private Stage mainStage;
   private ViewModelFactory vmf;
+  private Stage stage;
+
 
   public ViewHandler(ViewModelFactory vmf) {
     this.vmf = vmf;
     mainStage = new Stage();
+    stage=new Stage();
 //    Image image = new Image("file:logo.png");
 //    mainStage.getIcons().add(image);
   }
@@ -57,14 +60,13 @@ public class ViewHandler {
     }
   }
 
-  public void openAddMovieView(){
+  public void openAddMovieView(User user){
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("../fxml/addMovie.fxml"));
     try {
       Parent root = loader.load();
       AddMovieController ctrl = loader.getController();
-      ctrl.init(vmf.getAddMovieViewModel(), this);
-      Stage stage = new Stage();
+      ctrl.init(vmf.getAddMovieViewModel(), this,user);
       stage.initOwner(mainStage);
       stage.setTitle("Add new movie");
       Scene scene = new Scene(root);
@@ -74,6 +76,11 @@ public class ViewHandler {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void closeStage()
+  {stage.close();
+
   }
 
   public void openEditMovie(Show show){

@@ -1,12 +1,17 @@
 package client.viewmodel.movieManagement;
 
 import client.model.UserModel;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Show;
+import shared.util.EventType;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 
 public class AddMovieViewModel {
@@ -18,11 +23,13 @@ public class AddMovieViewModel {
     private StringProperty hourTimeOfShow;
     private StringProperty minuteTimeOfShow;
     private ObjectProperty<LocalDate> dateOfShow;
+    private StringProperty addMovieLabel;
+    private PropertyChangeSupport support;
 
     private UserModel model;
 
     public AddMovieViewModel(UserModel model){
-
+        support = new PropertyChangeSupport(this);
         this.model = model;
         movieName       = new SimpleStringProperty();
         dateOfRelease   = new SimpleStringProperty();
@@ -31,8 +38,13 @@ public class AddMovieViewModel {
         hourTimeOfShow  = new SimpleStringProperty();
         minuteTimeOfShow= new SimpleStringProperty();
         dateOfShow      = new SimpleObjectProperty<>();
+        addMovieLabel=new SimpleStringProperty();
+
+
+
 
     }
+
 
     public StringProperty movieNameProperty(){
         return movieName;
@@ -58,20 +70,80 @@ public class AddMovieViewModel {
         return minuteTimeOfShow;
     }
 
+
+
+    public StringProperty addMovieLabelProperty() {
+        return addMovieLabel;
+    }
+
     public ObjectProperty dateOfShowProperty(){
         return dateOfShow;
     }
 
     public void addMovie(){
 
-        Show show = new Show(movieName.get(), dateOfRelease.get(),
-                mainActors.get(), description.get(),
-                hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
-                dateOfShow.get().toString());
+        if (movieName.get()==null || movieName.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the movie name");
+        }
+        else if (dateOfRelease.get()==null || dateOfRelease.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the date of release");
+        }
+         else if (mainActors.get()==null || mainActors.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the main actors");
+        }
+         else if (description.get()==null || description.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the description");
+        }
+         else if (hourTimeOfShow.get()==null || hourTimeOfShow.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the hour of the show");
+        }
+         else if (minuteTimeOfShow.get()==null || minuteTimeOfShow.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the time of show");
+        }
+        else if (dateOfShow.get()==null || dateOfShow.get().equals(""))
+        {
+            addMovieLabel.setValue("Please input the date of show");
+        }
+        else
+        {
+            Show show = new Show(movieName.get(), dateOfRelease.get(),
+                    mainActors.get(), description.get(),
+                    hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
+                    dateOfShow.get().toString());
 
-        System.out.println(show);
+            System.out.println(show);
 
-        model.addMovie(show);
+            model.addMovie(show);
+            addMovieLabel.setValue("Successful");
+            defaultFields();
+
+
+        }
+
+
+    }
+
+
+    public void defaultFields()
+    {
+        movieName.setValue("");
+        mainActors.setValue("");
+        description.setValue("");
+        dateOfShow.setValue(null);
+        dateOfRelease.setValue("");
+        hourTimeOfShow.setValue("");
+        minuteTimeOfShow.setValue("");
+        addMovieLabel.setValue("");
+
+    }
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
     }
 
 }
