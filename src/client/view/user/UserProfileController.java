@@ -40,10 +40,13 @@ public class UserProfileController {
     private TextField confirmPasswordField;
     @FXML
     private CheckBox vipCheckBox;
+    @FXML
+    private Label saveInfoLabel;
 
 
     public void init(UserProfileViewModel userProfileViewModel,
                      ViewHandler viewHandler, User userLoggedIn) {
+        userProfileViewModel.clearMessages();
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
         this.userLoggedIn = userLoggedIn;
@@ -71,7 +74,7 @@ public class UserProfileController {
         confirmPasswordField.textProperty()
                 .bindBidirectional(userProfileViewModel.confirmPasswordProperty());
         vipCheckBox.selectedProperty().bindBidirectional(userProfileViewModel.vipCheckProperty());
-
+        saveInfoLabel.textProperty().bindBidirectional(userProfileViewModel.saveInfoLabelProperty());
         userProfileViewModel.updateCurrentInfo(userLoggedIn);
 
         userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
@@ -82,13 +85,14 @@ public class UserProfileController {
         System.out.println("hello");
         User temp = (User) event.getNewValue();
         if (temp != null) {
-            System.out.println("Every "+temp);
-           this.userLoggedIn = temp;
-           userProfileViewModel.updateCurrentInfo(userLoggedIn);
+            System.out.println("Every " + temp);
+            this.userLoggedIn = temp;
+            userProfileViewModel.updateCurrentInfo(userLoggedIn);
         }
     }
 
     public void saveButtonOnAction() {
+        userProfileViewModel.clearMessages();
         userProfileViewModel.saveAccount(userLoggedIn);
 
     }

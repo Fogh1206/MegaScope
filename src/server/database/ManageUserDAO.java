@@ -431,7 +431,11 @@ public class ManageUserDAO implements UserDAO {
 
             return temp;
         } catch (SQLException throwable) {
-            throwable.printStackTrace();
+            if (throwable.toString().contains("duplicate key"))
+            {
+                System.out.println("same username");
+            }
+
             return null;
         }
 

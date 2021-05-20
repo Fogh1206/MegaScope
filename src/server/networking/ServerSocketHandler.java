@@ -63,6 +63,8 @@ public class ServerSocketHandler implements Runnable {
         }
     }
 
+
+
     public Request getEditMovieRequest(Show show) {
         System.out.println("EditMovie requested");
         ArrayList<Show> shows = userDAO.editMovie(show);
@@ -72,7 +74,12 @@ public class ServerSocketHandler implements Runnable {
     public Request getSaveNewInfoRequest(User user) {
         System.out.println("SaveNewInfo requested");
         User temp = userDAO.saveNewInfo(user);
-        return new Request(EventType.SAVENEWINFO_RESULT, temp);
+        if (temp != null) {
+            return new Request(EventType.SAVENEWINFO_RESULT, temp);
+        } else {
+            return new Request(EventType.SAVENEWINFOFAIL_RESULT, temp);
+        }
+
     }
 
     public Request getAddMovieRequest(Show show) {

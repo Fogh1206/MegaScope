@@ -44,6 +44,12 @@ public class Model implements UserModel {
                 this::onGetUserReservations);
         client.addPropertyChangeListener(EventType.REMOVERESERVATION_RESULT.toString(),
                 this::onGetUserReservations);
+        client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
+                this::onFailedSaveNewInfo);
+    }
+
+    private void onFailedSaveNewInfo(PropertyChangeEvent event) {
+        support.firePropertyChange(EventType.SAVENEWINFOFAIL_RESULT.toString(), null, null);
     }
 
     private void onFailedRegister(PropertyChangeEvent propertyChangeEvent) {

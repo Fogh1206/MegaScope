@@ -118,7 +118,8 @@ public class FrontPageController {
                 adminContainer.setVisible(true);
                 adminContainer.setDisable(false);
                 myShowsButton.setVisible(false);
-                bookButton.setVisible(false);
+                bookButton.setText("Manage Seats");
+
             }
 
         } else {
