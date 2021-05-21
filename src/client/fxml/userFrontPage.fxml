@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.frontPage.FrontPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.frontPage.FrontPageController">
 
     <bottom>
         <VBox spacing="10.0" BorderPane.alignment="CENTER">
@@ -85,11 +85,11 @@
             </BorderPane.margin>
             <columns>
                 <TableColumn fx:id="movieTitleCol" prefWidth="164.0" text="Movie title" />
-                <TableColumn fx:id="dateOfReleaseCol" prefWidth="85.0" text="Released" />
-                <TableColumn fx:id="mainactorsCol" prefWidth="190.0" text="Main actors" />
-                <TableColumn fx:id="descriptionCol" prefWidth="164.0" text="Description" />
-                <TableColumn fx:id="timeCol" prefWidth="78.0" text="Time " />
-                <TableColumn fx:id="DateCol" prefWidth="168.0" text="Date" />
+                <TableColumn fx:id="dateOfReleaseCol" prefWidth="57.0" text="Released" />
+                <TableColumn fx:id="mainactorsCol" prefWidth="191.0" text="Main actors" />
+                <TableColumn fx:id="descriptionCol" prefWidth="308.0" text="Description" />
+                <TableColumn fx:id="timeCol" prefWidth="49.0" text="Time " />
+                <TableColumn fx:id="DateCol" text="Date" />
             </columns>
         </TableView>
     </left>
@@ -119,7 +119,7 @@
                                 </Glow>
                             </effect>
                         </Button>
-                        <Label fx:id="UsernameLabel" alignment="CENTER" layoutX="483.0" layoutY="1.0" prefHeight="49.0" prefWidth="177.0" text="UsernameLabel" textAlignment="CENTER" />
+                        <Label fx:id="UsernameLabel" alignment="CENTER" blendMode="MULTIPLY" layoutX="483.0" layoutY="1.0" prefHeight="49.0" prefWidth="177.0" text="UsernameLabel" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
                         <Label layoutX="7.0" layoutY="12.0" text="Movies" textFill="#fcf5f5">
                             <font>
                                 <Font name="System Bold" size="18.0" />
@@ -130,8 +130,8 @@
                                 <Font size="13.0" />
                             </font>
                         </TextField>
-                        <DatePicker fx:id="datePick" layoutX="421.0" layoutY="50.0" onHiding="#onDatePick" prefHeight="27.0" prefWidth="181.0" promptText="Select date" style="-fx-focus-color: #000000;" />
-                        <Button layoutX="346.0" layoutY="51.0" mnemonicParsing="false" onAction="#Search" prefHeight="25.0" prefWidth="37.0" text="?" />
+                        <DatePicker fx:id="datePick" layoutX="450.0" layoutY="50.0" onHiding="#onDatePick" prefHeight="27.0" prefWidth="181.0" promptText="Select date" style="-fx-focus-color: #000000;" />
+                        <Button layoutX="346.0" layoutY="49.0" mnemonicParsing="false" onAction="#Search" prefHeight="28.0" prefWidth="68.0" text="Search" />
                   <Button fx:id="myShowsButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="660.0" layoutY="51.0" mnemonicParsing="false" onAction="#onMyShowsButton" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #E96151;" text="My Shows" textAlignment="CENTER">
                      <effect>
                         <Glow level="0.55">
