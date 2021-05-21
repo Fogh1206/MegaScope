@@ -2,6 +2,7 @@ package client.view.movieManagement;
 
 import client.view.ViewHandler;
 import client.viewmodel.movieManagement.EditMovieViewModel;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -72,6 +73,10 @@ public class EditMovieController {
     public void onSave(ActionEvent actionEvent) {
 
         editMovieViewModel.editMovie(show.getMovie_id(), show.getShow_id());
+        Platform.runLater(() -> {
+
+            onCancel();
+        });
     }
 
     public void onCancel() {
