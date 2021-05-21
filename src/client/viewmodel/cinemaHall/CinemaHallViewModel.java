@@ -33,6 +33,7 @@ public class CinemaHallViewModel {
         support = new PropertyChangeSupport(this);
         reservationList = new ReservationList();
 
+
         for (int i = 0; i < 25; i++) {
             colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
             colorIdMap.put("" + i, colors.get(i));

@@ -50,14 +50,30 @@ public class CinemaHallController {
         cinemaHallViewModel.resetColors();
         this.viewHandler = viewHandler;
         this.user = user;
-        this.show = show;
-        movieTitleLabel.setText(show.getName());
+
+        if (user.getUserType().equals("ADMIN")){
+            openForAdmin();
+        } else {
+            this.show = show;
+            openForUser();
+        }
+
         userLabel.setText(user.getUsername());
 
-        System.out.println(user.getUsername());
+        try {
+            File logoFile = new File("images/logo.png");
+            Image logo = new Image(logoFile.toURI().toString());
+            logoView.setImage(logo);
+        } catch (NullPointerException e) {
+            System.out.println("image problem");
+        }
+
         System.out.println(gridPaneSeats.getChildren().size());
-        System.out.println(gridPaneSeats.getRowCount());
-        System.out.println(gridPaneSeats.getColumnCount());
+        cinemaHallViewModel.getReservation(show);
+    }
+
+    private void openForUser() {
+        movieTitleLabel.setText(show.getName());
 
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
@@ -109,16 +125,64 @@ public class CinemaHallController {
                 //rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
             }
         }
-        try {
-            File logoFile = new File("images/logo.png");
-            Image logo = new Image(logoFile.toURI().toString());
-            logoView.setImage(logo);
-        } catch (NullPointerException e) {
-            System.out.println("image problem");
+    }
+
+    private void openForAdmin() {
+
+        int id = 1;
+        for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
+            for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
+                Rectangle rectangle = new Rectangle();
+                rectangle.setId(String.valueOf(id));
+                rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
+                id++;
+                rectangle.setWidth(70);
+                rectangle.setHeight(60);
+                gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
+
+                if (row == 3) {
+                    rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
+                } else {
+                    rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
+                }
+
+                if (!user.getUserType().equals("VIP") && row == 3) {
+                    rectangle.setDisable(true);
+                    greenToGrey.setFill(Color.GREY);
+                    cinemaHallViewModel.disableProperty(rectangle.getId());
+                }
+
+                int finalRow = row;
+                int finalCol = column;
+
+                rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        System.out.println(rectangle.getFill().toString());
+                        if (rectangle.getFill() == Color.YELLOW) {
+                            rectangle.setFill(Color.GREEN);
+                            myBooking[finalRow][finalCol] = null;
+                        } else if (rectangle.getFill() == Color.GREEN) {
+                            rectangle.setFill(Color.YELLOW);
+                            //Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()), user.getId());
+
+                            // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
+
+                            cinemaHallViewModel.addReservation(reservation);
+                            myBooking[finalRow][finalCol] =
+                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " Booked";
+                        }
+                        updateSeats();
+
+                    }
+                });
+            }
         }
 
-        System.out.println(gridPaneSeats.getChildren().size());
-        cinemaHallViewModel.getReservation(show);
+    }
+
+    private void createRectangle(){
+
     }
 
     private void updateSeats() {
