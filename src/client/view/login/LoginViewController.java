@@ -70,9 +70,7 @@ public class LoginViewController {
         }
     }
 
-    public User getUserLoggedIn() {
-        return userLoggedIn;
-    }
+
 
     public void onLoginAction() {
         if (userLoggedIn != null) {

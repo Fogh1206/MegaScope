@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Show;
+import shared.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -44,6 +45,8 @@ public class AddMovieViewModel {
 
 
     }
+
+
 
 
     public StringProperty movieNameProperty(){
