@@ -5,10 +5,7 @@ import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserReservationViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -76,6 +73,8 @@ public class UserReservationController {
 
 
     public void onCancelReservation(ActionEvent actionEvent) {
+
+
 
         if(selectedInfo != null) {
             userReservationViewModel.cancelReservation(selectedInfo);

@@ -2,6 +2,7 @@ package client.view.login;
 
 import client.view.ViewHandler;
 import client.viewmodel.login.LoginViewModel;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -9,10 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import shared.User;
 
 import shared.util.EventType;
 
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 
@@ -30,6 +33,8 @@ public class LoginViewController {
     private Label loginText;
     @FXML
     private Button frontPageButton;
+    @FXML
+    private Button loginButton;
 
     private User userLoggedIn;
 
@@ -78,6 +83,8 @@ public class LoginViewController {
         loginViewModel.login();
         loginViewModel.defaultFields();
     }
+
+
 
     public void onCancelAction() {
         viewHandler.close();
