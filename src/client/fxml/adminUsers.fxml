@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.Admin.AdminUsersPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.Admin.AdminUsersPageController">
     <center>
         <TableView fx:id="userTableView" onMouseClicked="#selectUser" prefHeight="200.0" prefWidth="200.0" style="-fx-selection-bar: #E96151; -fx-focus-color: #000000;" stylesheets="@styleSheet.css" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -25,6 +25,7 @@
                 <TableColumn fx:id="firstNameCol" prefWidth="140.0" text="First Name" />
                 <TableColumn fx:id="lastNameCol" prefWidth="140.0" text="Last Name" />
                 <TableColumn fx:id="phoneNoCol" prefWidth="129.0" text="Phone Number" />
+            <TableColumn fx:id="banCol" prefWidth="135.0" text="Ban status" />
             </columns>
         </TableView>
     </center>

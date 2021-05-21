@@ -27,6 +27,7 @@ public class AdminUsersPageController {
     @FXML private TableColumn<Object, String> firstNameCol;
     @FXML private TableColumn<Object, String> lastNameCol;
     @FXML private TableColumn<Object, String> phoneNoCol;
+    @FXML private TableColumn<Object, String> banCol;
     @FXML private Button banButton;
     @FXML
     private ImageView logoView;
@@ -53,6 +54,8 @@ public class AdminUsersPageController {
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        banCol.setCellValueFactory(new PropertyValueFactory<>("banned"));
+
         searchBar.textProperty()
                 .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
         banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());

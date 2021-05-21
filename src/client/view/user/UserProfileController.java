@@ -51,6 +51,8 @@ public class UserProfileController {
         this.userProfileViewModel = userProfileViewModel;
         this.userLoggedIn = userLoggedIn;
 
+        vipCheckBox.setVisible(!(userLoggedIn.getUserType().equals("ADMIN")));
+
         userCurrentUsernameLabel.textProperty()
                 .bindBidirectional(userProfileViewModel.currentUsernameProperty());
         userCurrentFirstNameLabel.textProperty()
