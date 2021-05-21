@@ -29,4 +29,6 @@ public interface UserDAO {
 
 
     ArrayList<UserReservationInfo> cancelReservation(UserReservationInfo userReservationInfo);
+
+    ArrayList<String> adminConfirmSeats(ReservationList arg);
 }

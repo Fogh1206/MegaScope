@@ -46,7 +46,10 @@ public class Model implements UserModel {
                 this::onGetUserReservations);
         client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
                 this::onFailedSaveNewInfo);
+        client.addPropertyChangeListener(EventType.ADMINBLOCKSEATS_RESULT.toString(),
+                this::onGetReservation);
     }
+
 
     private void onFailedSaveNewInfo(PropertyChangeEvent event) {
         support.firePropertyChange(EventType.SAVENEWINFOFAIL_RESULT.toString(), null, null);
@@ -189,5 +192,12 @@ public class Model implements UserModel {
     @Override
     public void cancelReservation(UserReservationInfo userReservationInfo) {
         client.cancelReservation(userReservationInfo);
+    }
+
+    @Override
+    public void adminConfirmSeats(ReservationList reservationList) {
+
+        client.adminConfirmSeats(reservationList);
+
     }
 }

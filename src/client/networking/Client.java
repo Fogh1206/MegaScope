@@ -89,6 +89,12 @@ public class Client implements ClientImpl {
     }
 
     @Override
+    public void adminConfirmSeats(ReservationList reservationList) {
+        Request request = new Request(EventType.ADMINBLOCKSEATS_REQUEST, reservationList);
+        sendToServer(request, EventType.ADMINBLOCKSEATS_RESULT);
+    }
+
+    @Override
     public void registerUser(User newUser) {
         System.out.println("Client: RegisterUser Req");
         Request req = new Request(EventType.REGISTER_REQUEST, newUser);

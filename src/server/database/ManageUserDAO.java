@@ -2,6 +2,7 @@ package server.database;
 
 import shared.*;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -146,10 +147,17 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controller.getConnection()) {
             System.out.println(show.getShow_id() + "----------Show ID");
             System.out.println(show.getMovie_id() + "----------Movie ID");
+            statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                strings.add(String.valueOf(resultSet.getInt(1)));
+            }
+
+
             statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
                     show.getShow_id() + "'");
 
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 strings.add(resultSet.getString(4));
@@ -238,6 +246,41 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> adminConfirmSeats(ReservationList reservationList) {
+
+        System.out.println(reservationList.size() + " this is text");
+
+        ArrayList<String> list = new ArrayList<>();
+
+        PreparedStatement statement = null;
+
+        try (Connection connection = controller.getConnection()){
+            for(int i = 0 ; i < reservationList.size() ; i++) {
+
+                statement = connection.prepareStatement("UPDATE public.seats SET blocked = TRUE WHERE seat_id = " + reservationList.get(i).getSeat_no());
+                statement.executeUpdate();
+            }
+
+            statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                list.add(String.valueOf(resultSet.getInt(1)));
+            }
+            statement.close();
+
+            System.out.println(list.size() + "this is not text");
+
+            return list;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         return null;
     }

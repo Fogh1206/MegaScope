@@ -99,6 +99,8 @@ public class UserProfileController {
 
     }
 
+
+
     public void closeOnAction() {
         viewHandler.showFrontPage(userLoggedIn);
     }

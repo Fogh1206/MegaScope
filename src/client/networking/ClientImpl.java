@@ -22,4 +22,6 @@ public interface ClientImpl extends PropertyChangeSubject
   void getReservation(Show show);
   void confirmSeats(ReservationList reservationList);
   void cancelReservation(UserReservationInfo userReservationInfo);
+
+    void adminConfirmSeats(ReservationList reservationList);
 }

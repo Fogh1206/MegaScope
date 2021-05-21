@@ -194,6 +194,8 @@ public class FrontPageController {
 
         if (userLoggedIn != null && selectedShow != null) {
             viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
+        } else if(userLoggedIn.getUserType().equals("ADMIN")){
+            viewHandler.openCinemaHallPage(userLoggedIn, null);
         }
 
     }

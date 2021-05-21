@@ -9,6 +9,7 @@ import javafx.scene.paint.Paint;
 import shared.Reservation;
 import shared.ReservationList;
 import shared.Show;
+import shared.User;
 import shared.util.EventType;
 
 
@@ -88,8 +89,12 @@ public class CinemaHallViewModel {
 
     }
 
-    public void confirmSeats() {
-        model.confirmSeats(reservationList);
+    public void confirmSeats(User user) {
+        if(user.getUserType().equals("ADMIN")){
+            model.adminConfirmSeats(reservationList);
+        } else {
+            model.confirmSeats(reservationList);
+        }
     }
 
     public void addReservation(Reservation reservation) {

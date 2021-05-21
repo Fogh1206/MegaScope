@@ -120,6 +120,13 @@ public class ServerSocketHandler implements Runnable {
         return new Request(EventType.REMOVERESERVATION_RESULT, updatedReservations);
     }
 
+    private Request adminConfirmSeats(ReservationList arg) {
+        ArrayList<String> list = userDAO.adminConfirmSeats(arg);
+        return new Request(EventType.ADMINBLOCKSEATS_RESULT, list);
+
+
+    }
+
 
     @Override
     public void run() {
@@ -167,6 +174,8 @@ public class ServerSocketHandler implements Runnable {
                         break;
                     case REMOVERESERVATION_REQUEST:
                         outToClient.writeObject(cancelReservation((UserReservationInfo)request.arg));
+                    case ADMINBLOCKSEATS_REQUEST:
+                        outToClient.writeObject(adminConfirmSeats((ReservationList)request.arg));
                 }
             } catch (Exception e) {
 

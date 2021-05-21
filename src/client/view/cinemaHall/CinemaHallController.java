@@ -3,6 +3,7 @@ package client.view.cinemaHall;
 import client.model.UserModel;
 import client.view.ViewHandler;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -54,7 +55,6 @@ public class CinemaHallController {
         userLabel.setText(user.getUsername());
 
         System.out.println(user.getUsername());
-        System.out.println(show.getName());
         System.out.println(gridPaneSeats.getChildren().size());
         System.out.println(gridPaneSeats.getRowCount());
         System.out.println(gridPaneSeats.getColumnCount());
@@ -137,12 +137,8 @@ public class CinemaHallController {
         viewHandler.showFrontPage(user);
     }
 
-    @FXML
-    private void confirmSeats() {
-
-        cinemaHallViewModel.confirmSeats();
-
+    public void confirmSeats(ActionEvent actionEvent) {
+        cinemaHallViewModel.confirmSeats(user);
     }
-
 }
 
