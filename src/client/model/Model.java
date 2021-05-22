@@ -35,7 +35,7 @@ public class Model implements UserModel {
         client.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(),
                 this::onGetReservation);
         client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(),
-            this::onReserveShow);
+                this::onReserveShow);
         client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
                 this::onNewInfo);
         client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
@@ -47,7 +47,15 @@ public class Model implements UserModel {
         client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
                 this::onFailedSaveNewInfo);
         client.addPropertyChangeListener(EventType.ADMINBLOCKSEATS_RESULT.toString(),
-                this::onGetReservation);
+                this::onGetAdminSeats);
+        client.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(),
+                this::onGetAdminSeats);
+    }
+
+    private void onGetAdminSeats(PropertyChangeEvent event) {
+        System.out.println("Model: onGetAdminSeats");
+        SeatList list = (SeatList) event.getNewValue();
+        support.firePropertyChange(EventType.GETADMINSEATS_RESULT.toString(), null, list);
     }
 
 
@@ -65,17 +73,14 @@ public class Model implements UserModel {
         support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, user);
     }
 
-    private void onReserveShow(PropertyChangeEvent propertyChangeEvent)
-    {
+    private void onReserveShow(PropertyChangeEvent propertyChangeEvent) {
 
         ReservationList reservations = (ReservationList) propertyChangeEvent.getNewValue();
         ArrayList<String> whatever = new ArrayList<>();
-        for (int i = 0; i < reservations.size(); i++)
-        {
+        for (int i = 0; i < reservations.size(); i++) {
             whatever.add(String.valueOf(reservations.get(i).getSeat_no()));
         }
         support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, whatever);
-        // support.firePropertyChange(EventType.RESERVEMOVIE_RESULT.toString(),null,reservations);
     }
 
     private void onGetReservation(PropertyChangeEvent event) {
@@ -84,7 +89,7 @@ public class Model implements UserModel {
         support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, list);
     }
 
-    private void onGetUserReservations(PropertyChangeEvent event){
+    private void onGetUserReservations(PropertyChangeEvent event) {
         System.out.println("Model: onGetUserReservations");
         ArrayList<UserReservationInfo> reservations = (ArrayList<UserReservationInfo>) event.getNewValue();
         support.firePropertyChange("Reservations result", null, reservations);
@@ -143,8 +148,8 @@ public class Model implements UserModel {
         client.getReservation(show);
     }
 
-    @Override public void confirmSeats(ReservationList reservationList)
-    {
+    @Override
+    public void confirmSeats(ReservationList reservationList) {
         client.confirmSeats(reservationList);
     }
 
@@ -185,7 +190,7 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void getUserReservations(User user){
+    public void getUserReservations(User user) {
         client.getUserReservations(user);
     }
 
@@ -195,9 +200,12 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void adminConfirmSeats(ReservationList reservationList) {
+    public void adminConfirmSeats(SeatList seatList) {
+        client.adminConfirmSeats(seatList);
+    }
 
-        client.adminConfirmSeats(reservationList);
-
+    @Override
+    public void getAdminSeats() {
+        client.getAdminSeats();
     }
 }

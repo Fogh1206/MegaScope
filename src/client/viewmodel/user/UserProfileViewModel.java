@@ -34,24 +34,20 @@ public class UserProfileViewModel {
         this.model = userModel;
         support = new PropertyChangeSupport(this);
 
-        userModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
-                this::onSavedInfo);
-        userModel.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
-                this::onSaveFail);
+        userModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::onSavedInfo);
+        userModel.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(), this::onSaveFail);
     }
 
     private void onSaveFail(PropertyChangeEvent event) {
         Platform.runLater(() -> {
             saveInfoLabel.setValue("Username already exist");
         });
-
     }
 
     private void onSavedInfo(PropertyChangeEvent event) {
         System.out.println("hi");
         User result = (User) event.getNewValue();
         if (result != null) {
-
             currentFirstname.setValue(result.getFirstName());
             currentLastname.setValue(result.getLastName());
             currentUsertype.setValue(result.getUserType());
@@ -75,24 +71,19 @@ public class UserProfileViewModel {
         if ((newPassword.isNotEmpty()).getValue() && newPassword.get()
                 .equals(confirmPassword.get())) {
             if (newPassword.get().length() < 3 || newPassword.get().length() > 15) {
-
                 saveInfoLabel.setValue("Password needs to be between 3 and 15 characters");
             } else {
                 System.out.println(newPassword);
                 System.out.println(confirmPassword);
-                User user = new User(userLoggedIn.getId(),
-                        newFirstName.get(), newLastName.get(), newUsername.get(),
-                        newPassword.get(), newPhoneNumber.get(), currentUsertype.get(),
-                        banned.get());
-
+                User user = new User(userLoggedIn.getId(), newFirstName.get(), newLastName.get(), newUsername.get(),
+                        newPassword.get(), newPhoneNumber.get(), currentUsertype.get(), banned.get());
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
                 updateCurrentInfo(user);
             }
 
         } else {
-            System.out.println(
-                    "password dont match or you dont want to change the password");
+            System.out.println("password dont match or you dont want to change the password");
             System.out.println("Current " + currentUsertype.get());
             System.out.println("Prop" + vipCheck.getValue());
             User user = new User(userLoggedIn.getId(),

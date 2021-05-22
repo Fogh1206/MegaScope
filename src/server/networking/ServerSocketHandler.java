@@ -120,11 +120,16 @@ public class ServerSocketHandler implements Runnable {
         return new Request(EventType.REMOVERESERVATION_RESULT, updatedReservations);
     }
 
-    private Request adminConfirmSeats(ReservationList arg) {
-        ArrayList<String> list = userDAO.adminConfirmSeats(arg);
+    private Request adminConfirmSeats(SeatList arg) {
+        System.out.println("AdminConfirmSeats Requested");
+        SeatList list = userDAO.adminConfirmSeats(arg);
         return new Request(EventType.ADMINBLOCKSEATS_RESULT, list);
+    }
 
-
+    private Object getAdminSeats() {
+        System.out.println("GetAdminSeats Requested");
+        SeatList list = userDAO.getAdminSeats();
+        return new Request(EventType.GETADMINSEATS_RESULT, list);
     }
 
 
@@ -174,14 +179,20 @@ public class ServerSocketHandler implements Runnable {
                         break;
                     case REMOVERESERVATION_REQUEST:
                         outToClient.writeObject(cancelReservation((UserReservationInfo)request.arg));
+                        break;
                     case ADMINBLOCKSEATS_REQUEST:
-                        outToClient.writeObject(adminConfirmSeats((ReservationList)request.arg));
+                        outToClient.writeObject(adminConfirmSeats((SeatList)request.arg));
+                        break;
+                    case GETADMINSEATS_REQUEST:;
+                        outToClient.writeObject(getAdminSeats());
+                        break;
                 }
             } catch (Exception e) {
 
             }
         }
     }
+
 
     /**
      * Close all connections from the server

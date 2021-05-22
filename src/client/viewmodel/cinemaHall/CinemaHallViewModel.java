@@ -6,10 +6,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import shared.Reservation;
-import shared.ReservationList;
-import shared.Show;
-import shared.User;
+import shared.*;
 import shared.util.EventType;
 
 
@@ -24,6 +21,8 @@ public class CinemaHallViewModel {
     private ArrayList<ObjectProperty<Paint>> colors;
     private ReservationList reservationList;
 
+    private SeatList seatList;
+
     private HashMap<String, ObjectProperty<Paint>> colorIdMap;
 
     public CinemaHallViewModel(UserModel model) {
@@ -34,35 +33,46 @@ public class CinemaHallViewModel {
         reservationList = new ReservationList();
 
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 26; i++) {
             colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
             colorIdMap.put("" + i, colors.get(i));
             System.out.println(colorIdMap.size());
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
+        model.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(), this::onGetAdminSeats);
+    }
+
+    private void onGetAdminSeats(PropertyChangeEvent event) {
+        reservationList = new ReservationList();
+        seatList = (SeatList) event.getNewValue();
+
+        for (int i = 0; i < seatList.size(); i++) {
+            if (seatList.get(i).isDisabled()) {
+
+                colors.get(seatList.get(i).getId()).setValue(Color.RED);
+            } else {
+                colors.get(seatList.get(i).getId()).setValue(Color.GREEN);
+            }
+        }
+
+        colors.get(0).setValue(Color.WHITE);
     }
 
     public void resetColors() {
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 26; i++) {
             colors.get(i).setValue(Color.GREEN);
         }
     }
 
     private void onGetReservations(PropertyChangeEvent event) {
         reservationList = new ReservationList();
-
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
 
         System.out.println(list.toString() + " Hello Guys");
         for (int i = 0; i < list.size(); i++) {
-//            System.out.println("1" + list.get(i));
-//            System.out.println("2" + Integer.valueOf(list.get(i)));
-//            System.out.println("3 " + colorIdMap.get((list.get(i))));
             if (colorIdMap.get(list.get(i)) != null) {
                 colors.get(Integer.valueOf(list.get(i))).setValue(Color.RED);
-//                System.out.println("4" + colors.get(i));
-//                System.out.println("5" + colorIdMap.get(list.get(i)));
             }
         }
     }
@@ -87,12 +97,12 @@ public class CinemaHallViewModel {
     public void disableProperty(String id) {
         Property<Paint> objectProperty = getFillProperty(id);
         objectProperty.setValue(Color.GRAY);
-
     }
 
     public void confirmSeats(User user) {
-        if(user.getUserType().equals("ADMIN")){
-            model.adminConfirmSeats(reservationList);
+        if (user.getUserType().equals("ADMIN")) {
+            System.out.println("Called confirm seats");
+            model.adminConfirmSeats(seatList);
         } else {
             model.confirmSeats(reservationList);
         }
@@ -100,5 +110,18 @@ public class CinemaHallViewModel {
 
     public void addReservation(Reservation reservation) {
         reservationList.add(reservation);
+    }
+
+    public void addDisabledSeat(String str) {
+        System.out.println(str);
+        if (seatList.get(Integer.parseInt(str) - 1).isDisabled()) {
+            seatList.get(Integer.parseInt(str) - 1).setDisabled(false);
+        } else {
+            seatList.get(Integer.parseInt(str) - 1).setDisabled(true);
+        }
+    }
+
+    public void getAdminSeats() {
+        model.getAdminSeats();
     }
 }

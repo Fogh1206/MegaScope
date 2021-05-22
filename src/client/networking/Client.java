@@ -8,6 +8,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client implements ClientImpl {
     private PropertyChangeSupport support;
@@ -89,9 +90,17 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void adminConfirmSeats(ReservationList reservationList) {
-        Request request = new Request(EventType.ADMINBLOCKSEATS_REQUEST, reservationList);
+    public void adminConfirmSeats(SeatList seatList) {
+        System.out.println("Client: AdminConfirmSeats");
+        Request request = new Request(EventType.ADMINBLOCKSEATS_REQUEST, seatList);
         sendToServer(request, EventType.ADMINBLOCKSEATS_RESULT);
+    }
+
+    @Override
+    public void getAdminSeats() {
+        System.out.println("Client: getAdminSeats");
+        Request request = new Request(EventType.GETADMINSEATS_REQUEST, null);
+        sendToServer(request, EventType.GETADMINSEATS_RESULT);
     }
 
     @Override

@@ -2,6 +2,8 @@ package client.model;
 
 import shared.*;
 
+import java.util.ArrayList;
+
 public interface UserModel extends PropertyChangeSubject {
     void register(User user);
 
@@ -29,5 +31,7 @@ public interface UserModel extends PropertyChangeSubject {
 
     void cancelReservation(UserReservationInfo reservation_id);
 
-    void adminConfirmSeats(ReservationList reservationList);
+    void adminConfirmSeats(SeatList seatsID);
+
+    void getAdminSeats();
 }

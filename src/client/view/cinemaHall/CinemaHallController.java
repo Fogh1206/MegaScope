@@ -51,7 +51,9 @@ public class CinemaHallController {
         this.viewHandler = viewHandler;
         this.user = user;
 
-        if (user.getUserType().equals("ADMIN")){
+        if (user.getUserType().equals("ADMIN")) {
+            System.out.println("Open for admin");
+            this.show = null;
             openForAdmin();
         } else {
             this.show = show;
@@ -69,7 +71,7 @@ public class CinemaHallController {
         }
 
         System.out.println(gridPaneSeats.getChildren().size());
-        cinemaHallViewModel.getReservation(show);
+
     }
 
     private void openForUser() {
@@ -80,10 +82,8 @@ public class CinemaHallController {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
                 Rectangle rectangle = new Rectangle();
                 rectangle.setId(String.valueOf(id));
-                rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
+                createRectangle(rectangle);
                 id++;
-                rectangle.setWidth(70);
-                rectangle.setHeight(60);
                 gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
 
                 if (row == 3) {
@@ -125,32 +125,26 @@ public class CinemaHallController {
                 //rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
             }
         }
+        cinemaHallViewModel.getReservation(show);
     }
 
     private void openForAdmin() {
-
+        System.out.println("Call for admin");
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
                 Rectangle rectangle = new Rectangle();
+                createRectangle(rectangle);
                 rectangle.setId(String.valueOf(id));
-                rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
                 id++;
-                rectangle.setWidth(70);
-                rectangle.setHeight(60);
-                gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
-
                 if (row == 3) {
                     rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
                 } else {
                     rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
                 }
 
-                if (!user.getUserType().equals("VIP") && row == 3) {
-                    rectangle.setDisable(true);
-                    greenToGrey.setFill(Color.GREY);
-                    cinemaHallViewModel.disableProperty(rectangle.getId());
-                }
+                gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
+
 
                 int finalRow = row;
                 int finalCol = column;
@@ -159,30 +153,36 @@ public class CinemaHallController {
                     @Override
                     public void handle(MouseEvent t) {
                         System.out.println(rectangle.getFill().toString());
-                        if (rectangle.getFill() == Color.YELLOW) {
+                        if (rectangle.getFill() == Color.RED) {
                             rectangle.setFill(Color.GREEN);
-                            myBooking[finalRow][finalCol] = null;
+                            myBooking[finalRow][finalCol] =
+                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
+                            cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                         } else if (rectangle.getFill() == Color.GREEN) {
-                            rectangle.setFill(Color.YELLOW);
-                            //Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()), user.getId());
-
+                            rectangle.setFill(Color.RED);
+                            cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                             // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
 
-                            cinemaHallViewModel.addReservation(reservation);
                             myBooking[finalRow][finalCol] =
-                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " Booked";
+                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
                         }
+
                         updateSeats();
 
                     }
                 });
+                gridPaneSeats.add(rectangle, column, row);
+                rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
+                //rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
             }
         }
-
+        cinemaHallViewModel.getAdminSeats();
     }
 
-    private void createRectangle(){
-
+    private void createRectangle(Rectangle rectangle) {
+        rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
+        rectangle.setWidth(70);
+        rectangle.setHeight(60);
     }
 
     private void updateSeats() {
@@ -200,8 +200,9 @@ public class CinemaHallController {
         viewHandler.showFrontPage(user);
     }
 
-    public void confirmSeats(ActionEvent actionEvent) {
+    public void confirmSeats() {
         cinemaHallViewModel.confirmSeats(user);
+        textSeats.clear();
     }
 }
 
