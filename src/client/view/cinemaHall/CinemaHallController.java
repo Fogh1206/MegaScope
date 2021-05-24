@@ -164,7 +164,7 @@ public class CinemaHallController {
                         } else if (rectangle.getFill() == Color.GREEN) {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Warning");
-                            alert.setHeaderText("You are about to ban a user from the system");
+                            alert.setHeaderText("You are about to block a seat");
                             alert.setContentText("Are you sure you want block the seat ["
                                     + rectangle.getId() + "]?");
 
