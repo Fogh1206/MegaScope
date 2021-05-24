@@ -13,80 +13,70 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.view.frontPage.UserReservationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.frontPage.UserReservationController">
 
     <bottom>
         <VBox spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="CENTER" spacing="80.0"/>
+                <HBox alignment="CENTER" spacing="80.0" />
                 <HBox fx:id="adminContainer" alignment="CENTER" spacing="80.0">
                     <children>
-                        <Button fx:id="cancelReservationButton" layoutX="405.0" layoutY="10.0" mnemonicParsing="false"
-                                onAction="#onCancelReservation" prefHeight="29.0" prefWidth="134.0"
-                                style="-fx-background-color: #E96151;" text="Cancel reservation" textAlignment="CENTER"
-                                textFill="WHITE">
+                        <Button fx:id="cancelReservationButton" layoutX="405.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancelReservation" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: #E96151;" text="Cancel reservation" textAlignment="CENTER" textFill="WHITE">
                             <effect>
-                                <Glow/>
+                                <Glow />
                             </effect>
                             <font>
-                                <Font size="13.0"/>
+                                <Font size="13.0" />
                             </font>
                         </Button>
-                        <Button fx:id="goBackButton" layoutX="350.0" layoutY="10.0" mnemonicParsing="false"
-                                onAction="#onGoBack" prefHeight="29.0" prefWidth="127.0"
-                                style="-fx-background-color: #E96151;" text="Go back" textAlignment="CENTER"
-                                textFill="WHITE">
+                        <Button fx:id="goBackButton" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onAction="#onGoBack" prefHeight="29.0" prefWidth="127.0" style="-fx-background-color: #E96151;" text="Go back" textAlignment="CENTER" textFill="WHITE">
                             <effect>
-                                <Glow/>
+                                <Glow />
                             </effect>
                             <font>
-                                <Font size="13.0"/>
+                                <Font size="13.0" />
                             </font>
                         </Button>
                     </children>
                 </HBox>
             </children>
             <BorderPane.margin>
-                <Insets bottom="10.0" top="5.0"/>
+                <Insets bottom="10.0" top="5.0" />
             </BorderPane.margin>
         </VBox>
     </bottom>
     <left>
-        <TableView fx:id="reservationTableView" maxWidth="-Infinity" onMouseClicked="#setSelected" prefHeight="369.0"
-                   prefWidth="865.0" style="-fx-selection-bar: #E96151; -fx-focus-color: #000000;"
-                   stylesheets="@styleSheet.css" BorderPane.alignment="CENTER">
+        <TableView fx:id="reservationTableView" maxWidth="-Infinity" onMouseClicked="#setSelected" prefHeight="369.0" prefWidth="865.0" style="-fx-selection-bar: #E96151; -fx-focus-color: #000000;" stylesheets="@styleSheet.css" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-                <Insets left="25.0" right="25.0" top="10.0"/>
+                <Insets left="25.0" right="25.0" top="10.0" />
             </BorderPane.margin>
             <columns>
-                <TableColumn fx:id="reservationIdCol" prefWidth="173.0" text="Reservation Number"/>
-                <TableColumn fx:id="movieTitleCol" prefWidth="297.0" text="Movie title"/>
-                <TableColumn fx:id="timeCol" minWidth="0.0" prefWidth="130.0" text="Time "/>
-                <TableColumn fx:id="dateCol" prefWidth="116.0" text="Date"/>
-                <TableColumn fx:id="seatCol" prefWidth="133.0" text="Seat"/>
+                <TableColumn fx:id="reservationIdCol" prefWidth="173.0" text="Reservation Number" />
+                <TableColumn fx:id="movieTitleCol" prefWidth="297.0" text="Movie title" />
+                <TableColumn fx:id="timeCol" minWidth="0.0" prefWidth="130.0" text="Time " />
+                <TableColumn fx:id="dateCol" prefWidth="116.0" text="Date" />
+                <TableColumn fx:id="seatCol" prefWidth="133.0" text="Seat" />
             </columns>
         </TableView>
     </left>
     <right>
-        <VBox fx:id="Profile" visible="false" BorderPane.alignment="CENTER"/>
+        <VBox fx:id="Profile" visible="false" BorderPane.alignment="CENTER" />
     </right>
     <top>
         <VBox prefHeight="93.0" prefWidth="900.0" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane fx:id="SearchBox" prefHeight="90.0" prefWidth="900.0"
-                            style="-fx-background-color: #E96151;">
+                <AnchorPane fx:id="SearchBox" prefHeight="90.0" prefWidth="900.0" style="-fx-background-color: #E96151;">
                     <children>
-                        <Label fx:id="usernameLabel" alignment="CENTER" layoutX="587.0" layoutY="1.0" prefHeight="49.0"
-                               prefWidth="177.0" text="UsernameLabel" textAlignment="CENTER"/>
-                        <Label layoutX="14.0" layoutY="31.0" text="Reservations" textFill="#fcf5f5">
+                        <Label fx:id="usernameLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="4.0" prefHeight="21.0" prefWidth="160.0" text="UsernameLabel" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Label>
+                        <Label layoutX="5.0" layoutY="31.0" text="Reservations" textFill="#fcf5f5">
                             <font>
-                                <Font name="Georgia Bold" size="24.0"/>
+                                <Font name="Georgia Bold" size="24.0" />
                             </font>
                         </Label>
-                        <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="803.0" layoutY="4.0"
-                                   pickOnBounds="true" preserveRatio="true"/>
+                        <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="803.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </AnchorPane>
             </children>
