@@ -2,7 +2,6 @@ package server.database;
 
 import shared.*;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -266,14 +265,14 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controller.getConnection()) {
             for (int i = 0; i < seatList.size(); i++) {
 
-                statement = connection.prepareStatement("UPDATE public.seats SET blocked ="+seatList.get(i).isDisabled()+"  WHERE seat_id = " + seatList.get(i).getId());
+                statement = connection.prepareStatement("UPDATE public.seats SET blocked =" + seatList.get(i).isDisabled() + "  WHERE seat_id = " + seatList.get(i).getId());
                 statement.executeUpdate();
             }
 
             statement = connection.prepareStatement("SELECT * FROM public.seats");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Seat temp = new Seat(resultSet.getInt(1),resultSet.getBoolean(2));
+                Seat temp = new Seat(resultSet.getInt(1), resultSet.getBoolean(2));
                 list.add(temp);
             }
             statement.close();
@@ -299,7 +298,7 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement("SELECT * FROM public.seats ORDER by seat_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Seat temp = new Seat(resultSet.getInt(1),resultSet.getBoolean(2));
+                Seat temp = new Seat(resultSet.getInt(1), resultSet.getBoolean(2));
                 seatList.add(temp);
             }
             statement.close();
@@ -308,6 +307,7 @@ public class ManageUserDAO implements UserDAO {
         }
         return seatList;
     }
+
 
     @Override
     public ArrayList<UserReservationInfo> getUserReservation(User user) {
@@ -374,6 +374,41 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+        return users;
+    }
+
+    @Override
+    public UserList changeUserStatus(User user) {
+        UserList users = new UserList();
+        System.out.println("Shout from dao" + user.getUserType());
+        try (Connection connection = controller.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
+                            + user.getLastName() + "',username='" + user.getUsername() + "',password='" + user.getPassword()
+                            + "',phonenumber='" + user.getPhoneNumber() + "',type='" + user.getUserType() + "',banned='" + user.getBanned()
+                            + "' where id=" + user.getId() + "");
+
+            statement.executeUpdate();
+            statement.close();
+            statement = connection.prepareStatement(
+                    "SELECT * FROM public.users WHERE type ='USER' or type='VIP' Order by id");
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User temp = new User(resultSet.getInt(1),
+                        resultSet.getString(2), resultSet.getString(3),
+                        resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getString(6), resultSet.getString(7),
+                        resultSet.getBoolean(8));
+                users.add(temp);
+            }
+        } catch (SQLException throwable) {
+            if (throwable.toString().contains("duplicate key")) {
+                System.out.println("same username");
+            }
+
+        }
+        System.out.println(users.size() + "size from DAO");
         return users;
     }
 

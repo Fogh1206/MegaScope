@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 
 import shared.User;
 import shared.UserList;
+import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -42,6 +43,7 @@ public class AdminViewModelUsers {
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
+        System.out.println("Kappa from VM");
         UserList users = (UserList) event.getNewValue();
 
         ObservableList<User> observableList = FXCollections.observableArrayList();
@@ -94,7 +96,7 @@ public class AdminViewModelUsers {
                     selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getUsername(),
                     selectedUser.getPassword(), selectedUser.getPhoneNumber(), selectedUser.getUserType(),
                     selectedUser.getBanned());
-            userModel.saveNewInfo(user);
+            userModel.changeUserStatus(user);
 
         }
     }
