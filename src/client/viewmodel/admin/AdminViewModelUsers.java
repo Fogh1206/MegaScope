@@ -32,14 +32,14 @@ public class AdminViewModelUsers {
     public AdminViewModelUsers(UserModel userModel) {
         this.userModel = userModel;
         support = new PropertyChangeSupport(this);
-        userModel.addPropertyChangeListener("Users Result", this::onGetUsers);
-
         observableItems = new SimpleListProperty<>();
         items = new SimpleListProperty<>();
         banButton = new SimpleStringProperty();
         searchPhrase = new SimpleStringProperty();
         selectedUser = null;
         banButton.setValue("Ban");
+
+        userModel.addPropertyChangeListener("Users Result", this::onGetUsers);
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
