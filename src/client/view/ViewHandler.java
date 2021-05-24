@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -55,6 +56,13 @@ public class ViewHandler {
       ctrl.init(vmf.getLoginViewModel(), this, userLoggedIn);
       mainStage.setTitle("Log in");
       Scene loginScene = new Scene(root);
+      loginScene.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER)
+        {
+          ctrl.onLoginAction();
+        }
+      });
+
       mainStage.setScene(loginScene);
     } catch (IOException e) {
       e.printStackTrace();
@@ -136,6 +144,12 @@ public class ViewHandler {
       mainStage.setTitle("Register");
       Scene registerScene = new Scene(root);
       mainStage.setScene(registerScene);
+      registerScene.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER)
+        {
+          ctrl.registerButtonOnAction();
+        }
+      });
     }
     catch (IOException e)
     {
@@ -210,6 +224,7 @@ public class ViewHandler {
       mainStage.setTitle("Manage profile Page");
       Scene scene = new Scene(root);
       mainStage.setScene(scene);
+
     }
     catch (Exception e)
     {
