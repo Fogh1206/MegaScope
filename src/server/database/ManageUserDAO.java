@@ -270,7 +270,7 @@ public class ManageUserDAO implements UserDAO {
                 statement.executeUpdate();
             }
 
-            statement = connection.prepareStatement("SELECT * FROM public.seats WHERE blocked=true");
+            statement = connection.prepareStatement("SELECT * FROM public.seats");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Seat temp = new Seat(resultSet.getInt(1),resultSet.getBoolean(2));

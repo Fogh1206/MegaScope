@@ -216,13 +216,14 @@ public class CinemaHallController {
             if (result.get() == ButtonType.OK) {
                 cinemaHallViewModel.confirmSeats(user);
                 textSeats.clear();
+                myBooking = new String[4][6];
             }
         } else {
             System.out.println("No change");
         }
-
-        cinemaHallViewModel.confirmSeats(user);
-        textSeats.clear();
+//
+//        cinemaHallViewModel.confirmSeats(user);
+//        textSeats.clear();
     }
 }
 

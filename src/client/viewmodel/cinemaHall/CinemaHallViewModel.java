@@ -46,7 +46,7 @@ public class CinemaHallViewModel {
     private void onGetAdminSeats(PropertyChangeEvent event) {
         reservationList = new ReservationList();
         seatList = (SeatList) event.getNewValue();
-
+        System.out.println(seatList.size()+"Hi");
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
 
@@ -73,6 +73,7 @@ public class CinemaHallViewModel {
         for (int i = 0; i < list.size(); i++) {
             if (colorIdMap.get(list.get(i)) != null) {
                 colors.get(Integer.valueOf(list.get(i))).setValue(Color.RED);
+
             }
         }
     }
@@ -97,9 +98,11 @@ public class CinemaHallViewModel {
     public void disableProperty(String id) {
         Property<Paint> objectProperty = getFillProperty(id);
         objectProperty.setValue(Color.GRAY);
+
     }
 
     public void confirmSeats(User user) {
+
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Called confirm seats");
             model.adminConfirmSeats(seatList);
