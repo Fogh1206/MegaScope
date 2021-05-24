@@ -206,24 +206,26 @@ public class CinemaHallController {
 
     public void confirmSeats() {
 
-        if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Warning");
-            alert.setHeaderText("You are about to block/unblock seats for users");
-            alert.setContentText("Are you sure you want to save current setting of seats?");
+        if(user.getUserType().equals("ADMIN")) {
+            if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Warning");
+                alert.setHeaderText("You are about to block/unblock seats for users");
+                alert.setContentText("Are you sure you want to save current setting of seats?");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                cinemaHallViewModel.confirmSeats(user);
-                textSeats.clear();
-                myBooking = new String[4][6];
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    cinemaHallViewModel.confirmSeats(user);
+                    textSeats.clear();
+                    myBooking = new String[4][6];
+                }
+            } else {
+                System.out.println("No change");
             }
         } else {
-            System.out.println("No change");
+            cinemaHallViewModel.confirmSeats(user);
+            textSeats.clear();
         }
-//
-//        cinemaHallViewModel.confirmSeats(user);
-//        textSeats.clear();
     }
 }
 
