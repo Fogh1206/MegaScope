@@ -122,7 +122,10 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Label fx:id="UsernameLabel" alignment="CENTER" blendMode="MULTIPLY" layoutX="450.0" layoutY="25.0" prefHeight="27.0" prefWidth="121.0" text="UsernameLabel" textOverrun="CENTER_ELLIPSIS" />
+                        <Label fx:id="UsernameLabel" alignment="TOP_LEFT" blendMode="MULTIPLY" layoutX="8.0" layoutY="1.0" prefHeight="21.0" prefWidth="121.0" text="UsernameLabel" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Label>
                         <Label layoutX="7.0" layoutY="25.0" text="Movies" textFill="#fcf5f5">
                             <font>
                                 <Font name="System Bold" size="18.0" />

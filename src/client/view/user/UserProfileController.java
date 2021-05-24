@@ -51,6 +51,8 @@ public class UserProfileController {
     private ImageView identityCard;
     @FXML
     private ImageView changeInfo;
+    @FXML
+    private Label usernameLabel;
 
 
     public void init(UserProfileViewModel userProfileViewModel,
@@ -76,6 +78,9 @@ public class UserProfileController {
         vipCheckBox.selectedProperty().bindBidirectional(userProfileViewModel.vipCheckProperty());
         saveInfoLabel.textProperty().bindBidirectional(userProfileViewModel.saveInfoLabelProperty());
         userProfileViewModel.updateCurrentInfo(userLoggedIn);
+
+        usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
+
         try {
             File logoFile = new File("images/logo.png");
             Image logo = new Image(logoFile.toURI().toString());

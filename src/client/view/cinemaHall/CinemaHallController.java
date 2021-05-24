@@ -63,7 +63,7 @@ public class CinemaHallController {
             openForUser();
         }
 
-        userLabel.setText(user.getUsername());
+        userLabel.setText("Logged in as " + user.getUsername());
 
         try {
             File logoFile = new File("images/logo.png");
