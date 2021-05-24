@@ -83,6 +83,11 @@ public class AdminUsersPageController {
                     + userTableView.getSelectionModel().getSelectedItem().getUsername()
                     + "] from the movie database?");
 
+            if(userTableView.getSelectionModel().getSelectedItem().getBanned()){
+                alert.setHeaderText(alert.getHeaderText().replace("ban", "unban"));
+                alert.setContentText(alert.getContentText().replace("ban","unban"));
+            }
+
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 adminViewModelUsers.manageUsers();
