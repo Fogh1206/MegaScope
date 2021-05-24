@@ -21,7 +21,7 @@
                     </font>
                 </Label>
             <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="793.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="usernameLabel" layoutX="6.0" layoutY="6.0" prefHeight="18.0" prefWidth="159.0" text="UserName">
+            <Label fx:id="usernameLabel" layoutX="6.0" layoutY="6.0" prefHeight="19.0" prefWidth="282.0" text="UserName">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
