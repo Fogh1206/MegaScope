@@ -111,7 +111,7 @@ public class CinemaHallController {
                         } else if (rectangle.getFill() == Color.GREEN) {
                             rectangle.setFill(Color.YELLOW);
                             Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()), show.getShow_id(), user.getId());
-                            cinemaHallViewModel.addReservation(reservation);
+                          //  cinemaHallViewModel.addReservation(reservation);
                             myBooking[finalRow][finalCol] =
                                     "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " Booked";
                         }
