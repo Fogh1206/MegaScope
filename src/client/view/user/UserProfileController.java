@@ -64,28 +64,17 @@ public class UserProfileController {
 
         vipCheckBox.setVisible(!(userLoggedIn.getUserType().equals("ADMIN")));
 
-        userCurrentUsernameLabel.textProperty()
-                .bindBidirectional(userProfileViewModel.currentUsernameProperty());
-        userCurrentFirstNameLabel.textProperty()
-                .bindBidirectional(userProfileViewModel.currentFirstnameProperty());
-        userCurrentLastNameLabel.textProperty()
-                .bindBidirectional(userProfileViewModel.currentLastnameProperty());
-        userCurrentPhoneLabel.textProperty()
-                .bindBidirectional(userProfileViewModel.currentPhoneNumberProperty());
-        userCurrentUsertypeLabel.textProperty()
-                .bindBidirectional(userProfileViewModel.currentUsertypeProperty());
-        firstnameTextField.textProperty()
-                .bindBidirectional(userProfileViewModel.newFirstNameProperty());
-        lastnameTextField.textProperty()
-                .bindBidirectional(userProfileViewModel.newLastNameProperty());
-        phoneTextField.textProperty()
-                .bindBidirectional(userProfileViewModel.newPhoneNumberProperty());
-        usernameTextField.textProperty()
-                .bindBidirectional(userProfileViewModel.newUsernameProperty());
-        setPasswordField.textProperty()
-                .bindBidirectional(userProfileViewModel.newPasswordProperty());
-        confirmPasswordField.textProperty()
-                .bindBidirectional(userProfileViewModel.confirmPasswordProperty());
+        userCurrentUsernameLabel.textProperty().bindBidirectional(userProfileViewModel.currentUsernameProperty());
+        userCurrentFirstNameLabel.textProperty().bindBidirectional(userProfileViewModel.currentFirstnameProperty());
+        userCurrentLastNameLabel.textProperty().bindBidirectional(userProfileViewModel.currentLastnameProperty());
+        userCurrentPhoneLabel.textProperty().bindBidirectional(userProfileViewModel.currentPhoneNumberProperty());
+        userCurrentUsertypeLabel.textProperty().bindBidirectional(userProfileViewModel.currentUsertypeProperty());
+        firstnameTextField.textProperty().bindBidirectional(userProfileViewModel.newFirstNameProperty());
+        lastnameTextField.textProperty().bindBidirectional(userProfileViewModel.newLastNameProperty());
+        phoneTextField.textProperty().bindBidirectional(userProfileViewModel.newPhoneNumberProperty());
+        usernameTextField.textProperty().bindBidirectional(userProfileViewModel.newUsernameProperty());
+        setPasswordField.textProperty().bindBidirectional(userProfileViewModel.newPasswordProperty());
+        confirmPasswordField.textProperty().bindBidirectional(userProfileViewModel.confirmPasswordProperty());
         vipCheckBox.selectedProperty().bindBidirectional(userProfileViewModel.vipCheckProperty());
         saveInfoLabel.textProperty().bindBidirectional(userProfileViewModel.saveInfoLabelProperty());
         userProfileViewModel.updateCurrentInfo(userLoggedIn);
@@ -124,7 +113,6 @@ public class UserProfileController {
         userProfileViewModel.saveAccount(userLoggedIn);
 
     }
-
 
 
     public void closeOnAction() {

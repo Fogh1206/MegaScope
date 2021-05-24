@@ -48,19 +48,18 @@ public class UserProfileViewModel {
         System.out.println("hi");
         User result = (User) event.getNewValue();
         if (result != null) {
-            currentFirstname.setValue(result.getFirstName());
-            currentLastname.setValue(result.getLastName());
-            currentUsertype.setValue(result.getUserType());
-            currentUsername.setValue(result.getUsername());
-            currentPhoneNumber.setValue(result.getPhoneNumber());
-            currentUsertype.setValue(result.getUserType());
             Platform.runLater(() -> {
                 support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, event.getNewValue());
+                currentFirstname.setValue(result.getFirstName());
+                currentLastname.setValue(result.getLastName());
+                currentUsertype.setValue(result.getUserType());
+                currentUsername.setValue(result.getUsername());
+                currentPhoneNumber.setValue(result.getPhoneNumber());
+                currentUsertype.setValue(result.getUserType());
                 saveInfoLabel.setValue("Successful");
             });
         }
     }
-
 
     public void saveAccount(User userLoggedIn) {
         if (vipCheck.getValue()) {
@@ -79,7 +78,7 @@ public class UserProfileViewModel {
                         newPassword.get(), newPhoneNumber.get(), currentUsertype.get(), banned.get());
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
-                updateCurrentInfo(user);
+             //   updateCurrentInfo(user);
             }
 
         } else {
@@ -92,7 +91,7 @@ public class UserProfileViewModel {
                     currentUsertype.get(), banned.get());
             model.saveNewInfo(user);
             System.out.println(newUsername.get());
-            updateCurrentInfo(user);
+          //  updateCurrentInfo(user);
             System.out.println(userLoggedIn.getPassword());
         }
     }

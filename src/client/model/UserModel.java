@@ -2,8 +2,6 @@ package client.model;
 
 import shared.*;
 
-import java.util.ArrayList;
-
 public interface UserModel extends PropertyChangeSubject {
     void register(User user);
 
