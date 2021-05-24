@@ -32,11 +32,15 @@ public class ServerSocketHandler implements Runnable {
 
     }
 
-
     public Request getUserRequest() {
         System.out.println("Get Users Requested");
         UserList users = userDAO.getAllUsers();
         return new Request(EventType.GETUSER_RESULT, users);
+    }
+    private Object changeUserStatus(User user) {
+        System.out.println("Get Change user status");
+        UserList users = userDAO.changeUserStatus(user);
+        return new Request(EventType.CHANGEUSERSTATUS_RESULT,users);
     }
 
     public Request getMoviesRequest() {
@@ -62,8 +66,6 @@ public class ServerSocketHandler implements Runnable {
             return new Request(EventType.REGISTERFAIL_RESULT, temp);
         }
     }
-
-
 
     public Request getEditMovieRequest(Show show) {
         System.out.println("EditMovie requested");
@@ -186,12 +188,17 @@ public class ServerSocketHandler implements Runnable {
                     case GETADMINSEATS_REQUEST:;
                         outToClient.writeObject(getAdminSeats());
                         break;
+                    case CHANGEUSERSTATUS_REQUEST:
+                        outToClient.writeObject(changeUserStatus((User)request.arg));
+                        break;
                 }
             } catch (Exception e) {
 
             }
         }
     }
+
+
 
 
     /**

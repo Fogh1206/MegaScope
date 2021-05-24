@@ -24,8 +24,6 @@ public class Model implements UserModel {
                 this::onLoginResult);
         client.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
                 this::onRegisterResult);
-        client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
-                this::onGetUserResult);
         client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),
                 this::onMoviesChanged);
         client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),
@@ -50,6 +48,10 @@ public class Model implements UserModel {
                 this::onGetAdminSeats);
         client.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(),
                 this::onGetAdminSeats);
+        client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
+                this::onGetUserResult);
+        client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(),
+                this::onGetUserResult);
     }
 
     private void onGetAdminSeats(PropertyChangeEvent event) {
@@ -207,5 +209,10 @@ public class Model implements UserModel {
     @Override
     public void getAdminSeats() {
         client.getAdminSeats();
+    }
+
+    @Override
+    public void changeUserStatus(User user) {
+        client.changeUserStatus(user);
     }
 }

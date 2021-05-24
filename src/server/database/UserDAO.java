@@ -33,4 +33,6 @@ public interface UserDAO {
     SeatList adminConfirmSeats(SeatList arg);
 
     SeatList getAdminSeats();
+
+    UserList changeUserStatus(User user);
 }

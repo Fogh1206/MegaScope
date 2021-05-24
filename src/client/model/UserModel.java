@@ -34,4 +34,6 @@ public interface UserModel extends PropertyChangeSubject {
     void adminConfirmSeats(SeatList seatsID);
 
     void getAdminSeats();
+
+    void changeUserStatus(User user);
 }

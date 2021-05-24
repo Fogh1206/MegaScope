@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -21,6 +23,7 @@ import shared.User;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class CinemaHallController {
     @FXML
@@ -159,6 +162,7 @@ public class CinemaHallController {
                                     "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
                             cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                         } else if (rectangle.getFill() == Color.GREEN) {
+
                             rectangle.setFill(Color.RED);
                             cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                             // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
@@ -201,8 +205,27 @@ public class CinemaHallController {
     }
 
     public void confirmSeats() {
-        cinemaHallViewModel.confirmSeats(user);
-        textSeats.clear();
+
+        if(user.getUserType().equals("ADMIN")) {
+            if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Warning");
+                alert.setHeaderText("You are about to block/unblock seats for users");
+                alert.setContentText("Are you sure you want to save current setting of seats?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    cinemaHallViewModel.confirmSeats(user);
+                    textSeats.clear();
+                    myBooking = new String[4][6];
+                }
+            } else {
+                System.out.println("No change");
+            }
+        } else {
+            cinemaHallViewModel.confirmSeats(user);
+            textSeats.clear();
+        }
     }
 }
 

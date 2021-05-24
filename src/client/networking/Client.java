@@ -104,6 +104,13 @@ public class Client implements ClientImpl {
     }
 
     @Override
+    public void changeUserStatus(User user) {
+        System.out.println("Client: ChangeUserStatus");
+        Request request = new Request(EventType.CHANGEUSERSTATUS_REQUEST, user);
+        sendToServer(request, EventType.CHANGEUSERSTATUS_RESULT);
+    }
+
+    @Override
     public void registerUser(User newUser) {
         System.out.println("Client: RegisterUser Req");
         Request req = new Request(EventType.REGISTER_REQUEST, newUser);
