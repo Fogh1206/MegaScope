@@ -76,7 +76,6 @@ public class Model implements UserModel {
     }
 
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent) {
-
         ReservationList reservations = (ReservationList) propertyChangeEvent.getNewValue();
         ArrayList<String> whatever = new ArrayList<>();
         for (int i = 0; i < reservations.size(); i++) {
