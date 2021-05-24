@@ -4,10 +4,7 @@ import client.view.ViewHandler;
 
 import client.viewmodel.admin.AdminViewModelUsers;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +12,7 @@ import shared.User;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.util.Optional;
 
 public class AdminUsersPageController {
     private AdminViewModelUsers adminViewModelUsers;
@@ -77,7 +75,21 @@ public class AdminUsersPageController {
     }
 
     public void onBanAction() {
-        adminViewModelUsers.manageUsers();
+        if (userTableView.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("You are about to ban a user from the system");
+            alert.setContentText("Are you sure you want to ban the user ["
+                    + userTableView.getSelectionModel().getSelectedItem().getUsername()
+                    + "] from the movie database?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                adminViewModelUsers.manageUsers();
+            }
+        } else {
+            System.out.println("no user");
+        }
     }
 
     public void onBackAction() {

@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -21,6 +23,7 @@ import shared.User;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class CinemaHallController {
     @FXML
@@ -159,12 +162,21 @@ public class CinemaHallController {
                                     "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
                             cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                         } else if (rectangle.getFill() == Color.GREEN) {
-                            rectangle.setFill(Color.RED);
-                            cinemaHallViewModel.addDisabledSeat(rectangle.getId());
-                            // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Warning");
+                            alert.setHeaderText("You are about to ban a user from the system");
+                            alert.setContentText("Are you sure you want block the seat ["
+                                    + rectangle.getId() + "]?");
 
-                            myBooking[finalRow][finalCol] =
-                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                rectangle.setFill(Color.RED);
+                                cinemaHallViewModel.addDisabledSeat(rectangle.getId());
+                                // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
+
+                                myBooking[finalRow][finalCol] =
+                                        "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
+                            }
                         }
 
                         updateSeats();
