@@ -162,21 +162,13 @@ public class CinemaHallController {
                                     "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
                             cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                         } else if (rectangle.getFill() == Color.GREEN) {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Warning");
-                            alert.setHeaderText("You are about to block a seat");
-                            alert.setContentText("Are you sure you want block the seat ["
-                                    + rectangle.getId() + "]?");
 
-                            Optional<ButtonType> result = alert.showAndWait();
-                            if (result.get() == ButtonType.OK) {
-                                rectangle.setFill(Color.RED);
-                                cinemaHallViewModel.addDisabledSeat(rectangle.getId());
-                                // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
+                            rectangle.setFill(Color.RED);
+                            cinemaHallViewModel.addDisabledSeat(rectangle.getId());
+                            // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
 
-                                myBooking[finalRow][finalCol] =
-                                        "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
-                            }
+                            myBooking[finalRow][finalCol] =
+                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
                         }
 
                         updateSeats();
@@ -213,6 +205,22 @@ public class CinemaHallController {
     }
 
     public void confirmSeats() {
+
+        if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("You are about to block/unblock seats for users");
+            alert.setContentText("Are you sure you want to save current setting of seats?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                cinemaHallViewModel.confirmSeats(user);
+                textSeats.clear();
+            }
+        } else {
+            System.out.println("No change");
+        }
+
         cinemaHallViewModel.confirmSeats(user);
         textSeats.clear();
     }
