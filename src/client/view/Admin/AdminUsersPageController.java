@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import shared.User;
 
 import java.beans.PropertyChangeEvent;
@@ -115,6 +117,14 @@ public class AdminUsersPageController {
 
             adminViewModelUsers
                     .selectedUserToModel(userTableView.getItems().get(index));
+        }
+    }
+
+    public void onEnter(KeyEvent keyEvent) {
+
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+        {
+            Search();
         }
     }
 }

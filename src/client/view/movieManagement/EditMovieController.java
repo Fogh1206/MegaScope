@@ -74,7 +74,6 @@ public class EditMovieController {
 
         editMovieViewModel.editMovie(show.getMovie_id(), show.getShow_id());
         Platform.runLater(() -> {
-
             onCancel();
         });
     }
