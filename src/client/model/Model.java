@@ -116,7 +116,7 @@ public class Model implements UserModel {
 
     private void onGetMoviesResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetMoviesResult");
-        ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
+        ShowsList list = (ShowsList) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
@@ -134,7 +134,7 @@ public class Model implements UserModel {
 
     private void onMoviesChanged(PropertyChangeEvent event) {
         System.out.println("Model: onMoviesChanged");
-        ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
+        ShowsList list = (ShowsList) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
