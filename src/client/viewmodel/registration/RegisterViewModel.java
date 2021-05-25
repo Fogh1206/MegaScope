@@ -48,6 +48,24 @@ public class RegisterViewModel {
         });
     }
 
+    public boolean isValidInput(User user){
+        if(user.getFirstName() == null || "".equals(user.getFirstName())){
+            return false;
+        } else if(user.getLastName() == null || "".equals(user.getLastName())){
+            return false;
+        } else if(user.getUsername() == null || "".equals(user.getUsername())){
+            return false;
+        } else if(user.getPassword() == null || "".equals(user.getPassword())) {
+            return false;
+        } else if(user.getPassword().length() < 3 || user.getPassword().length() > 15){
+            return false;
+        } else if(user.getPhoneNumber() == null || "".equals(user.getPhoneNumber())){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public void register() {
         if (firstName.get() == null || "".equals(firstName.get())) {
             registrationMessageLabel.setValue("Please input your first name");

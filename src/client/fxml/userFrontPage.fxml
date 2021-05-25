@@ -126,9 +126,9 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Label>
-                        <Label layoutX="7.0" layoutY="25.0" text="Movies" textFill="#fcf5f5">
+                        <Label layoutX="8.0" layoutY="14.0" text="Movies" textFill="#fcf5f5">
                             <font>
-                                <Font name="System Bold" size="18.0" />
+                                <Font name="System Bold" size="24.0" />
                             </font>
                         </Label>
                         <TextField fx:id="searchBar" layoutX="7.0" layoutY="49.0" onKeyPressed="#onEnter" prefHeight="29.0" prefWidth="339.0" promptText="Search show" style="-fx-focus-color: #000000;">
