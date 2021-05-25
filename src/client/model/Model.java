@@ -170,16 +170,6 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.removePropertyChangeListener(name, listener);
-    }
-
-    @Override
     public void saveNewInfo(User user) {
         client.saveNewInfo(user);
     }
@@ -228,5 +218,15 @@ public class Model implements UserModel {
     @Override
     public void changeUserStatus(User user) {
         client.changeUserStatus(user);
+    }
+
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(name, listener);
     }
 }

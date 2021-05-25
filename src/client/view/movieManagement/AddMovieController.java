@@ -56,27 +56,16 @@ public class AddMovieController {
         addMovieLabel.textProperty().bindBidirectional(addMovieViewModel.addMovieLabelProperty());
         mainActorsTextArea.setWrapText(true);
         descriptionTextArea.setWrapText(true);
-
-
     }
 
 
     public void onSave() {
         addMovieViewModel.addMovie();
-
-
-        Platform.runLater(() -> {
-
-            onCancel();
-       });
+        Platform.runLater(this::onCancel);
     }
 
     public void onCancel() {
-
         addMovieViewModel.defaultFields();
         viewHandler.closeStage();
-
     }
-
-
 }

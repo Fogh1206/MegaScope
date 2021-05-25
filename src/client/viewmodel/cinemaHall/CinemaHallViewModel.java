@@ -55,7 +55,6 @@ public class CinemaHallViewModel {
                 colors.get(seatList.get(i).getId()).setValue(Color.GREEN);
             }
         }
-
         colors.get(0).setValue(Color.WHITE);
     }
 
@@ -73,7 +72,6 @@ public class CinemaHallViewModel {
         for (int i = 0; i < list.size(); i++) {
             if (colorIdMap.get(list.get(i)) != null) {
                 colors.get(Integer.parseInt(list.get(i))).setValue(Color.RED);
-
             }
         }
     }
@@ -98,7 +96,6 @@ public class CinemaHallViewModel {
     public void disableProperty(String id) {
         Property<Paint> objectProperty = getFillProperty(id);
         objectProperty.setValue(Color.GRAY);
-
     }
 
     public void confirmSeats(User user) {
@@ -106,7 +103,6 @@ public class CinemaHallViewModel {
             System.out.println("Called confirm seats");
             System.out.println(changedSeatList.size());
             model.adminConfirmSeats(changedSeatList);
-
         } else {
             model.confirmSeats(reservationList);
         }

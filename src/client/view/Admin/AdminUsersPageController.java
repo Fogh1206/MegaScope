@@ -21,20 +21,26 @@ public class AdminUsersPageController {
     private ViewHandler viewHandler;
     private User userLoggedIn;
 
-    @FXML private TextField searchBar;
-    @FXML private TableView<User> userTableView;
-    @FXML private TableColumn<Object, String> usernameCol;
-    @FXML private TableColumn<Object, String> firstNameCol;
-    @FXML private TableColumn<Object, String> lastNameCol;
-    @FXML private TableColumn<Object, String> phoneNoCol;
-    @FXML private TableColumn<Object, String> banCol;
-    @FXML private Button banButton;
+    @FXML
+    private TextField searchBar;
+    @FXML
+    private TableView<User> userTableView;
+    @FXML
+    private TableColumn<Object, String> usernameCol;
+    @FXML
+    private TableColumn<Object, String> firstNameCol;
+    @FXML
+    private TableColumn<Object, String> lastNameCol;
+    @FXML
+    private TableColumn<Object, String> phoneNoCol;
+    @FXML
+    private TableColumn<Object, String> banCol;
+    @FXML
+    private Button banButton;
     @FXML
     private ImageView logoView;
     @FXML
     private Label usernameLabel;
-
-
 
 
     /**
@@ -51,16 +57,14 @@ public class AdminUsersPageController {
         this.userLoggedIn = userLoggedIn;
         adminViewModelUsers.getUsers();
 
-        userTableView.itemsProperty()
-                .bindBidirectional(adminViewModelUsers.observableItemsProperty());
+        userTableView.itemsProperty().bindBidirectional(adminViewModelUsers.observableItemsProperty());
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         banCol.setCellValueFactory(new PropertyValueFactory<>("banned"));
 
-        searchBar.textProperty()
-                .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
+        searchBar.textProperty().bindBidirectional(adminViewModelUsers.searchPhraseProperty());
         banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
         usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
 
@@ -89,9 +93,9 @@ public class AdminUsersPageController {
                     + userTableView.getSelectionModel().getSelectedItem().getUsername()
                     + "] from the movie database?");
 
-            if(userTableView.getSelectionModel().getSelectedItem().getBanned()){
+            if (userTableView.getSelectionModel().getSelectedItem().getBanned()) {
                 alert.setHeaderText(alert.getHeaderText().replace("ban", "unban"));
-                alert.setContentText(alert.getContentText().replace("ban","unban"));
+                alert.setContentText(alert.getContentText().replace("ban", "unban"));
             }
 
             Optional<ButtonType> result = alert.showAndWait();
@@ -118,16 +122,12 @@ public class AdminUsersPageController {
             if (!userTableView.getItems().get(index).getBanned()) {
                 banButton.setText("Ban");
             } else banButton.setText("Unban");
-
-            adminViewModelUsers
-                    .selectedUserToModel(userTableView.getItems().get(index));
+            adminViewModelUsers.selectedUserToModel(userTableView.getItems().get(index));
         }
     }
 
     public void onEnter(KeyEvent keyEvent) {
-
-        if (keyEvent.getCode().equals(KeyCode.ENTER))
-        {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             Search();
         }
     }

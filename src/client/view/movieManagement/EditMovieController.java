@@ -70,12 +70,9 @@ public class EditMovieController {
 
     }
 
-    public void onSave(ActionEvent actionEvent) {
-
+    public void onSave() {
         editMovieViewModel.editMovie(show.getMovie_id(), show.getShow_id());
-        Platform.runLater(() -> {
-            onCancel();
-        });
+        Platform.runLater(this::onCancel);
     }
 
     public void onCancel() {

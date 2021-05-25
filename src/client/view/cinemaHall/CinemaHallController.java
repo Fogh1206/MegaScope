@@ -39,8 +39,6 @@ public class CinemaHallController {
     @FXML
     private TextArea textSeats;
     private CinemaHallViewModel cinemaHallViewModel;
-    private ArrayList<Integer> seats;
-    private UserModel userModel;
     private ViewHandler viewHandler;
     private User user;
     private Show show;

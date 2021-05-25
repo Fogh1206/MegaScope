@@ -119,7 +119,6 @@ public class FrontPageController {
                 adminContainer.setDisable(false);
                 myShowsButton.setVisible(false);
                 bookButton.setText("Manage Seats");
-
             }
 
         } else {
@@ -169,13 +168,11 @@ public class FrontPageController {
     }
 
     public void onBookMovieButton() {
-
         if (userLoggedIn != null && selectedShow != null) {
             viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
         } else if (userLoggedIn.getUserType().equals("ADMIN")) {
             viewHandler.openCinemaHallPage(userLoggedIn, null);
         }
-
     }
 
     public void setSelected() {
@@ -195,9 +192,7 @@ public class FrontPageController {
     }
 
     public void onEditMovie() {
-
         if (selectedShow != null) {
-
             viewHandler.openEditMovie(selectedShow);
         }
     }
@@ -219,7 +214,7 @@ public class FrontPageController {
         }
     }
 
-    public void onMyShowsButton(ActionEvent actionEvent) {
+    public void onMyShowsButton() {
         viewHandler.showUserReservationPage(userLoggedIn);
     }
 
