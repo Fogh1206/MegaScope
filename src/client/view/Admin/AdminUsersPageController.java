@@ -31,6 +31,9 @@ public class AdminUsersPageController {
     @FXML private Button banButton;
     @FXML
     private ImageView logoView;
+    @FXML
+    private Label usernameLabel;
+
 
 
 
@@ -59,6 +62,7 @@ public class AdminUsersPageController {
         searchBar.textProperty()
                 .bindBidirectional(adminViewModelUsers.searchPhraseProperty());
         banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
+        usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
 
         try {
             File logoFile = new File("images/logo.png");

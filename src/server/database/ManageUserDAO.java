@@ -256,7 +256,7 @@ public class ManageUserDAO implements UserDAO {
                 statement.executeUpdate();
             }
 
-            statement = connection.prepareStatement("SELECT * FROM public.seats");
+            statement = connection.prepareStatement("SELECT * FROM public.seats ORDER by seat_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Seat temp = new Seat(resultSet.getInt(1), resultSet.getBoolean(2));

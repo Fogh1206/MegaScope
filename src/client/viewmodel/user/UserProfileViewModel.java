@@ -78,9 +78,10 @@ public class UserProfileViewModel {
                         newPassword.get(), newPhoneNumber.get(), currentUsertype.get(), banned.get());
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
-             //   updateCurrentInfo(user);
             }
 
+        } else if (!(newPassword.get().equals(confirmPassword.get())) && newPassword.isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
+            saveInfoLabel.setValue("Passwords do not match");
         } else {
             System.out.println("password dont match or you dont want to change the password");
             System.out.println("Current " + currentUsertype.get());
@@ -91,7 +92,6 @@ public class UserProfileViewModel {
                     currentUsertype.get(), banned.get());
             model.saveNewInfo(user);
             System.out.println(newUsername.get());
-          //  updateCurrentInfo(user);
             System.out.println(userLoggedIn.getPassword());
         }
     }

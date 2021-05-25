@@ -114,7 +114,7 @@ public class CinemaHallController {
                         } else if (rectangle.getFill() == Color.GREEN) {
                             rectangle.setFill(Color.YELLOW);
                             Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()), show.getShow_id(), user.getId());
-                          //  cinemaHallViewModel.addReservation(reservation);
+                           cinemaHallViewModel.addReservation(reservation);
                             myBooking[finalRow][finalCol] =
                                     "Row[" + finalRow + "] Column[" + finalCol + "] " + rectangle.getId() + " Booked";
                         }
@@ -125,7 +125,6 @@ public class CinemaHallController {
                 });
                 gridPaneSeats.add(rectangle, column, row);
                 rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
-                //rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
             }
         }
         cinemaHallViewModel.getReservation(show);
@@ -177,7 +176,6 @@ public class CinemaHallController {
                 });
                 gridPaneSeats.add(rectangle, column, row);
                 rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
-                //rectangle.disableProperty().bindBidirectional(cinemaHallViewModel.getDisableProperty(rectangle.getId()));
             }
         }
         cinemaHallViewModel.getAdminSeats();
@@ -225,6 +223,7 @@ public class CinemaHallController {
         } else {
             cinemaHallViewModel.confirmSeats(user);
             textSeats.clear();
+            myBooking = new String[4][6];
         }
     }
 }
