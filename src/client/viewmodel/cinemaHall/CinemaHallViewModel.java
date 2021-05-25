@@ -37,7 +37,6 @@ public class CinemaHallViewModel {
         for (int i = 0; i < 26; i++) {
             colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
             colorIdMap.put("" + i, colors.get(i));
-            System.out.println(colorIdMap.size());
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
@@ -101,7 +100,6 @@ public class CinemaHallViewModel {
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Called confirm seats");
-            System.out.println(changedSeatList.size());
             model.adminConfirmSeats(changedSeatList);
         } else {
             model.confirmSeats(reservationList);

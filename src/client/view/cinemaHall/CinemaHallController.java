@@ -52,6 +52,7 @@ public class CinemaHallController {
         this.viewHandler = viewHandler;
         this.user = user;
 
+        gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Open for admin");
             this.show = null;
@@ -75,23 +76,28 @@ public class CinemaHallController {
 
     }
 
+    private void createRectangle(Rectangle rectangle, int row, int column) {
+        rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
+        rectangle.setWidth(70);
+        rectangle.setHeight(60);
+        if (row == 3) {
+            rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
+        } else {
+            rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
+        }
+        gridPaneSeats.add(rectangle, column, row);
+    }
+
     private void openForUser() {
         movieTitleLabel.setText(show.getName());
-
+        cinemaHallViewModel.getReservation(show);
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
                 Rectangle rectangle = new Rectangle();
                 rectangle.setId(String.valueOf(id));
-                createRectangle(rectangle);
+                createRectangle(rectangle, row, column);
                 id++;
-                gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
-
-                if (row == 3) {
-                    rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
-                } else {
-                    rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
-                }
 
                 if (!user.getUserType().equals("VIP") && row == 3) {
                     rectangle.setDisable(true);
@@ -102,88 +108,62 @@ public class CinemaHallController {
                 int finalRow = row;
                 int finalCol = column;
 
-                rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent t) {
-                        System.out.println(rectangle.getFill().toString());
-                        if (rectangle.getFill() == Color.YELLOW) {
-                            rectangle.setFill(Color.GREEN);
-                            myBooking[finalRow][finalCol] = null;
-                        } else if (rectangle.getFill() == Color.GREEN) {
-                            rectangle.setFill(Color.YELLOW);
-                            Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()), show.getShow_id(), user.getId());
-                           cinemaHallViewModel.addReservation(reservation);
-                            myBooking[finalRow][finalCol] =
-                                    "Row[" + finalRow + "] Column[" + finalCol + "] " + rectangle.getId() + " Booked";
-                        }
-                        updateSeats();
-
+                rectangle.setOnMouseClicked(t -> {
+                    System.out.println(rectangle.getFill().toString());
+                    if (rectangle.getFill() == Color.YELLOW) {
+                        rectangle.setFill(Color.GREEN);
+                        myBooking[finalRow][finalCol] = null;
+                    } else if (rectangle.getFill() == Color.GREEN) {
+                        rectangle.setFill(Color.YELLOW);
+                        Reservation reservation = new Reservation(Integer.parseInt(rectangle.getId()), show.getShow_id(), user.getId());
+                        cinemaHallViewModel.addReservation(reservation);
+                        myBooking[finalRow][finalCol] =
+                                "Row[" + finalRow + "] Column[" + finalCol + "] " + rectangle.getId() + " Booked";
                     }
-
+                    updateSeats();
                 });
-                gridPaneSeats.add(rectangle, column, row);
                 rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
             }
         }
-        cinemaHallViewModel.getReservation(show);
     }
 
     private void openForAdmin() {
         System.out.println("Call for admin");
+        cinemaHallViewModel.getAdminSeats();
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
                 Rectangle rectangle = new Rectangle();
-                createRectangle(rectangle);
+                createRectangle(rectangle, row, column);
                 rectangle.setId(String.valueOf(id));
                 id++;
-                if (row == 3) {
-                    rectangle.setStyle("-fx-stroke: Gold; -fx-stroke-width: 5;");
-                } else {
-                    rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
-                }
-
-                gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
-
 
                 int finalRow = row;
                 int finalCol = column;
 
-                rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent t) {
-                        System.out.println(rectangle.getFill().toString());
-                        if (rectangle.getFill() == Color.RED) {
-                            rectangle.setFill(Color.GREEN);
-                            myBooking[finalRow][finalCol] =
-                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
-                            cinemaHallViewModel.addDisabledSeat(rectangle.getId());
-                        } else if (rectangle.getFill() == Color.GREEN) {
+                rectangle.setOnMouseClicked(t -> {
+                    System.out.println(rectangle.getFill().toString());
+                    if (rectangle.getFill() == Color.RED) {
+                        rectangle.setFill(Color.GREEN);
+                        myBooking[finalRow][finalCol] =
+                                "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
+                        cinemaHallViewModel.addDisabledSeat(rectangle.getId());
+                    } else if (rectangle.getFill() == Color.GREEN) {
 
-                            rectangle.setFill(Color.RED);
-                            cinemaHallViewModel.addDisabledSeat(rectangle.getId());
-                            // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
+                        rectangle.setFill(Color.RED);
+                        cinemaHallViewModel.addDisabledSeat(rectangle.getId());
+                        // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
 
-                            myBooking[finalRow][finalCol] =
-                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
-                        }
-
-                        updateSeats();
-
+                        myBooking[finalRow][finalCol] =
+                                "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
                     }
+                    updateSeats();
                 });
-                gridPaneSeats.add(rectangle, column, row);
                 rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
             }
         }
-        cinemaHallViewModel.getAdminSeats();
     }
 
-    private void createRectangle(Rectangle rectangle) {
-        rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
-        rectangle.setWidth(70);
-        rectangle.setHeight(60);
-    }
 
     private void updateSeats() {
         textSeats.clear();
@@ -202,7 +182,7 @@ public class CinemaHallController {
 
     public void confirmSeats() {
 
-        if(user.getUserType().equals("ADMIN")) {
+        if (user.getUserType().equals("ADMIN")) {
             if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Warning");

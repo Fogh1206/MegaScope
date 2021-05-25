@@ -46,7 +46,6 @@ public class ServerSocketHandler implements Runnable {
     public Request getMoviesRequest() {
         System.out.println("Get Movies Requested");
         ArrayList<Show> shows = userDAO.getAllMovies();
-        Request response = new Request(EventType.GETMOVIES_RESULT, shows);
         System.out.println("Movies size" + shows.size());
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
