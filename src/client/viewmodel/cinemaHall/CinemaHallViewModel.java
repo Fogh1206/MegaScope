@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class CinemaHallViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
-    private ArrayList<ObjectProperty<Paint>> colors;
     private ReservationList reservationList;
 
     private SeatList seatList;
@@ -28,15 +27,15 @@ public class CinemaHallViewModel {
 
     public CinemaHallViewModel(UserModel model) {
         this.model = model;
-        colors = new ArrayList<>();
         colorIdMap = new HashMap<>();
         support = new PropertyChangeSupport(this);
         reservationList = new ReservationList();
         changedSeatList = new SeatList();
 
-        for (int i = 0; i < 26; i++) {
-            colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
-            colorIdMap.put("" + i, colors.get(i));
+        for (int i = 0; i < 25; i++) {
+            int j = i+1;
+            colorIdMap.put("" + j, new SimpleObjectProperty<>(Color.GREEN));
+            System.out.println(colorIdMap.get("" + j));
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
@@ -49,17 +48,17 @@ public class CinemaHallViewModel {
         System.out.println(seatList.size() + "Hi");
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
-                colors.get(seatList.get(i).getId()).setValue(Color.RED);
+                colorIdMap.get(""+seatList.get(i).getId()).setValue(Color.RED);
             } else {
-                colors.get(seatList.get(i).getId()).setValue(Color.GREEN);
+                colorIdMap.get(""+seatList.get(i).getId()).setValue(Color.GREEN);
             }
         }
-        colors.get(0).setValue(Color.WHITE);
     }
 
     public void resetColors() {
-        for (int i = 0; i < 26; i++) {
-            colors.get(i).setValue(Color.GREEN);
+        for (int i = 0; i < 25; i++) {
+            int j = i+1;
+            colorIdMap.get(""+j).setValue(Color.GREEN);
         }
     }
 
@@ -69,9 +68,7 @@ public class CinemaHallViewModel {
 
         System.out.println(list.toString() + " Hello Guys");
         for (int i = 0; i < list.size(); i++) {
-            if (colorIdMap.get(list.get(i)) != null) {
-                colors.get(Integer.parseInt(list.get(i))).setValue(Color.RED);
-            }
+                colorIdMap.get(list.get(i)).setValue(Color.RED);
         }
     }
 
@@ -81,7 +78,7 @@ public class CinemaHallViewModel {
 
     public Property<Paint> getFillProperty(String id) {
         try {
-            return colors.get(Integer.parseInt(id));
+            return colorIdMap.get(""+id);
         } catch (ArrayIndexOutOfBoundsException e) {
             // Not in list
             return null;

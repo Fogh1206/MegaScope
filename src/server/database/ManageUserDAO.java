@@ -263,7 +263,6 @@ public class ManageUserDAO implements UserDAO {
                 list.add(temp);
             }
             statement.close();
-            System.out.println(list.size() + "this is not text");
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -292,7 +291,6 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public ArrayList<UserReservationInfo> getUserReservation(User user) {
-
         PreparedStatement statement;
         ArrayList<UserReservationInfo> userReservations = new ArrayList<>();
         UserReservationInfo temp;
@@ -377,7 +375,6 @@ public class ManageUserDAO implements UserDAO {
                 System.out.println("same username");
             }
         }
-        System.out.println(users.size() + "size from DAO");
         return users;
     }
 
