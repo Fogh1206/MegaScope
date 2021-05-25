@@ -31,19 +31,13 @@ public class LoginViewController {
     private ImageView logoView;
     @FXML
     private Label loginText;
-    @FXML
-    private Button frontPageButton;
-    @FXML
-    private Button loginButton;
 
     private User userLoggedIn;
-
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
 
-    public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
-                     User userLoggedIn) {
+    public void init(LoginViewModel loginViewModel, ViewHandler viewHandler, User userLoggedIn) {
         this.userLoggedIn = userLoggedIn;
         this.loginViewModel = loginViewModel;
         loginViewModel.clearMessages();
@@ -70,11 +64,10 @@ public class LoginViewController {
         User temp = (User) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
-            loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+           loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
             viewHandler.showFrontPage(userLoggedIn);
         }
     }
-
 
 
     public void onLoginAction() {
@@ -85,7 +78,6 @@ public class LoginViewController {
     }
 
 
-
     public void onCancelAction() {
         viewHandler.close();
         System.out.println("Cancelled");
@@ -93,15 +85,14 @@ public class LoginViewController {
 
     public void onRegisterAction() {
         loginViewModel.defaultFields();
-        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+      //  loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.openRegisterView();
     }
 
     public void frontPageButton() {
-      loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+     //   loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.showFrontPage(null);
     }
-
 
 
 }

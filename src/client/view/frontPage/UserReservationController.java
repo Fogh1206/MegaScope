@@ -51,8 +51,7 @@ public class UserReservationController {
 
         this.viewHandler = viewHandler;
 
-        reservationTableView.itemsProperty()
-                .bindBidirectional(userReservationViewModel.observableItemsProperty());
+        reservationTableView.itemsProperty().bindBidirectional(userReservationViewModel.observableItemsProperty());
         reservationIdCol.setCellValueFactory(new PropertyValueFactory<>("reservation_id"));
         movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time_show"));
@@ -72,20 +71,17 @@ public class UserReservationController {
 
 
 
-    public void onCancelReservation(ActionEvent actionEvent) {
-
-
-
+    public void onCancelReservation() {
         if(selectedInfo != null) {
             userReservationViewModel.cancelReservation(selectedInfo);
         }
     }
 
-    public void onGoBack(ActionEvent actionEvent) {
+    public void onGoBack() {
         viewHandler.showFrontPage(userLoggedIn);
     }
 
-    public void setSelected(MouseEvent mouseEvent) {
+    public void setSelected() {
         if(reservationTableView.getSelectionModel().getSelectedItem() != null){
             int index = reservationTableView.getSelectionModel().getSelectedIndex();
             selectedInfo = reservationTableView.getItems().get(index);

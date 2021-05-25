@@ -116,7 +116,7 @@ public class Model implements UserModel {
 
     private void onGetMoviesResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetMoviesResult");
-        ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
+        ShowsList list = (ShowsList) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
@@ -134,7 +134,7 @@ public class Model implements UserModel {
 
     private void onMoviesChanged(PropertyChangeEvent event) {
         System.out.println("Model: onMoviesChanged");
-        ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
+        ShowsList list = (ShowsList) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
@@ -167,16 +167,6 @@ public class Model implements UserModel {
     @Override
     public void confirmSeats(ReservationList reservationList) {
         client.confirmSeats(reservationList);
-    }
-
-    @Override
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.removePropertyChangeListener(name, listener);
     }
 
     @Override
@@ -228,5 +218,15 @@ public class Model implements UserModel {
     @Override
     public void changeUserStatus(User user) {
         client.changeUserStatus(user);
+    }
+
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(name, listener);
     }
 }

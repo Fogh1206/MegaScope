@@ -47,7 +47,7 @@ public class AdminViewModelUsers {
         UserList users = (UserList) event.getNewValue();
 
         ObservableList<User> observableList = FXCollections.observableArrayList();
-        for(int i = 0 ; i < users.size() ; i++){
+        for (int i = 0; i < users.size(); i++) {
             observableList.add(users.get(i));
             System.out.println("Added user: " + users.get(i).getUsername());
         }
@@ -56,8 +56,7 @@ public class AdminViewModelUsers {
     }
 
 
-    public void addPropertyChangeListener(String name,
-                                          PropertyChangeListener listener) {
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
@@ -68,13 +67,11 @@ public class AdminViewModelUsers {
 
             getUsers();
         } else {
-            ObservableList<User> observableList = FXCollections
-                    .observableArrayList();
+            ObservableList<User> observableList = FXCollections.observableArrayList();
             for (int i = 0; i < observableItems.getValue().size(); i++) {
                 System.out.println(observableItems.getValue().get(i).getUsername());
 
-                if (observableItems.getValue().get(i).getUsername()
-                        .contains(searchPhrase.getValue())) {
+                if (observableItems.getValue().get(i).getUsername().contains(searchPhrase.getValue())) {
                     observableList.add(observableItems.getValue().get(i));
                 }
             }
@@ -90,7 +87,6 @@ public class AdminViewModelUsers {
     public void manageUsers() {
 
         if (selectedUser != null) {
-
             selectedUser.setBanned(!selectedUser.getBanned());
             User user = new User(selectedUser.getId(),
                     selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getUsername(),

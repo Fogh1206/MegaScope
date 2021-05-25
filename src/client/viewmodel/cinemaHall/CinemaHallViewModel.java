@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class CinemaHallViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
-    private ArrayList<ObjectProperty<Paint>> colors;
     private ReservationList reservationList;
 
     private SeatList seatList;
@@ -28,16 +27,14 @@ public class CinemaHallViewModel {
 
     public CinemaHallViewModel(UserModel model) {
         this.model = model;
-        colors = new ArrayList<>();
         colorIdMap = new HashMap<>();
         support = new PropertyChangeSupport(this);
         reservationList = new ReservationList();
         changedSeatList = new SeatList();
 
-        for (int i = 0; i < 26; i++) {
-            colors.add(i, new SimpleObjectProperty<>(Color.GREEN));
-            colorIdMap.put("" + i, colors.get(i));
-            System.out.println(colorIdMap.size());
+        for (int i = 1; i < 26; i++) {
+
+            colorIdMap.put("" + i, new SimpleObjectProperty<>(Color.GREEN));
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
@@ -50,18 +47,17 @@ public class CinemaHallViewModel {
         System.out.println(seatList.size() + "Hi");
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
-                colors.get(seatList.get(i).getId()).setValue(Color.RED);
+                colorIdMap.get(""+seatList.get(i).getId()).setValue(Color.RED);
             } else {
-                colors.get(seatList.get(i).getId()).setValue(Color.GREEN);
+                colorIdMap.get(""+seatList.get(i).getId()).setValue(Color.GREEN);
             }
         }
-
-        colors.get(0).setValue(Color.WHITE);
     }
 
     public void resetColors() {
-        for (int i = 0; i < 26; i++) {
-            colors.get(i).setValue(Color.GREEN);
+        for (int i = 1; i < 26; i++) {
+
+            colorIdMap.get(""+i).setValue(Color.GREEN);
         }
     }
 
@@ -71,10 +67,7 @@ public class CinemaHallViewModel {
 
         System.out.println(list.toString() + " Hello Guys");
         for (int i = 0; i < list.size(); i++) {
-            if (colorIdMap.get(list.get(i)) != null) {
-                colors.get(Integer.parseInt(list.get(i))).setValue(Color.RED);
-
-            }
+                colorIdMap.get(list.get(i)).setValue(Color.RED);
         }
     }
 
@@ -84,7 +77,7 @@ public class CinemaHallViewModel {
 
     public Property<Paint> getFillProperty(String id) {
         try {
-            return colors.get(Integer.parseInt(id));
+            return colorIdMap.get(""+id);
         } catch (ArrayIndexOutOfBoundsException e) {
             // Not in list
             return null;
@@ -98,19 +91,17 @@ public class CinemaHallViewModel {
     public void disableProperty(String id) {
         Property<Paint> objectProperty = getFillProperty(id);
         objectProperty.setValue(Color.GRAY);
-
     }
 
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Called confirm seats");
-            System.out.println(changedSeatList.size());
             model.adminConfirmSeats(changedSeatList);
-
+            changedSeatList = new SeatList();
         } else {
             model.confirmSeats(reservationList);
         }
-        changedSeatList = new SeatList();
+
     }
 
     public void addReservation(Reservation reservation) {
@@ -118,14 +109,8 @@ public class CinemaHallViewModel {
     }
 
     public void addDisabledSeat(String str) {
-        System.out.println(str);
-        if (seatList.get(Integer.parseInt(str) - 1).isDisabled()) {
-            seatList.get(Integer.parseInt(str) - 1).setDisabled(false);
-            changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
-        } else {
-            seatList.get(Integer.parseInt(str) - 1).setDisabled(true);
-            changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
-        }
+        seatList.get(Integer.parseInt(str) - 1).setDisabled(!seatList.get(Integer.parseInt(str) - 1).isDisabled());
+        changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
         System.out.println(changedSeatList.size()+"size of new list");
     }
 

@@ -27,7 +27,7 @@ public class ManageUserDAO implements UserDAO {
         return instance;
     }
 
-    private void getMovieList(ArrayList<Show> showList, Connection connection) throws SQLException {
+    private void getMovieList(ShowsList showList, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("select movies.id, name, dateofrelease, mainactors," +
                 " description, time_show, date_show, show.id from public.movies join public.show on show.movie_id = movies.id order by movies.id");
         ResultSet resultSet = statement.executeQuery();
@@ -36,14 +36,14 @@ public class ManageUserDAO implements UserDAO {
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
                     resultSet.getString(7), resultSet.getInt(8));
-            showList.add(temp);
+            showList.addShow(temp);
         }
         statement.close();
     }
 
     @Override
-    public ArrayList<Show> getAllMovies() {
-        ArrayList<Show> showList = new ArrayList<>();
+    public ShowsList getAllMovies() {
+        ShowsList showList =new ShowsList();
 
         try (Connection connection = controller.getConnection()) {
             getMovieList(showList, connection);
@@ -54,9 +54,9 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<Show> addMovie(Show show) {
+    public ShowsList addMovie(Show show) {
 
-        ArrayList<Show> showList = new ArrayList<>();
+        ShowsList showList = new ShowsList();
         PreparedStatement statement;
 
         try (Connection connection = controller.getConnection()) {
@@ -95,8 +95,8 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<Show> editMovie(Show show) {
-        ArrayList<Show> showList = new ArrayList<>();
+    public ShowsList editMovie(Show show) {
+        ShowsList showList =new ShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.movies SET name='" + show.getName() + "',dateofrelease='" +
@@ -121,8 +121,8 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<Show> removeMovie(Show show) {
-        ArrayList<Show> showList = new ArrayList<>();
+    public ShowsList removeMovie(Show show) {
+        ShowsList showList = new ShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "Delete from movies where id='" + show.getMovie_id() + "'");
@@ -263,7 +263,6 @@ public class ManageUserDAO implements UserDAO {
                 list.add(temp);
             }
             statement.close();
-            System.out.println(list.size() + "this is not text");
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -292,7 +291,6 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public ArrayList<UserReservationInfo> getUserReservation(User user) {
-
         PreparedStatement statement;
         ArrayList<UserReservationInfo> userReservations = new ArrayList<>();
         UserReservationInfo temp;
@@ -377,7 +375,6 @@ public class ManageUserDAO implements UserDAO {
                 System.out.println("same username");
             }
         }
-        System.out.println(users.size() + "size from DAO");
         return users;
     }
 

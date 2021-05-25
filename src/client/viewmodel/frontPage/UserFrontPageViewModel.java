@@ -6,12 +6,12 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Show;
+import shared.ShowsList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class UserFrontPageViewModel {
 
@@ -39,7 +39,13 @@ public class UserFrontPageViewModel {
     public void onGetMovies(PropertyChangeEvent event) {
         System.out.println("On get movies");
         ObservableList<Show> observableList = FXCollections.observableArrayList();
-        observableList.addAll((ArrayList<Show>) event.getNewValue());
+        ShowsList showsList=(ShowsList) event.getNewValue();
+        for (int i = 0; i < showsList.getSize(); i++) {
+
+            observableList.add(showsList.get(i));
+        }
+
+
         observableItems.setValue(observableList);
         if (!(searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))) {
             System.out.println("Not null searchbar");
@@ -75,20 +81,17 @@ public class UserFrontPageViewModel {
             }
         }
         observableItems.setValue(observableList);
-
         searchPhrase.setValue(null);
     }
 
     public void onDatePick() {
         ObservableList<Show> observableList = FXCollections.observableArrayList();
-
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (datePicked.get().toString().equals(observableItems.getValue().get(i).getDateOfShow())) {
                 observableList.add(observableItems.getValue().get(i));
             }
         }
         observableItems.setValue(observableList);
-
         datePicked.set(null);
     }
 

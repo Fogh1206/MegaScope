@@ -55,12 +55,11 @@ public class UserProfileController {
     private Label usernameLabel;
 
 
-    public void init(UserProfileViewModel userProfileViewModel,
-                     ViewHandler viewHandler, User userLoggedIn) {
-        userProfileViewModel.clearMessages();
+    public void init(UserProfileViewModel userProfileViewModel, ViewHandler viewHandler, User userLoggedIn) {
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
         this.userLoggedIn = userLoggedIn;
+        userProfileViewModel.clearMessages();
 
         vipCheckBox.setVisible(!(userLoggedIn.getUserType().equals("ADMIN")));
 
@@ -94,8 +93,7 @@ public class UserProfileController {
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
-        userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
-                this::newSavedInfo);
+        userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
     }
 
     private void newSavedInfo(PropertyChangeEvent event) {
@@ -111,9 +109,7 @@ public class UserProfileController {
     public void saveButtonOnAction() {
         userProfileViewModel.clearMessages();
         userProfileViewModel.saveAccount(userLoggedIn);
-
     }
-
 
     public void closeOnAction() {
         viewHandler.showFrontPage(userLoggedIn);

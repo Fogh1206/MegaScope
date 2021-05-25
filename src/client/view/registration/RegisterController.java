@@ -45,33 +45,22 @@ public class RegisterController {
         registerViewModel.clearMessages();
         this.viewHandler = viewHandler;
 
-        firstnameTextField.textProperty()
-                .bindBidirectional(registerViewModel.firstNameProperty());
-        lastnameTextField.textProperty()
-                .bindBidirectional(registerViewModel.lastNameProperty());
-        usernameTextField.textProperty()
-                .bindBidirectional(registerViewModel.usernameProperty());
-        setPasswordField.textProperty()
-                .bindBidirectional(registerViewModel.passwordProperty());
-        confirmPasswordField.textProperty()
-                .bindBidirectional(registerViewModel.confirmPasswordProperty());
-        confirmPasswordLabel.textProperty()
-                .bindBidirectional(registerViewModel.confirmPasswordLabelProperty());
-        registrationMessageLabel.textProperty().bindBidirectional(
-                registerViewModel.registrationMessageLabelProperty());
-        phoneTextField.textProperty()
-                .bindBidirectional(registerViewModel.phoneNumberProperty());
+        firstnameTextField.textProperty().bindBidirectional(registerViewModel.firstNameProperty());
+        lastnameTextField.textProperty().bindBidirectional(registerViewModel.lastNameProperty());
+        usernameTextField.textProperty().bindBidirectional(registerViewModel.usernameProperty());
+        setPasswordField.textProperty().bindBidirectional(registerViewModel.passwordProperty());
+        confirmPasswordField.textProperty().bindBidirectional(registerViewModel.confirmPasswordProperty());
+        confirmPasswordLabel.textProperty().bindBidirectional(registerViewModel.confirmPasswordLabelProperty());
+        registrationMessageLabel.textProperty().bindBidirectional(registerViewModel.registrationMessageLabelProperty());
+        phoneTextField.textProperty().bindBidirectional(registerViewModel.phoneNumberProperty());
         try {
             File logoFile = new File("images/logo.png");
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             System.out.println("Problems with image");
         }
-        registerViewModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
-                this::onRegister);
+        registerViewModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(), this::onRegister);
     }
 
     private void onRegister(PropertyChangeEvent event) {

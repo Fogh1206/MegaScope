@@ -29,7 +29,6 @@ public class ServerSocketHandler implements Runnable {
             e.printStackTrace();
         }
         userDAO = ManageUserDAO.getInstance();
-
     }
 
     public Request getUserRequest() {
@@ -45,9 +44,9 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getMoviesRequest() {
         System.out.println("Get Movies Requested");
-        ArrayList<Show> shows = userDAO.getAllMovies();
-        Request response = new Request(EventType.GETMOVIES_RESULT, shows);
-        System.out.println("Movies size" + shows.size());
+        ShowsList shows = userDAO.getAllMovies();
+
+        System.out.println("Movies size" + shows.getSize());
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
 
@@ -69,7 +68,7 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getEditMovieRequest(Show show) {
         System.out.println("EditMovie requested");
-        ArrayList<Show> shows = userDAO.editMovie(show);
+       ShowsList shows = userDAO.editMovie(show);
         return new Request(EventType.EDITMOVIE_RESULT, shows);
     }
 
@@ -79,20 +78,20 @@ public class ServerSocketHandler implements Runnable {
         if (temp != null) {
             return new Request(EventType.SAVENEWINFO_RESULT, temp);
         } else {
-            return new Request(EventType.SAVENEWINFOFAIL_RESULT, temp);
+            return new Request(EventType.SAVENEWINFOFAIL_RESULT, null);
         }
 
     }
 
     public Request getAddMovieRequest(Show show) {
         System.out.println("AddMovie requested");
-        ArrayList<Show> shows = userDAO.addMovie(show);
+        ShowsList shows = userDAO.addMovie(show);
         return new Request(EventType.ADDMOVIE_RESULT, shows);
     }
 
     public Request getRemoveMovieRequest(Show show) {
         System.out.println("RemoveMovie requested");
-        ArrayList<Show> shows = userDAO.removeMovie(show);
+        ShowsList shows = userDAO.removeMovie(show);
         return new Request(EventType.REMOVEMOVIE_RESULT, shows);
     }
 
@@ -165,11 +164,6 @@ public class ServerSocketHandler implements Runnable {
                     case REMOVEMOVIE_REQUEST:
                         outToClient.writeObject(getRemoveMovieRequest((Show) request.arg));
                         break;
-                    case CLOSE_REQUEST:
-                        System.out.println("Closing");
-                        outToClient.writeObject(getCloseRequest());
-                        close();
-                        break;
                     case GETRESERVATIONS_REQUEST:
                         outToClient.writeObject(getReservationsRequest((Show) request.arg));
                         break;
@@ -190,6 +184,11 @@ public class ServerSocketHandler implements Runnable {
                         break;
                     case CHANGEUSERSTATUS_REQUEST:
                         outToClient.writeObject(changeUserStatus((User)request.arg));
+                        break;
+                    case CLOSE_REQUEST:
+                        System.out.println("Closing");
+                        outToClient.writeObject(getCloseRequest());
+                        close();
                         break;
                 }
             } catch (Exception e) {
