@@ -32,10 +32,9 @@ public class CinemaHallViewModel {
         reservationList = new ReservationList();
         changedSeatList = new SeatList();
 
-        for (int i = 0; i < 25; i++) {
-            int j = i+1;
-            colorIdMap.put("" + j, new SimpleObjectProperty<>(Color.GREEN));
-            System.out.println(colorIdMap.get("" + j));
+        for (int i = 1; i < 26; i++) {
+
+            colorIdMap.put("" + i, new SimpleObjectProperty<>(Color.GREEN));
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
@@ -56,9 +55,9 @@ public class CinemaHallViewModel {
     }
 
     public void resetColors() {
-        for (int i = 0; i < 25; i++) {
-            int j = i+1;
-            colorIdMap.get(""+j).setValue(Color.GREEN);
+        for (int i = 1; i < 26; i++) {
+
+            colorIdMap.get(""+i).setValue(Color.GREEN);
         }
     }
 
@@ -98,10 +97,11 @@ public class CinemaHallViewModel {
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Called confirm seats");
             model.adminConfirmSeats(changedSeatList);
+            changedSeatList = new SeatList();
         } else {
             model.confirmSeats(reservationList);
         }
-        changedSeatList = new SeatList();
+
     }
 
     public void addReservation(Reservation reservation) {
@@ -109,14 +109,8 @@ public class CinemaHallViewModel {
     }
 
     public void addDisabledSeat(String str) {
-        System.out.println(str);
-        if (seatList.get(Integer.parseInt(str) - 1).isDisabled()) {
-            seatList.get(Integer.parseInt(str) - 1).setDisabled(false);
-            changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
-        } else {
-            seatList.get(Integer.parseInt(str) - 1).setDisabled(true);
-            changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
-        }
+        seatList.get(Integer.parseInt(str) - 1).setDisabled(!seatList.get(Integer.parseInt(str) - 1).isDisabled());
+        changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
         System.out.println(changedSeatList.size()+"size of new list");
     }
 

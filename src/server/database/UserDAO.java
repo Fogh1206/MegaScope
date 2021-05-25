@@ -27,7 +27,6 @@ public interface UserDAO {
 
     ReservationList reserveMovie(ReservationList list);
 
-
     ArrayList<UserReservationInfo> cancelReservation(UserReservationInfo userReservationInfo);
 
     SeatList adminConfirmSeats(SeatList arg);
