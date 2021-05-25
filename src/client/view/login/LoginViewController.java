@@ -31,19 +31,13 @@ public class LoginViewController {
     private ImageView logoView;
     @FXML
     private Label loginText;
-    @FXML
-    private Button frontPageButton;
-    @FXML
-    private Button loginButton;
 
     private User userLoggedIn;
-
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
 
-    public void init(LoginViewModel loginViewModel, ViewHandler viewHandler,
-                     User userLoggedIn) {
+    public void init(LoginViewModel loginViewModel, ViewHandler viewHandler, User userLoggedIn) {
         this.userLoggedIn = userLoggedIn;
         this.loginViewModel = loginViewModel;
         loginViewModel.clearMessages();
@@ -76,14 +70,12 @@ public class LoginViewController {
     }
 
 
-
     public void onLoginAction() {
         if (userLoggedIn != null) {
         }
         loginViewModel.login();
         loginViewModel.defaultFields();
     }
-
 
 
     public void onCancelAction() {
@@ -98,10 +90,9 @@ public class LoginViewController {
     }
 
     public void frontPageButton() {
-      loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.showFrontPage(null);
     }
-
 
 
 }

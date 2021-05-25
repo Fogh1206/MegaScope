@@ -81,20 +81,17 @@ public class UserFrontPageViewModel {
             }
         }
         observableItems.setValue(observableList);
-
         searchPhrase.setValue(null);
     }
 
     public void onDatePick() {
         ObservableList<Show> observableList = FXCollections.observableArrayList();
-
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (datePicked.get().toString().equals(observableItems.getValue().get(i).getDateOfShow())) {
                 observableList.add(observableItems.getValue().get(i));
             }
         }
         observableItems.setValue(observableList);
-
         datePicked.set(null);
     }
 
