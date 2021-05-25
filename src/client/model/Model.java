@@ -20,34 +20,43 @@ public class Model implements UserModel {
 
         client.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(),
                 this::onGetMoviesResult);
+
         client.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
                 this::onLoginResult);
+
         client.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
                 this::onRegisterResult);
+        client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
+                this::onFailedRegister);
+
         client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),
                 this::onMoviesChanged);
         client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),
                 this::onMoviesChanged);
         client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),
                 this::onMoviesChanged);
+
         client.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(),
                 this::onGetReservation);
         client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(),
                 this::onReserveShow);
+
         client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
                 this::onNewInfo);
-        client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
-                this::onFailedRegister);
+        client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
+                this::onFailedSaveNewInfo);
+
         client.addPropertyChangeListener(EventType.GETUSERRESERVATIONS_RESULT.toString(),
                 this::onGetUserReservations);
         client.addPropertyChangeListener(EventType.REMOVERESERVATION_RESULT.toString(),
                 this::onGetUserReservations);
-        client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
-                this::onFailedSaveNewInfo);
+
+
         client.addPropertyChangeListener(EventType.ADMINBLOCKSEATS_RESULT.toString(),
                 this::onGetAdminSeats);
         client.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(),
                 this::onGetAdminSeats);
+
         client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
                 this::onGetUserResult);
         client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(),
@@ -62,26 +71,29 @@ public class Model implements UserModel {
 
 
     private void onFailedSaveNewInfo(PropertyChangeEvent event) {
+        System.out.println("Model: onFailedSaveNewInfo");
         support.firePropertyChange(EventType.SAVENEWINFOFAIL_RESULT.toString(), null, null);
     }
 
     private void onFailedRegister(PropertyChangeEvent propertyChangeEvent) {
+        System.out.println("Model: onFailedRegister");
         support.firePropertyChange(EventType.REGISTERFAIL_RESULT.toString(), null, null);
     }
 
     private void onNewInfo(PropertyChangeEvent propertyChangeEvent) {
+        System.out.println("Model: onNewInfo");
         User user = (User) propertyChangeEvent.getNewValue();
-        System.out.println(user);
         support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, user);
     }
 
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent) {
+        System.out.println("Model: onReserveShow");
         ReservationList reservations = (ReservationList) propertyChangeEvent.getNewValue();
-        ArrayList<String> whatever = new ArrayList<>();
+        ArrayList<String> idList = new ArrayList<>();
         for (int i = 0; i < reservations.size(); i++) {
-            whatever.add(String.valueOf(reservations.get(i).getSeat_no()));
+            idList.add(String.valueOf(reservations.get(i).getSeat_no()));
         }
-        support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, whatever);
+        support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, idList);
     }
 
     private void onGetReservation(PropertyChangeEvent event) {
@@ -97,28 +109,31 @@ public class Model implements UserModel {
     }
 
     private void onGetUserResult(PropertyChangeEvent event) {
+        System.out.println("Model: onGetUserResult");
         UserList users = (UserList) event.getNewValue();
         support.firePropertyChange("Users Result", null, users);
     }
 
     private void onGetMoviesResult(PropertyChangeEvent event) {
+        System.out.println("Model: onGetMoviesResult");
         ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
     private void onLoginResult(PropertyChangeEvent event) {
-        System.out.println("Karamba 2");
+        System.out.println("Model: onLoginResult");
         User loginResult = (User) event.getNewValue();
-        support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null,
-                loginResult);
+        support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null, loginResult);
     }
 
     private void onRegisterResult(PropertyChangeEvent event) {
+        System.out.println("Model: onRegisterResult");
         User user = (User) event.getNewValue();
         support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, user);
     }
 
     private void onMoviesChanged(PropertyChangeEvent event) {
+        System.out.println("Model: onMoviesChanged");
         ArrayList<Show> list = (ArrayList<Show>) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }

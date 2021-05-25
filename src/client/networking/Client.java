@@ -59,7 +59,6 @@ public class Client implements ClientImpl {
     public void saveNewInfo(User user) {
         System.out.println("Client: SaveNewInfo Req");
         Request req = new Request(EventType.SAVENEWINFO_REQUEST, user);
-        User temp = (User) req.arg;
         sendToServer(req, EventType.SAVENEWINFO_RESULT);
     }
 
@@ -77,10 +76,10 @@ public class Client implements ClientImpl {
         sendToServer(req, EventType.GETRESERVATIONS_RESULT);
     }
 
-    @Override public void confirmSeats(ReservationList reservationList)
-    {
-        Request req = new Request(EventType.RESERVEMOVIE_REQUEST,reservationList);
-        sendToServer(req,EventType.RESERVEMOVIE_RESULT);
+    @Override
+    public void confirmSeats(ReservationList reservationList) {
+        Request req = new Request(EventType.RESERVEMOVIE_REQUEST, reservationList);
+        sendToServer(req, EventType.RESERVEMOVIE_RESULT);
     }
 
     @Override
@@ -122,7 +121,6 @@ public class Client implements ClientImpl {
         System.out.println("Client: Login Req");
         Request req = new Request(EventType.LOGIN_REQUEST, user);
         sendToServer(req, EventType.LOGIN_RESULT);
-
     }
 
     @Override
@@ -154,21 +152,19 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void getUserReservations(User user){
+    public void getUserReservations(User user) {
         System.out.println("Client: GetUserReservations Req");
         Request req = new Request(EventType.GETUSERRESERVATIONS_REQUEST, user);
         sendToServer(req, EventType.GETUSERRESERVATIONS_RESULT);
     }
 
     @Override
-    public void addPropertyChangeListener(String name,
-                                          PropertyChangeListener listener) {
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
     @Override
-    public void removePropertyChangeListener(String name,
-                                             PropertyChangeListener listener) {
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
         support.removePropertyChangeListener(name, listener);
     }
 

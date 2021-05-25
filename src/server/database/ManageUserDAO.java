@@ -9,6 +9,7 @@ public class ManageUserDAO implements UserDAO {
 
     private Controller controller;
     private static ManageUserDAO instance;
+    private Connection connection;
 
     private ManageUserDAO() {
         try {
@@ -106,9 +107,7 @@ public class ManageUserDAO implements UserDAO {
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "UPDATE public.show SET time_show='" + show
-                            .getTimeOfShow() +
-                            "',date_show='" + show.getDateOfShow() +
+                    "UPDATE public.show SET time_show='" + show.getTimeOfShow() + "',date_show='" + show.getDateOfShow() +
                             "' where id='" + show.getShow_id() + "'");
             statement.executeUpdate();
             statement.close();
@@ -123,7 +122,6 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public ArrayList<Show> removeMovie(Show show) {
-
         ArrayList<Show> showList = new ArrayList<>();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -142,9 +140,8 @@ public class ManageUserDAO implements UserDAO {
     public ArrayList<String> getReservations(Show show) {
         ArrayList<String> strings = new ArrayList<>();
 
-        PreparedStatement statement;
         try (Connection connection = controller.getConnection()) {
-            statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
+            PreparedStatement statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 strings.add(String.valueOf(resultSet.getInt(1)));
@@ -216,6 +213,7 @@ public class ManageUserDAO implements UserDAO {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT user_id FROM reservations WHERE reservation_id = " + userReservationInfo.getReservation_id());
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 statement = connection.prepareStatement(
                         "SELECT * FROM users WHERE id = " + resultSet.getInt(1));
@@ -239,8 +237,6 @@ public class ManageUserDAO implements UserDAO {
             statement.executeUpdate();
             statement.close();
 
-
-            statement.close();
             return getUserReservation(user);
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -251,14 +247,12 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public SeatList adminConfirmSeats(SeatList seatList) {
-
-        System.out.println(seatList.size() + " this is text");
         SeatList list = new SeatList();
         PreparedStatement statement;
         try (Connection connection = controller.getConnection()) {
             for (int i = 0; i < seatList.size(); i++) {
-
-                statement = connection.prepareStatement("UPDATE public.seats SET blocked =" + seatList.get(i).isDisabled() + "  WHERE seat_id = " + seatList.get(i).getId());
+                statement = connection.prepareStatement("UPDATE public.seats SET blocked =" +
+                        seatList.get(i).isDisabled() + "  WHERE seat_id = " + seatList.get(i).getId());
                 statement.executeUpdate();
             }
 
@@ -402,8 +396,6 @@ public class ManageUserDAO implements UserDAO {
                 user = temp;
                 System.out.println(temp.getId());
             }
-            statement.close();
-
             statement = connection.prepareStatement(
                     "INSERT INTO users(firstname,lastname,username,password,phonenumber,type)   VALUES (?, ?, ?, ?,?,?);");
 
@@ -413,9 +405,9 @@ public class ManageUserDAO implements UserDAO {
             statement.setString(4, user.getPassword());
             statement.setString(5, user.getPhoneNumber());
             statement.setString(6, "USER");
-
             statement.executeUpdate();
 
+            statement.close();
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
                 System.out.println("MAMA");
@@ -436,8 +428,6 @@ public class ManageUserDAO implements UserDAO {
 
             while (resultSet.next()) {
                 if (resultSet.getString(1).equals(password)) {
-                    statement.close();
-
                     statement = connection.prepareStatement(
                             "SELECT * FROM public.users WHERE username='" + username + "'");
                     resultSet = statement.executeQuery();
@@ -450,10 +440,10 @@ public class ManageUserDAO implements UserDAO {
                         user = temp;
                         System.out.println(temp);
                     }
-                    statement.close();
                     return user;
                 }
             }
+            statement.close();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
@@ -472,9 +462,7 @@ public class ManageUserDAO implements UserDAO {
                             + "' where id=" + user.getId() + "");
 
             statement.executeUpdate();
-            statement.close();
             System.out.println("Empty" + user.getUsername() + "               " + user.getBanned());
-
             statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE id='" + user.getId() + "'");
             ResultSet resultSet = statement.executeQuery();
@@ -486,13 +474,12 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getBoolean(8));
                 System.out.println(temp);
             }
-
+            statement.close();
             return temp;
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
                 System.out.println("same username");
             }
-
             return null;
         }
 

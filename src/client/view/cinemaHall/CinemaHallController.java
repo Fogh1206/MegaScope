@@ -63,7 +63,7 @@ public class CinemaHallController {
             openForUser();
         }
 
-        userLabel.setText(user.getUsername());
+        userLabel.setText("Logged in as " + user.getUsername());
 
         try {
             File logoFile = new File("images/logo.png");
@@ -116,7 +116,7 @@ public class CinemaHallController {
                             Reservation reservation = new Reservation(Integer.valueOf(rectangle.getId()), show.getShow_id(), user.getId());
                           //  cinemaHallViewModel.addReservation(reservation);
                             myBooking[finalRow][finalCol] =
-                                    "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " Booked";
+                                    "Row[" + finalRow + "] Column[" + finalCol + "] " + rectangle.getId() + " Booked";
                         }
                         updateSeats();
 

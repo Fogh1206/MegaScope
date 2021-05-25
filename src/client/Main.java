@@ -15,7 +15,7 @@ public class Main extends Application {
     private ClientFactory clientFactory;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         clientFactory=new ClientFactory();
         model = new ModelFactory(clientFactory);
         viewModelFactory = new ViewModelFactory(model);
