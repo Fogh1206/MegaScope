@@ -20,7 +20,7 @@
                         <Font name="Georgia Bold" size="24.0" />
                     </font>
                 </Label>
-            <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="793.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoView" fitHeight="82.0" fitWidth="97.0" layoutX="803.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="usernameLabel" layoutX="6.0" layoutY="6.0" prefHeight="19.0" prefWidth="282.0" text="UserName">
                <font>
                   <Font name="System Bold" size="13.0" />
@@ -84,7 +84,7 @@
         </VBox>
         <VBox layoutX="73.0" layoutY="161.0" prefHeight="329.0" prefWidth="305.0">
             <children>
-                <Label text="First Name">
+                <Label text="First Name" underline="true">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
@@ -103,7 +103,7 @@
                   <Font name="Serif Bold Italic" size="14.0" />
                </font>
                 </Label>
-                <Label text="Last Name">
+                <Label text="Last Name" underline="true">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
@@ -121,7 +121,7 @@
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font></Label>
-                <Label text="Phone Number">
+                <Label text="Phone Number" underline="true">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
@@ -139,7 +139,7 @@
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font></Label>
-                <Label text="Username">
+                <Label text="Username" underline="true">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
@@ -157,7 +157,7 @@
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font></Label>
-                <Label layoutX="13.0" layoutY="285.0" text="User type">
+                <Label layoutX="13.0" layoutY="285.0" text="User type" underline="true">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
