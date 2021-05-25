@@ -64,7 +64,7 @@ public class LoginViewController {
         User temp = (User) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
-           loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+         loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
             viewHandler.showFrontPage(userLoggedIn);
         }
     }
@@ -85,12 +85,12 @@ public class LoginViewController {
 
     public void onRegisterAction() {
         loginViewModel.defaultFields();
-      //  loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+       loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.openRegisterView();
     }
 
     public void frontPageButton() {
-     //   loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.showFrontPage(null);
     }
 

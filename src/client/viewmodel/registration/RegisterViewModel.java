@@ -95,7 +95,9 @@ public class RegisterViewModel {
     }
 
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
+        if (support.getPropertyChangeListeners(name) == null) {
+            support.addPropertyChangeListener(name, listener);
+        }
     }
 
     public StringProperty phoneNumberProperty() {
