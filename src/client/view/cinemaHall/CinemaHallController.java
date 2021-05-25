@@ -48,7 +48,6 @@ public class CinemaHallController {
     public void init(CinemaHallViewModel cinemaHallViewModel,
                      ViewHandler viewHandler, User user, Show show) {
         this.cinemaHallViewModel = cinemaHallViewModel;
-        cinemaHallViewModel.resetColors();
         this.viewHandler = viewHandler;
         this.user = user;
 
@@ -146,7 +145,7 @@ public class CinemaHallController {
                     if (rectangle.getFill() == Color.RED) {
                         rectangle.setFill(Color.GREEN);
                         myBooking[finalRow][finalCol] =
-                                "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "enabled";
+                                "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " enabled";
                         cinemaHallViewModel.addDisabledSeat(rectangle.getId());
                     } else if (rectangle.getFill() == Color.GREEN) {
 
@@ -155,7 +154,7 @@ public class CinemaHallController {
                         // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
 
                         myBooking[finalRow][finalCol] =
-                                "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + "disabled";
+                                "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " disabled";
                     }
                     updateSeats();
                 });
@@ -177,6 +176,7 @@ public class CinemaHallController {
     }
 
     public void frontPageButton() {
+        cinemaHallViewModel.resetColors();
         viewHandler.showFrontPage(user);
     }
 
