@@ -45,9 +45,9 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getMoviesRequest() {
         System.out.println("Get Movies Requested");
-        ArrayList<Show> shows = userDAO.getAllMovies();
-        Request response = new Request(EventType.GETMOVIES_RESULT, shows);
-        System.out.println("Movies size" + shows.size());
+        ShowsList shows = userDAO.getAllMovies();
+
+        System.out.println("Movies size" + shows.getSize());
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
 
@@ -69,7 +69,7 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getEditMovieRequest(Show show) {
         System.out.println("EditMovie requested");
-        ArrayList<Show> shows = userDAO.editMovie(show);
+       ShowsList shows = userDAO.editMovie(show);
         return new Request(EventType.EDITMOVIE_RESULT, shows);
     }
 
@@ -86,13 +86,13 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getAddMovieRequest(Show show) {
         System.out.println("AddMovie requested");
-        ArrayList<Show> shows = userDAO.addMovie(show);
+        ShowsList shows = userDAO.addMovie(show);
         return new Request(EventType.ADDMOVIE_RESULT, shows);
     }
 
     public Request getRemoveMovieRequest(Show show) {
         System.out.println("RemoveMovie requested");
-        ArrayList<Show> shows = userDAO.removeMovie(show);
+        ShowsList shows = userDAO.removeMovie(show);
         return new Request(EventType.REMOVEMOVIE_RESULT, shows);
     }
 

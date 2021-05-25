@@ -13,15 +13,15 @@ public interface UserDAO {
 
     UserList getAllUsers();
 
-    ArrayList<Show> getAllMovies();
+    ShowsList getAllMovies();
 
     User saveNewInfo(User user);
 
-    ArrayList<Show> addMovie(Show show);
+    ShowsList addMovie(Show show);
 
-    ArrayList<Show> removeMovie(Show show);
+    ShowsList removeMovie(Show show);
 
-    ArrayList<Show> editMovie(Show show);
+    ShowsList editMovie(Show show);
 
     ArrayList<String> getReservations(Show show);
 
