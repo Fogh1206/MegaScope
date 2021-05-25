@@ -28,15 +28,14 @@ public class RegisterViewModel {
         confirmPasswordLabel = new SimpleStringProperty();
         phoneNumber = new SimpleStringProperty();
 
-        userModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
-                this::onRegister);
-        userModel.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
-                this::onRegisterFail);
+        userModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(), this::onRegister);
+        userModel.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(), this::onRegisterFail);
     }
 
 
     public void onRegister(PropertyChangeEvent event) {
         Platform.runLater(() -> {
+            registrationMessageLabel.setValue("Successful");
             support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null,
                     event.getNewValue());
         });
@@ -70,7 +69,6 @@ public class RegisterViewModel {
                     confirmPasswordLabel.setValue("The password don't match");
                 } else {
                     registerUserAccount();
-
                 }
             }
         }
@@ -82,7 +80,7 @@ public class RegisterViewModel {
         defaultFields();
     }
 
-    public void clearMessages(){
+    public void clearMessages() {
         registrationMessageLabel.setValue("");
     }
 

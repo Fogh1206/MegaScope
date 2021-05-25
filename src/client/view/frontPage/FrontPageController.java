@@ -5,19 +5,15 @@ import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
 
 import shared.Show;
 import shared.User;
@@ -90,14 +86,11 @@ public class FrontPageController {
         });
 
         datePick.valueProperty().bindBidirectional(userFrontPageViewModel.getValue());
-
         searchBar.textProperty().bindBidirectional(userFrontPageViewModel.searchPhraseProperty());
-        movieTableView.itemsProperty()
-                .bindBidirectional(userFrontPageViewModel.observableItemsProperty());
+        movieTableView.itemsProperty().bindBidirectional(userFrontPageViewModel.observableItemsProperty());
 
         movieTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        dateOfReleaseCol
-                .setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
+        dateOfReleaseCol.setCellValueFactory(new PropertyValueFactory<>("dateOfRelease"));
         mainactorsCol.setCellValueFactory(new PropertyValueFactory<>("mainActors"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("timeOfShow"));
@@ -170,33 +163,16 @@ public class FrontPageController {
     @FXML
     public void onDatePick() {
         System.out.println("Calling the datePicker");
-
-            LocalDate date = datePick.getValue();
-            System.err.println("Selected date: " + date);
-            userFrontPageViewModel.getMovies();
-
-
-//        System.out.println("Bad");
-//        System.out.println( datePick.onActionProperty().toString(););
-//
-//        datePick.setOnAction(new EventHandler() {
-//            public void handle(Event t) {
-//                LocalDate date = datePick.getValue();
-//                if (datePick.getValue() != null) {
-//                    userFrontPageViewModel.getMovies();
-//                    System.err.println("Selected date not null: " + date);
-//                }
-//                System.err.println("Selected date: " + date);
-//            }
-//        });
-
+        LocalDate date = datePick.getValue();
+        System.err.println("Selected date: " + date);
+        userFrontPageViewModel.getMovies();
     }
 
     public void onBookMovieButton() {
 
         if (userLoggedIn != null && selectedShow != null) {
             viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
-        } else if(userLoggedIn.getUserType().equals("ADMIN")){
+        } else if (userLoggedIn.getUserType().equals("ADMIN")) {
             viewHandler.openCinemaHallPage(userLoggedIn, null);
         }
 
@@ -220,8 +196,7 @@ public class FrontPageController {
 
     public void onEditMovie() {
 
-        if (selectedShow!=null)
-        {
+        if (selectedShow != null) {
 
             viewHandler.openEditMovie(selectedShow);
         }
@@ -248,12 +223,9 @@ public class FrontPageController {
         viewHandler.showUserReservationPage(userLoggedIn);
     }
 
-
-
     public void onEnter(KeyEvent keyEvent) {
 
-        if (keyEvent.getCode().equals(KeyCode.ENTER))
-        {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             Search();
         }
     }

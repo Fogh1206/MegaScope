@@ -16,14 +16,17 @@ public class SeatList implements Serializable {
     }
 
     public void set(Seat seat){
+        System.out.println("Mijarmo");
         int j=0;
         for (int i = 0; i < seats.size(); i++) {
             if (seats.get(i).getId()==seat.getId()){
                 seats.set(i,seat) ;
+                System.out.println("Setting");
                 j++;
             }
         }
-        if (j>0){
+        if (j==0){
+            System.out.println("Adding");
             add(seat);
         }
     }

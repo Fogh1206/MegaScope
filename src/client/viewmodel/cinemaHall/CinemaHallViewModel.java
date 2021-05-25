@@ -50,7 +50,6 @@ public class CinemaHallViewModel {
         System.out.println(seatList.size() + "Hi");
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
-
                 colors.get(seatList.get(i).getId()).setValue(Color.RED);
             } else {
                 colors.get(seatList.get(i).getId()).setValue(Color.GREEN);
@@ -73,7 +72,7 @@ public class CinemaHallViewModel {
         System.out.println(list.toString() + " Hello Guys");
         for (int i = 0; i < list.size(); i++) {
             if (colorIdMap.get(list.get(i)) != null) {
-                colors.get(Integer.valueOf(list.get(i))).setValue(Color.RED);
+                colors.get(Integer.parseInt(list.get(i))).setValue(Color.RED);
 
             }
         }
@@ -85,7 +84,7 @@ public class CinemaHallViewModel {
 
     public Property<Paint> getFillProperty(String id) {
         try {
-            return colors.get(Integer.valueOf(id));
+            return colors.get(Integer.parseInt(id));
         } catch (ArrayIndexOutOfBoundsException e) {
             // Not in list
             return null;
@@ -105,7 +104,9 @@ public class CinemaHallViewModel {
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Called confirm seats");
+            System.out.println(changedSeatList.size());
             model.adminConfirmSeats(changedSeatList);
+
         } else {
             model.confirmSeats(reservationList);
         }
@@ -125,6 +126,7 @@ public class CinemaHallViewModel {
             seatList.get(Integer.parseInt(str) - 1).setDisabled(true);
             changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
         }
+        System.out.println(changedSeatList.size()+"size of new list");
     }
 
     public void getAdminSeats() {
