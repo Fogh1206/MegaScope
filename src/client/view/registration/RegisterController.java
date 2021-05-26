@@ -31,6 +31,14 @@ public class RegisterController
   private RegisterViewModel registerViewModel;
   private ViewHandler viewHandler;
 
+
+  /**
+   * Method which is used to setup the controller.
+   * Used as an constructor except it has to be called manually.
+   * @param registerViewModel
+   * @param viewHandler
+   */
+
   public void init(RegisterViewModel registerViewModel, ViewHandler viewHandler)
   {
     this.registerViewModel = registerViewModel;
@@ -68,6 +76,10 @@ public class RegisterController
             this::onRegister);
   }
 
+  /**
+   * Method to run when the server signals that it has successfully registered the user in the database.
+   * @param event
+   */
   private void onRegister(PropertyChangeEvent event)
   {
     User user = (User) event.getNewValue();
@@ -77,11 +89,20 @@ public class RegisterController
     }
   }
 
+
+  /**
+   * Method connected to FXML, so when button Register is pressed this method will run.
+   * Registration process of the inputted Strings will be processed in @{@link RegisterViewModel}.
+   */
   public void registerButtonOnAction()
   {
     registerViewModel.register();
   }
 
+  /**
+   * Method connected to FXML, so when button Close is pressed this method will run.
+   * defaultFields() sets all TextField to be empty.
+   */
   public void closeOnAction()
   {
     registerViewModel.defaultFields();

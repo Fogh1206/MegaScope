@@ -37,6 +37,14 @@ public class LoginViewController {
     private ViewHandler viewHandler;
 
 
+    /**
+     *
+     * Method which is used to setup the controller.
+     * Used as an constructor except it has to be called manually.
+     * @param loginViewModel
+     * @param viewHandler
+     * @param userLoggedIn
+     */
     public void init(LoginViewModel loginViewModel, ViewHandler viewHandler, User userLoggedIn) {
         this.userLoggedIn = userLoggedIn;
         this.loginViewModel = loginViewModel;
@@ -59,6 +67,12 @@ public class LoginViewController {
         loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
     }
 
+    /**
+     * Method which happens when a user has logged in, server calls this method.
+     * Method changes the scene of the stage to the frontpage.
+     * @param event is the user which will be logged into the frontpage.
+     */
+
     private void newLogin(PropertyChangeEvent event) {
         System.out.println("Karamba");
         User temp = (User) event.getNewValue();
@@ -70,6 +84,10 @@ public class LoginViewController {
     }
 
 
+    /**
+     * Method connected to FXML, so when button Login is pressed this method will run.
+     * Method calls the login method from correspondent ViewModel and then sets the TextField objects content to nothing
+     */
     public void onLoginAction() {
         if (userLoggedIn != null) {
         }
@@ -78,17 +96,28 @@ public class LoginViewController {
     }
 
 
+    /**
+     * Method connected to FXML, so when button Cancel is pressed this method will run.
+     */
     public void onCancelAction() {
         viewHandler.close();
         System.out.println("Cancelled");
     }
 
+    /**
+     * Method connected to FXML, so when button Register is pressed this method will run.
+     * Method changes scene from the Login scene to the Register scene.
+     */
     public void onRegisterAction() {
         loginViewModel.defaultFields();
-       loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+        loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.openRegisterView();
     }
 
+    /**
+     * Method connected to FXML, so when button FrontPage is pressed this method will run.
+     * Method changed scene from Login scene to FrontPage scene
+     */
     public void frontPageButton() {
         loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
         viewHandler.showFrontPage(null);

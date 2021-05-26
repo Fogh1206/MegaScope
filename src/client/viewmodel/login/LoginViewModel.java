@@ -23,6 +23,11 @@ public class LoginViewModel {
 
     private UserModel model;
 
+    /**
+     * Constructor for LoginViewModel
+     * @param userModel
+     */
+
     public LoginViewModel(UserModel userModel) {
         this.model = userModel;
         username = new SimpleStringProperty();
@@ -35,12 +40,20 @@ public class LoginViewModel {
 
     }
 
+    /**
+     * Method occurring if the server detects the user is banned in the database.
+     * @param event
+     */
     private void onLoginFail(PropertyChangeEvent event) {
         Platform.runLater(() -> {
             loginResult.setValue("You are banned by the administration");
         });
     }
 
+    /**
+     * Method occurring if the server successfully detects the user in the system and grants access.
+     * @param event
+     */
     private void onLogin(PropertyChangeEvent event) {
         User result = (User) event.getNewValue();
 
@@ -59,20 +72,30 @@ public class LoginViewModel {
         }
     }
 
+    /**
+     * Method to clear label showing login progress.
+     */
     public void clearMessages() {
         loginResult.set("");
     }
 
 
+    /**
+     * Method to empty login input fields.
+     */
     public void defaultFields() {
         username.set("");
         password.set("");
         loginResult.set("");
     }
 
+    /**
+     * Method used by {@link client.view.login.LoginViewController} which links with a method in {@link client.model.Model}
+     */
     public void login() {
         model.login(username.get(), password.get());
     }
+
 
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
@@ -82,14 +105,26 @@ public class LoginViewModel {
         support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
     }
 
+    /**
+     * Return String from the FXML username TextField
+     * @return
+     */
     public StringProperty usernameProperty() {
         return username;
     }
 
+    /**
+     * Return String from the FXML password TextField
+     * @return
+     */
     public StringProperty passwordProperty() {
         return password;
     }
 
+    /**
+     * Return String from the FXML login result TextField
+     * @return
+     */
     public StringProperty loginResultProperty() {
         return loginResult;
     }

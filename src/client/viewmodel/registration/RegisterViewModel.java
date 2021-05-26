@@ -16,6 +16,10 @@ public class RegisterViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
 
+    /**
+     * Constructor for RegisterViewModel
+     * @param userModel
+     */
     public RegisterViewModel(UserModel userModel) {
         this.model = userModel;
         support = new PropertyChangeSupport(this);
@@ -33,6 +37,10 @@ public class RegisterViewModel {
     }
 
 
+    /**
+     * Method to run when user successfully registers into the database.
+     * @param event
+     */
     public void onRegister(PropertyChangeEvent event) {
         Platform.runLater(() -> {
             registrationMessageLabel.setValue("Successful");
@@ -41,13 +49,21 @@ public class RegisterViewModel {
         });
     }
 
-
+    /**
+     * Method to run when user is unsuccessfully registers because the username is already in use.
+     * @param event
+     */
     public void onRegisterFail(PropertyChangeEvent event) {
         Platform.runLater(() -> {
             registrationMessageLabel.setValue("Username already exist");
         });
     }
 
+    /**
+     * Method to return a boolean, if user inputs are valid then return true. Otherwise return false.
+     * @param user
+     * @return
+     */
     public boolean isValidInput(User user){
         if(user.getFirstName() == null || "".equals(user.getFirstName())){
             return false;
@@ -92,6 +108,9 @@ public class RegisterViewModel {
         }
     }
 
+    /**
+     * Send user details to model with the method register(User user).
+     */
     public void registerUserAccount() {
         model.register(new User(firstName.get(), lastName.get(), username.get(),
                 password.get(), phoneNumber.get(), "USER", false));
