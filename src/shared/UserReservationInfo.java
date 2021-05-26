@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class UserReservationInfo implements Serializable {
 
+
+
     private int reservation_id;
     private String name;
     private String time_show;
