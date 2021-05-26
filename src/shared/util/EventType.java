@@ -3,6 +3,8 @@ package shared.util;
 public enum EventType {
     LOGIN_RESULT,
     LOGIN_REQUEST,
+    LOGINFAIL_RESULT,
+    LOGINFAIL_REQUEST,
     REGISTER_REQUEST,
     REGISTER_RESULT,
     REGISTERFAIL_RESULT,

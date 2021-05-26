@@ -442,7 +442,11 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException throwable) {
+            if (throwable.toString().contains("duplicate key")) {
+                System.out.println("Login fail");
+            }
             throwable.printStackTrace();
+            return null;
         }
         return user;
     }

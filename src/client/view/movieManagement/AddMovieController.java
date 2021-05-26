@@ -36,6 +36,12 @@ public class AddMovieController {
     private ViewHandler viewHandler;
     private User userloggedin;
 
+    /**
+     * @param addMovieViewModel
+     * @param viewHandler
+     * @param user
+     * Method for initializing the fields and for binding the values.
+     */
     public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler, User user) {
         this.addMovieViewModel = addMovieViewModel;
         this.viewHandler = viewHandler;
@@ -59,11 +65,17 @@ public class AddMovieController {
     }
 
 
+    /**
+     * Void method for the button "onSave" functionality
+     */
     public void onSave() {
         addMovieViewModel.addMovie();
         Platform.runLater(this::onCancel);
     }
 
+    /**
+     * Void method for closing the stage
+     */
     public void onCancel() {
         addMovieViewModel.defaultFields();
         viewHandler.closeStage();

@@ -24,6 +24,7 @@ public class UserFrontPageViewModel {
     private ObjectProperty<LocalDate> datePicked;
     private Property<ObservableList<Show>> observableItems;
 
+
     public UserFrontPageViewModel(UserModel userModel) {
         this.model = userModel;
         support = new PropertyChangeSupport(this);
@@ -35,6 +36,7 @@ public class UserFrontPageViewModel {
 
         userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
     }
+
 
 
     public void onGetMovies(PropertyChangeEvent event) {
