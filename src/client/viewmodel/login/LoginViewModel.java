@@ -31,6 +31,14 @@ public class LoginViewModel {
         support = new PropertyChangeSupport(this);
 
         model.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::onLogin);
+        model.addPropertyChangeListener(EventType.LOGINFAIL_RESULT.toString(), this::onLoginFail);
+
+    }
+
+    private void onLoginFail(PropertyChangeEvent event) {
+        Platform.runLater(() -> {
+            loginResult.setValue("You are banned by the administration");
+        });
     }
 
     private void onLogin(PropertyChangeEvent event) {

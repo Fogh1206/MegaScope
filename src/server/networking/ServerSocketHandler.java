@@ -53,7 +53,12 @@ public class ServerSocketHandler implements Runnable {
     public Request getLoginRequest(User user) {
         System.out.println("Login requested");
         User temp = userDAO.validateUser(user.getId(), user.getUsername(), user.getPassword());
-        return new Request(EventType.LOGIN_RESULT, temp);
+        if (temp!=null)
+        {
+
+            return new Request(EventType.LOGIN_RESULT, temp);
+        }
+        else return new Request(EventType.LOGINFAIL_RESULT,temp);
     }
 
     public Request getRegisterRequest(User user) {

@@ -22,6 +22,11 @@ public class EditMovieViewModel {
 
     private UserModel model;
 
+    /**
+     *
+     * @param model
+     * One-argument constructor for initializing the fields
+     */
     public EditMovieViewModel(UserModel model){
         this.model = model;
         movieName       = new SimpleStringProperty();
@@ -69,6 +74,12 @@ public class EditMovieViewModel {
         return editMovieLabel;
     }
 
+    /**
+     *
+     * @param id
+     * @param show_id
+     * Void method for editing the movie
+     */
     public void editMovie(int id, int show_id){
 
     if (movieName.get().isEmpty() || dateOfRelease.get().isEmpty() || dateOfShow.get().equals(null) || mainActors.get().isEmpty() || description.get().isEmpty() || hourTimeOfShow.get().isEmpty() || minuteTimeOfShow.get().isEmpty())

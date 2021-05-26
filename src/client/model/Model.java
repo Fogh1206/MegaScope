@@ -61,12 +61,21 @@ public class Model implements UserModel {
                 this::onGetUserResult);
         client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(),
                 this::onGetUserResult);
+        client.addPropertyChangeListener(EventType.LOGINFAIL_RESULT.toString(),
+                this::onLoginFail);
     }
 
     private void onGetAdminSeats(PropertyChangeEvent event) {
         System.out.println("Model: onGetAdminSeats");
         SeatList list = (SeatList) event.getNewValue();
         support.firePropertyChange(EventType.GETADMINSEATS_RESULT.toString(), null, list);
+    }
+
+    private void onLoginFail(PropertyChangeEvent event) {
+
+        System.out.println("Model: onLoginFail");
+        support.firePropertyChange(EventType.LOGINFAIL_RESULT.toString(), null, null);
+
     }
 
 

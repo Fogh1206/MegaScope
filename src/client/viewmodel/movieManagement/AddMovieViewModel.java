@@ -29,6 +29,10 @@ public class AddMovieViewModel {
 
     private UserModel model;
 
+    /**
+     * @param model
+     * One-argument constructor for initializing the fields
+     */
     public AddMovieViewModel(UserModel model){
         support = new PropertyChangeSupport(this);
         this.model = model;
@@ -83,6 +87,10 @@ public class AddMovieViewModel {
         return dateOfShow;
     }
 
+
+    /**
+     * Void method for adding the movie
+     */
     public void addMovie(){
 
         if (movieName.get()==null || movieName.get().equals(""))
@@ -132,7 +140,9 @@ public class AddMovieViewModel {
 
     }
 
-
+    /**
+     * Void method for clearing the text-fields
+     */
     public void defaultFields()
     {
         movieName.setValue("");
@@ -145,6 +155,12 @@ public class AddMovieViewModel {
         addMovieLabel.setValue("");
 
     }
+
+    /**
+     * @param name
+     * @param listener
+     * Void method for adding the listener
+     */
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
