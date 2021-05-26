@@ -41,6 +41,9 @@ public class CinemaHallViewModel {
         model.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(), this::onGetAdminSeats);
     }
 
+    /**
+     * Method to update colors for seat-rectangles for admin with information from server
+     */
     private void onGetAdminSeats(PropertyChangeEvent event) {
         reservationList = new ReservationList();
         seatList = (SeatList) event.getNewValue();
@@ -54,6 +57,9 @@ public class CinemaHallViewModel {
         }
     }
 
+    /**
+     * Method to reset colors for seat-rectangles
+     */
     public void resetColors() {
         for (int i = 1; i < 26; i++) {
 
@@ -61,6 +67,9 @@ public class CinemaHallViewModel {
         }
     }
 
+    /**
+     * Method to update colors for seat-rectangles for non-admin with information from server
+     */
     private void onGetReservations(PropertyChangeEvent event) {
         reservationList = new ReservationList();
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
@@ -71,6 +80,9 @@ public class CinemaHallViewModel {
         }
     }
 
+    /**
+     * Method that through model and client send request for ReservationList for specific show
+     */
     public void getReservation(Show show) {
         model.getReservation(show);
     }
@@ -88,11 +100,17 @@ public class CinemaHallViewModel {
         return null;
     }
 
+    /**
+     * Method to update disableProperty for seat-rectangles
+     */
     public void disableProperty(String id) {
         Property<Paint> objectProperty = getFillProperty(id);
         objectProperty.setValue(Color.GRAY);
     }
 
+    /**
+     * Method to confirm User Reservations
+     */
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Called confirm seats");
@@ -104,16 +122,25 @@ public class CinemaHallViewModel {
 
     }
 
+    /**
+     * Method for adding a Reservation to reservationList
+     */
     public void addReservation(Reservation reservation) {
         reservationList.add(reservation);
     }
 
+    /**
+     * Method to update changedSeatList with changes about seats about disability
+     */
     public void addDisabledSeat(String str) {
         seatList.get(Integer.parseInt(str) - 1).setDisabled(!seatList.get(Integer.parseInt(str) - 1).isDisabled());
         changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
         System.out.println(changedSeatList.size()+"size of new list");
     }
 
+    /**
+     * Method that through model and client send request for ReservationList for admin
+     */
     public void getAdminSeats() {
         model.getAdminSeats();
     }

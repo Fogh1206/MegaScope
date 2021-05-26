@@ -1,10 +1,8 @@
 package client.view.cinemaHall;
 
-import client.model.UserModel;
 import client.view.ViewHandler;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -13,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -22,7 +20,7 @@ import shared.Show;
 import shared.User;
 
 import java.io.File;
-import java.util.ArrayList;
+
 import java.util.Optional;
 
 public class CinemaHallController {
@@ -45,11 +43,19 @@ public class CinemaHallController {
 
     String[][] myBooking = new String[4][6];
 
+
+    /**
+     * Initializing Method for the GUI components
+     *
+     * @param cinemaHallViewModel CinemaHallViewModel instance for ViewModel
+     * @param viewHandler         object used handling the views
+     * @param userLoggedIn        object used temporarily storing the User
+     */
     public void init(CinemaHallViewModel cinemaHallViewModel,
-                     ViewHandler viewHandler, User user, Show show) {
+                     ViewHandler viewHandler, User userLoggedIn, Show show) {
         this.cinemaHallViewModel = cinemaHallViewModel;
         this.viewHandler = viewHandler;
-        this.user = user;
+        this.user = userLoggedIn;
 
         gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
         if (user.getUserType().equals("ADMIN")) {
@@ -70,11 +76,15 @@ public class CinemaHallController {
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
-
-        System.out.println(gridPaneSeats.getChildren().size());
-
     }
 
+    /**
+     * Method for creating the GUI components
+     *
+     * @param rectangle Rectangle object for representating the seats
+     * @param row       row of new rectangle object
+     * @param column    column of new rectangle object
+     */
     private void createRectangle(Rectangle rectangle, int row, int column) {
         rectangle.setStyle("-fx-stroke: Black; -fx-stroke-width: 5;");
         rectangle.setWidth(70);
@@ -87,6 +97,10 @@ public class CinemaHallController {
         gridPaneSeats.add(rectangle, column, row);
     }
 
+
+    /**
+     * Method for initializing the fields and for binding the values in case of Non-Admin use.
+     */
     private void openForUser() {
         movieTitleLabel.setText(show.getName());
         cinemaHallViewModel.getReservation(show);
@@ -126,6 +140,9 @@ public class CinemaHallController {
         }
     }
 
+    /**
+     * Method for initializing the fields and for binding the values in case of Admin use.
+     */
     private void openForAdmin() {
         System.out.println("Call for admin");
         cinemaHallViewModel.getAdminSeats();
@@ -163,7 +180,9 @@ public class CinemaHallController {
         }
     }
 
-
+    /**
+     * Method from FX onAction that updates the textField textSeats
+     */
     private void updateSeats() {
         textSeats.clear();
 
@@ -175,11 +194,17 @@ public class CinemaHallController {
         }
     }
 
+    /**
+     * Method from FX onAction that changes the view to Front Page and reset the colors of seat-rectangles
+     */
     public void frontPageButton() {
         cinemaHallViewModel.resetColors();
         viewHandler.showFrontPage(user);
     }
 
+    /**
+     * Method from FX onAction that open the confirmation Alert and call a confirmSeats Method on cinemaHallViewModel
+     */
     public void confirmSeats() {
 
         if (user.getUserType().equals("ADMIN")) {

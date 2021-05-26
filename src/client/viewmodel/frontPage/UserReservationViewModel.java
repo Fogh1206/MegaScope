@@ -37,7 +37,7 @@ public class UserReservationViewModel
     this.model = model;
     support = new PropertyChangeSupport(this);
     movieTitle = new SimpleStringProperty();
-    time = new SimpleStringProperty();
+    this.time = new SimpleStringProperty();
     date = new SimpleStringProperty();
     seat = new SimpleStringProperty();
     observableItems = new SimpleListProperty<>();
@@ -55,8 +55,7 @@ public class UserReservationViewModel
   {
     ArrayList<UserReservationInfo> userReservationInfos = (ArrayList<UserReservationInfo>) event
         .getNewValue();
-    ObservableList<UserReservationInfo> observableList = FXCollections
-        .observableArrayList();
+    ObservableList<UserReservationInfo> observableList = FXCollections.observableArrayList();
     observableList.addAll(userReservationInfos);
     observableItems.setValue(observableList);
   }
@@ -67,8 +66,7 @@ public class UserReservationViewModel
    * @param name
    * @param listener
    */
-  public void addPropertyChangeListener(String name,
-      PropertyChangeListener listener)
+  public void addPropertyChangeListener(String name,PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(name, listener);
   }
@@ -100,8 +98,6 @@ public class UserReservationViewModel
    */
   public void cancelReservation(UserReservationInfo userReservationInfo)
   {
-
     model.cancelReservation(userReservationInfo);
-
   }
 }
