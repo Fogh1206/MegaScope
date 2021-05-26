@@ -22,6 +22,10 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.Optional;
 
+/**
+ * A class to control the frontpage GUI
+ */
+
 public class FrontPageController {
 
     @FXML
@@ -34,17 +38,14 @@ public class FrontPageController {
     private Label UsernameLabel;
     @FXML
     private Button loginButton;
-
     @FXML
     private Button myShowsButton;
     @FXML
     private Button manageUsersButton;
     @FXML
     private Button bookButton;
-
     @FXML
     private HBox adminContainer;
-
     @FXML
     private TableView<Show> movieTableView;
     @FXML
@@ -67,6 +68,12 @@ public class FrontPageController {
     private Show selectedShow;
     private User userLoggedIn;
 
+    /**
+     * Initialising front page controller
+     * @param frontPage
+     * @param viewHandler
+     * @param userLoggedIn
+     */
     public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler, User userLoggedIn) {
         System.out.println("Init");
         this.viewHandler = viewHandler;
@@ -137,6 +144,10 @@ public class FrontPageController {
         }
     }
 
+    /**
+     * Method opens the login page if the user is not logged in. If the user is
+     * logged in it will logout.
+     */
     public void onLoginButton() {
         if (userLoggedIn != null) {
             viewHandler.showFrontPage(null);
@@ -145,6 +156,9 @@ public class FrontPageController {
         }
     }
 
+    /**
+     * Method opens user profile if the user is logged in.
+     */
     @FXML
     public void goToMyProfile() {
         if (userLoggedIn != null) {
@@ -154,11 +168,17 @@ public class FrontPageController {
         }
     }
 
+    /**
+     * Searching for movies
+     */
     public void Search() {
         System.out.println(searchBar.getText());
         userFrontPageViewModel.getMovies();
     }
 
+    /**
+     * Method for showing movies for the chosen date
+     */
     @FXML
     public void onDatePick() {
         System.out.println("Calling the datePicker");
@@ -167,6 +187,9 @@ public class FrontPageController {
         userFrontPageViewModel.getMovies();
     }
 
+    /**
+     * Opens cinemahall page for users
+     */
     public void onBookMovieButton() {
         if (userLoggedIn != null && selectedShow != null) {
             viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
@@ -175,6 +198,9 @@ public class FrontPageController {
         }
     }
 
+    /**
+     *
+     */
     public void setSelected() {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
@@ -183,20 +209,32 @@ public class FrontPageController {
         }
     }
 
+    /**
+     *  Method opens manage users if admin is logged in
+     */
     public void onManageUsers() {
         viewHandler.openAdminUsersPage(userLoggedIn);
     }
 
+    /**
+     * Method opens add movie page if admin is logged in
+     */
     public void onAddMovie() {
         viewHandler.openAddMovieView(userLoggedIn);
     }
 
+    /**
+     * Method opens edit movie page if admin is logged in
+     */
     public void onEditMovie() {
         if (selectedShow != null) {
             viewHandler.openEditMovie(selectedShow);
         }
     }
 
+    /**
+     * Method opens an alert box and removes movie from the front page.
+     */
     public void onRemoveMovie() {
         if (selectedShow != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -214,10 +252,17 @@ public class FrontPageController {
         }
     }
 
+    /**
+     * Method opens User reservation page if the user is logged in
+     */
     public void onMyShowsButton() {
         viewHandler.showUserReservationPage(userLoggedIn);
     }
 
+    /***
+     * The enter key will execute the search method
+     * @param keyEvent
+     */
     public void onEnter(KeyEvent keyEvent) {
 
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
