@@ -24,11 +24,7 @@ public class UserFrontPageViewModel {
     private ObjectProperty<LocalDate> datePicked;
     private Property<ObservableList<Show>> observableItems;
 
-    /**
-     *One-argument constructor
-     * @param userModel
-     *
-     */
+
     public UserFrontPageViewModel(UserModel userModel) {
         this.model = userModel;
         support = new PropertyChangeSupport(this);
@@ -42,9 +38,7 @@ public class UserFrontPageViewModel {
     }
 
 
-    /**
-     * @param event
-     */
+
     public void onGetMovies(PropertyChangeEvent event) {
         System.out.println("On get movies");
         ObservableList<Show> observableList = FXCollections.observableArrayList();
