@@ -14,10 +14,18 @@ import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 
+/**
+ * A class to control user profile GUI
+ */
 public class UserProfileController {
+
+    /**
+     * Instance field
+     */
     private ViewHandler viewHandler;
     private UserProfileViewModel userProfileViewModel;
     private User userLoggedIn;
+
 
     @FXML
     private Label userCurrentFirstNameLabel;
@@ -54,7 +62,12 @@ public class UserProfileController {
     @FXML
     private Label usernameLabel;
 
-
+    /**
+     * Initialising UserProfileController
+     * @param userProfileViewModel
+     * @param viewHandler
+     * @param userLoggedIn
+     */
     public void init(UserProfileViewModel userProfileViewModel, ViewHandler viewHandler, User userLoggedIn) {
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
@@ -96,6 +109,10 @@ public class UserProfileController {
         userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
     }
 
+    /**
+     *  Method saves information and updates changes to the user
+     * @param event
+     */
     private void newSavedInfo(PropertyChangeEvent event) {
         System.out.println("hello");
         User temp = (User) event.getNewValue();
@@ -106,11 +123,17 @@ public class UserProfileController {
         }
     }
 
+    /**
+     * Method saves changes to the account
+     */
     public void saveButtonOnAction() {
         userProfileViewModel.clearMessages();
         userProfileViewModel.saveAccount(userLoggedIn);
     }
 
+    /**
+     * Method opens frontpage
+     */
     public void closeOnAction() {
         viewHandler.showFrontPage(userLoggedIn);
     }

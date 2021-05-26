@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class UserReservationViewModel {
 
+    /**
+     * Instance field
+     */
     private UserModel model;
     private PropertyChangeSupport support;
     private Reservation selectedReservation;
@@ -23,8 +26,10 @@ public class UserReservationViewModel {
 
     private SimpleListProperty<UserReservationInfo> observableItems;
 
-
-
+    /**
+     * Constructor
+     * @param model
+     */
     public UserReservationViewModel(UserModel model){
         this.model = model;
         support = new PropertyChangeSupport(this);
@@ -37,6 +42,10 @@ public class UserReservationViewModel {
         model.addPropertyChangeListener("Reservations result", this::onGetReservations);
     }
 
+    /**
+     *
+     * @param event
+     */
     public void onGetReservations(PropertyChangeEvent event){
         ArrayList<UserReservationInfo> userReservationInfos = (ArrayList<UserReservationInfo>) event.getNewValue();
         ObservableList<UserReservationInfo> observableList = FXCollections.observableArrayList();
