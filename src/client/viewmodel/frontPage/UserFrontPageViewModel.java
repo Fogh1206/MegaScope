@@ -13,133 +13,233 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 
+public class UserFrontPageViewModel
+{
 
-public class UserFrontPageViewModel {
+  /**
+   * Instance field
+   */
+  private UserModel model;
+  private PropertyChangeSupport support;
+  private Show selectedShow;
+  private StringProperty username, button;
+  private StringProperty searchPhrase;
+  private ObjectProperty<LocalDate> datePicked;
+  private Property<ObservableList<Show>> observableItems;
 
-    private UserModel model;
-    private PropertyChangeSupport support;
-    private Show selectedShow;
-    private StringProperty username, button;
-    private StringProperty searchPhrase;
-    private ObjectProperty<LocalDate> datePicked;
-    private Property<ObservableList<Show>> observableItems;
+  /**
+   * Constructor
+   *
+   * @param userModel
+   */
+  public UserFrontPageViewModel(UserModel userModel)
+  {
+    this.model = userModel;
+    support = new PropertyChangeSupport(this);
+    username = new SimpleStringProperty();
+    datePicked = new SimpleObjectProperty();
+    button = new SimpleStringProperty();
+    searchPhrase = new SimpleStringProperty();
+    observableItems = new SimpleListProperty<>();
 
+    userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
+  }
 
-    public UserFrontPageViewModel(UserModel userModel) {
-        this.model = userModel;
-        support = new PropertyChangeSupport(this);
-        username = new SimpleStringProperty();
-        datePicked = new SimpleObjectProperty();
-        button = new SimpleStringProperty();
-        searchPhrase = new SimpleStringProperty();
-        observableItems = new SimpleListProperty<>();
+  /**
+   * Void method for viewing shows on frontpage, which updates after a search
+   * or new date pick
+   *
+   * @param event
+   */
+  public void onGetMovies(PropertyChangeEvent event)
+  {
+    System.out.println("On get movies");
+    ObservableList<Show> observableList = FXCollections.observableArrayList();
+    ShowsList showsList = (ShowsList) event.getNewValue();
+    for (int i = 0; i < showsList.getSize(); i++)
+    {
 
-        userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
+      observableList.add(showsList.get(i));
     }
-
-
-
-    public void onGetMovies(PropertyChangeEvent event) {
-        System.out.println("On get movies");
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
-        ShowsList showsList=(ShowsList) event.getNewValue();
-        for (int i = 0; i < showsList.getSize(); i++) {
-
-            observableList.add(showsList.get(i));
-        }
-
-
-        observableItems.setValue(observableList);
-        if (!(searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))) {
-            System.out.println("Not null searchbar");
-            System.out.println("725" + datePicked.get());
-            search();
-        }
-        if (!(datePicked.get() == null)) {
-            System.out.println("Not null date");
-            System.out.println("726" + datePicked.get());
-            onDatePick();
-        }
+    observableItems.setValue(observableList);
+    if (!(searchPhrase.getValue() == null || searchPhrase.getValue()
+        .equals("")))
+    {
+      System.out.println("Not null searchbar");
+      System.out.println("725" + datePicked.get());
+      search();
     }
-
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
+    if (!(datePicked.get() == null))
+    {
+      System.out.println("Not null date");
+      System.out.println("726" + datePicked.get());
+      onDatePick();
     }
+  }
 
+  /**
+   * Void method for adding the listener
+   *
+   * @param name
+   * @param listener
+   */
+  public void addPropertyChangeListener(String name,
+      PropertyChangeListener listener)
+  {
+    support.addPropertyChangeListener(name, listener);
+  }
 
-    public void getMovies() {
-        model.getMovies();
+  /**
+   * Method gets movies
+   */
+  public void getMovies()
+  {
+    model.getMovies();
+  }
+
+  /**
+   * Method deactivates when the program is closed
+   */
+  public void close()
+  {
+    model.deactivateClient();
+  }
+
+  /**
+   * Void method for searching for shows
+   */
+  public void search()
+  {
+    ObservableList<Show> observableList = FXCollections.observableArrayList();
+    for (int i = 0; i < observableItems.getValue().size(); i++)
+    {
+      if (observableItems.getValue().get(i).getName()
+          .contains(searchPhrase.getValue()))
+      {
+        observableList.add(observableItems.getValue().get(i));
+      }
     }
+    observableItems.setValue(observableList);
+    searchPhrase.setValue(null);
+  }
 
-
-    public void close() {
-        model.deactivateClient();
+  /**
+   * Void method for viewing shows on specific dates
+   */
+  public void onDatePick()
+  {
+    ObservableList<Show> observableList = FXCollections.observableArrayList();
+    for (int i = 0; i < observableItems.getValue().size(); i++)
+    {
+      if (datePicked.get().toString()
+          .equals(observableItems.getValue().get(i).getDateOfShow()))
+      {
+        observableList.add(observableItems.getValue().get(i));
+      }
     }
+    observableItems.setValue(observableList);
+    datePicked.set(null);
+  }
 
-    public void search() {
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
-        for (int i = 0; i < observableItems.getValue().size(); i++) {
-            if (observableItems.getValue().get(i).getName().contains(searchPhrase.getValue())) {
-                observableList.add(observableItems.getValue().get(i));
-            }
-        }
-        observableItems.setValue(observableList);
-        searchPhrase.setValue(null);
+  /**
+   * Get value
+   *
+   * @return datepicked
+   */
+  public ObjectProperty<LocalDate> getValue()
+  {
+    return datePicked;
+  }
+
+  /**
+   * Gets selected movie
+   *
+   * @return selectedShow
+   */
+  public Show getSelectedMovie()
+  {
+    return selectedShow;
+  }
+
+  /**
+   * Void method adds movies to show
+   *
+   * @param show
+   */
+  public void addMovie(Show show)
+  {
+    model.addMovie(show);
+  }
+
+  /**
+   * Void method for editing movies
+   *
+   * @param show
+   */
+  public void editMovie(Show show)
+  {
+    model.editMovie(show);
+  }
+
+  /**
+   * Void method removes movie
+   */
+  public void removeMovie()
+  {
+    if (selectedShow != null)
+    {
+      model.removeMovie(selectedShow);
     }
+  }
 
-    public void onDatePick() {
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
-        for (int i = 0; i < observableItems.getValue().size(); i++) {
-            if (datePicked.get().toString().equals(observableItems.getValue().get(i).getDateOfShow())) {
-                observableList.add(observableItems.getValue().get(i));
-            }
-        }
-        observableItems.setValue(observableList);
-        datePicked.set(null);
-    }
+  /**
+   * Void method for selectedMovie
+   *
+   * @param show
+   */
+  public void selectedMovie(Show show)
+  {
+    selectedShow = show;
+  }
 
-    public ObjectProperty<LocalDate> getValue() {
-        return datePicked;
-    }
+  /**
+   * String property for username
+   *
+   * @return username
+   */
+  public StringProperty usernameProperty()
+  {
+    return username;
+  }
 
-    public Show getSelectedMovie() {
-        return selectedShow;
-    }
+  /**
+   * String property for button
+   *
+   * @return button
+   */
+  public StringProperty buttonProperty()
+  {
+    return button;
+  }
 
-    public void addMovie(Show show) {
-        model.addMovie(show);
-    }
+  /**
+   * String property for a search phrase
+   *
+   * @return seachPhrase
+   */
+  public StringProperty searchPhraseProperty()
+  {
+    return searchPhrase;
+  }
 
-    public void editMovie(Show show) {
-        model.editMovie(show);
-    }
-
-    public void removeMovie() {
-        if (selectedShow != null) {
-            model.removeMovie(selectedShow);
-        }
-    }
-
-    public void selectedMovie(Show show) {
-        selectedShow = show;
-    }
-
-    public StringProperty usernameProperty() {
-        return username;
-    }
-
-    public StringProperty buttonProperty() {
-        return button;
-    }
-
-
-    public Property<ObservableList<Show>> observableItemsProperty() {
-        return observableItems;
-    }
-
-    public StringProperty searchPhraseProperty() {
-        return searchPhrase;
-    }
-
+  /**
+   * Method for returning observableItems for the ObservableList
+   *
+   * @return observableItems
+   */
+  public Property<ObservableList<Show>> observableItemsProperty()
+  {
+    return observableItems;
+  }
 
 }

@@ -55,7 +55,7 @@ public class FrontPageController
   private User userLoggedIn;
 
   /**
-   * Initialising FrontPageController
+   * Initialising FrontPageController fields and binding values
    *
    * @param frontPage
    * @param viewHandler

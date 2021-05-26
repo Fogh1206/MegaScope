@@ -43,7 +43,7 @@ public class UserReservationController
     private UserReservationInfo selectedInfo;
 
     /**
-     * Initialising UserReservationController
+     * Initialising UserReservationController fields and binding values
      *
      * @param userReservationViewModel
      * @param viewHandler

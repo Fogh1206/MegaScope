@@ -63,7 +63,7 @@ public class UserProfileController {
     private Label usernameLabel;
 
     /**
-     * Initialising UserProfileController
+     * Initialising UserProfileController fields and binding values
      * @param userProfileViewModel
      * @param viewHandler
      * @param userLoggedIn
