@@ -313,7 +313,7 @@ public class ManageUserDAO implements UserDAO {
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new UserReservationInfo( resultSet.getInt(1), resultSet.getString(2),
+                temp = new UserReservationInfo(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), resultSet.getString(4),
                         resultSet.getInt(5));
                 userReservations.add(temp);
@@ -385,39 +385,41 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public User registerUser(User user) {
         try (Connection connection = controller.getConnection()) {
+
+            User temp;
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User temp = new User(resultSet.getInt(1),
+                temp = new User(resultSet.getInt(1),
                         resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7),
                         resultSet.getBoolean(8));
                 user = temp;
-                System.out.println(temp.getId());
+
             }
             statement = connection.prepareStatement(
-                    "INSERT INTO users(firstname,lastname,username,password,phonenumber,type)   VALUES (?, ?, ?, ?,?,?);");
 
-            statement.setString(1, user.getFirstName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, user.getUsername());
-            statement.setString(4, user.getPassword());
-            statement.setString(5, user.getPhoneNumber());
-            statement.setString(6, "USER");
+                    "INSERT INTO public.users(firstname,lastname,username,password,phonenumber,type) VALUES ('"+ user.getFirstName() + "','" + user.getLastName()
+                            + "','" + user.getUsername() + "','" + user.getPassword() + "','" + user.getPhoneNumber() + "','" + "USER" + "')");
+
             statement.executeUpdate();
 
             statement.close();
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
-                System.out.println("MAMA");
+
             }
             throwable.printStackTrace();
             return null;
         }
         return user;
+
+
     }
+
+
 
     @Override
     public User validateUser(int id, String username, String password) {
