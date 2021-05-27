@@ -409,7 +409,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
-
+                System.out.println("Register Fail");
             }
             throwable.printStackTrace();
             return null;
