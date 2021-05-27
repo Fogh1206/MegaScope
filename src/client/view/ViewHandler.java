@@ -10,15 +10,10 @@ import client.view.movieManagement.EditMovieController;
 import client.view.registration.RegisterController;
 import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.Show;
@@ -37,8 +32,6 @@ public class ViewHandler {
         this.vmf = vmf;
         mainStage = new Stage();
 
-//    Image image = new Image("file:logo.png");
-//    mainStage.getIcons().add(image);
     }
 
     public void start() {
@@ -61,20 +54,19 @@ public class ViewHandler {
                     ctrl.onLoginAction();
                 }
             });
-
             mainStage.setScene(loginScene);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void openAddMovieView(User user) {
+    public void openAddMovieView() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/addMovie.fxml"));
         try {
             Parent root = loader.load();
             AddMovieController ctrl = loader.getController();
-            ctrl.init(vmf.getAddMovieViewModel(), this, user);
+            ctrl.init(vmf.getAddMovieViewModel(), this);
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Add new movie");
@@ -87,10 +79,6 @@ public class ViewHandler {
         }
     }
 
-    public void closeStage() {
-        stage.close();
-
-    }
 
     public void openEditMovie(Show show) {
         FXMLLoader loader = new FXMLLoader();
@@ -209,6 +197,10 @@ public class ViewHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeStage() {
+        stage.close();
     }
 
     public void close() {

@@ -18,6 +18,7 @@ public class RegisterViewModel {
 
     /**
      * Constructor for RegisterViewModel
+     *
      * @param userModel
      */
     public RegisterViewModel(UserModel userModel) {
@@ -39,18 +40,19 @@ public class RegisterViewModel {
 
     /**
      * Method to run when user successfully registers into the database.
+     *
      * @param event
      */
     public void onRegister(PropertyChangeEvent event) {
         Platform.runLater(() -> {
             registrationMessageLabel.setValue("Successful");
-            support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null,
-                    event.getNewValue());
+            support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, event.getNewValue());
         });
     }
 
     /**
      * Method to run when user is unsuccessfully registers because the username is already in use.
+     *
      * @param event
      */
     public void onRegisterFail(PropertyChangeEvent event) {
@@ -61,21 +63,22 @@ public class RegisterViewModel {
 
     /**
      * Method to return a boolean, if user inputs are valid then return true. Otherwise return false.
+     *
      * @param user
      * @return
      */
-    public boolean isValidInput(User user){
-        if(user.getFirstName() == null || "".equals(user.getFirstName())){
+    public boolean isValidInput(User user) {
+        if (user.getFirstName() == null || "".equals(user.getFirstName())) {
             return false;
-        } else if(user.getLastName() == null || "".equals(user.getLastName())){
+        } else if (user.getLastName() == null || "".equals(user.getLastName())) {
             return false;
-        } else if(user.getUsername() == null || "".equals(user.getUsername())){
+        } else if (user.getUsername() == null || "".equals(user.getUsername())) {
             return false;
-        } else if(user.getPassword() == null || "".equals(user.getPassword())) {
+        } else if (user.getPassword() == null || "".equals(user.getPassword())) {
             return false;
-        } else if(user.getPassword().length() < 3 || user.getPassword().length() > 15){
+        } else if (user.getPassword().length() < 3 || user.getPassword().length() > 15) {
             return false;
-        } else if(user.getPhoneNumber() == null || "".equals(user.getPhoneNumber())){
+        } else if (user.getPhoneNumber() == null || "".equals(user.getPhoneNumber())) {
             return false;
         } else {
             return true;

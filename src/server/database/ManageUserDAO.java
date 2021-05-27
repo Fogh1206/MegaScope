@@ -444,12 +444,13 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement("SELECT password FROM public.users WHERE username='" + username + "'");
             ResultSet resultSet = statement.executeQuery();
-
+            System.out.println("Hi 1");
             while (resultSet.next()) {
                 if (resultSet.getString(1).equals(password)) {
                     statement = connection.prepareStatement(
                             "SELECT * FROM public.users WHERE username='" + username + "'");
                     resultSet = statement.executeQuery();
+                    System.out.println("Hi 2");
                     while (resultSet.next()) {
                         User temp = new User(resultSet.getInt(1),
                                 resultSet.getString(2), resultSet.getString(3),
@@ -457,6 +458,7 @@ public class ManageUserDAO implements UserDAO {
                                 resultSet.getString(6), resultSet.getString(7),
                                 resultSet.getBoolean(8));
                         user = temp;
+                        System.out.println("Hi 3");
                         System.out.println(temp);
                     }
                     return user;

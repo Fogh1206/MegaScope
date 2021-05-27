@@ -3,14 +3,10 @@ package client.view.movieManagement;
 import client.view.ViewHandler;
 import client.viewmodel.movieManagement.AddMovieViewModel;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import shared.Show;
-import shared.User;
-import shared.util.EventType;
 
-import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 
 public class AddMovieController {
@@ -34,18 +30,16 @@ public class AddMovieController {
 
     private AddMovieViewModel addMovieViewModel;
     private ViewHandler viewHandler;
-    private User userloggedin;
+
 
     /**
      * @param addMovieViewModel
-     * @param viewHandler
-     * @param user
-     * Method for initializing the fields and for binding the values.
+     * @param viewHandler       Method for initializing the fields and for binding the values.
      */
-    public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler, User user) {
+    public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler) {
         this.addMovieViewModel = addMovieViewModel;
         this.viewHandler = viewHandler;
-        userloggedin = user;
+
         movieNameTextField.textProperty().bindBidirectional(addMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(addMovieViewModel.dateOfReleaseProperty());
         mainActorsTextArea.textProperty().bindBidirectional(addMovieViewModel.mainActorsProperty());

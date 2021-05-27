@@ -45,7 +45,6 @@ public class CinemaHallController {
 
     String[][] myBooking = new String[4][6];
 
-
     /**
      * Initializing Method for the GUI components
      *
@@ -189,7 +188,6 @@ public class CinemaHallController {
      */
     private void updateSeats() {
         textSeats.clear();
-
         for (int i = 0; i < myBooking.length; i++) {
             for (int j = 0; j < myBooking[i].length; j++) {
                 if (myBooking[i][j] != null)
@@ -212,7 +210,6 @@ public class CinemaHallController {
      * Method calls the confirmSeats method from correspondent ViewModel and then sets the TextField objects content to nothing
      */
     public void confirmSeats() {
-
         if (user.getUserType().equals("ADMIN")) {
             if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

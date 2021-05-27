@@ -2,20 +2,14 @@ package client.view.login;
 
 import client.view.ViewHandler;
 import client.viewmodel.login.LoginViewModel;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import shared.User;
-
 import shared.util.EventType;
 
-import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 
@@ -38,9 +32,9 @@ public class LoginViewController {
 
 
     /**
-     *
      * Method which is used to setup the controller.
      * Used as an constructor except it has to be called manually.
+     *
      * @param loginViewModel
      * @param viewHandler
      * @param userLoggedIn
@@ -70,15 +64,16 @@ public class LoginViewController {
     /**
      * Method which happens when a user has logged in, server calls this method.
      * Method changes the scene of the stage to the frontpage.
+     *
      * @param event is the user which will be logged into the frontpage.
      */
 
     private void newLogin(PropertyChangeEvent event) {
-        System.out.println("Karamba");
+
         User temp = (User) event.getNewValue();
         if (temp != null) {
             userLoggedIn = temp;
-         loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
+            loginViewModel.removePropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
             viewHandler.showFrontPage(userLoggedIn);
         }
     }
@@ -89,10 +84,7 @@ public class LoginViewController {
      * Method calls the login method from correspondent ViewModel and then sets the TextField objects content to nothing
      */
     public void onLoginAction() {
-        if (userLoggedIn != null) {
-        }
         loginViewModel.login();
-        loginViewModel.defaultFields();
     }
 
 

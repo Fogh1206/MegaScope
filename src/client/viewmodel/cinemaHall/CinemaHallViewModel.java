@@ -44,7 +44,6 @@ public class CinemaHallViewModel {
     }
 
     private void onGetReservationsFail(PropertyChangeEvent event) {
-        System.out.println("Robo");
         Platform.runLater(() -> {
             reservationList = new ReservationList();
             ArrayList<String> list = (ArrayList<String>) event.getNewValue();
@@ -62,7 +61,6 @@ public class CinemaHallViewModel {
     private void onGetAdminSeats(PropertyChangeEvent event) {
         reservationList = new ReservationList();
         seatList = (SeatList) event.getNewValue();
-        System.out.println(seatList.size() + "Hi");
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
                 colorIdMap.get("" + seatList.get(i).getId()).setValue(Color.RED);
@@ -77,7 +75,6 @@ public class CinemaHallViewModel {
      */
     public void resetColors() {
         for (int i = 1; i < 26; i++) {
-
             colorIdMap.get("" + i).setValue(Color.GREEN);
         }
     }
@@ -90,8 +87,8 @@ public class CinemaHallViewModel {
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
 
         System.out.println(list.toString() + " Hello Guys");
-        for (int i = 0; i < list.size(); i++) {
-            colorIdMap.get(list.get(i)).setValue(Color.RED);
+        for (String s : list) {
+            colorIdMap.get(s).setValue(Color.RED);
         }
     }
 
@@ -106,7 +103,6 @@ public class CinemaHallViewModel {
         try {
             return colorIdMap.get("" + id);
         } catch (ArrayIndexOutOfBoundsException e) {
-            // Not in list
             return null;
         }
     }

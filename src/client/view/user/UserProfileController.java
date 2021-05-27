@@ -64,6 +64,7 @@ public class UserProfileController {
 
     /**
      * Initialising UserProfileController fields and binding values
+     *
      * @param userProfileViewModel
      * @param viewHandler
      * @param userLoggedIn
@@ -110,14 +111,13 @@ public class UserProfileController {
     }
 
     /**
-     *  Method saves information and updates changes to the user
+     * Method saves information and updates changes to the user
+     *
      * @param event
      */
     private void newSavedInfo(PropertyChangeEvent event) {
-        System.out.println("hello");
         User temp = (User) event.getNewValue();
         if (temp != null) {
-            System.out.println("Every " + temp);
             this.userLoggedIn = temp;
             userProfileViewModel.updateCurrentInfo(userLoggedIn);
         }

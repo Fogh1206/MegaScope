@@ -5,18 +5,16 @@ import java.util.ArrayList;
 
 public class UserReservationInfo implements Serializable {
 
-
-
     private int reservation_id;
     private String name;
     private String time_show;
     private String date_show;
     private int seat_id;
 
-    public UserReservationInfo(int reservation_id, String name, String time_show, String date_show, int seat_id){
-        this.reservation_id=reservation_id;
+    public UserReservationInfo(int reservation_id, String name, String time_show, String date_show, int seat_id) {
+        this.reservation_id = reservation_id;
         this.name = name;
-        this.time_show=time_show;
+        this.time_show = time_show;
         this.date_show = date_show;
         this.seat_id = seat_id;
     }

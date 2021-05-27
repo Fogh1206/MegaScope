@@ -12,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import shared.User;
 
-import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.Optional;
 
@@ -75,13 +74,6 @@ public class AdminUsersPageController {
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
-
-        adminViewModelUsers.addPropertyChangeListener("Update", this::update);
-    }
-
-    private void update(PropertyChangeEvent event) {
-        System.out.println("Update Users");
-        userTableView.setItems(adminViewModelUsers.getItems());
     }
 
     public void onBanAction() {

@@ -36,10 +36,11 @@ public class ServerSocketHandler implements Runnable {
         UserList users = userDAO.getAllUsers();
         return new Request(EventType.GETUSER_RESULT, users);
     }
+
     private Object changeUserStatus(User user) {
         System.out.println("Get Change user status");
         UserList users = userDAO.changeUserStatus(user);
-        return new Request(EventType.CHANGEUSERSTATUS_RESULT,users);
+        return new Request(EventType.CHANGEUSERSTATUS_RESULT, users);
     }
 
     public Request getMoviesRequest() {
@@ -53,12 +54,19 @@ public class ServerSocketHandler implements Runnable {
     public Request getLoginRequest(User user) {
         System.out.println("Login requested");
         User temp = userDAO.validateUser(user.getId(), user.getUsername(), user.getPassword());
-        if (temp!=null)
-        {
-
+        System.out.println(temp + "0123");
+        if (temp == null){
             return new Request(EventType.LOGIN_RESULT, temp);
         }
-        else return new Request(EventType.LOGINFAIL_RESULT,temp);
+        else {
+            if (!temp.getBanned()) {
+                return new Request(EventType.LOGIN_RESULT, temp);
+            }
+            else if (temp.getBanned()) {
+                return new Request(EventType.LOGINFAIL_RESULT, temp);
+            }
+        }
+        return null;
     }
 
     public Request getRegisterRequest(User user) {
@@ -73,7 +81,7 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getEditMovieRequest(Show show) {
         System.out.println("EditMovie requested");
-       ShowsList shows = userDAO.editMovie(show);
+        ShowsList shows = userDAO.editMovie(show);
         return new Request(EventType.EDITMOVIE_RESULT, shows);
     }
 
@@ -121,7 +129,7 @@ public class ServerSocketHandler implements Runnable {
         return new Request(EventType.GETUSERRESERVATIONS_RESULT, information);
     }
 
-    public Request cancelReservation(UserReservationInfo userReservationInfo){
+    public Request cancelReservation(UserReservationInfo userReservationInfo) {
         ArrayList<UserReservationInfo> updatedReservations = userDAO.cancelReservation(userReservationInfo);
         return new Request(EventType.REMOVERESERVATION_RESULT, updatedReservations);
     }
@@ -176,19 +184,20 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(getReserveMovieRequest((ReservationList) request.arg));
                         break;
                     case GETUSERRESERVATIONS_REQUEST:
-                        outToClient.writeObject(getUserReservations((User)request.arg));
+                        outToClient.writeObject(getUserReservations((User) request.arg));
                         break;
                     case REMOVERESERVATION_REQUEST:
-                        outToClient.writeObject(cancelReservation((UserReservationInfo)request.arg));
+                        outToClient.writeObject(cancelReservation((UserReservationInfo) request.arg));
                         break;
                     case ADMINBLOCKSEATS_REQUEST:
-                        outToClient.writeObject(adminConfirmSeats((SeatList)request.arg));
+                        outToClient.writeObject(adminConfirmSeats((SeatList) request.arg));
                         break;
-                    case GETADMINSEATS_REQUEST:;
+                    case GETADMINSEATS_REQUEST:
+                        ;
                         outToClient.writeObject(getAdminSeats());
                         break;
                     case CHANGEUSERSTATUS_REQUEST:
-                        outToClient.writeObject(changeUserStatus((User)request.arg));
+                        outToClient.writeObject(changeUserStatus((User) request.arg));
                         break;
                     case CLOSE_REQUEST:
                         System.out.println("Closing");
@@ -201,8 +210,6 @@ public class ServerSocketHandler implements Runnable {
             }
         }
     }
-
-
 
 
     /**

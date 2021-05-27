@@ -12,11 +12,11 @@ import shared.User;
 import shared.UserList;
 import shared.util.EventType;
 
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class AdminViewModelUsers {
     private UserModel userModel;
@@ -39,11 +39,10 @@ public class AdminViewModelUsers {
         selectedUser = null;
         banButton.setValue("Ban");
 
-        userModel.addPropertyChangeListener("Users Result", this::onGetUsers);
+        userModel.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(), this::onGetUsers);
     }
 
     private void onGetUsers(PropertyChangeEvent event) {
-        System.out.println("Kappa from VM");
         UserList users = (UserList) event.getNewValue();
 
         ObservableList<User> observableList = FXCollections.observableArrayList();
@@ -55,22 +54,16 @@ public class AdminViewModelUsers {
         items = FXCollections.observableArrayList(observableList);
     }
 
-
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
-
     public void search() {
-
         if (searchPhrase.getValue() == null || searchPhrase.getValue().equals("")) {
-
             getUsers();
         } else {
             ObservableList<User> observableList = FXCollections.observableArrayList();
             for (int i = 0; i < observableItems.getValue().size(); i++) {
-                System.out.println(observableItems.getValue().get(i).getUsername());
-
                 if (observableItems.getValue().get(i).getUsername().contains(searchPhrase.getValue())) {
                     observableList.add(observableItems.getValue().get(i));
                 }
@@ -93,7 +86,6 @@ public class AdminViewModelUsers {
                     selectedUser.getPassword(), selectedUser.getPhoneNumber(), selectedUser.getUserType(),
                     selectedUser.getBanned());
             userModel.changeUserStatus(user);
-
         }
     }
 
