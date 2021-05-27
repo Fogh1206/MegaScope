@@ -135,6 +135,7 @@ public class UserProfileController {
      * Method opens frontpage
      */
     public void closeOnAction() {
+        userProfileViewModel.removePropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
         viewHandler.showFrontPage(userLoggedIn);
     }
 }

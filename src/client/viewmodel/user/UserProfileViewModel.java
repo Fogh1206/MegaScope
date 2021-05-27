@@ -257,6 +257,10 @@ public class UserProfileViewModel {
         support.addPropertyChangeListener(name, listener);
     }
 
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+    }
+
     /**
      * Boolean method to check if the user is VIP
      *
