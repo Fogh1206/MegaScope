@@ -18,7 +18,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 
-public class AdminViewModelUsers {
+public class AdminUsersViewModel {
     private UserModel userModel;
     private PropertyChangeSupport support;
     private User selectedUser;
@@ -29,7 +29,7 @@ public class AdminViewModelUsers {
     private StringProperty banButton;
 
 
-    public AdminViewModelUsers(UserModel userModel) {
+    public AdminUsersViewModel(UserModel userModel) {
         this.userModel = userModel;
         support = new PropertyChangeSupport(this);
         observableItems = new SimpleListProperty<>();

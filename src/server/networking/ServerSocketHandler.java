@@ -46,15 +46,12 @@ public class ServerSocketHandler implements Runnable {
     public Request getMoviesRequest() {
         System.out.println("Get Movies Requested");
         ShowsList shows = userDAO.getAllMovies();
-
-        System.out.println("Movies size" + shows.getSize());
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
 
     public Request getLoginRequest(User user) {
         System.out.println("Login requested");
         User temp = userDAO.validateUser(user.getId(), user.getUsername(), user.getPassword());
-        System.out.println(temp + "0123");
         if (temp == null){
             return new Request(EventType.LOGIN_RESULT, temp);
         }
@@ -140,7 +137,7 @@ public class ServerSocketHandler implements Runnable {
         return new Request(EventType.ADMINBLOCKSEATS_RESULT, list);
     }
 
-    private Object getAdminSeats() {
+    private Request getAdminSeats() {
         System.out.println("GetAdminSeats Requested");
         SeatList list = userDAO.getAdminSeats();
         return new Request(EventType.GETADMINSEATS_RESULT, list);
@@ -193,7 +190,6 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(adminConfirmSeats((SeatList) request.arg));
                         break;
                     case GETADMINSEATS_REQUEST:
-                        ;
                         outToClient.writeObject(getAdminSeats());
                         break;
                     case CHANGEUSERSTATUS_REQUEST:

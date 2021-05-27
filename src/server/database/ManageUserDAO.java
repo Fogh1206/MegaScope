@@ -1,7 +1,6 @@
 package server.database;
 
 import shared.*;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,7 +8,6 @@ public class ManageUserDAO implements UserDAO {
 
     private Controller controller;
     private static ManageUserDAO instance;
-    private Connection connection;
 
     private ManageUserDAO() {
         try {
@@ -44,7 +42,6 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public ShowsList getAllMovies() {
         ShowsList showList = new ShowsList();
-
         try (Connection connection = controller.getConnection()) {
             getMovieList(showList, connection);
         } catch (SQLException e) {
@@ -58,7 +55,6 @@ public class ManageUserDAO implements UserDAO {
 
         ShowsList showList = new ShowsList();
         PreparedStatement statement;
-
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement(
                     "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" +
@@ -169,11 +165,10 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public ReservationList reserveMovie(ReservationList list) {
-
         ReservationList reservations = new ReservationList();
-
         PreparedStatement statement = null;
         Reservation temp;
+
         try (Connection connection = controller.getConnection()) {
 
             for (int i = 0; i < list.size(); i++) {
@@ -192,14 +187,12 @@ public class ManageUserDAO implements UserDAO {
                 temp = new Reservation(resultSet.getInt(1),
                         resultSet.getInt(4), resultSet.getInt(3),
                         resultSet.getInt(2));
-                System.out.println(temp);
                 reservations.add(temp);
             }
             statement.close();
             return reservations;
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
-                System.out.println("MAMAM");
                 reservations.setFailed(true);
                 try (Connection connection = controller.getConnection()) {
 
@@ -241,15 +234,10 @@ public class ManageUserDAO implements UserDAO {
                         "SELECT * FROM users WHERE id = " + resultSet.getInt(1));
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
-                    user = new User(
-                            resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4),
-                            resultSet.getString(5),
-                            resultSet.getString(6),
-                            resultSet.getString(7),
-                            resultSet.getBoolean(8));
+                    user = new User(resultSet.getInt(1), resultSet.getString(2),
+                            resultSet.getString(3), resultSet.getString(4),
+                            resultSet.getString(5), resultSet.getString(6),
+                            resultSet.getString(7), resultSet.getBoolean(8));
                 }
             }
             statement.close();
@@ -263,7 +251,6 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
-
         return null;
     }
 
@@ -326,13 +313,9 @@ public class ManageUserDAO implements UserDAO {
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new UserReservationInfo(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getInt(5)
-                );
+                temp = new UserReservationInfo( resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4),
+                        resultSet.getInt(5));
                 userReservations.add(temp);
             }
             statement.close();
@@ -370,7 +353,6 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public UserList changeUserStatus(User user) {
         UserList users = new UserList();
-        System.out.println("Shout from dao" + user.getUserType());
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
@@ -444,13 +426,13 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement("SELECT password FROM public.users WHERE username='" + username + "'");
             ResultSet resultSet = statement.executeQuery();
-            System.out.println("Hi 1");
+
             while (resultSet.next()) {
                 if (resultSet.getString(1).equals(password)) {
                     statement = connection.prepareStatement(
                             "SELECT * FROM public.users WHERE username='" + username + "'");
                     resultSet = statement.executeQuery();
-                    System.out.println("Hi 2");
+
                     while (resultSet.next()) {
                         User temp = new User(resultSet.getInt(1),
                                 resultSet.getString(2), resultSet.getString(3),
@@ -458,8 +440,6 @@ public class ManageUserDAO implements UserDAO {
                                 resultSet.getString(6), resultSet.getString(7),
                                 resultSet.getBoolean(8));
                         user = temp;
-                        System.out.println("Hi 3");
-                        System.out.println(temp);
                     }
                     return user;
                 }
@@ -478,7 +458,6 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public User saveNewInfo(User user) {
         User temp = null;
-        System.out.println("Shout from dao" + user.getUserType());
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
@@ -487,7 +466,6 @@ public class ManageUserDAO implements UserDAO {
                             + "' where id=" + user.getId() + "");
 
             statement.executeUpdate();
-            System.out.println("Empty" + user.getUsername() + "               " + user.getBanned());
             statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE id='" + user.getId() + "'");
             ResultSet resultSet = statement.executeQuery();
@@ -507,6 +485,5 @@ public class ManageUserDAO implements UserDAO {
             }
             return null;
         }
-
     }
 }
