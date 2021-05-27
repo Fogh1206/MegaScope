@@ -25,6 +25,8 @@ import java.util.Optional;
 
 public class CinemaHallController {
     @FXML
+    private Label failLabel;
+    @FXML
     private Rectangle greenToGrey;
     @FXML
     public GridPane gridPaneSeats;
@@ -76,6 +78,8 @@ public class CinemaHallController {
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
+
+        failLabel.textProperty().bindBidirectional(cinemaHallViewModel.getFailLabelProperty());
     }
 
     /**
@@ -195,7 +199,8 @@ public class CinemaHallController {
     }
 
     /**
-     * Method from FX onAction that changes the view to Front Page and reset the colors of seat-rectangles
+     * Method connected to FXML, so when button BackToTheFrontPage is pressed this method will run.
+     * Method changes scene from to the Front Page scene.
      */
     public void frontPageButton() {
         cinemaHallViewModel.resetColors();
@@ -203,7 +208,8 @@ public class CinemaHallController {
     }
 
     /**
-     * Method from FX onAction that open the confirmation Alert and call a confirmSeats Method on cinemaHallViewModel
+     * Method connected to FXML, so when button Confirm Seat is pressed this method will run.
+     * Method calls the confirmSeats method from correspondent ViewModel and then sets the TextField objects content to nothing
      */
     public void confirmSeats() {
 

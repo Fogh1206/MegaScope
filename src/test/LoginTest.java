@@ -30,6 +30,5 @@ public class LoginTest {
         assertEquals(null, user);
     }
 
-    @Test
 
 }

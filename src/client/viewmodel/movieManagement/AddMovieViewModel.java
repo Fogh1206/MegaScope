@@ -44,14 +44,7 @@ public class AddMovieViewModel {
         minuteTimeOfShow= new SimpleStringProperty();
         dateOfShow      = new SimpleObjectProperty<>();
         addMovieLabel=new SimpleStringProperty();
-
-
-
-
     }
-
-
-
 
     public StringProperty movieNameProperty(){
         return movieName;

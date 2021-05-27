@@ -43,7 +43,7 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public ShowsList getAllMovies() {
-        ShowsList showList =new ShowsList();
+        ShowsList showList = new ShowsList();
 
         try (Connection connection = controller.getConnection()) {
             getMovieList(showList, connection);
@@ -96,7 +96,7 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public ShowsList editMovie(Show show) {
-        ShowsList showList =new ShowsList();
+        ShowsList showList = new ShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.movies SET name='" + show.getName() + "',dateofrelease='" +
@@ -149,8 +149,6 @@ public class ManageUserDAO implements UserDAO {
             System.out.println(strings.size());
 
             if (show != null) {
-                System.out.println(show.getShow_id() + "----------Show ID");
-                System.out.println(show.getMovie_id() + "----------Movie ID");
                 statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
                         show.getShow_id() + "'");
 
@@ -176,7 +174,6 @@ public class ManageUserDAO implements UserDAO {
 
         PreparedStatement statement = null;
         Reservation temp;
-
         try (Connection connection = controller.getConnection()) {
 
             for (int i = 0; i < list.size(); i++) {
@@ -188,7 +185,6 @@ public class ManageUserDAO implements UserDAO {
 
                 statement.executeUpdate();
             }
-            statement.close();
             statement = connection.prepareStatement(
                     "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
             ResultSet resultSet = statement.executeQuery();
@@ -199,11 +195,37 @@ public class ManageUserDAO implements UserDAO {
                 System.out.println(temp);
                 reservations.add(temp);
             }
+            statement.close();
             return reservations;
         } catch (SQLException throwable) {
+            if (throwable.toString().contains("duplicate key")) {
+                System.out.println("MAMAM");
+                reservations.setFailed(true);
+                try (Connection connection = controller.getConnection()) {
+
+                    statement = connection.prepareStatement(
+                            "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        temp = new Reservation(resultSet.getInt(1),
+                                resultSet.getInt(4), resultSet.getInt(3),
+                                resultSet.getInt(2));
+                        System.out.println(temp);
+                        reservations.add(temp);
+                    }
+                    statement.close();
+                    return reservations;
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+            }
             throwable.printStackTrace();
+            System.out.println(reservations.isFailed());
+            return reservations;
         }
-        return null;
+
+
     }
 
     @Override

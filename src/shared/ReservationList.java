@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 public class ReservationList implements Serializable {
 
+    private boolean failed;
     private ArrayList<Reservation> reservations;
 
     public ReservationList(){
+        this.failed = false;
         reservations = new ArrayList<>();
     }
 
@@ -27,4 +29,11 @@ public class ReservationList implements Serializable {
         return reservations.size();
     }
 
+    public boolean isFailed() {
+        return failed;
+    }
+
+    public void setFailed(boolean failed) {
+        this.failed = failed;
+    }
 }

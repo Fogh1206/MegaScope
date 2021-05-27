@@ -102,7 +102,13 @@ public class Model implements UserModel {
         for (int i = 0; i < reservations.size(); i++) {
             idList.add(String.valueOf(reservations.get(i).getSeat_no()));
         }
-        support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, idList);
+        if (!reservations.isFailed()) {
+            support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, idList);
+        }
+        else {
+            System.out.println(idList.size()+"failed");
+            support.firePropertyChange(EventType.GETRESERVATIONSFAIL_RESULT.toString(), null, idList);
+        }
     }
 
     private void onGetReservation(PropertyChangeEvent event) {
