@@ -1,6 +1,7 @@
 package server.database;
 
 import shared.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Receive the singleton instance of {@link ManageUserDAO}.
+     *
      * @return
      */
     public static synchronized ManageUserDAO getInstance() {
@@ -34,6 +36,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Receive all {@link Show} objects from database and add to the {@link ShowsList} object from parameter.
+     *
      * @param showList
      * @param connection
      * @throws SQLException
@@ -54,6 +57,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Return {@link ShowsList} object from retrieved {@link Show} objects received from database.
+     *
      * @return
      */
     @Override
@@ -91,6 +95,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Insert {@link Show} object from parameter into database and return all {@link Show} objects from database thereafter.
+     *
      * @param show
      * @return
      */
@@ -136,6 +141,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Alter {@link Show} object inside database and return all {@link Show} objects from database in a {@link ShowsList} object.
+     *
      * @param show
      * @return
      */
@@ -167,6 +173,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Remove {@link Show} from database which is equal to one in the database. Then return a {@link ShowsList} object of all {@link Show} objects from database.
+     *
      * @param show
      * @return
      */
@@ -178,7 +185,7 @@ public class ManageUserDAO implements UserDAO {
                     "Delete from show where id='" + show.getShow_id() + "'");
             statement.executeUpdate();
             System.out.println("Hi");
-            statement =connection.prepareStatement(
+            statement = connection.prepareStatement(
                     " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies.id)");
             System.out.println("Ho");
             statement.executeUpdate();
@@ -194,6 +201,7 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Return reservations which contained the {@link Show} object from the parameter.
+     *
      * @param show
      * @return
      */
@@ -467,7 +475,7 @@ public class ManageUserDAO implements UserDAO {
             }
             statement = connection.prepareStatement(
 
-                    "INSERT INTO public.users(firstname,lastname,username,password,phonenumber,type) VALUES ('"+ user.getFirstName() + "','" + user.getLastName()
+                    "INSERT INTO public.users(firstname,lastname,username,password,phonenumber,type) VALUES ('" + user.getFirstName() + "','" + user.getLastName()
                             + "','" + user.getUsername() + "','" + user.getPassword() + "','" + user.getPhoneNumber() + "','" + "USER" + "')");
 
             statement.executeUpdate();
@@ -484,7 +492,6 @@ public class ManageUserDAO implements UserDAO {
 
 
     }
-
 
 
     @Override

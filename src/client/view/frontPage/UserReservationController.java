@@ -81,6 +81,7 @@ public class UserReservationController {
     public void onCancelReservation() {
         if (selectedInfo != null) {
             userReservationViewModel.cancelReservation(selectedInfo);
+            selectedInfo=null;
         }
     }
 
