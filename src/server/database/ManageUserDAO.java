@@ -121,7 +121,7 @@ public class ManageUserDAO implements UserDAO {
         ShowsList showList = new ShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from movies where id='" + show.getMovie_id() + "'");
+                    "Delete from show where id='" + show.getShow_id() + "'");
             statement.executeUpdate();
             statement.close();
             getMovieList(showList, connection);
