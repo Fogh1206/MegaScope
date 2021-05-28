@@ -1,9 +1,8 @@
 package client.viewmodel.cinemaHall;
 
 import client.model.UserModel;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.application.Platform;
+import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import shared.*;
@@ -24,6 +23,7 @@ public class CinemaHallViewModel {
     private SeatList changedSeatList;
 
     private HashMap<String, ObjectProperty<Paint>> colorIdMap;
+    private StringProperty failLabelProperty;
 
     public CinemaHallViewModel(UserModel model) {
         this.model = model;
@@ -31,6 +31,7 @@ public class CinemaHallViewModel {
         support = new PropertyChangeSupport(this);
         reservationList = new ReservationList();
         changedSeatList = new SeatList();
+        failLabelProperty = new SimpleStringProperty();
 
         for (int i = 1; i < 26; i++) {
 
@@ -38,7 +39,20 @@ public class CinemaHallViewModel {
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
+        model.addPropertyChangeListener(EventType.GETRESERVATIONSFAIL_RESULT.toString(), this::onGetReservationsFail);
         model.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(), this::onGetAdminSeats);
+    }
+
+    private void onGetReservationsFail(PropertyChangeEvent event) {
+        Platform.runLater(() -> {
+            reservationList = new ReservationList();
+            ArrayList<String> list = (ArrayList<String>) event.getNewValue();
+            System.out.println(list.toString() + " Hello Guys");
+            for (int i = 0; i < list.size(); i++) {
+                colorIdMap.get(list.get(i)).setValue(Color.RED);
+            }
+            failLabelProperty.setValue("The seat is already taken");
+        });
     }
 
     /**
@@ -47,12 +61,11 @@ public class CinemaHallViewModel {
     private void onGetAdminSeats(PropertyChangeEvent event) {
         reservationList = new ReservationList();
         seatList = (SeatList) event.getNewValue();
-        System.out.println(seatList.size() + "Hi");
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
-                colorIdMap.get(""+seatList.get(i).getId()).setValue(Color.RED);
+                colorIdMap.get("" + seatList.get(i).getId()).setValue(Color.RED);
             } else {
-                colorIdMap.get(""+seatList.get(i).getId()).setValue(Color.GREEN);
+                colorIdMap.get("" + seatList.get(i).getId()).setValue(Color.GREEN);
             }
         }
     }
@@ -62,8 +75,7 @@ public class CinemaHallViewModel {
      */
     public void resetColors() {
         for (int i = 1; i < 26; i++) {
-
-            colorIdMap.get(""+i).setValue(Color.GREEN);
+            colorIdMap.get("" + i).setValue(Color.GREEN);
         }
     }
 
@@ -75,8 +87,8 @@ public class CinemaHallViewModel {
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
 
         System.out.println(list.toString() + " Hello Guys");
-        for (int i = 0; i < list.size(); i++) {
-                colorIdMap.get(list.get(i)).setValue(Color.RED);
+        for (String s : list) {
+            colorIdMap.get(s).setValue(Color.RED);
         }
     }
 
@@ -89,9 +101,8 @@ public class CinemaHallViewModel {
 
     public Property<Paint> getFillProperty(String id) {
         try {
-            return colorIdMap.get(""+id);
+            return colorIdMap.get("" + id);
         } catch (ArrayIndexOutOfBoundsException e) {
-            // Not in list
             return null;
         }
     }
@@ -135,7 +146,7 @@ public class CinemaHallViewModel {
     public void addDisabledSeat(String str) {
         seatList.get(Integer.parseInt(str) - 1).setDisabled(!seatList.get(Integer.parseInt(str) - 1).isDisabled());
         changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
-        System.out.println(changedSeatList.size()+"size of new list");
+        System.out.println(changedSeatList.size() + "size of new list");
     }
 
     /**
@@ -143,5 +154,9 @@ public class CinemaHallViewModel {
      */
     public void getAdminSeats() {
         model.getAdminSeats();
+    }
+
+    public Property<String> getFailLabelProperty() {
+        return failLabelProperty;
     }
 }

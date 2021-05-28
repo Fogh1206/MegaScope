@@ -2,7 +2,7 @@ package client.view.Admin;
 
 import client.view.ViewHandler;
 
-import client.viewmodel.admin.AdminViewModelUsers;
+import client.viewmodel.admin.AdminUsersViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,12 +12,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import shared.User;
 
-import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.Optional;
 
 public class AdminUsersPageController {
-    private AdminViewModelUsers adminViewModelUsers;
+    private AdminUsersViewModel adminUsersViewModel;
     private ViewHandler viewHandler;
     private User userLoggedIn;
 
@@ -46,26 +45,26 @@ public class AdminUsersPageController {
     /**
      * Initializing Method for the GUI components
      *
-     * @param adminViewModelUsers AdminViewModelUsers instance for ViewModel
+     * @param adminUsersViewModel AdminViewModelUsers instance for ViewModel
      * @param viewHandler         object used handling the views
      * @param userLoggedIn        object used temporarily storing the User
      */
-    public void init(AdminViewModelUsers adminViewModelUsers,
+    public void init(AdminUsersViewModel adminUsersViewModel,
                      ViewHandler viewHandler, User userLoggedIn) {
-        this.adminViewModelUsers = adminViewModelUsers;
+        this.adminUsersViewModel = adminUsersViewModel;
         this.viewHandler = viewHandler;
         this.userLoggedIn = userLoggedIn;
-        adminViewModelUsers.getUsers();
+        adminUsersViewModel.getUsers();
 
-        userTableView.itemsProperty().bindBidirectional(adminViewModelUsers.observableItemsProperty());
+        userTableView.itemsProperty().bindBidirectional(adminUsersViewModel.observableItemsProperty());
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         banCol.setCellValueFactory(new PropertyValueFactory<>("banned"));
 
-        searchBar.textProperty().bindBidirectional(adminViewModelUsers.searchPhraseProperty());
-        banButton.textProperty().bindBidirectional(adminViewModelUsers.banButtonProperty());
+        searchBar.textProperty().bindBidirectional(adminUsersViewModel.searchPhraseProperty());
+        banButton.textProperty().bindBidirectional(adminUsersViewModel.banButtonProperty());
         usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
 
         try {
@@ -75,13 +74,6 @@ public class AdminUsersPageController {
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
-
-        adminViewModelUsers.addPropertyChangeListener("Update", this::update);
-    }
-
-    private void update(PropertyChangeEvent event) {
-        System.out.println("Update Users");
-        userTableView.setItems(adminViewModelUsers.getItems());
     }
 
     public void onBanAction() {
@@ -100,7 +92,7 @@ public class AdminUsersPageController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                adminViewModelUsers.manageUsers();
+                adminUsersViewModel.manageUsers();
             }
         } else {
             System.out.println("no user");
@@ -112,7 +104,7 @@ public class AdminUsersPageController {
     }
 
     public void Search() {
-        adminViewModelUsers.search();
+        adminUsersViewModel.search();
     }
 
     public void selectUser() {
@@ -122,7 +114,7 @@ public class AdminUsersPageController {
             if (!userTableView.getItems().get(index).getBanned()) {
                 banButton.setText("Ban");
             } else banButton.setText("Unban");
-            adminViewModelUsers.selectedUserToModel(userTableView.getItems().get(index));
+            adminUsersViewModel.selectedUserToModel(userTableView.getItems().get(index));
         }
     }
 

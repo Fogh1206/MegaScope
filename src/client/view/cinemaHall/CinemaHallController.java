@@ -25,6 +25,8 @@ import java.util.Optional;
 
 public class CinemaHallController {
     @FXML
+    private Label failLabel;
+    @FXML
     private Rectangle greenToGrey;
     @FXML
     public GridPane gridPaneSeats;
@@ -42,7 +44,6 @@ public class CinemaHallController {
     private Show show;
 
     String[][] myBooking = new String[4][6];
-
 
     /**
      * Initializing Method for the GUI components
@@ -76,6 +77,8 @@ public class CinemaHallController {
         } catch (NullPointerException e) {
             System.out.println("image problem");
         }
+
+        failLabel.textProperty().bindBidirectional(cinemaHallViewModel.getFailLabelProperty());
     }
 
     /**
@@ -185,7 +188,6 @@ public class CinemaHallController {
      */
     private void updateSeats() {
         textSeats.clear();
-
         for (int i = 0; i < myBooking.length; i++) {
             for (int j = 0; j < myBooking[i].length; j++) {
                 if (myBooking[i][j] != null)
@@ -195,7 +197,8 @@ public class CinemaHallController {
     }
 
     /**
-     * Method from FX onAction that changes the view to Front Page and reset the colors of seat-rectangles
+     * Method connected to FXML, so when button BackToTheFrontPage is pressed this method will run.
+     * Method changes scene from to the Front Page scene.
      */
     public void frontPageButton() {
         cinemaHallViewModel.resetColors();
@@ -203,10 +206,10 @@ public class CinemaHallController {
     }
 
     /**
-     * Method from FX onAction that open the confirmation Alert and call a confirmSeats Method on cinemaHallViewModel
+     * Method connected to FXML, so when button Confirm Seat is pressed this method will run.
+     * Method calls the confirmSeats method from correspondent ViewModel and then sets the TextField objects content to nothing
      */
     public void confirmSeats() {
-
         if (user.getUserType().equals("ADMIN")) {
             if (textSeats.getText() != "" || !textSeats.getText().isEmpty() || !textSeats.getText().isBlank()) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -1,20 +1,18 @@
 package client.view.frontPage;
 
-import client.view.CustomTextFieldTableCell;
+
 import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserReservationViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import shared.User;
 import shared.UserReservationInfo;
 
 import java.io.File;
-import java.util.ArrayList;
+
 
 /**
  * A class to control user reservation GUI
@@ -26,8 +24,6 @@ public class UserReservationController {
      */
     @FXML
     private Label usernameLabel;
-
-
     @FXML
     private TableView<UserReservationInfo> reservationTableView;
     @FXML
@@ -100,8 +96,7 @@ public class UserReservationController {
      */
     public void setSelected() {
         if (reservationTableView.getSelectionModel().getSelectedItem() != null) {
-            int index = reservationTableView.getSelectionModel()
-                    .getSelectedIndex();
+            int index = reservationTableView.getSelectionModel().getSelectedIndex();
             selectedInfo = reservationTableView.getItems().get(index);
             System.out.println(selectedInfo);
         }

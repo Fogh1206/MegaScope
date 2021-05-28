@@ -9,9 +9,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-/**
- * Model class is the link between MVVM and the client connection to the server.
- */
 public class Model implements UserModel {
     private ClientImpl client;
     private User loggedUser;
@@ -25,51 +22,33 @@ public class Model implements UserModel {
         this.client = client;
         support = new PropertyChangeSupport(this);
 
-        client.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(),
-                this::onGetMoviesResult);
+        client.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(), this::onGetMoviesResult);
 
-        client.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(),
-                this::onLoginResult);
+        client.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::onLoginResult);
 
-        client.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(),
-                this::onRegisterResult);
-        client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(),
-                this::onFailedRegister);
+        client.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(), this::onRegisterResult);
+        client.addPropertyChangeListener(EventType.REGISTERFAIL_RESULT.toString(), this::onFailedRegister);
 
-        client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(),
-                this::onMoviesChanged);
-        client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(),
-                this::onMoviesChanged);
-        client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(),
-                this::onMoviesChanged);
+        client.addPropertyChangeListener(EventType.ADDMOVIE_RESULT.toString(), this::onMoviesChanged);
+        client.addPropertyChangeListener(EventType.EDITMOVIE_RESULT.toString(), this::onMoviesChanged);
+        client.addPropertyChangeListener(EventType.REMOVEMOVIE_RESULT.toString(), this::onMoviesChanged);
 
-        client.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(),
-                this::onGetReservation);
-        client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(),
-                this::onReserveShow);
+        client.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservation);
+        client.addPropertyChangeListener(EventType.RESERVEMOVIE_RESULT.toString(), this::onReserveShow);
 
-        client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(),
-                this::onNewInfo);
-        client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(),
-                this::onFailedSaveNewInfo);
+        client.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::onNewInfo);
+        client.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(), this::onFailedSaveNewInfo);
 
-        client.addPropertyChangeListener(EventType.GETUSERRESERVATIONS_RESULT.toString(),
-                this::onGetUserReservations);
-        client.addPropertyChangeListener(EventType.REMOVERESERVATION_RESULT.toString(),
-                this::onGetUserReservations);
+        client.addPropertyChangeListener(EventType.GETUSERRESERVATIONS_RESULT.toString(), this::onGetUserReservations);
+        client.addPropertyChangeListener(EventType.REMOVERESERVATION_RESULT.toString(), this::onGetUserReservations);
 
 
-        client.addPropertyChangeListener(EventType.ADMINBLOCKSEATS_RESULT.toString(),
-                this::onGetAdminSeats);
-        client.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(),
-                this::onGetAdminSeats);
+        client.addPropertyChangeListener(EventType.ADMINBLOCKSEATS_RESULT.toString(), this::onGetAdminSeats);
+        client.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(), this::onGetAdminSeats);
 
-        client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(),
-                this::onGetUserResult);
-        client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(),
-                this::onGetUserResult);
-        client.addPropertyChangeListener(EventType.LOGINFAIL_RESULT.toString(),
-                this::onLoginFail);
+        client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(), this::onGetUserResult);
+        client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(), this::onGetUserResult);
+        client.addPropertyChangeListener(EventType.LOGINFAIL_RESULT.toString(), this::onLoginFail);
     }
 
     /**
@@ -87,11 +66,10 @@ public class Model implements UserModel {
      * @param event
      */
     private void onLoginFail(PropertyChangeEvent event) {
-
         System.out.println("Model: onLoginFail");
         support.firePropertyChange(EventType.LOGINFAIL_RESULT.toString(), null, null);
-
     }
+
 
     /**
      * Event that tells {@link client.viewmodel.user.UserProfileViewModel} the username is already occupied.
@@ -132,7 +110,11 @@ public class Model implements UserModel {
         for (int i = 0; i < reservations.size(); i++) {
             idList.add(String.valueOf(reservations.get(i).getSeat_no()));
         }
-        support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, idList);
+        if (!reservations.isFailed()) {
+            support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, idList);
+        } else {
+            support.firePropertyChange(EventType.GETRESERVATIONSFAIL_RESULT.toString(), null, idList);
+        }
     }
 
     /**
@@ -163,7 +145,7 @@ public class Model implements UserModel {
     private void onGetUserResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetUserResult");
         UserList users = (UserList) event.getNewValue();
-        support.firePropertyChange("Users Result", null, users);
+        support.firePropertyChange(EventType.GETUSER_RESULT.toString(), null, users);
     }
 
     /**
@@ -218,7 +200,6 @@ public class Model implements UserModel {
 
     @Override
     public void addMovie(Show show) {
-        System.out.println("Added movie : " + show.toString());
         client.addMovie(show);
     }
 
@@ -250,8 +231,7 @@ public class Model implements UserModel {
 
     @Override
     public void login(String username, String password) {
-        loggedUser = new User(username, password);
-        client.login(loggedUser);
+        client.login(new User(username, password));
     }
 
     @Override

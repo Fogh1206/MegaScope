@@ -10,15 +10,10 @@ import client.view.movieManagement.EditMovieController;
 import client.view.registration.RegisterController;
 import client.view.user.UserProfileController;
 import client.viewmodel.ViewModelFactory;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.Show;
@@ -31,6 +26,7 @@ public class ViewHandler {
     private Stage mainStage;
     private ViewModelFactory vmf;
     private Stage stage;
+    private User userLoggedIn;
 
 
     /**
@@ -41,8 +37,6 @@ public class ViewHandler {
         this.vmf = vmf;
         mainStage = new Stage();
 
-//    Image image = new Image("file:logo.png");
-//    mainStage.getIcons().add(image);
     }
 
     /**
@@ -72,7 +66,6 @@ public class ViewHandler {
                     ctrl.onLoginAction();
                 }
             });
-
             mainStage.setScene(loginScene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +74,6 @@ public class ViewHandler {
 
     /**
      * Changes scene in stage to the content of the addMovie.fxml file.
-     * @param userLoggedIn
      */
     public void openAddMovieView(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
@@ -89,7 +81,7 @@ public class ViewHandler {
         try {
             Parent root = loader.load();
             AddMovieController ctrl = loader.getController();
-            ctrl.init(vmf.getAddMovieViewModel(), this, userLoggedIn);
+            ctrl.init(vmf.getAddMovieViewModel(), this);
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Add new movie");
@@ -102,13 +94,6 @@ public class ViewHandler {
         }
     }
 
-    /**
-     * Closes current stage user is in.
-     */
-    public void closeStage() {
-        stage.close();
-
-    }
 
     /**
      * Changes scene in stage to the content of the editMovie.fxml file.
@@ -255,6 +240,10 @@ public class ViewHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeStage() {
+        stage.close();
     }
 
     /**

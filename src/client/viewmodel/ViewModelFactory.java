@@ -1,7 +1,7 @@
 package client.viewmodel;
 
 import client.core.ModelFactory;
-import client.viewmodel.admin.AdminViewModelUsers;
+import client.viewmodel.admin.AdminUsersViewModel;
 import client.viewmodel.cinemaHall.CinemaHallViewModel;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 import client.viewmodel.frontPage.UserReservationViewModel;
@@ -19,7 +19,7 @@ public class ViewModelFactory {
     private UserFrontPageViewModel userFrontPageViewModel;
     private CinemaHallViewModel cinemaHallViewModel;
     private UserProfileViewModel userProfileViewModel;
-    private AdminViewModelUsers adminViewModelUsers;
+    private AdminUsersViewModel adminUsersViewModel;
     private AddMovieViewModel addMovieViewModel;
     private EditMovieViewModel editMovieViewModel;
     private UserReservationViewModel userReservationViewModel;
@@ -58,16 +58,17 @@ public class ViewModelFactory {
         }
         return editMovieViewModel;
     }
+
     /**
-     * Returns declared object of {@link AdminViewModelUsers} if existing otherwise creates and initializes a new one and returns new {@link AdminViewModelUsers} object.
+     * Returns declared object of {@link AdminUsersViewModel} if existing otherwise creates and initializes a new one and returns new {@link AdminUsersViewModel} object.
      * @return
      */
-    public AdminViewModelUsers getUsersVM() {
+    public AdminUsersViewModel getUsersVM() {
 
-        if (adminViewModelUsers == null) {
-            adminViewModelUsers = new AdminViewModelUsers(mf.getUserModel());
+        if (adminUsersViewModel == null) {
+            adminUsersViewModel = new AdminUsersViewModel(mf.getUserModel());
         }
-        return adminViewModelUsers;
+        return adminUsersViewModel;
     }
     /**
      * Returns declared object of {@link LoginViewModel} if existing otherwise creates and initializes a new one and returns new {@link LoginViewModel} object.

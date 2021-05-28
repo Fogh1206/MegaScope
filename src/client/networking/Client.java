@@ -8,7 +8,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Client implements ClientImpl {
     private PropertyChangeSupport support;
@@ -44,8 +43,7 @@ public class Client implements ClientImpl {
         try {
             outToServer.writeObject(request);
         } catch (IOException e) {
-            support.firePropertyChange(Result.toString(), null,
-                    "Connection lost, restart program");
+            support.firePropertyChange(Result.toString(), null, "Connection lost, restart program");
         }
     }
 
@@ -89,12 +87,14 @@ public class Client implements ClientImpl {
 
     @Override
     public void confirmSeats(ReservationList reservationList) {
+        System.out.println("Client: ConfirmSeats Req");
         Request req = new Request(EventType.RESERVEMOVIE_REQUEST, reservationList);
         sendToServer(req, EventType.RESERVEMOVIE_RESULT);
     }
 
     @Override
     public void cancelReservation(UserReservationInfo userReservationInfo) {
+        System.out.println("Client: CancelReservations Req");
         Request req = new Request(EventType.REMOVERESERVATION_REQUEST, userReservationInfo);
         sendToServer(req, EventType.REMOVERESERVATION_RESULT);
     }

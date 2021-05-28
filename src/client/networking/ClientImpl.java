@@ -2,8 +2,6 @@ package client.networking;
 
 import shared.*;
 
-import java.util.ArrayList;
-
 public interface ClientImpl extends PropertyChangeSubject {
     void registerUser(User userToCreate);
 

@@ -3,7 +3,6 @@ package client.view.movieManagement;
 import client.view.ViewHandler;
 import client.viewmodel.movieManagement.EditMovieViewModel;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import shared.Show;
@@ -36,8 +35,7 @@ public class EditMovieController {
     /**
      * @param editMovieViewModel
      * @param viewHandler
-     * @param show
-     * Method for initializing the fields and for binding the values.
+     * @param show               Method for initializing the fields and for binding the values.
      */
     public void init(EditMovieViewModel editMovieViewModel, ViewHandler viewHandler, Show show) {
         this.editMovieViewModel = editMovieViewModel;
@@ -75,6 +73,7 @@ public class EditMovieController {
         dateOfShowDatePicker.setValue(LocalDate.parse(show.getDateOfShow()));
 
     }
+
     /**
      * Void method for the button "onSave" functionality
      */
@@ -82,6 +81,7 @@ public class EditMovieController {
         editMovieViewModel.editMovie(show.getMovie_id(), show.getShow_id());
         Platform.runLater(this::onCancel);
     }
+
     /**
      * Void method for closing the stage
      */

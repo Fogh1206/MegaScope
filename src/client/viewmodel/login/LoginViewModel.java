@@ -25,6 +25,7 @@ public class LoginViewModel {
 
     /**
      * Constructor for LoginViewModel
+     *
      * @param userModel
      */
 
@@ -42,6 +43,7 @@ public class LoginViewModel {
 
     /**
      * Method occurring if the server detects the user is banned in the database.
+     *
      * @param event
      */
     private void onLoginFail(PropertyChangeEvent event) {
@@ -52,11 +54,12 @@ public class LoginViewModel {
 
     /**
      * Method occurring if the server successfully detects the user in the system and grants access.
+     *
      * @param event
      */
     private void onLogin(PropertyChangeEvent event) {
         User result = (User) event.getNewValue();
-
+        System.out.println("LOLO");
         if (result == null) {
             Platform.runLater(() -> {
                 System.out.println("Null login");
@@ -93,7 +96,13 @@ public class LoginViewModel {
      * Method used by {@link client.view.login.LoginViewController} which links with a method in {@link client.model.Model}
      */
     public void login() {
-        model.login(username.get(), password.get());
+        if (username.get() == null || password.get() == null || username.get().equals("") ||  password.get().equals("")) {
+            System.out.println(Thread.currentThread().getId()+" 2");
+            loginResult.set("Please input you login information");
+        } else {
+            model.login(username.get(), password.get());
+            defaultFields();
+        }
     }
 
 
@@ -107,6 +116,7 @@ public class LoginViewModel {
 
     /**
      * Return String from the FXML username TextField
+     *
      * @return
      */
     public StringProperty usernameProperty() {
@@ -115,6 +125,7 @@ public class LoginViewModel {
 
     /**
      * Return String from the FXML password TextField
+     *
      * @return
      */
     public StringProperty passwordProperty() {
@@ -123,6 +134,7 @@ public class LoginViewModel {
 
     /**
      * Return String from the FXML login result TextField
+     *
      * @return
      */
     public StringProperty loginResultProperty() {
