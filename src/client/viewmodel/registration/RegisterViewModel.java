@@ -89,6 +89,7 @@ public class RegisterViewModel {
         } else {
             return true;
         }
+        return false;
     }
 
     public void register() {

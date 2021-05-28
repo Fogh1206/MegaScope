@@ -120,6 +120,8 @@ public class Client implements ClientImpl {
         sendToServer(request, EventType.CHANGEUSERSTATUS_RESULT);
     }
 
+
+
     @Override
     public void registerUser(User newUser) {
         System.out.println("Client: RegisterUser Req");
@@ -146,6 +148,13 @@ public class Client implements ClientImpl {
         System.out.println("Client: EditMovie Req");
         Request request = new Request(EventType.EDITMOVIE_RESQUEST, show);
         sendToServer(request, EventType.EDITMOVIE_RESULT);
+    }
+
+    @Override
+    public void getMoviesForAdd() {
+        System.out.println("Client: GetMoviesForAdd Req");
+        Request req = new Request(EventType.GETMOVIESFORADD_REQUEST, null);
+        sendToServer(req, EventType.GETMOVIESFORADD_RESULT);
     }
 
     @Override

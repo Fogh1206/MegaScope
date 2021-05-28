@@ -49,6 +49,15 @@ public class Model implements UserModel {
         client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(), this::onGetUserResult);
         client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(), this::onGetUserResult);
         client.addPropertyChangeListener(EventType.LOGINFAIL_RESULT.toString(), this::onLoginFail);
+
+
+        client.addPropertyChangeListener(EventType.GETMOVIESFORADD_RESULT.toString(), this::onGetMoviesForAddResult);
+    }
+
+    private void onGetMoviesForAddResult(PropertyChangeEvent event) {
+        System.out.println("Model: onGetMoviesForAddResult");
+        ShowsList list = (ShowsList) event.getNewValue();
+        support.firePropertyChange(EventType.GETMOVIESFORADD_RESULT.toString(), null, list);
     }
 
     /**
@@ -267,6 +276,11 @@ public class Model implements UserModel {
     @Override
     public void changeUserStatus(User user) {
         client.changeUserStatus(user);
+    }
+
+    @Override
+    public void getMoviesForAdd() {
+        client.getMoviesForAdd();
     }
 
     @Override

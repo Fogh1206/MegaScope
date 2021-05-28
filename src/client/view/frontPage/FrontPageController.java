@@ -4,6 +4,7 @@ import client.view.CustomTextFieldTableCell;
 import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -216,9 +217,10 @@ public class FrontPageController {
     /**
      * Method opens add movie page if admin is logged in
      */
-    public void onAddMovie(User userloggedIn) {
-        viewHandler.openAddMovieView(userloggedIn);
+    public void onAddMovie() {
+        viewHandler.openAddMovieView();
     }
+
 
     /**
      * Method opens edit movie page if admin is logged in
@@ -267,4 +269,6 @@ public class FrontPageController {
             Search();
         }
     }
+
+
 }

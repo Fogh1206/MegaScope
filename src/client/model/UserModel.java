@@ -34,4 +34,6 @@ public interface UserModel extends PropertyChangeSubject {
     void getAdminSeats();
 
     void changeUserStatus(User user);
+
+    void getMoviesForAdd();
 }

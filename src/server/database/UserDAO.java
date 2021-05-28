@@ -34,4 +34,6 @@ public interface UserDAO {
     SeatList getAdminSeats();
 
     UserList changeUserStatus(User user);
+
+    ShowsList getAllMoviesUnique();
 }

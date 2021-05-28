@@ -4,13 +4,18 @@ import client.view.ViewHandler;
 import client.viewmodel.movieManagement.AddMovieViewModel;
 import javafx.application.Platform;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import shared.Show;
 
 import java.time.LocalDate;
 
 public class AddMovieController {
 
+    @FXML
+    private ComboBox existingMovie;
     @FXML
     TextField movieNameTextField;
     @FXML
@@ -30,6 +35,7 @@ public class AddMovieController {
 
     private AddMovieViewModel addMovieViewModel;
     private ViewHandler viewHandler;
+    private Show selectedShow;
 
 
     /**
@@ -39,6 +45,9 @@ public class AddMovieController {
     public void init(AddMovieViewModel addMovieViewModel, ViewHandler viewHandler) {
         this.addMovieViewModel = addMovieViewModel;
         this.viewHandler = viewHandler;
+        addMovieViewModel.getMovies();
+        selectedShow = null;
+        existingMovie.itemsProperty().bindBidirectional(addMovieViewModel.existingMovieProperty());
 
         movieNameTextField.textProperty().bindBidirectional(addMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(addMovieViewModel.dateOfReleaseProperty());
@@ -63,7 +72,7 @@ public class AddMovieController {
      * Void method for the button "onSave" functionality
      */
     public void onSave() {
-        addMovieViewModel.addMovie();
+        addMovieViewModel.addMovie(selectedShow);
         Platform.runLater(this::onCancel);
     }
 
@@ -73,5 +82,14 @@ public class AddMovieController {
     public void onCancel() {
         addMovieViewModel.defaultFields();
         viewHandler.closeStage();
+    }
+
+    public void setSelected() {
+        if (existingMovie.getSelectionModel().getSelectedItem() != null) {
+            int index = existingMovie.getSelectionModel().getSelectedIndex();
+            selectedShow = (Show) existingMovie.getItems().get(index);
+            System.out.println("Kappa");
+            System.out.println(selectedShow.getName());
+        }
     }
 }

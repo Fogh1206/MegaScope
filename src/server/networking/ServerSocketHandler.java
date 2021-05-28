@@ -49,6 +49,12 @@ public class ServerSocketHandler implements Runnable {
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
 
+    private Object getMoviesForAddRequest() {
+        System.out.println("Get MoviesForAdd Requested");
+        ShowsList shows = userDAO.getAllMoviesUnique();
+        return new Request(EventType.GETMOVIESFORADD_RESULT, shows);
+    }
+
     public Request getLoginRequest(User user) {
         System.out.println("Login requested");
         User temp = userDAO.validateUser(user.getId(), user.getUsername(), user.getPassword());
@@ -156,6 +162,9 @@ public class ServerSocketHandler implements Runnable {
                     case GETMOVIES_REQUEST:
                         outToClient.writeObject(getMoviesRequest());
                         break;
+                        case GETMOVIESFORADD_REQUEST:
+                        outToClient.writeObject(getMoviesForAddRequest());
+                        break;
                     case LOGIN_REQUEST:
                         outToClient.writeObject(getLoginRequest((User) request.arg));
                         break;
@@ -206,6 +215,8 @@ public class ServerSocketHandler implements Runnable {
             }
         }
     }
+
+
 
 
     /**

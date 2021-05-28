@@ -38,4 +38,6 @@ public interface ClientImpl extends PropertyChangeSubject {
     void getAdminSeats();
 
     void changeUserStatus(User user);
+
+    void getMoviesForAdd();
 }

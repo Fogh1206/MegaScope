@@ -67,6 +67,28 @@ public class ManageUserDAO implements UserDAO {
         return showList;
     }
 
+
+    @Override
+    public ShowsList getAllMoviesUnique() {
+        ShowsList showList = new ShowsList();
+        try (Connection connection = controller.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("select distinct movies.id, name, dateofrelease, mainactors," +
+                    " description from public.movies join public.show on show.movie_id = movies.id order by movies.id");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Show temp = new Show(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4),
+                        resultSet.getString(5), null,
+                        null, 0);
+                showList.addShow(temp);
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return showList;
+    }
+
     /**
      * Insert {@link Show} object from parameter into database and return all {@link Show} objects from database thereafter.
      * @param show
@@ -82,7 +104,7 @@ public class ManageUserDAO implements UserDAO {
                     "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" +
                             "VALUES (" + "DEFAULT" + ",'"
                             + show.getName() + "','" + show.getDateOfRelease() + "','"
-                            + show.getMainActors() + "','" + show.getDescription() + "')");
+                            + show.getMainActors() + "','" + show.getDescription() + "') ON CONFLICT DO NOTHING");
             statement.executeUpdate();
 
             int id = 0;
@@ -155,7 +177,13 @@ public class ManageUserDAO implements UserDAO {
             PreparedStatement statement = connection.prepareStatement(
                     "Delete from show where id='" + show.getShow_id() + "'");
             statement.executeUpdate();
+            System.out.println("Hi");
+            statement =connection.prepareStatement(
+                    " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies.id)");
+            System.out.println("Ho");
+            statement.executeUpdate();
             statement.close();
+
             getMovieList(showList, connection);
             return showList;
         } catch (SQLException throwable) {
@@ -418,6 +446,7 @@ public class ManageUserDAO implements UserDAO {
         }
         return users;
     }
+
 
     @Override
     public User registerUser(User user) {

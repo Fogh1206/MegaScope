@@ -75,7 +75,7 @@ public class ViewHandler {
     /**
      * Changes scene in stage to the content of the addMovie.fxml file.
      */
-    public void openAddMovieView(User userLoggedIn) {
+    public void openAddMovieView() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/addMovie.fxml"));
         try {
