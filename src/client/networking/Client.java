@@ -16,6 +16,9 @@ public class Client implements ClientImpl {
     private ObjectOutputStream outToServer;
     private boolean running = true;
 
+    /**
+     * Zero-argument constructor
+     */
     public Client() {
         support = new PropertyChangeSupport(this);
         try {
@@ -32,6 +35,11 @@ public class Client implements ClientImpl {
 
     }
 
+    /**
+     * Sending {@link Request} object and {@link EventType} enum object to server with {@link ObjectOutputStream}.
+     * @param request
+     * @param Result
+     */
     public void sendToServer(Request request, EventType Result) {
         try {
             outToServer.writeObject(request);
@@ -41,6 +49,9 @@ public class Client implements ClientImpl {
         }
     }
 
+    /**
+     * Close socket connection to server.
+     */
     @Override
     public void deactivateClient() {
         System.out.println("Client: Close Req");
@@ -176,6 +187,10 @@ public class Client implements ClientImpl {
         return running;
     }
 
+    /**
+     * Receive all incoming {@link Request} objects from Server and use ObserverPattern to tell {@link client.model.Model} class about received {@link Request}.
+     * @param req
+     */
     @Override
     public void receive(Request req) {
         System.out.println("Received " + req.type.toString());

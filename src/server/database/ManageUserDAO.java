@@ -11,6 +11,9 @@ public class ManageUserDAO implements UserDAO {
     private static ManageUserDAO instance;
     private Connection connection;
 
+    /**
+     * Private zero-argument constructor (Singleton class).
+     */
     private ManageUserDAO() {
         try {
             DriverManager.registerDriver(new org.postgresql.Driver());
@@ -20,6 +23,10 @@ public class ManageUserDAO implements UserDAO {
         controller = Controller.getInstance();
     }
 
+    /**
+     * Receive the singleton instance of {@link ManageUserDAO}.
+     * @return
+     */
     public static synchronized ManageUserDAO getInstance() {
         if (instance == null) {
             instance = new ManageUserDAO();
@@ -27,6 +34,12 @@ public class ManageUserDAO implements UserDAO {
         return instance;
     }
 
+    /**
+     * Receive all {@link Show} objects from database and add to the {@link ShowsList} object from parameter.
+     * @param showList
+     * @param connection
+     * @throws SQLException
+     */
     private void getMovieList(ShowsList showList, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("select movies.id, name, dateofrelease, mainactors," +
                 " description, time_show, date_show, show.id from public.movies join public.show on show.movie_id = movies.id order by movies.id");
@@ -41,6 +54,10 @@ public class ManageUserDAO implements UserDAO {
         statement.close();
     }
 
+    /**
+     * Return {@link ShowsList} object from retrieved {@link Show} objects received from database.
+     * @return
+     */
     @Override
     public ShowsList getAllMovies() {
         ShowsList showList =new ShowsList();
@@ -53,6 +70,11 @@ public class ManageUserDAO implements UserDAO {
         return showList;
     }
 
+    /**
+     * Insert {@link Show} object from parameter into database and return all {@link Show} objects from database thereafter.
+     * @param show
+     * @return
+     */
     @Override
     public ShowsList addMovie(Show show) {
 
@@ -94,6 +116,11 @@ public class ManageUserDAO implements UserDAO {
         return null;
     }
 
+    /**
+     * Alter {@link Show} object inside database and return all {@link Show} objects from database in a {@link ShowsList} object.
+     * @param show
+     * @return
+     */
     @Override
     public ShowsList editMovie(Show show) {
         ShowsList showList =new ShowsList();
@@ -120,6 +147,11 @@ public class ManageUserDAO implements UserDAO {
         }
     }
 
+    /**
+     * Remove {@link Show} from database which is equal to one in the database. Then return a {@link ShowsList} object of all {@link Show} objects from database.
+     * @param show
+     * @return
+     */
     @Override
     public ShowsList removeMovie(Show show) {
         ShowsList showList = new ShowsList();
@@ -136,6 +168,11 @@ public class ManageUserDAO implements UserDAO {
         return null;
     }
 
+    /**
+     * Return reservations which contained the {@link Show} object from the parameter.
+     * @param show
+     * @return
+     */
     @Override
     public ArrayList<String> getReservations(Show show) {
         ArrayList<String> strings = new ArrayList<>();

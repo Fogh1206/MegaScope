@@ -65,17 +65,22 @@ public class RegisterViewModel {
      * @return
      */
     public boolean isValidInput(User user){
-        if(user.getFirstName() == null || "".equals(user.getFirstName())){
+        if(!(user.getFirstName() == null) || "".equals(user.getFirstName())){
             return false;
-        } else if(user.getLastName() == null || "".equals(user.getLastName())){
+        } else if(!(user.getLastName() == null) || "".equals(user.getLastName())){
             return false;
         } else if(user.getUsername() == null || "".equals(user.getUsername())){
             return false;
         } else if(user.getPassword() == null || "".equals(user.getPassword())) {
             return false;
         } else if(user.getPassword().length() < 3 || user.getPassword().length() > 15){
+            if(user.getPassword().length() < 3){
+                throw new IllegalArgumentException("Password is too short");
+            } else if(user.getPassword().length() > 15) {
+                throw new IllegalArgumentException("Password is too long");
+            }
             return false;
-        } else if(user.getPhoneNumber() == null || "".equals(user.getPhoneNumber())){
+        } else if(!(user.getPhoneNumber() == null) || "".equals(user.getPhoneNumber())){
             return false;
         } else {
             return true;

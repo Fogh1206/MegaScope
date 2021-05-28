@@ -12,7 +12,7 @@ public class ClientSocketHandler implements Runnable
   private Socket socket;
   private ClientImpl client;
 
-  /** Constructor */
+  /** Two-argument constructor */
   public ClientSocketHandler(Socket socket, ClientImpl client)
   {
     this.socket = socket;

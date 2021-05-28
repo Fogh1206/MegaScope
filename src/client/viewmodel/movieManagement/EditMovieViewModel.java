@@ -23,9 +23,8 @@ public class EditMovieViewModel {
     private UserModel model;
 
     /**
-     *
-     * @param model
      * One-argument constructor for initializing the fields
+     * @param model
      */
     public EditMovieViewModel(UserModel model){
         this.model = model;
@@ -82,18 +81,19 @@ public class EditMovieViewModel {
      */
     public void editMovie(int id, int show_id){
 
-    if (movieName.get().isEmpty() || dateOfRelease.get().isEmpty() || dateOfShow.get().equals(null) || mainActors.get().isEmpty() || description.get().isEmpty() || hourTimeOfShow.get().isEmpty() || minuteTimeOfShow.get().isEmpty())
-    {
-        editMovieLabel.setValue("Each field must be filled!!!");
-    }
-    else {
+        if (movieName.get().isEmpty() || dateOfRelease.get().isEmpty() || dateOfShow.get().equals(null) ||
+                mainActors.get().isEmpty() || description.get().isEmpty() ||
+                hourTimeOfShow.get().isEmpty() || minuteTimeOfShow.get().isEmpty()) {
 
-        Show show = new Show(id, movieName.get(), dateOfRelease.get(),
-                mainActors.get(), description.get(),
-                hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
-                dateOfShow.get().toString(), show_id);
-        model.editMovie(show);
-    }
-    }
+            editMovieLabel.setValue("Each field must be filled!!!");
+        } else {
 
+            Show show = new Show(id, movieName.get(), dateOfRelease.get(),
+                    mainActors.get(), description.get(),
+                    hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
+                    dateOfShow.get().toString(), show_id);
+            editMovieLabel.setValue("Success");
+            model.editMovie(show);
+        }
+    }
 }

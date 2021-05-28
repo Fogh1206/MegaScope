@@ -28,27 +28,40 @@ public class ViewModelFactory {
         this.mf = mf;
     }
 
+    /**
+     * Returns declared object of {@link RegisterViewModel} if existing otherwise creates and initializes a new one and returns new {@link RegisterViewModel} object.
+     * @return
+     */
     public RegisterViewModel getRegisterVM() {
         if (registerViewModel == null) {
             registerViewModel = new RegisterViewModel(mf.getUserModel());
         }
         return registerViewModel;
     }
-
+    /**
+     * Returns declared object of {@link AddMovieViewModel} if existing otherwise creates and initializes a new one and returns new {@link AddMovieViewModel} object.
+     * @return
+     */
     public AddMovieViewModel getAddMovieViewModel() {
         if (addMovieViewModel == null) {
             addMovieViewModel = new AddMovieViewModel(mf.getUserModel());
         }
         return addMovieViewModel;
     }
-
+    /**
+     * Returns declared object of {@link EditMovieViewModel} if existing otherwise creates and initializes a new one and returns new {@link EditMovieViewModel} object.
+     * @return
+     */
     public EditMovieViewModel getEditMovieViewModel() {
         if (editMovieViewModel == null) {
             editMovieViewModel = new EditMovieViewModel(mf.getUserModel());
         }
         return editMovieViewModel;
     }
-
+    /**
+     * Returns declared object of {@link AdminViewModelUsers} if existing otherwise creates and initializes a new one and returns new {@link AdminViewModelUsers} object.
+     * @return
+     */
     public AdminViewModelUsers getUsersVM() {
 
         if (adminViewModelUsers == null) {
@@ -56,35 +69,50 @@ public class ViewModelFactory {
         }
         return adminViewModelUsers;
     }
-
+    /**
+     * Returns declared object of {@link LoginViewModel} if existing otherwise creates and initializes a new one and returns new {@link LoginViewModel} object.
+     * @return
+     */
     public LoginViewModel getLoginViewModel() {
         if (loginViewModel == null) {
             loginViewModel = new LoginViewModel(mf.getUserModel());
         }
         return loginViewModel;
     }
-
+    /**
+     * Returns declared object of {@link UserFrontPageViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserFrontPageViewModel} object.
+     * @return
+     */
     public UserFrontPageViewModel getFrontPage() {
         if (userFrontPageViewModel == null) {
             userFrontPageViewModel = new UserFrontPageViewModel(mf.getUserModel());
         }
         return userFrontPageViewModel;
     }
-
+    /**
+     * Returns declared object of {@link CinemaHallViewModel} if existing otherwise creates and initializes a new one and returns new {@link CinemaHallViewModel} object.
+     * @return
+     */
     public CinemaHallViewModel getCinemaHallPage() {
         if (cinemaHallViewModel == null) {
             cinemaHallViewModel = new CinemaHallViewModel(mf.getUserModel());
         }
         return cinemaHallViewModel;
     }
-
+    /**
+     * Returns declared object of {@link UserProfileViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserProfileViewModel} object.
+     * @return
+     */
     public UserProfileViewModel getUserProfileVM() {
         if (userProfileViewModel == null) {
             userProfileViewModel = new UserProfileViewModel(mf.getUserModel());
         }
         return userProfileViewModel;
     }
-
+    /**
+     * Returns declared object of {@link UserReservationViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserReservationViewModel} object.
+     * @return
+     */
     public UserReservationViewModel getUserReservationVM() {
         if (userReservationViewModel == null) {
             userReservationViewModel = new UserReservationViewModel(mf.getUserModel());

@@ -33,6 +33,10 @@ public class ViewHandler {
     private Stage stage;
 
 
+    /**
+     * One-argument constructor for initializing Stage
+     * @param vmf
+     */
     public ViewHandler(ViewModelFactory vmf) {
         this.vmf = vmf;
         mainStage = new Stage();
@@ -41,12 +45,19 @@ public class ViewHandler {
 //    mainStage.getIcons().add(image);
     }
 
+    /**
+     * Displays the stage to the user.
+     */
     public void start() {
         showFrontPage(null);
         mainStage.show();
         mainStage.setResizable(false);
     }
 
+    /**
+     * Changes scene in stage to the content of the Login.fxml file.
+     * @param userLoggedIn
+     */
     public void openLoginView(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/Login.fxml"));
@@ -68,13 +79,17 @@ public class ViewHandler {
         }
     }
 
-    public void openAddMovieView(User user) {
+    /**
+     * Changes scene in stage to the content of the addMovie.fxml file.
+     * @param userLoggedIn
+     */
+    public void openAddMovieView(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/addMovie.fxml"));
         try {
             Parent root = loader.load();
             AddMovieController ctrl = loader.getController();
-            ctrl.init(vmf.getAddMovieViewModel(), this, user);
+            ctrl.init(vmf.getAddMovieViewModel(), this, userLoggedIn);
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Add new movie");
@@ -87,11 +102,18 @@ public class ViewHandler {
         }
     }
 
+    /**
+     * Closes current stage user is in.
+     */
     public void closeStage() {
         stage.close();
 
     }
 
+    /**
+     * Changes scene in stage to the content of the editMovie.fxml file.
+     * @param show
+     */
     public void openEditMovie(Show show) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/editMovie.fxml"));
@@ -111,6 +133,10 @@ public class ViewHandler {
         }
     }
 
+    /**
+     * Changes scene in stage to the content of the adminUsers.fxml file.
+     * @param userLoggedIn
+     */
     public void openAdminUsersPage(User userLoggedIn) {
 
         FXMLLoader loader = new FXMLLoader();
@@ -128,6 +154,9 @@ public class ViewHandler {
     }
 
 
+    /**
+     * Changes scene in stage to the content of the Register.fxml file.
+     */
     public void openRegisterView() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/Register.fxml"));
@@ -149,6 +178,10 @@ public class ViewHandler {
     }
 
 
+    /**
+     * Changes scene in stage to the content of the userFrontPage.fxml file.
+     * @param userLoggedIn
+     */
     public void showFrontPage(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/userFrontPage.fxml"));
@@ -164,6 +197,10 @@ public class ViewHandler {
         }
     }
 
+    /**
+     * Changes scene in stage to the content of the userReservations.fxml file.
+     * @param userLoggedIn
+     */
     public void showUserReservationPage(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/userReservations.fxml"));
@@ -179,6 +216,11 @@ public class ViewHandler {
         }
     }
 
+    /**
+     * Changes scene in stage to the content of the cinemaHall.fxml file.
+     * @param userLoggedIn
+     * @param show Show that is being booked
+     */
     public void openCinemaHallPage(User userLoggedIn, Show show) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
@@ -195,6 +237,10 @@ public class ViewHandler {
     }
 
 
+    /**
+     * Changes scene in stage to the content of the userProfile.fxml file.
+     * @param userLoggedIn
+     */
     public void openUserProfile(User userLoggedIn) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/userProfile.fxml"));
@@ -211,8 +257,10 @@ public class ViewHandler {
         }
     }
 
+    /**
+     * Closes the client program window.
+     */
     public void close() {
-        System.out.println("Closing the client");
         mainStage.close();
     }
 }
