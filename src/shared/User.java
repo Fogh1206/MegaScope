@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class User implements Serializable
 {
+  /**
+   * Instance field
+   */
   private int id;
   private String firstName;
   private String lastName;
@@ -13,8 +16,20 @@ public class User implements Serializable
   private String userType;
   private boolean banned;
 
-  public User(int id, String firstName, String lastName,
-              String username, String password, String phoneNumber, String userType, boolean banned)
+  /**
+   * Constructor
+   *
+   * @param id
+   * @param firstName
+   * @param lastName
+   * @param username
+   * @param password
+   * @param phoneNumber
+   * @param userType
+   * @param banned
+   */
+  public User(int id, String firstName, String lastName, String username,
+      String password, String phoneNumber, String userType, boolean banned)
   {
 
     this.id = id;
@@ -24,11 +39,22 @@ public class User implements Serializable
     this.password = password;
     this.phoneNumber = phoneNumber;
     this.userType = userType;
-    this.banned=banned;
+    this.banned = banned;
   }
 
+  /**
+   * Constructor which sets the id to 0
+   *
+   * @param firstName
+   * @param lastName
+   * @param username
+   * @param password
+   * @param phoneNumber
+   * @param userType
+   * @param banned
+   */
   public User(String firstName, String lastName, String username,
-              String password, String phoneNumber, String userType, boolean banned)
+      String password, String phoneNumber, String userType, boolean banned)
   {
 
     this.id = 0;
@@ -37,10 +63,16 @@ public class User implements Serializable
     this.username = username;
     this.password = password;
     this.phoneNumber = phoneNumber;
-    this.userType=userType;
-    this.banned=banned;
+    this.userType = userType;
+    this.banned = banned;
   }
 
+  /**
+   * Constructor with 2 arguments
+   *
+   * @param username
+   * @param password
+   */
   public User(String username, String password)
   {
     this.id = 0;
@@ -51,62 +83,115 @@ public class User implements Serializable
     this.phoneNumber = null;
   }
 
-  public boolean getBanned() {
+  /**
+   * Get method for banned
+   *
+   * @return banned
+   */
+  public boolean getBanned()
+  {
     return banned;
   }
 
+  /**
+   * Get method for phone number
+   *
+   * @return phoneNumber
+   */
   public String getPhoneNumber()
   {
     return phoneNumber;
   }
 
+  /**
+   * Get method for first name
+   *
+   * @return firstName
+   */
   public String getFirstName()
   {
     return firstName;
   }
 
+  /**
+   * Get method for last name
+   *
+   * @return lastName
+   */
   public String getLastName()
   {
     return lastName;
   }
 
+  /**
+   * Get method for username
+   *
+   * @return username
+   */
   public String getUsername()
   {
     return username;
   }
 
+  /**
+   * Get method for password
+   *
+   * @return password
+   */
   public String getPassword()
   {
     return password;
   }
 
-  public String getUserType() {
+  /**
+   * Get method for user type
+   *
+   * @return userType
+   */
+  public String getUserType()
+  {
     return userType;
   }
 
+  /**
+   * Get method for id
+   *
+   * @return id
+   */
   public int getId()
   {
     return id;
   }
 
-  public void setBanned(boolean banned) {
+  /**
+   * Set method for banned
+   *
+   * @param banned
+   */
+  public void setBanned(boolean banned)
+  {
     this.banned = banned;
   }
 
-  @Override
-  public String toString() {
-    return "User{" +
-            "id=" + id +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", username='" + username + '\'' +
-            ", password='" + password + '\'' +
-            ", phoneNumber='" + phoneNumber + '\'' +
-            ", userType='" + userType + '\'' +
-            ", banned='" + banned + '\'' +
-            '}';
+  /**
+   * To string method
+   *
+   * @return
+   */
+  @Override public String toString()
+  {
+    return "User{" + "id=" + id + ", firstName='" + firstName + '\''
+        + ", lastName='" + lastName + '\'' + ", username='" + username + '\''
+        + ", password='" + password + '\'' + ", phoneNumber='" + phoneNumber
+        + '\'' + ", userType='" + userType + '\'' + ", banned='" + banned + '\''
+        + '}';
   }
 
+  /**
+   * Set method for phone number
+   *
+   * @param phoneNumber
+   */
   public void setPhoneNumber(String phoneNumber)
   {
     this.phoneNumber = phoneNumber;
