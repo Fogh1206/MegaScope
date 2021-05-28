@@ -73,7 +73,6 @@ public class AddMovieController {
      */
     public void onSave() {
         addMovieViewModel.addMovie(selectedShow);
-        Platform.runLater(this::onCancel);
     }
 
     /**

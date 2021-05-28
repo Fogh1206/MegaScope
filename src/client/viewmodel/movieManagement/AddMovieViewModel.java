@@ -99,6 +99,7 @@ public class AddMovieViewModel {
      */
     public void addMovie(Show selectedShow) {
         if (selectedShow == null) {
+            System.out.println("huten");
             if (movieName.get() == null || movieName.get().equals("")) {
                 addMovieLabel.setValue("Please input the movie name");
             } else if (dateOfRelease.get() == null || dateOfRelease.get().equals("")) {
@@ -124,8 +125,10 @@ public class AddMovieViewModel {
                 model.addMovie(show);
                 addMovieLabel.setValue("Successful");
                 defaultFields();
+                getMovies();
             }
-        } else {
+        } else if (selectedShow != null){
+            System.out.println("mial");
             if (hourTimeOfShow.get() == null || hourTimeOfShow.get().equals("")) {
                 addMovieLabel.setValue("Please input the hour of the show");
             } else if (minuteTimeOfShow.get() == null || minuteTimeOfShow.get().equals("")) {
@@ -139,7 +142,6 @@ public class AddMovieViewModel {
                         dateOfShow.get().toString());
                 model.addMovie(show);
                 addMovieLabel.setValue("Successful");
-                defaultFields();
             }
 
         }
