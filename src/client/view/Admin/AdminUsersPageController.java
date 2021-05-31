@@ -55,7 +55,7 @@ public class AdminUsersPageController {
         this.viewHandler = viewHandler;
         this.userLoggedIn = userLoggedIn;
         adminUsersViewModel.getUsers();
-
+        banButton.setText("Ban/Unban");
         userTableView.itemsProperty().bindBidirectional(adminUsersViewModel.observableItemsProperty());
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));

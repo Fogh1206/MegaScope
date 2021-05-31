@@ -12,23 +12,23 @@ import java.time.LocalDate;
 public class AddMovieController {
 
     @FXML
-    private ComboBox existingMovie;
+    private ComboBox<MovieShow> existingMovie;
     @FXML
-    TextField movieNameTextField;
+    private TextField movieNameTextField;
     @FXML
-    TextField dateOfReleaseTextField;
+    private TextField dateOfReleaseTextField;
     @FXML
-    TextArea mainActorsTextArea;
+    private TextArea mainActorsTextArea;
     @FXML
-    TextArea descriptionTextArea;
+    private TextArea descriptionTextArea;
     @FXML
-    TextField hourTextField;
+    private TextField hourTextField;
     @FXML
-    TextField minuteTextField;
+    private TextField minuteTextField;
     @FXML
-    DatePicker dateOfShowDatePicker;
+    private DatePicker dateOfShowDatePicker;
     @FXML
-    Label addMovieLabel;
+    private Label addMovieLabel;
 
     private AddMovieViewModel addMovieViewModel;
     private ViewHandler viewHandler;
@@ -83,7 +83,7 @@ public class AddMovieController {
     public void setSelected() {
         if (existingMovie.getSelectionModel().getSelectedItem() != null) {
             int index = existingMovie.getSelectionModel().getSelectedIndex();
-            selectedMovieShow = (MovieShow) existingMovie.getItems().get(index);
+            selectedMovieShow = existingMovie.getItems().get(index);
             System.out.println("Kappa");
             System.out.println(selectedMovieShow.getName());
         }
