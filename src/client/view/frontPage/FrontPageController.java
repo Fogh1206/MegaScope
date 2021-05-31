@@ -180,7 +180,6 @@ public class FrontPageController {
     @FXML
     public void onDatePick() {
         LocalDate date = datePick.getValue();
-        System.err.println("Selected date: " + date);
         userFrontPageViewModel.getMovies();
     }
 
@@ -238,8 +237,7 @@ public class FrontPageController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("You are about to delete a movie from the database");
-            alert.setContentText(
-                    "Are you sure you want to delete the movie [" + selectedMovieShow.getName()
+            alert.setContentText("Are you sure you want to delete the movie [" + selectedMovieShow.getName()
                             + "] from the movie database?");
 
             Optional<ButtonType> result = alert.showAndWait();
