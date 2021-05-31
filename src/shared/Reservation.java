@@ -16,18 +16,16 @@ public class Reservation implements Serializable {
         this.user_id = user_id;
     }
 
-    public Reservation(int seat_no, int show_id, int user_id)
-    {
+    public Reservation(int seat_no, int show_id, int user_id) {
         this.seat_no = seat_no;
         this.show_id = show_id;
         this.user_id = user_id;
     }
 
-    public Reservation(int seat_no,int user_id){
+    public Reservation(int seat_no, int user_id) {
         this.seat_no = seat_no;
         this.user_id = user_id;
     }
-
 
 
     public int getReservation_id() {

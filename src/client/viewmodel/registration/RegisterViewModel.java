@@ -4,6 +4,7 @@ import client.model.UserModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.PropertyChangeSubject;
 import shared.User;
 import shared.util.EventType;
 
@@ -11,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class RegisterViewModel {
+public class RegisterViewModel implements PropertyChangeSubject {
     private StringProperty firstName, lastName, username, password, confirmPassword, registrationMessageLabel, confirmPasswordLabel, phoneNumber;
     private UserModel model;
     private PropertyChangeSupport support;
@@ -76,11 +77,10 @@ public class RegisterViewModel {
             return false;
         } else if (user.getPassword() == null || "".equals(user.getPassword())) {
             return false;
-        } else if (user.getPassword().length() < 3 || user.getPassword().length() > 15) {
-        } else if(user.getPassword().length() < 3 || user.getPassword().length() > 15){
-            if(user.getPassword().length() < 3){
+        }  else if (user.getPassword().length() < 3 || user.getPassword().length() > 15) {
+            if (user.getPassword().length() < 3) {
                 throw new IllegalArgumentException("Password is too short");
-            } else if(user.getPassword().length() > 15) {
+            } else if (user.getPassword().length() > 15) {
                 throw new IllegalArgumentException("Password is too long");
             }
             return false;
@@ -89,7 +89,6 @@ public class RegisterViewModel {
         } else {
             return true;
         }
-        return false;
     }
 
     public void register() {
@@ -141,13 +140,6 @@ public class RegisterViewModel {
         confirmPasswordLabel.setValue("");
     }
 
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-            support.addPropertyChangeListener(name, listener);
-    }
-
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
-    }
 
     public StringProperty phoneNumberProperty() {
         return phoneNumber;
@@ -181,5 +173,14 @@ public class RegisterViewModel {
         return confirmPasswordLabel;
     }
 
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+    }
 
 }

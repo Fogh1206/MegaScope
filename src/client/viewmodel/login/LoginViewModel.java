@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.PropertyChangeSubject;
 import shared.User;
 import shared.util.EventType;
 
@@ -13,7 +14,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 
-public class LoginViewModel {
+public class LoginViewModel implements PropertyChangeSubject {
 
     private StringProperty username;
     private StringProperty password;
@@ -96,8 +97,8 @@ public class LoginViewModel {
      * Method used by {@link client.view.login.LoginViewController} which links with a method in {@link client.model.Model}
      */
     public void login() {
-        if (username.get() == null || password.get() == null || username.get().equals("") ||  password.get().equals("")) {
-            System.out.println(Thread.currentThread().getId()+" 2");
+        if (username.get() == null || password.get() == null || username.get().equals("") || password.get().equals("")) {
+            System.out.println(Thread.currentThread().getId() + " 2");
             loginResult.set("Please input you login information");
         } else {
             model.login(username.get(), password.get());
@@ -105,11 +106,12 @@ public class LoginViewModel {
         }
     }
 
-
+    @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
+    @Override
     public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
         support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
     }

@@ -8,24 +8,24 @@ public class ReservationList implements Serializable {
     private boolean failed;
     private ArrayList<Reservation> reservations;
 
-    public ReservationList(){
+    public ReservationList() {
         this.failed = false;
         reservations = new ArrayList<>();
     }
 
-    public void add(Reservation reservation){
+    public void add(Reservation reservation) {
         reservations.add(reservation);
     }
 
-    public Reservation get(int index){
+    public Reservation get(int index) {
         return reservations.get(index);
     }
 
-    public void remove(Reservation reservation){
+    public void remove(Reservation reservation) {
         reservations.remove(reservation);
     }
 
-    public int size(){
+    public int size() {
         return reservations.size();
     }
 

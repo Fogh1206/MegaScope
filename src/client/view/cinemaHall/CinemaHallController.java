@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import shared.Reservation;
-import shared.Show;
+import shared.MovieShow;
 import shared.User;
 
 import java.io.File;
@@ -41,7 +41,7 @@ public class CinemaHallController {
     private CinemaHallViewModel cinemaHallViewModel;
     private ViewHandler viewHandler;
     private User user;
-    private Show show;
+    private MovieShow movieShow;
 
     String[][] myBooking = new String[4][6];
 
@@ -53,7 +53,7 @@ public class CinemaHallController {
      * @param userLoggedIn        object used temporarily storing the User
      */
     public void init(CinemaHallViewModel cinemaHallViewModel,
-                     ViewHandler viewHandler, User userLoggedIn, Show show) {
+                     ViewHandler viewHandler, User userLoggedIn, MovieShow movieShow) {
         this.cinemaHallViewModel = cinemaHallViewModel;
         this.viewHandler = viewHandler;
         this.user = userLoggedIn;
@@ -61,10 +61,10 @@ public class CinemaHallController {
         gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
         if (user.getUserType().equals("ADMIN")) {
             System.out.println("Open for admin");
-            this.show = null;
+            this.movieShow = null;
             openForAdmin();
         } else {
-            this.show = show;
+            this.movieShow = movieShow;
             openForUser();
         }
 
@@ -105,8 +105,8 @@ public class CinemaHallController {
      * Method for initializing the fields and for binding the values in case of Non-Admin use.
      */
     private void openForUser() {
-        movieTitleLabel.setText(show.getName());
-        cinemaHallViewModel.getReservation(show);
+        movieTitleLabel.setText(movieShow.getName());
+        cinemaHallViewModel.getReservation(movieShow);
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
@@ -131,7 +131,7 @@ public class CinemaHallController {
                         myBooking[finalRow][finalCol] = null;
                     } else if (rectangle.getFill() == Color.GREEN) {
                         rectangle.setFill(Color.YELLOW);
-                        Reservation reservation = new Reservation(Integer.parseInt(rectangle.getId()), show.getShow_id(), user.getId());
+                        Reservation reservation = new Reservation(Integer.parseInt(rectangle.getId()), movieShow.getShow_id(), user.getId());
                         cinemaHallViewModel.addReservation(reservation);
                         myBooking[finalRow][finalCol] =
                                 "Row[" + finalRow + "] Column[" + finalCol + "] " + rectangle.getId() + " Booked";

@@ -35,18 +35,18 @@ public class ManageUserDAO implements UserDAO {
     }
 
     /**
-     * Receive all {@link Show} objects from database and add to the {@link ShowsList} object from parameter.
+     * Receive all {@link MovieShow} objects from database and add to the {@link MovieShowsList} object from parameter.
      *
      * @param showList
      * @param connection
      * @throws SQLException
      */
-    private void getMovieList(ShowsList showList, Connection connection) throws SQLException {
+    private void getMovieList(MovieShowsList showList, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("select movies.id, name, dateofrelease, mainactors," +
                 " description, time_show, date_show, show.id from public.movies join public.show on show.movie_id = movies.id order by movies.id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            Show temp = new Show(resultSet.getInt(1), resultSet.getString(2),
+            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
                     resultSet.getString(7), resultSet.getInt(8));
@@ -56,13 +56,13 @@ public class ManageUserDAO implements UserDAO {
     }
 
     /**
-     * Return {@link ShowsList} object from retrieved {@link Show} objects received from database.
+     * Return {@link MovieShowsList} object from retrieved {@link MovieShow} objects received from database.
      *
      * @return
      */
     @Override
-    public ShowsList getAllMovies() {
-        ShowsList showList = new ShowsList();
+    public MovieShowsList getAllMovies() {
+        MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controller.getConnection()) {
             getMovieList(showList, connection);
         } catch (SQLException e) {
@@ -73,14 +73,14 @@ public class ManageUserDAO implements UserDAO {
 
 
     @Override
-    public ShowsList getAllMoviesUnique() {
-        ShowsList showList = new ShowsList();
+    public MovieShowsList getAllMoviesUnique() {
+        MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("select distinct movies.id, name, dateofrelease, mainactors," +
                     " description from public.movies join public.show on show.movie_id = movies.id order by movies.id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Show temp = new Show(resultSet.getInt(1), resultSet.getString(2),
+                MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), resultSet.getString(4),
                         resultSet.getString(5), null,
                         null, 0);
@@ -94,27 +94,27 @@ public class ManageUserDAO implements UserDAO {
     }
 
     /**
-     * Insert {@link Show} object from parameter into database and return all {@link Show} objects from database thereafter.
+     * Insert {@link MovieShow} object from parameter into database and return all {@link MovieShow} objects from database thereafter.
      *
-     * @param show
+     * @param movieShow
      * @return
      */
     @Override
-    public ShowsList addMovie(Show show) {
+    public MovieShowsList addMovie(MovieShow movieShow) {
 
-        ShowsList showList = new ShowsList();
+        MovieShowsList showList = new MovieShowsList();
         PreparedStatement statement;
         try (Connection connection = controller.getConnection()) {
             statement = connection.prepareStatement(
                     "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" +
                             "VALUES (" + "DEFAULT" + ",'"
-                            + show.getName() + "','" + show.getDateOfRelease() + "','"
-                            + show.getMainActors() + "','" + show.getDescription() + "') ON CONFLICT DO NOTHING");
+                            + movieShow.getName() + "','" + movieShow.getDateOfRelease() + "','"
+                            + movieShow.getMainActors() + "','" + movieShow.getDescription() + "') ON CONFLICT DO NOTHING");
             statement.executeUpdate();
 
             int id = 0;
             statement = connection.prepareStatement(
-                    "select movies.id from movies where name='" + show.getName() + "'");
+                    "select movies.id from movies where name='" + movieShow.getName() + "'");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -125,8 +125,8 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement(
                     "INSERT INTO public.show (id, movie_id, time_show, date_show)" +
                             "VALUES (" + "DEFAULT" + ",'"
-                            + id + "','" + show.getTimeOfShow() + "','"
-                            + show.getDateOfShow() + "')");
+                            + id + "','" + movieShow.getTimeOfShow() + "','"
+                            + movieShow.getDateOfShow() + "')");
 
             statement.executeUpdate();
             statement.close();
@@ -140,26 +140,26 @@ public class ManageUserDAO implements UserDAO {
     }
 
     /**
-     * Alter {@link Show} object inside database and return all {@link Show} objects from database in a {@link ShowsList} object.
+     * Alter {@link MovieShow} object inside database and return all {@link MovieShow} objects from database in a {@link MovieShowsList} object.
      *
-     * @param show
+     * @param movieShow
      * @return
      */
     @Override
-    public ShowsList editMovie(Show show) {
-        ShowsList showList = new ShowsList();
+    public MovieShowsList editMovie(MovieShow movieShow) {
+        MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE public.movies SET name='" + show.getName() + "',dateofrelease='" +
-                            show.getDateOfRelease() + "',mainactors='" + show.getMainActors() +
-                            "',description='" + show.getDescription() +
-                            " 'where id='" + show.getMovie_id() + "'");
+                    "UPDATE public.movies SET name='" + movieShow.getName() + "',dateofrelease='" +
+                            movieShow.getDateOfRelease() + "',mainactors='" + movieShow.getMainActors() +
+                            "',description='" + movieShow.getDescription() +
+                            " 'where id='" + movieShow.getMovie_id() + "'");
 
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "UPDATE public.show SET time_show='" + show.getTimeOfShow() + "',date_show='" + show.getDateOfShow() +
-                            "' where id='" + show.getShow_id() + "'");
+                    "UPDATE public.show SET time_show='" + movieShow.getTimeOfShow() + "',date_show='" + movieShow.getDateOfShow() +
+                            "' where id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
             statement.close();
 
@@ -172,17 +172,17 @@ public class ManageUserDAO implements UserDAO {
     }
 
     /**
-     * Remove {@link Show} from database which is equal to one in the database. Then return a {@link ShowsList} object of all {@link Show} objects from database.
+     * Remove {@link MovieShow} from database which is equal to one in the database. Then return a {@link MovieShowsList} object of all {@link MovieShow} objects from database.
      *
-     * @param show
+     * @param movieShow
      * @return
      */
     @Override
-    public ShowsList removeMovie(Show show) {
-        ShowsList showList = new ShowsList();
+    public MovieShowsList removeMovie(MovieShow movieShow) {
+        MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from show where id='" + show.getShow_id() + "'");
+                    "Delete from show where id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
             System.out.println("Hi");
             statement = connection.prepareStatement(
@@ -200,13 +200,13 @@ public class ManageUserDAO implements UserDAO {
     }
 
     /**
-     * Return reservations which contained the {@link Show} object from the parameter.
+     * Return reservations which contained the {@link MovieShow} object from the parameter.
      *
-     * @param show
+     * @param movieShow
      * @return
      */
     @Override
-    public ArrayList<String> getReservations(Show show) {
+    public ArrayList<String> getReservations(MovieShow movieShow) {
         ArrayList<String> strings = new ArrayList<>();
 
         try (Connection connection = controller.getConnection()) {
@@ -217,9 +217,9 @@ public class ManageUserDAO implements UserDAO {
             }
             System.out.println(strings.size());
 
-            if (show != null) {
+            if (movieShow != null) {
                 statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
-                        show.getShow_id() + "'");
+                        movieShow.getShow_id() + "'");
 
                 resultSet = statement.executeQuery();
 

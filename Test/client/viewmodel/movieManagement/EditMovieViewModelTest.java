@@ -2,15 +2,10 @@ package client.viewmodel.movieManagement;
 
 import client.core.ClientFactory;
 import client.core.ModelFactory;
-import client.model.Model;
 import client.viewmodel.ViewModelFactory;
-import client.viewmodel.registration.RegisterViewModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import shared.Show;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class EditMovieViewModelTest {
 

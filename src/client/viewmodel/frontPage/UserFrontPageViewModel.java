@@ -5,26 +5,27 @@ import client.model.UserModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.Show;
-import shared.ShowsList;
+import shared.MovieShow;
+import shared.MovieShowsList;
+import shared.PropertyChangeSubject;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 
-public class UserFrontPageViewModel {
+public class UserFrontPageViewModel implements PropertyChangeSubject {
 
     /**
      * Instance field
      */
     private UserModel model;
     private PropertyChangeSupport support;
-    private Show selectedShow;
+    private MovieShow selectedMovieShow;
     private StringProperty username, button;
     private StringProperty searchPhrase;
     private ObjectProperty<LocalDate> datePicked;
-    private Property<ObservableList<Show>> observableItems;
+    private Property<ObservableList<MovieShow>> observableItems;
 
     /**
      * Constructor
@@ -51,10 +52,10 @@ public class UserFrontPageViewModel {
      */
     public void onGetMovies(PropertyChangeEvent event) {
         System.out.println("On get movies");
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
-        ShowsList showsList = (ShowsList) event.getNewValue();
-        for (int i = 0; i < showsList.getSize(); i++) {
-            observableList.add(showsList.get(i));
+        ObservableList<MovieShow> observableList = FXCollections.observableArrayList();
+        MovieShowsList movieShowsList = (MovieShowsList) event.getNewValue();
+        for (int i = 0; i < movieShowsList.getSize(); i++) {
+            observableList.add(movieShowsList.get(i));
         }
         observableItems.setValue(observableList);
         if (!(searchPhrase.getValue() == null || searchPhrase.getValue().equals(""))) {
@@ -65,15 +66,6 @@ public class UserFrontPageViewModel {
         }
     }
 
-    /**
-     * Void method for adding the listener
-     *
-     * @param name
-     * @param listener
-     */
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
-    }
 
     /**
      * Method gets movies
@@ -93,7 +85,7 @@ public class UserFrontPageViewModel {
      * Void method for searching for shows
      */
     public void search() {
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
+        ObservableList<MovieShow> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (observableItems.getValue().get(i).getName().contains(searchPhrase.getValue())) {
                 observableList.add(observableItems.getValue().get(i));
@@ -107,7 +99,7 @@ public class UserFrontPageViewModel {
      * Void method for viewing shows on specific dates
      */
     public void onDatePick() {
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
+        ObservableList<MovieShow> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < observableItems.getValue().size(); i++) {
             if (datePicked.get().toString().equals(observableItems.getValue().get(i).getDateOfShow())) {
                 observableList.add(observableItems.getValue().get(i));
@@ -129,37 +121,37 @@ public class UserFrontPageViewModel {
     /**
      * Void method adds movies to show
      *
-     * @param show
+     * @param movieShow
      */
-    public void addMovie(Show show) {
-        model.addMovie(show);
+    public void addMovie(MovieShow movieShow) {
+        model.addMovie(movieShow);
     }
 
     /**
      * Void method for editing movies
      *
-     * @param show
+     * @param movieShow
      */
-    public void editMovie(Show show) {
-        model.editMovie(show);
+    public void editMovie(MovieShow movieShow) {
+        model.editMovie(movieShow);
     }
 
     /**
      * Void method removes movie
      */
     public void removeMovie() {
-        if (selectedShow != null) {
-            model.removeMovie(selectedShow);
+        if (selectedMovieShow != null) {
+            model.removeMovie(selectedMovieShow);
         }
     }
 
     /**
      * Void method for selectedMovie
      *
-     * @param show
+     * @param movieShow
      */
-    public void selectedMovie(Show show) {
-        selectedShow = show;
+    public void selectedMovie(MovieShow movieShow) {
+        selectedMovieShow = movieShow;
     }
 
 
@@ -177,8 +169,23 @@ public class UserFrontPageViewModel {
      *
      * @return observableItems
      */
-    public Property<ObservableList<Show>> observableItemsProperty() {
+    public Property<ObservableList<MovieShow>> observableItemsProperty() {
         return observableItems;
     }
 
+    /**
+     * Void method for adding the listener
+     *
+     * @param name
+     * @param listener
+     */
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+    }
 }

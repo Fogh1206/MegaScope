@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import shared.PropertyChangeSubject;
 import shared.User;
 import shared.UserList;
 import shared.util.EventType;
@@ -18,7 +19,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 
-public class AdminUsersViewModel {
+public class AdminUsersViewModel implements PropertyChangeSubject {
     private UserModel userModel;
     private PropertyChangeSupport support;
     private User selectedUser;
@@ -54,9 +55,6 @@ public class AdminUsersViewModel {
         items = FXCollections.observableArrayList(observableList);
     }
 
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
-    }
 
     public void search() {
         if (searchPhrase.getValue() == null || searchPhrase.getValue().equals("")) {
@@ -109,4 +107,13 @@ public class AdminUsersViewModel {
         return items;
     }
 
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+    }
 }

@@ -95,8 +95,8 @@ public class CinemaHallViewModel {
     /**
      * Method that through model and client send request for ReservationList for specific show
      */
-    public void getReservation(Show show) {
-        model.getReservation(show);
+    public void getReservation(MovieShow movieShow) {
+        model.getReservation(movieShow);
     }
 
     public Property<Paint> getFillProperty(String id) {

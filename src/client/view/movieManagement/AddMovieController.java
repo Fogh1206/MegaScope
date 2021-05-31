@@ -2,13 +2,10 @@ package client.view.movieManagement;
 
 import client.view.ViewHandler;
 import client.viewmodel.movieManagement.AddMovieViewModel;
-import javafx.application.Platform;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import shared.Show;
+import shared.MovieShow;
 
 import java.time.LocalDate;
 
@@ -35,7 +32,7 @@ public class AddMovieController {
 
     private AddMovieViewModel addMovieViewModel;
     private ViewHandler viewHandler;
-    private Show selectedShow;
+    private MovieShow selectedMovieShow;
 
 
     /**
@@ -46,7 +43,7 @@ public class AddMovieController {
         this.addMovieViewModel = addMovieViewModel;
         this.viewHandler = viewHandler;
         addMovieViewModel.getMovies();
-        selectedShow = null;
+        selectedMovieShow = null;
         existingMovie.itemsProperty().bindBidirectional(addMovieViewModel.existingMovieProperty());
 
         movieNameTextField.textProperty().bindBidirectional(addMovieViewModel.movieNameProperty());
@@ -72,7 +69,7 @@ public class AddMovieController {
      * Void method for the button "onSave" functionality
      */
     public void onSave() {
-        addMovieViewModel.addMovie(selectedShow);
+        addMovieViewModel.addMovie(selectedMovieShow);
     }
 
     /**
@@ -86,9 +83,9 @@ public class AddMovieController {
     public void setSelected() {
         if (existingMovie.getSelectionModel().getSelectedItem() != null) {
             int index = existingMovie.getSelectionModel().getSelectedIndex();
-            selectedShow = (Show) existingMovie.getItems().get(index);
+            selectedMovieShow = (MovieShow) existingMovie.getItems().get(index);
             System.out.println("Kappa");
-            System.out.println(selectedShow.getName());
+            System.out.println(selectedMovieShow.getName());
         }
     }
 }

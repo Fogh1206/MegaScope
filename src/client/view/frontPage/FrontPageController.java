@@ -4,7 +4,6 @@ import client.view.CustomTextFieldTableCell;
 import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,7 +13,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
-import shared.Show;
+import shared.MovieShow;
 import shared.User;
 
 import java.io.File;
@@ -49,7 +48,7 @@ public class FrontPageController {
     @FXML
     private HBox adminContainer;
     @FXML
-    private TableView<Show> movieTableView;
+    private TableView<MovieShow> movieTableView;
     @FXML
     private TableColumn<Object, String> movieTitleCol;
     @FXML
@@ -67,7 +66,7 @@ public class FrontPageController {
 
     private UserFrontPageViewModel userFrontPageViewModel;
     private ViewHandler viewHandler;
-    private Show selectedShow;
+    private MovieShow selectedMovieShow;
     private User userLoggedIn;
 
     /**
@@ -189,8 +188,8 @@ public class FrontPageController {
      * Opens cinemahall page for users
      */
     public void onBookMovieButton() {
-        if (userLoggedIn != null && selectedShow != null) {
-            viewHandler.openCinemaHallPage(userLoggedIn, selectedShow);
+        if (userLoggedIn != null && selectedMovieShow != null) {
+            viewHandler.openCinemaHallPage(userLoggedIn, selectedMovieShow);
         } else if (userLoggedIn.getUserType().equals("ADMIN")) {
             viewHandler.openCinemaHallPage(userLoggedIn, null);
         }
@@ -202,7 +201,7 @@ public class FrontPageController {
     public void setSelected() {
         if (movieTableView.getSelectionModel().getSelectedItem() != null) {
             int index = movieTableView.getSelectionModel().getSelectedIndex();
-            selectedShow = movieTableView.getItems().get(index);
+            selectedMovieShow = movieTableView.getItems().get(index);
             userFrontPageViewModel.selectedMovie(movieTableView.getItems().get(index));
         }
     }
@@ -226,8 +225,8 @@ public class FrontPageController {
      * Method opens edit movie page if admin is logged in
      */
     public void onEditMovie() {
-        if (selectedShow != null) {
-            viewHandler.openEditMovie(selectedShow);
+        if (selectedMovieShow != null) {
+            viewHandler.openEditMovie(selectedMovieShow);
         }
     }
 
@@ -235,12 +234,12 @@ public class FrontPageController {
      * Method opens an alert box and removes movie from the front page.
      */
     public void onRemoveMovie() {
-        if (selectedShow != null) {
+        if (selectedMovieShow != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("You are about to delete a movie from the database");
             alert.setContentText(
-                    "Are you sure you want to delete the movie [" + selectedShow.getName()
+                    "Are you sure you want to delete the movie [" + selectedMovieShow.getName()
                             + "] from the movie database?");
 
             Optional<ButtonType> result = alert.showAndWait();

@@ -27,7 +27,7 @@ public class Seat implements Serializable {
         this.disabled = disabled;
     }
 
-    public String toString(){
-        return id+" "+disabled;
+    public String toString() {
+        return id + " " + disabled;
     }
 }

@@ -5,7 +5,7 @@ import client.viewmodel.movieManagement.EditMovieViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import shared.Show;
+import shared.MovieShow;
 
 import java.time.LocalDate;
 
@@ -30,19 +30,19 @@ public class EditMovieController {
 
     private EditMovieViewModel editMovieViewModel;
     private ViewHandler viewHandler;
-    private Show show;
+    private MovieShow movieShow;
 
     /**
      * @param editMovieViewModel
      * @param viewHandler
-     * @param show               Method for initializing the fields and for binding the values.
+     * @param movieShow               Method for initializing the fields and for binding the values.
      */
-    public void init(EditMovieViewModel editMovieViewModel, ViewHandler viewHandler, Show show) {
+    public void init(EditMovieViewModel editMovieViewModel, ViewHandler viewHandler, MovieShow movieShow) {
         this.editMovieViewModel = editMovieViewModel;
         this.viewHandler = viewHandler;
-        this.show = show;
+        this.movieShow = movieShow;
 
-        System.out.println("Id from edit movie controller" + show.getMovie_id());
+        System.out.println("Id from edit movie controller" + movieShow.getMovie_id());
         movieNameTextField.textProperty().bindBidirectional(editMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(editMovieViewModel.dateOfReleaseProperty());
         mainActorsTextArea.textProperty().bindBidirectional(editMovieViewModel.mainActorsProperty());
@@ -58,19 +58,19 @@ public class EditMovieController {
 
         dateOfShowDatePicker.valueProperty().bindBidirectional(editMovieViewModel.dateOfShowProperty());
         editMovieLabel.textProperty().bindBidirectional(editMovieViewModel.editMovieLabelProperty());
-        movieNameTextField.setText(show.getName());
-        dateOfReleaseTextField.setText(show.getDateOfRelease());
-        mainActorsTextArea.setText(show.getMainActors());
-        descriptionTextArea.setText(show.getDescription());
+        movieNameTextField.setText(movieShow.getName());
+        dateOfReleaseTextField.setText(movieShow.getDateOfRelease());
+        mainActorsTextArea.setText(movieShow.getMainActors());
+        descriptionTextArea.setText(movieShow.getDescription());
         mainActorsTextArea.setWrapText(true);
         descriptionTextArea.setWrapText(true);
 
-        String[] times = show.getTimeOfShow().split(":");
+        String[] times = movieShow.getTimeOfShow().split(":");
 
         hourTextField.setText(times[0]);
         minuteTextField.setText(times[1]);
-        System.out.println(show.getDateOfShow());
-        dateOfShowDatePicker.setValue(LocalDate.parse(show.getDateOfShow()));
+        System.out.println(movieShow.getDateOfShow());
+        dateOfShowDatePicker.setValue(LocalDate.parse(movieShow.getDateOfShow()));
 
     }
 
@@ -78,7 +78,7 @@ public class EditMovieController {
      * Void method for the button "onSave" functionality
      */
     public void onSave() {
-        editMovieViewModel.editMovie(show.getMovie_id(), show.getShow_id());
+        editMovieViewModel.editMovie(movieShow.getMovie_id(), movieShow.getShow_id());
         Platform.runLater(this::onCancel);
     }
 
