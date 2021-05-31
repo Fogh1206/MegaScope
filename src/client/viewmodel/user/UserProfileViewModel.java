@@ -105,10 +105,12 @@ public class UserProfileViewModel implements PropertyChangeSubject {
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
             }
+        }
 
-        } else if (!(newPassword.get().equals(confirmPassword.get())) && newPassword
-                .isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
-            saveInfoLabel.setValue("Passwords do not match");
+        else if (newPassword.isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
+            if ((newPassword.get().equals(confirmPassword.get()))) {
+                saveInfoLabel.setValue("Passwords do not match");
+            }
         } else {
             System.out.println("password dont match or you dont want to change the password");
             System.out.println("Current " + currentUsertype.get());
