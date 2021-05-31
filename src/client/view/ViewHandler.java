@@ -16,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import shared.Show;
+import shared.MovieShow;
 import shared.User;
 
 import java.io.IOException;
@@ -97,15 +97,15 @@ public class ViewHandler {
 
     /**
      * Changes scene in stage to the content of the editMovie.fxml file.
-     * @param show
+     * @param movieShow
      */
-    public void openEditMovie(Show show) {
+    public void openEditMovie(MovieShow movieShow) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/editMovie.fxml"));
         try {
             Parent root = loader.load();
             EditMovieController ctrl = loader.getController();
-            ctrl.init(vmf.getEditMovieViewModel(), this, show);
+            ctrl.init(vmf.getEditMovieViewModel(), this, movieShow);
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit movie");
@@ -204,15 +204,15 @@ public class ViewHandler {
     /**
      * Changes scene in stage to the content of the cinemaHall.fxml file.
      * @param userLoggedIn
-     * @param show Show that is being booked
+     * @param movieShow Show that is being booked
      */
-    public void openCinemaHallPage(User userLoggedIn, Show show) {
+    public void openCinemaHallPage(User userLoggedIn, MovieShow movieShow) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
         try {
             Parent root = loader.load();
             CinemaHallController ctrl = loader.getController();
-            ctrl.init(vmf.getCinemaHallPage(), this, userLoggedIn, show);
+            ctrl.init(vmf.getCinemaHallPage(), this, userLoggedIn, movieShow);
             mainStage.setTitle("Cinema Hall");
             Scene cinemaHallScene = new Scene(root);
             mainStage.setScene(cinemaHallScene);

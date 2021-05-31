@@ -4,7 +4,7 @@ import shared.util.EventType;
 
 import java.io.Serializable;
 
-public class Request  implements Serializable {
+public class Request implements Serializable {
 
     public EventType type;
     public Object arg;

@@ -3,6 +3,7 @@ package client.viewmodel.user;
 import client.model.UserModel;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import shared.PropertyChangeSubject;
 import shared.User;
 import shared.util.EventType;
 
@@ -10,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class UserProfileViewModel {
+public class UserProfileViewModel implements PropertyChangeSubject {
     /**
      * Instance field and creating new objects to string properties
      */
@@ -104,10 +105,12 @@ public class UserProfileViewModel {
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
             }
+        }
 
-        } else if (!(newPassword.get().equals(confirmPassword.get())) && newPassword
-                .isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
-            saveInfoLabel.setValue("Passwords do not match");
+        else if (newPassword.isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
+            if ((newPassword.get().equals(confirmPassword.get()))) {
+                saveInfoLabel.setValue("Passwords do not match");
+            }
         } else {
             System.out.println("password dont match or you dont want to change the password");
             System.out.println("Current " + currentUsertype.get());
@@ -247,19 +250,6 @@ public class UserProfileViewModel {
         return saveInfoLabel;
     }
 
-    /**
-     * Void method for adding a listener
-     *
-     * @param name
-     * @param listener
-     */
-    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(name, listener);
-    }
-
-    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
-        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
-    }
 
     /**
      * Boolean method to check if the user is VIP
@@ -275,5 +265,21 @@ public class UserProfileViewModel {
      */
     public void clearMessages() {
         saveInfoLabel.setValue("");
+    }
+
+    /**
+     * Void method for adding a listener
+     *
+     * @param name
+     * @param listener
+     */
+    @Override
+    public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.addPropertyChangeListener(name, listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
     }
 }

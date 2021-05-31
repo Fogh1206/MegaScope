@@ -72,16 +72,16 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void removeMovie(Show show) {
+    public void removeMovie(MovieShow movieShow) {
         System.out.println("Client: RemoveMovie Req");
-        Request req = new Request(EventType.REMOVEMOVIE_REQUEST, show);
+        Request req = new Request(EventType.REMOVEMOVIE_REQUEST, movieShow);
         sendToServer(req, EventType.REMOVEMOVIE_RESULT);
     }
 
     @Override
-    public void getReservation(Show show) {
+    public void getReservation(MovieShow movieShow) {
         System.out.println("Client: GetReservations Req");
-        Request req = new Request(EventType.GETRESERVATIONS_REQUEST, show);
+        Request req = new Request(EventType.GETRESERVATIONS_REQUEST, movieShow);
         sendToServer(req, EventType.GETRESERVATIONS_RESULT);
     }
 
@@ -137,16 +137,16 @@ public class Client implements ClientImpl {
     }
 
     @Override
-    public void addMovie(Show show) {
+    public void addMovie(MovieShow movieShow) {
         System.out.println("Client: AddMovie Req");
-        Request request = new Request(EventType.ADDMOVIE_REQUEST, show);
+        Request request = new Request(EventType.ADDMOVIE_REQUEST, movieShow);
         sendToServer(request, EventType.ADDMOVIE_RESULT);
     }
 
     @Override
-    public void editMovie(Show show) {
+    public void editMovie(MovieShow movieShow) {
         System.out.println("Client: EditMovie Req");
-        Request request = new Request(EventType.EDITMOVIE_RESQUEST, show);
+        Request request = new Request(EventType.EDITMOVIE_RESQUEST, movieShow);
         sendToServer(request, EventType.EDITMOVIE_RESULT);
     }
 

@@ -2,7 +2,7 @@ package shared;
 
 import java.io.Serializable;
 
-public class Show implements Serializable {
+public class MovieShow implements Serializable {
     private String name;
     private String dateOfRelease;
     private String mainActors;
@@ -12,8 +12,8 @@ public class Show implements Serializable {
     private int movie_id;
     private int show_id;
 
-    public Show(String name, String dateOfRelease, String mainActors,
-                String description, String timeOfShow, String dateOfShow) {
+    public MovieShow(String name, String dateOfRelease, String mainActors,
+                     String description, String timeOfShow, String dateOfShow) {
         this.name = name;
         this.dateOfRelease = dateOfRelease;
         this.mainActors = mainActors;
@@ -22,8 +22,8 @@ public class Show implements Serializable {
         this.dateOfShow = dateOfShow;
     }
 
-    public Show(int movie_id, String name, String dateOfRelease, String mainActors,
-                String description, String timeOfShow, String dateOfShow, int show_id) {
+    public MovieShow(int movie_id, String name, String dateOfRelease, String mainActors,
+                     String description, String timeOfShow, String dateOfShow, int show_id) {
         this.movie_id = movie_id;
         this.name = name;
         this.dateOfRelease = dateOfRelease;

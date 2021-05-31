@@ -1,13 +1,12 @@
 package client.viewmodel.movieManagement;
 
 import client.model.UserModel;
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.Show;
-import shared.ShowsList;
-import shared.User;
+import shared.MovieShow;
+import shared.MovieShowsList;
+import shared.PropertyChangeSubject;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -15,7 +14,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 
-public class AddMovieViewModel {
+public class AddMovieViewModel implements PropertyChangeSubject {
 
     private StringProperty movieName;
     private StringProperty dateOfRelease;
@@ -28,7 +27,7 @@ public class AddMovieViewModel {
     private PropertyChangeSupport support;
 
     private UserModel model;
-    private Property<ObservableList<Show>> existingMovie;
+    private Property<ObservableList<MovieShow>> existingMovie;
 
     /**
      * @param model One-argument constructor for initializing the fields
@@ -51,11 +50,11 @@ public class AddMovieViewModel {
 
     private void onGetMoviesForAdd(PropertyChangeEvent event) {
         System.out.println("Hellow");
-        ObservableList<Show> observableList = FXCollections.observableArrayList();
+        ObservableList<MovieShow> observableList = FXCollections.observableArrayList();
         observableList.add(null);
-        ShowsList showsList = (ShowsList) event.getNewValue();
-        for (int i = 0; i < showsList.getSize(); i++) {
-            observableList.add(showsList.get(i));
+        MovieShowsList movieShowsList = (MovieShowsList) event.getNewValue();
+        for (int i = 0; i < movieShowsList.getSize(); i++) {
+            observableList.add(movieShowsList.get(i));
         }
         existingMovie.setValue(observableList);
     }
@@ -97,8 +96,8 @@ public class AddMovieViewModel {
     /**
      * Void method for adding the movie
      */
-    public void addMovie(Show selectedShow) {
-        if (selectedShow == null) {
+    public void addMovie(MovieShow selectedMovieShow) {
+        if (selectedMovieShow == null) {
             if (movieName.get() == null || movieName.get().equals("")) {
                 addMovieLabel.setValue("Please input the movie name");
             } else if (dateOfRelease.get() == null || dateOfRelease.get().equals("")) {
@@ -114,19 +113,19 @@ public class AddMovieViewModel {
             } else if (dateOfShow.get() == null || dateOfShow.get().equals("")) {
                 addMovieLabel.setValue("Please input the date of show");
             } else {
-                Show show = new Show(movieName.get(), dateOfRelease.get(),
+                MovieShow movieShow = new MovieShow(movieName.get(), dateOfRelease.get(),
                         mainActors.get(), description.get(),
                         hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
                         dateOfShow.get().toString());
 
-                System.out.println(show);
+                System.out.println(movieShow);
 
-                model.addMovie(show);
+                model.addMovie(movieShow);
                 addMovieLabel.setValue("Successful");
                 defaultFields();
                 getMovies();
             }
-        } else if (selectedShow != null) {
+        } else if (selectedMovieShow != null) {
             if (hourTimeOfShow.get() == null || hourTimeOfShow.get().equals("")) {
                 addMovieLabel.setValue("Please input the hour of the show");
             } else if (minuteTimeOfShow.get() == null || minuteTimeOfShow.get().equals("")) {
@@ -134,11 +133,11 @@ public class AddMovieViewModel {
             } else if (dateOfShow.get() == null || dateOfShow.get().equals("")) {
                 addMovieLabel.setValue("Please input the date of show");
             } else {
-                Show show = new Show(selectedShow.getName(), selectedShow.getDateOfRelease(),
-                        selectedShow.getMainActors(), selectedShow.getDescription(),
+                MovieShow movieShow = new MovieShow(selectedMovieShow.getName(), selectedMovieShow.getDateOfRelease(),
+                        selectedMovieShow.getMainActors(), selectedMovieShow.getDescription(),
                         hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
                         dateOfShow.get().toString());
-                model.addMovie(show);
+                model.addMovie(movieShow);
                 addMovieLabel.setValue("Successful");
             }
 
@@ -165,11 +164,17 @@ public class AddMovieViewModel {
      * @param name
      * @param listener Void method for adding the listener
      */
+    @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
-    public Property<ObservableList<Show>> existingMovieProperty() {
+    @Override
+    public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+        support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+    }
+
+    public Property<ObservableList<MovieShow>> existingMovieProperty() {
         return existingMovie;
     }
 

@@ -56,7 +56,7 @@ public class Model implements UserModel {
 
     private void onGetMoviesForAddResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetMoviesForAddResult");
-        ShowsList list = (ShowsList) event.getNewValue();
+        MovieShowsList list = (MovieShowsList) event.getNewValue();
         support.firePropertyChange(EventType.GETMOVIESFORADD_RESULT.toString(), null, list);
     }
 
@@ -158,12 +158,12 @@ public class Model implements UserModel {
     }
 
     /**
-     * Event returns updated {@link ShowsList} to {@link client.viewmodel.frontPage.UserFrontPageViewModel}.
+     * Event returns updated {@link MovieShowsList} to {@link client.viewmodel.frontPage.UserFrontPageViewModel}.
      * @param event
      */
     private void onGetMoviesResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetMoviesResult");
-        ShowsList list = (ShowsList) event.getNewValue();
+        MovieShowsList list = (MovieShowsList) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
@@ -188,18 +188,18 @@ public class Model implements UserModel {
     }
 
     /**
-     * Event returns updated {@link ShowsList} to {@link client.viewmodel.frontPage.UserFrontPageViewModel}.
+     * Event returns updated {@link MovieShowsList} to {@link client.viewmodel.frontPage.UserFrontPageViewModel}.
      * @param event
      */
     private void onMoviesChanged(PropertyChangeEvent event) {
         System.out.println("Model: onMoviesChanged");
-        ShowsList list = (ShowsList) event.getNewValue();
+        MovieShowsList list = (MovieShowsList) event.getNewValue();
         support.firePropertyChange("Movie Result", null, list);
     }
 
     @Override
-    public void editMovie(Show show) {
-        client.editMovie(show);
+    public void editMovie(MovieShow movieShow) {
+        client.editMovie(movieShow);
     }
 
     @Override
@@ -208,18 +208,18 @@ public class Model implements UserModel {
     }
 
     @Override
-    public void addMovie(Show show) {
-        client.addMovie(show);
+    public void addMovie(MovieShow movieShow) {
+        client.addMovie(movieShow);
     }
 
     @Override
-    public void removeMovie(Show show) {
-        client.removeMovie(show);
+    public void removeMovie(MovieShow movieShow) {
+        client.removeMovie(movieShow);
     }
 
     @Override
-    public void getReservation(Show show) {
-        client.getReservation(show);
+    public void getReservation(MovieShow movieShow) {
+        client.getReservation(movieShow);
     }
 
     @Override

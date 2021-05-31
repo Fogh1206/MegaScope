@@ -4,17 +4,14 @@ import client.model.UserModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.Reservation;
-import shared.User;
-import shared.UserReservationInfo;
-import shared.UserReservationInfoList;
+import shared.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-public class UserReservationViewModel
+public class UserReservationViewModel implements PropertyChangeSubject
 {
 
   /**
@@ -55,7 +52,7 @@ public class UserReservationViewModel
   public void onGetReservations(PropertyChangeEvent event)
   {
     UserReservationInfoList userReservationInfos = (UserReservationInfoList) event
-        .getNewValue();
+            .getNewValue();
     ObservableList<UserReservationInfo> observableList = FXCollections.observableArrayList();
     for (int i = 0; i <userReservationInfos.getSize() ; i++) {
       observableList.add(userReservationInfos.get(i));
@@ -63,25 +60,12 @@ public class UserReservationViewModel
 
     observableItems.setValue(observableList);
   }
-
-  /**
-   * Void method adds listener
-   *
-   * @param name
-   * @param listener
-   */
-  public void addPropertyChangeListener(String name,PropertyChangeListener listener)
-  {
-    support.addPropertyChangeListener(name, listener);
-  }
-
   /**
    * Void method gets user reservations
    *
    * @param user
    */
-  public void getUserReservations(User user)
-  {
+  public void getUserReservations(User user) {
     model.getUserReservations(user);
   }
 
@@ -90,8 +74,7 @@ public class UserReservationViewModel
    *
    * @return observableItems
    */
-  public SimpleListProperty<UserReservationInfo> observableItemsProperty()
-  {
+  public SimpleListProperty<UserReservationInfo> observableItemsProperty() {
     return observableItems;
   }
 
@@ -100,8 +83,24 @@ public class UserReservationViewModel
    *
    * @param userReservationInfo
    */
-  public void cancelReservation(UserReservationInfo userReservationInfo)
-  {
+  public void cancelReservation(UserReservationInfo userReservationInfo) {
     model.cancelReservation(userReservationInfo);
   }
+
+  /**
+   * Void method adds listener
+   *
+   * @param name
+   * @param listener
+   */
+  @Override
+  public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
+    support.addPropertyChangeListener(name, listener);
+  }
+
+  @Override
+  public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
+    support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);
+  }
 }
+

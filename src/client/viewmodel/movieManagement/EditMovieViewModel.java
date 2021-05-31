@@ -5,7 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import shared.Show;
+import shared.MovieShow;
 
 import java.time.LocalDate;
 
@@ -88,12 +88,12 @@ public class EditMovieViewModel {
             editMovieLabel.setValue("Each field must be filled!!!");
         } else {
 
-            Show show = new Show(id, movieName.get(), dateOfRelease.get(),
+            MovieShow movieShow = new MovieShow(id, movieName.get(), dateOfRelease.get(),
                     mainActors.get(), description.get(),
                     hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
                     dateOfShow.get().toString(), show_id);
             editMovieLabel.setValue("Success");
-            model.editMovie(show);
+            model.editMovie(movieShow);
         }
     }
 }

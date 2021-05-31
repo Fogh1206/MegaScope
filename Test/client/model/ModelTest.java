@@ -1,13 +1,10 @@
 package client.model;
 
 import client.core.ClientFactory;
-import client.core.ModelFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import shared.Show;
-
-import static org.junit.jupiter.api.Assertions.*;
+import shared.MovieShow;
 
 class ModelTest {
 
@@ -29,7 +26,7 @@ class ModelTest {
     }
 
     @Test
-    public void addMovie(Show show) {
+    public void addMovie(MovieShow movieShow) {
 
     }
 

@@ -95,7 +95,7 @@
         </HBox>
         <HBox prefWidth="200.0">
             <children>
-                <Label prefWidth="100.0" text="Time of show">
+                <Label prefWidth="100.0" text="Time of movieShow">
                     <HBox.margin>
                         <Insets left="5.0"/>
                     </HBox.margin>
@@ -125,7 +125,7 @@
         </HBox>
         <HBox prefWidth="200.0">
             <children>
-                <Label prefWidth="100.0" text="Date of show">
+                <Label prefWidth="100.0" text="Date of movieShow">
                     <HBox.margin>
                         <Insets left="5.0"/>
                     </HBox.margin>

@@ -108,7 +108,6 @@ public class AdminUsersPageController {
     }
 
     public void selectUser() {
-
         if (userTableView.getSelectionModel().getSelectedItem() != null) {
             int index = userTableView.getSelectionModel().getSelectedIndex();
             if (!userTableView.getItems().get(index).getBanned()) {
