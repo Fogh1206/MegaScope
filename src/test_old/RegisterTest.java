@@ -56,7 +56,7 @@ public class RegisterTest {
         phoneNumber.set("12345678");
 
         User user = new User(firstName.get(), lastName.get(), username.get(),
-                password.get(), phoneNumber.get(), "USER", false);
+                password.get(), phoneNumber.get(), "NORM", false);
 
         assertTrue(registerViewModel.isValidInput(user));
 
@@ -85,7 +85,7 @@ public class RegisterTest {
         phoneNumber.set("12345678");
 
         User user = new User(firstName.get(), lastName.get(), username.get(),
-                password.get(), phoneNumber.get(), "USER", false);
+                password.get(), phoneNumber.get(), "NORM", false);
 
         assertTrue(registerViewModel.isValidInput(user));
 
@@ -114,7 +114,7 @@ public class RegisterTest {
         phoneNumber.set("12345678");
 
         User user = new User(firstName.get(), lastName.get(), username.get(),
-                password.get(), phoneNumber.get(), "USER", false);
+                password.get(), phoneNumber.get(), "NORM", false);
 
         assertTrue(registerViewModel.isValidInput(user));
 

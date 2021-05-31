@@ -122,7 +122,7 @@ public class RegisterViewModel implements PropertyChangeSubject {
      */
     public void registerUserAccount() {
         model.register(new User(firstName.get(), lastName.get(), username.get(),
-                password.get(), phoneNumber.get(), "USER", false));
+                password.get(), phoneNumber.get(), "NORM", false));
         defaultFields();
     }
 

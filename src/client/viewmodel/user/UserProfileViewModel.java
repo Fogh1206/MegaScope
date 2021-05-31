@@ -91,7 +91,7 @@ public class UserProfileViewModel implements PropertyChangeSubject {
         if (vipCheck.getValue()) {
             currentUsertype.setValue("VIP");
         } else {
-            currentUsertype.setValue("USER");
+            currentUsertype.setValue("NORM");
         }
         if ((newPassword.isNotEmpty()).getValue() && newPassword.get().equals(confirmPassword.get())) {
             if (newPassword.get().length() < 3 || newPassword.get().length() > 15) {

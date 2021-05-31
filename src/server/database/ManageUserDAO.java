@@ -405,7 +405,7 @@ public class ManageUserDAO implements UserDAO {
         UserList users = new UserList();
         PreparedStatement statement = null;
         try (Connection connection = controller.getConnection()) {
-            statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='USER' or type='VIP' Order by id");
+            statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' or type='VIP' Order by id");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -436,7 +436,7 @@ public class ManageUserDAO implements UserDAO {
             statement.executeUpdate();
             statement.close();
             statement = connection.prepareStatement(
-                    "SELECT * FROM public.users WHERE type ='USER' or type='VIP' Order by id");
+                    "SELECT * FROM public.users WHERE type ='NORM' or type='VIP' Order by id");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -476,7 +476,7 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement(
 
                     "INSERT INTO public.users(firstname,lastname,username,password,phonenumber,type) VALUES ('" + user.getFirstName() + "','" + user.getLastName()
-                            + "','" + user.getUsername() + "','" + user.getPassword() + "','" + user.getPhoneNumber() + "','" + "USER" + "')");
+                            + "','" + user.getUsername() + "','" + user.getPassword() + "','" + user.getPhoneNumber() + "','" + "NORM" + "')");
 
             statement.executeUpdate();
 
