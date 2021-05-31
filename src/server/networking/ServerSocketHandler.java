@@ -128,12 +128,12 @@ public class ServerSocketHandler implements Runnable {
     }
 
     public Request getUserReservations(User user) {
-        ArrayList<UserReservationInfo> information = userDAO.getUserReservation(user);
+        UserReservationInfoList information = userDAO.getUserReservation(user);
         return new Request(EventType.GETUSERRESERVATIONS_RESULT, information);
     }
 
     public Request cancelReservation(UserReservationInfo userReservationInfo) {
-        ArrayList<UserReservationInfo> updatedReservations = userDAO.cancelReservation(userReservationInfo);
+        UserReservationInfoList updatedReservations = userDAO.cancelReservation(userReservationInfo);
         return new Request(EventType.REMOVERESERVATION_RESULT, updatedReservations);
     }
 

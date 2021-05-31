@@ -295,7 +295,7 @@ public class ManageUserDAO implements UserDAO {
     }
 
     @Override
-    public ArrayList<UserReservationInfo> cancelReservation(UserReservationInfo userReservationInfo) {
+    public UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo) {
         User user = null;
         try (Connection connection = controller.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -372,9 +372,9 @@ public class ManageUserDAO implements UserDAO {
 
 
     @Override
-    public ArrayList<UserReservationInfo> getUserReservation(User user) {
+    public UserReservationInfoList getUserReservation(User user) {
         PreparedStatement statement;
-        ArrayList<UserReservationInfo> userReservations = new ArrayList<>();
+        UserReservationInfoList userReservations = new UserReservationInfoList();
         UserReservationInfo temp;
 
         try (Connection connection = controller.getConnection()) {

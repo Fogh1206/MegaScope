@@ -9,7 +9,7 @@ public interface UserDAO {
 
     User registerUser(User user);
 
-    ArrayList<UserReservationInfo> getUserReservation(User user);
+    UserReservationInfoList getUserReservation(User user);
 
     UserList getAllUsers();
 
@@ -27,7 +27,7 @@ public interface UserDAO {
 
     ReservationList reserveMovie(ReservationList list);
 
-    ArrayList<UserReservationInfo> cancelReservation(UserReservationInfo userReservationInfo);
+    UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo);
 
     SeatList adminConfirmSeats(SeatList arg);
 

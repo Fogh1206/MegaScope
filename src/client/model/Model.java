@@ -137,18 +137,18 @@ public class Model implements UserModel {
     }
 
     /**
-     * Event returns updated {@link ArrayList<UserReservationInfo>} to
+     * Event returns updated {@link UserReservationInfoList} to
      * {@link client.viewmodel.frontPage.UserReservationViewModel} with updated reservations for the logged in user.
      * @param event
      */
     private void onGetUserReservations(PropertyChangeEvent event) {
         System.out.println("Model: onGetUserReservations");
-        ArrayList<UserReservationInfo> reservations = (ArrayList<UserReservationInfo>) event.getNewValue();
+        UserReservationInfoList reservations = (UserReservationInfoList) event.getNewValue();
         support.firePropertyChange("Reservations result", null, reservations);
     }
 
     /**
-     * Event returns updated {@link UserList} to the {@link client.viewmodel.admin.AdminViewModelUsers}.
+     * Event returns updated {@link UserList} to the {@link client.viewmodel.admin}.
      * @param event
      */
     private void onGetUserResult(PropertyChangeEvent event) {

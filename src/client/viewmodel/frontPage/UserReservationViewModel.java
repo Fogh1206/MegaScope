@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import shared.Reservation;
 import shared.User;
 import shared.UserReservationInfo;
+import shared.UserReservationInfoList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -53,10 +54,13 @@ public class UserReservationViewModel
    */
   public void onGetReservations(PropertyChangeEvent event)
   {
-    ArrayList<UserReservationInfo> userReservationInfos = (ArrayList<UserReservationInfo>) event
+    UserReservationInfoList userReservationInfos = (UserReservationInfoList) event
         .getNewValue();
     ObservableList<UserReservationInfo> observableList = FXCollections.observableArrayList();
-    observableList.addAll(userReservationInfos);
+    for (int i = 0; i <userReservationInfos.getSize() ; i++) {
+      observableList.add(userReservationInfos.get(i));
+    }
+
     observableItems.setValue(observableList);
   }
 
