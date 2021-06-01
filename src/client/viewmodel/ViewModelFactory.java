@@ -2,7 +2,7 @@ package client.viewmodel;
 
 import client.core.ModelFactory;
 import client.viewmodel.admin.AdminUsersViewModel;
-import client.viewmodel.cinemaHall.CinemaHallViewModel;
+import client.viewmodel.bookTickets.BookTicketsViewModel;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
 import client.viewmodel.frontPage.UserReservationViewModel;
 import client.viewmodel.login.LoginViewModel;
@@ -17,7 +17,7 @@ public class ViewModelFactory {
     private LoginViewModel loginViewModel;
     private RegisterViewModel registerViewModel;
     private UserFrontPageViewModel userFrontPageViewModel;
-    private CinemaHallViewModel cinemaHallViewModel;
+    private BookTicketsViewModel bookTicketsViewModel;
     private UserProfileViewModel userProfileViewModel;
     private AdminUsersViewModel adminUsersViewModel;
     private AddMovieViewModel addMovieViewModel;
@@ -91,14 +91,14 @@ public class ViewModelFactory {
         return userFrontPageViewModel;
     }
     /**
-     * Returns declared object of {@link CinemaHallViewModel} if existing otherwise creates and initializes a new one and returns new {@link CinemaHallViewModel} object.
+     * Returns declared object of {@link BookTicketsViewModel} if existing otherwise creates and initializes a new one and returns new {@link BookTicketsViewModel} object.
      * @return
      */
-    public CinemaHallViewModel getCinemaHallPage() {
-        if (cinemaHallViewModel == null) {
-            cinemaHallViewModel = new CinemaHallViewModel(mf.getUserModel());
+    public BookTicketsViewModel getCinemaHallPage() {
+        if (bookTicketsViewModel == null) {
+            bookTicketsViewModel = new BookTicketsViewModel(mf.getUserModel());
         }
-        return cinemaHallViewModel;
+        return bookTicketsViewModel;
     }
     /**
      * Returns declared object of {@link UserProfileViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserProfileViewModel} object.

@@ -1,7 +1,7 @@
-package client.view.cinemaHall;
+package client.view.bookTickets;
 
 import client.view.ViewHandler;
-import client.viewmodel.cinemaHall.CinemaHallViewModel;
+import client.viewmodel.bookTickets.BookTicketsViewModel;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -23,7 +23,7 @@ import java.io.File;
 
 import java.util.Optional;
 
-public class CinemaHallController {
+public class BookTicketsController {
     @FXML
     private Label failLabel;
     @FXML
@@ -38,7 +38,7 @@ public class CinemaHallController {
     private ImageView logoView;
     @FXML
     private TextArea textSeats;
-    private CinemaHallViewModel cinemaHallViewModel;
+    private BookTicketsViewModel bookTicketsViewModel;
     private ViewHandler viewHandler;
     private User user;
     private MovieShow movieShow;
@@ -48,13 +48,13 @@ public class CinemaHallController {
     /**
      * Initializing Method for the GUI components
      *
-     * @param cinemaHallViewModel CinemaHallViewModel instance for ViewModel
+     * @param bookTicketsViewModel CinemaHallViewModel instance for ViewModel
      * @param viewHandler         object used handling the views
      * @param userLoggedIn        object used temporarily storing the User
      */
-    public void init(CinemaHallViewModel cinemaHallViewModel,
+    public void init(BookTicketsViewModel bookTicketsViewModel,
                      ViewHandler viewHandler, User userLoggedIn, MovieShow movieShow) {
-        this.cinemaHallViewModel = cinemaHallViewModel;
+        this.bookTicketsViewModel = bookTicketsViewModel;
         this.viewHandler = viewHandler;
         this.user = userLoggedIn;
 
@@ -78,7 +78,7 @@ public class CinemaHallController {
             System.out.println("image problem");
         }
 
-        failLabel.textProperty().bindBidirectional(cinemaHallViewModel.getFailLabelProperty());
+        failLabel.textProperty().bindBidirectional(bookTicketsViewModel.getFailLabelProperty());
     }
 
     /**
@@ -106,7 +106,7 @@ public class CinemaHallController {
      */
     private void openForUser() {
         movieTitleLabel.setText(movieShow.getName());
-        cinemaHallViewModel.getReservation(movieShow);
+        bookTicketsViewModel.getReservation(movieShow);
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
@@ -118,7 +118,7 @@ public class CinemaHallController {
                 if (!user.getUserType().equals("VIP") && row == 3) {
                     rectangle.setDisable(true);
                     greenToGrey.setFill(Color.GREY);
-                    cinemaHallViewModel.disableProperty(rectangle.getId());
+                    bookTicketsViewModel.disableProperty(rectangle.getId());
                 }
 
                 int finalRow = row;
@@ -132,13 +132,13 @@ public class CinemaHallController {
                     } else if (rectangle.getFill() == Color.GREEN) {
                         rectangle.setFill(Color.YELLOW);
                         Reservation reservation = new Reservation(Integer.parseInt(rectangle.getId()), movieShow.getShow_id(), user.getId());
-                        cinemaHallViewModel.addReservation(reservation);
+                        bookTicketsViewModel.addReservation(reservation);
                         myBooking[finalRow][finalCol] =
                                 "Row[" + finalRow + "] Column[" + finalCol + "] " + rectangle.getId() + " Booked";
                     }
                     updateSeats();
                 });
-                rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
+                rectangle.fillProperty().bindBidirectional(bookTicketsViewModel.getFillProperty(rectangle.getId()));
             }
         }
     }
@@ -148,7 +148,7 @@ public class CinemaHallController {
      */
     private void openForAdmin() {
         System.out.println("Call for admin");
-        cinemaHallViewModel.getAdminSeats();
+        bookTicketsViewModel.getAdminSeats();
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
             for (int column = 0; column < gridPaneSeats.getColumnCount(); column++) {
@@ -166,11 +166,11 @@ public class CinemaHallController {
                         rectangle.setFill(Color.GREEN);
                         myBooking[finalRow][finalCol] =
                                 "Row[" + finalRow + "] Seat[" + finalCol + "] " + rectangle.getId() + " enabled";
-                        cinemaHallViewModel.addDisabledSeat(rectangle.getId());
+                        bookTicketsViewModel.addDisabledSeat(rectangle.getId());
                     } else if (rectangle.getFill() == Color.GREEN) {
 
                         rectangle.setFill(Color.RED);
-                        cinemaHallViewModel.addDisabledSeat(rectangle.getId());
+                        bookTicketsViewModel.addDisabledSeat(rectangle.getId());
                         // TODO use an integer instead of an reservation to sendt the seats to ViewModel as ADMIN
 
                         myBooking[finalRow][finalCol] =
@@ -178,7 +178,7 @@ public class CinemaHallController {
                     }
                     updateSeats();
                 });
-                rectangle.fillProperty().bindBidirectional(cinemaHallViewModel.getFillProperty(rectangle.getId()));
+                rectangle.fillProperty().bindBidirectional(bookTicketsViewModel.getFillProperty(rectangle.getId()));
             }
         }
     }
@@ -201,7 +201,7 @@ public class CinemaHallController {
      * Method changes scene from to the Front Page scene.
      */
     public void frontPageButton() {
-        cinemaHallViewModel.resetColors();
+        bookTicketsViewModel.resetColors();
         viewHandler.showFrontPage(user);
     }
 
@@ -219,7 +219,7 @@ public class CinemaHallController {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    cinemaHallViewModel.confirmSeats(user);
+                    bookTicketsViewModel.confirmSeats(user);
                     textSeats.clear();
                     myBooking = new String[4][6];
                 }
@@ -227,7 +227,7 @@ public class CinemaHallController {
                 System.out.println("No change");
             }
         } else {
-            cinemaHallViewModel.confirmSeats(user);
+            bookTicketsViewModel.confirmSeats(user);
             textSeats.clear();
             myBooking = new String[4][6];
         }

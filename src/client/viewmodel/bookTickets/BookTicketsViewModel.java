@@ -1,4 +1,4 @@
-package client.viewmodel.cinemaHall;
+package client.viewmodel.bookTickets;
 
 import client.model.UserModel;
 import javafx.application.Platform;
@@ -14,7 +14,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CinemaHallViewModel {
+public class BookTicketsViewModel {
     private UserModel model;
     private PropertyChangeSupport support;
     private ReservationList reservationList;
@@ -25,7 +25,7 @@ public class CinemaHallViewModel {
     private HashMap<String, ObjectProperty<Paint>> colorIdMap;
     private StringProperty failLabelProperty;
 
-    public CinemaHallViewModel(UserModel model) {
+    public BookTicketsViewModel(UserModel model) {
         this.model = model;
         colorIdMap = new HashMap<>();
         support = new PropertyChangeSupport(this);

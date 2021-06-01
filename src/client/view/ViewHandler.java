@@ -1,7 +1,7 @@
 package client.view;
 
 import client.view.Admin.AdminUsersPageController;
-import client.view.cinemaHall.CinemaHallController;
+import client.view.bookTickets.BookTicketsController;
 import client.view.frontPage.FrontPageController;
 import client.view.frontPage.UserReservationController;
 import client.view.login.LoginViewController;
@@ -202,16 +202,16 @@ public class ViewHandler {
     }
 
     /**
-     * Changes scene in stage to the content of the cinemaHall.fxml file.
+     * Changes scene in stage to the content of the bookTickets.fxml file.
      * @param userLoggedIn
      * @param movieShow Show that is being booked
      */
     public void openCinemaHallPage(User userLoggedIn, MovieShow movieShow) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/cinemaHall.fxml"));
+        loader.setLocation(getClass().getResource("../fxml/bookTickets.fxml"));
         try {
             Parent root = loader.load();
-            CinemaHallController ctrl = loader.getController();
+            BookTicketsController ctrl = loader.getController();
             ctrl.init(vmf.getCinemaHallPage(), this, userLoggedIn, movieShow);
             mainStage.setTitle("Cinema Hall");
             Scene cinemaHallScene = new Scene(root);

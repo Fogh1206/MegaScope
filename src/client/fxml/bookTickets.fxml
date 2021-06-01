@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.view.cinemaHall.CinemaHallController">
+      fx:controller="client.view.bookTickets.BookTicketsController">
     <children>
         <AnchorPane prefHeight="610.0" prefWidth="900.0" style="-fx-background-color: white;">
             <children>
