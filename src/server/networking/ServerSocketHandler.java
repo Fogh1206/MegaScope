@@ -31,6 +31,73 @@ public class ServerSocketHandler implements Runnable {
         userDAO = ManageUserDAO.getInstance();
     }
 
+    @Override
+    public void run() {
+        while (connected) {
+            try {
+                Request request = (Request) inFromClient.readObject();
+                switch (request.type) {
+                    case GETUSER_REQUEST:
+                        outToClient.writeObject(getUserRequest());
+                        break;
+                    case GETMOVIES_REQUEST:
+                        outToClient.writeObject(getMoviesRequest());
+                        break;
+                    case GETMOVIESFORADD_REQUEST:
+                        outToClient.writeObject(getMoviesForAddRequest());
+                        break;
+                    case LOGIN_REQUEST:
+                        outToClient.writeObject(getLoginRequest((User) request.arg));
+                        break;
+                    case REGISTER_REQUEST:
+                        outToClient.writeObject(getRegisterRequest((User) request.arg));
+                        break;
+                    case EDITMOVIE_RESQUEST:
+                        outToClient.writeObject(getEditMovieRequest((MovieShow) request.arg));
+                        break;
+                    case SAVENEWINFO_REQUEST:
+                        outToClient.writeObject(getSaveNewInfoRequest((User) request.arg));
+                        break;
+                    case ADDMOVIE_REQUEST:
+                        outToClient.writeObject(getAddMovieRequest((MovieShow) request.arg));
+                        break;
+                    case REMOVEMOVIE_REQUEST:
+                        outToClient.writeObject(getRemoveMovieRequest((MovieShow) request.arg));
+                        break;
+                    case GETRESERVATIONS_REQUEST:
+                        outToClient.writeObject(getReservationsRequest((MovieShow) request.arg));
+                        break;
+                    case RESERVEMOVIE_REQUEST:
+                        outToClient.writeObject(getReserveMovieRequest((ReservationList) request.arg));
+                        break;
+                    case GETUSERRESERVATIONS_REQUEST:
+                        outToClient.writeObject(getUserReservations((User) request.arg));
+                        break;
+                    case REMOVERESERVATION_REQUEST:
+                        outToClient.writeObject(cancelReservation((UserReservationInfo) request.arg));
+                        break;
+                    case ADMINBLOCKSEATS_REQUEST:
+                        outToClient.writeObject(adminConfirmSeats((SeatList) request.arg));
+                        break;
+                    case GETADMINSEATS_REQUEST:
+                        outToClient.writeObject(getAdminSeats());
+                        break;
+                    case CHANGEUSERSTATUS_REQUEST:
+                        outToClient.writeObject(changeUserStatus((User) request.arg));
+                        break;
+                    case CLOSE_REQUEST:
+                        System.out.println("Closing");
+                        outToClient.writeObject(getCloseRequest());
+                        close();
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+              this.connected=false;
+            }
+        }
+    }
+
     public Request getUserRequest() {
         System.out.println("Get Users Requested");
         UserList users = userDAO.getAllUsers();
@@ -57,7 +124,7 @@ public class ServerSocketHandler implements Runnable {
 
     public Request getLoginRequest(User user) {
         System.out.println("Login requested");
-        User temp = userDAO.validateUser(user.getId(), user.getUsername(), user.getPassword());
+        User temp = userDAO.validateUser(user.getUsername(), user.getPassword());
         if (temp == null) {
             return new Request(EventType.LOGIN_RESULT, temp);
         } else {
@@ -148,71 +215,7 @@ public class ServerSocketHandler implements Runnable {
     }
 
 
-    @Override
-    public void run() {
-        while (connected) {
-            try {
-                Request request = (Request) inFromClient.readObject();
-                switch (request.type) {
-                    case GETUSER_REQUEST:
-                        outToClient.writeObject(getUserRequest());
-                        break;
-                    case GETMOVIES_REQUEST:
-                        outToClient.writeObject(getMoviesRequest());
-                        break;
-                    case GETMOVIESFORADD_REQUEST:
-                        outToClient.writeObject(getMoviesForAddRequest());
-                        break;
-                    case LOGIN_REQUEST:
-                        outToClient.writeObject(getLoginRequest((User) request.arg));
-                        break;
-                    case REGISTER_REQUEST:
-                        outToClient.writeObject(getRegisterRequest((User) request.arg));
-                        break;
-                    case EDITMOVIE_RESQUEST:
-                        outToClient.writeObject(getEditMovieRequest((MovieShow) request.arg));
-                        break;
-                    case SAVENEWINFO_REQUEST:
-                        outToClient.writeObject(getSaveNewInfoRequest((User) request.arg));
-                        break;
-                    case ADDMOVIE_REQUEST:
-                        outToClient.writeObject(getAddMovieRequest((MovieShow) request.arg));
-                        break;
-                    case REMOVEMOVIE_REQUEST:
-                        outToClient.writeObject(getRemoveMovieRequest((MovieShow) request.arg));
-                        break;
-                    case GETRESERVATIONS_REQUEST:
-                        outToClient.writeObject(getReservationsRequest((MovieShow) request.arg));
-                        break;
-                    case RESERVEMOVIE_REQUEST:
-                        outToClient.writeObject(getReserveMovieRequest((ReservationList) request.arg));
-                        break;
-                    case GETUSERRESERVATIONS_REQUEST:
-                        outToClient.writeObject(getUserReservations((User) request.arg));
-                        break;
-                    case REMOVERESERVATION_REQUEST:
-                        outToClient.writeObject(cancelReservation((UserReservationInfo) request.arg));
-                        break;
-                    case ADMINBLOCKSEATS_REQUEST:
-                        outToClient.writeObject(adminConfirmSeats((SeatList) request.arg));
-                        break;
-                    case GETADMINSEATS_REQUEST:
-                        outToClient.writeObject(getAdminSeats());
-                        break;
-                    case CHANGEUSERSTATUS_REQUEST:
-                        outToClient.writeObject(changeUserStatus((User) request.arg));
-                        break;
-                    case CLOSE_REQUEST:
-                        System.out.println("Closing");
-                        outToClient.writeObject(getCloseRequest());
-                        close();
-                        break;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
 
     /**

@@ -78,7 +78,7 @@ public class RegisterController {
         User user = (User) event.getNewValue();
         if (user != null) {
             registerViewModel.removePropertyChangeListener(EventType.REGISTER_RESULT.toString(), this::onRegister);
-            viewHandler.openLoginView(user);
+            viewHandler.showFrontPage(user);
         }
     }
 

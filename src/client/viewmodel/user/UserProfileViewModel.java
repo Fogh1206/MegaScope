@@ -15,19 +15,19 @@ public class UserProfileViewModel implements PropertyChangeSubject {
     /**
      * Instance field and creating new objects to string properties
      */
-    private StringProperty currentUsername ;
-    private StringProperty currentFirstname ;
-    private StringProperty currentLastname ;
-    private StringProperty currentPhoneNumber ;
-    private StringProperty currentUsertype ;
-    private BooleanProperty banned ;
+    private StringProperty currentUsername;
+    private StringProperty currentFirstname;
+    private StringProperty currentLastname;
+    private StringProperty currentPhoneNumber;
+    private StringProperty currentUsertype;
+    private BooleanProperty banned;
 
-    private StringProperty newFirstName ;
-    private StringProperty newLastName ;
-    private StringProperty newPhoneNumber ;
+    private StringProperty newFirstName;
+    private StringProperty newLastName;
+    private StringProperty newPhoneNumber;
     private StringProperty newUsername;
-    private StringProperty newPassword ;
-    private StringProperty confirmPassword ;
+    private StringProperty newPassword;
+    private StringProperty confirmPassword;
     private BooleanProperty vipCheck;
     private StringProperty saveInfoLabel;
 

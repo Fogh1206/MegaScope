@@ -45,11 +45,9 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
 
     private void onGetUsers(PropertyChangeEvent event) {
         UserList users = (UserList) event.getNewValue();
-
         ObservableList<User> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < users.size(); i++) {
             observableList.add(users.get(i));
-            System.out.println("Added user: " + users.get(i).getUsername());
         }
         observableItems.setValue(observableList);
         items = FXCollections.observableArrayList(observableList);

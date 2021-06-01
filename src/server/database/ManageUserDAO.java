@@ -428,9 +428,7 @@ public class ManageUserDAO implements UserDAO {
         UserList users = new UserList();
         try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
-                            + user.getLastName() + "',username='" + user.getUsername() + "',password='" + user.getPassword()
-                            + "',phonenumber='" + user.getPhoneNumber() + "',type='" + user.getUserType() + "',banned='" + user.getBanned()
+                    "UPDATE public.users SET banned='" + user.getBanned()
                             + "' where id=" + user.getId() + "");
 
             statement.executeUpdate();
@@ -459,9 +457,14 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public User registerUser(User user) {
         try (Connection connection = controllerDAO.getConnection()) {
-
             User temp;
-            PreparedStatement statement = connection.prepareStatement(
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO public.users(firstname,lastname,"
+                    + "username,password,phonenumber,type) VALUES ('" + user.getFirstName() + "','" + user.getLastName()
+                    + "','" + user.getUsername() + "','" + user.getPassword() + "','" + user.getPhoneNumber() + "','"
+                    + "NORM" + "')");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -471,15 +474,7 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getString(6), resultSet.getString(7),
                         resultSet.getBoolean(8));
                 user = temp;
-
             }
-            statement = connection.prepareStatement(
-
-                    "INSERT INTO public.users(firstname,lastname,username,password,phonenumber,type) VALUES ('" + user.getFirstName() + "','" + user.getLastName()
-                            + "','" + user.getUsername() + "','" + user.getPassword() + "','" + user.getPhoneNumber() + "','" + "NORM" + "')");
-
-            statement.executeUpdate();
-
             statement.close();
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
@@ -489,13 +484,10 @@ public class ManageUserDAO implements UserDAO {
             return null;
         }
         return user;
-
-
     }
 
-
     @Override
-    public User validateUser(int id, String username, String password) {
+    public User validateUser(String username, String password) {
         User user = null;
         PreparedStatement statement;
         try (Connection connection = controllerDAO.getConnection()) {
@@ -509,12 +501,11 @@ public class ManageUserDAO implements UserDAO {
                     resultSet = statement.executeQuery();
 
                     while (resultSet.next()) {
-                        User temp = new User(resultSet.getInt(1),
+                        user = new User(resultSet.getInt(1),
                                 resultSet.getString(2), resultSet.getString(3),
                                 resultSet.getString(4), resultSet.getString(5),
                                 resultSet.getString(6), resultSet.getString(7),
                                 resultSet.getBoolean(8));
-                        user = temp;
                     }
                     return user;
                 }
@@ -553,6 +544,7 @@ public class ManageUserDAO implements UserDAO {
                 System.out.println(temp);
             }
             statement.close();
+            System.out.println(temp.getUsername());
             return temp;
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {

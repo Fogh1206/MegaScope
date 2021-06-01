@@ -5,7 +5,7 @@ import shared.*;
 import java.util.ArrayList;
 
 public interface UserDAO {
-    User validateUser(int id, String username, String password);
+    User validateUser(String username, String password);
 
     User registerUser(User user);
 
