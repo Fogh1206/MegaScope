@@ -209,7 +209,7 @@ public class ServerSocketHandler implements Runnable {
                         break;
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }

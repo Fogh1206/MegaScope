@@ -17,11 +17,6 @@ public class ClientSocketHandler implements Runnable
   {
     this.socket = socket;
     this.client = client;
-  }
-
-  /** Run method for the thread */
-  @Override public void run()
-  {
     try
     {
       inputStream = new ObjectInputStream(socket.getInputStream());
@@ -30,6 +25,11 @@ public class ClientSocketHandler implements Runnable
     {
       e.printStackTrace();
     }
+  }
+
+  /** Run method for the thread */
+  @Override public void run()
+  {
     while (client.isRunning())
     {
       try

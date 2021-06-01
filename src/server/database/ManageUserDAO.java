@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ManageUserDAO implements UserDAO {
 
-    private Controller controller;
+    private ControllerDAO controllerDAO;
     private static ManageUserDAO instance;
 
     /**
@@ -19,7 +19,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
-        controller = Controller.getInstance();
+        controllerDAO = ControllerDAO.getInstance();
     }
 
     /**
@@ -63,7 +63,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public MovieShowsList getAllMovies() {
         MovieShowsList showList = new MovieShowsList();
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             getMovieList(showList, connection);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public MovieShowsList getAllMoviesUnique() {
         MovieShowsList showList = new MovieShowsList();
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("select distinct movies.id, name, dateofrelease, mainactors," +
                     " description from public.movies join public.show on show.movie_id = movies.id order by movies.id");
             ResultSet resultSet = statement.executeQuery();
@@ -104,7 +104,7 @@ public class ManageUserDAO implements UserDAO {
 
         MovieShowsList showList = new MovieShowsList();
         PreparedStatement statement;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement(
                     "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" +
                             "VALUES (" + "DEFAULT" + ",'"
@@ -148,7 +148,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public MovieShowsList editMovie(MovieShow movieShow) {
         MovieShowsList showList = new MovieShowsList();
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.movies SET name='" + movieShow.getName() + "',dateofrelease='" +
                             movieShow.getDateOfRelease() + "',mainactors='" + movieShow.getMainActors() +
@@ -180,7 +180,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public MovieShowsList removeMovie(MovieShow movieShow) {
         MovieShowsList showList = new MovieShowsList();
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "Delete from show where id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
@@ -209,7 +209,7 @@ public class ManageUserDAO implements UserDAO {
     public ArrayList<String> getReservations(MovieShow movieShow) {
         ArrayList<String> strings = new ArrayList<>();
 
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -242,7 +242,7 @@ public class ManageUserDAO implements UserDAO {
         PreparedStatement statement = null;
         Reservation temp;
 
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
 
             for (int i = 0; i < list.size(); i++) {
 
@@ -267,7 +267,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException throwable) {
             if (throwable.toString().contains("duplicate key")) {
                 reservations.setFailed(true);
-                try (Connection connection = controller.getConnection()) {
+                try (Connection connection = controllerDAO.getConnection()) {
 
                     statement = connection.prepareStatement(
                             "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
@@ -297,7 +297,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo) {
         User user = null;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT user_id FROM reservations WHERE reservation_id = " + userReservationInfo.getReservation_id());
             ResultSet resultSet = statement.executeQuery();
@@ -331,7 +331,7 @@ public class ManageUserDAO implements UserDAO {
     public SeatList adminConfirmSeats(SeatList seatList) {
         SeatList list = new SeatList();
         PreparedStatement statement;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             for (int i = 0; i < seatList.size(); i++) {
                 statement = connection.prepareStatement("UPDATE public.seats SET blocked =" +
                         seatList.get(i).isDisabled() + "  WHERE seat_id = " + seatList.get(i).getId());
@@ -356,7 +356,7 @@ public class ManageUserDAO implements UserDAO {
     public SeatList getAdminSeats() {
         SeatList seatList = new SeatList();
         PreparedStatement statement;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement("SELECT * FROM public.seats ORDER by seat_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -377,7 +377,7 @@ public class ManageUserDAO implements UserDAO {
         UserReservationInfoList userReservations = new UserReservationInfoList();
         UserReservationInfo temp;
 
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement(
                     "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show, reservations.seat_id " +
                             "FROM ((reservations " +
@@ -404,7 +404,7 @@ public class ManageUserDAO implements UserDAO {
     public UserList getAllUsers() {
         UserList users = new UserList();
         PreparedStatement statement = null;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' or type='VIP' Order by id");
 
             ResultSet resultSet = statement.executeQuery();
@@ -426,7 +426,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public UserList changeUserStatus(User user) {
         UserList users = new UserList();
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
                             + user.getLastName() + "',username='" + user.getUsername() + "',password='" + user.getPassword()
@@ -458,7 +458,7 @@ public class ManageUserDAO implements UserDAO {
 
     @Override
     public User registerUser(User user) {
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
 
             User temp;
             PreparedStatement statement = connection.prepareStatement(
@@ -498,7 +498,7 @@ public class ManageUserDAO implements UserDAO {
     public User validateUser(int id, String username, String password) {
         User user = null;
         PreparedStatement statement;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement("SELECT password FROM public.users WHERE username='" + username + "'");
             ResultSet resultSet = statement.executeQuery();
 
@@ -533,7 +533,7 @@ public class ManageUserDAO implements UserDAO {
     @Override
     public User saveNewInfo(User user) {
         User temp = null;
-        try (Connection connection = controller.getConnection()) {
+        try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
                             + user.getLastName() + "',username='" + user.getUsername() + "',password='" + user.getPassword()

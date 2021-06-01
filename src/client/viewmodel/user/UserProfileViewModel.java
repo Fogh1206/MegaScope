@@ -15,21 +15,21 @@ public class UserProfileViewModel implements PropertyChangeSubject {
     /**
      * Instance field and creating new objects to string properties
      */
-    private StringProperty currentUsername = new SimpleStringProperty();
-    private StringProperty currentFirstname = new SimpleStringProperty();
-    private StringProperty currentLastname = new SimpleStringProperty();
-    private StringProperty currentPhoneNumber = new SimpleStringProperty();
-    private StringProperty currentUsertype = new SimpleStringProperty();
-    private BooleanProperty banned = new SimpleBooleanProperty();
+    private StringProperty currentUsername ;
+    private StringProperty currentFirstname ;
+    private StringProperty currentLastname ;
+    private StringProperty currentPhoneNumber ;
+    private StringProperty currentUsertype ;
+    private BooleanProperty banned ;
 
-    private StringProperty newFirstName = new SimpleStringProperty();
-    private StringProperty newLastName = new SimpleStringProperty();
-    private StringProperty newPhoneNumber = new SimpleStringProperty();
-    private StringProperty newUsername = new SimpleStringProperty();
-    private StringProperty newPassword = new SimpleStringProperty();
-    private StringProperty confirmPassword = new SimpleStringProperty();
-    private BooleanProperty vipCheck = new SimpleBooleanProperty();
-    private StringProperty saveInfoLabel = new SimpleStringProperty();
+    private StringProperty newFirstName ;
+    private StringProperty newLastName ;
+    private StringProperty newPhoneNumber ;
+    private StringProperty newUsername;
+    private StringProperty newPassword ;
+    private StringProperty confirmPassword ;
+    private BooleanProperty vipCheck;
+    private StringProperty saveInfoLabel;
 
     private UserModel model;
     private PropertyChangeSupport support;
@@ -44,6 +44,21 @@ public class UserProfileViewModel implements PropertyChangeSubject {
     public UserProfileViewModel(UserModel userModel) {
         this.model = userModel;
         support = new PropertyChangeSupport(this);
+        currentUsername = new SimpleStringProperty();
+        currentFirstname = new SimpleStringProperty();
+        currentLastname = new SimpleStringProperty();
+        currentPhoneNumber = new SimpleStringProperty();
+        currentUsertype = new SimpleStringProperty();
+        banned = new SimpleBooleanProperty();
+
+        newFirstName = new SimpleStringProperty();
+        newLastName = new SimpleStringProperty();
+        newPhoneNumber = new SimpleStringProperty();
+        newUsername = new SimpleStringProperty();
+        newPassword = new SimpleStringProperty();
+        confirmPassword = new SimpleStringProperty();
+        vipCheck = new SimpleBooleanProperty();
+        saveInfoLabel = new SimpleStringProperty();
 
         userModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::onSavedInfo);
         userModel.addPropertyChangeListener(EventType.SAVENEWINFOFAIL_RESULT.toString(), this::onSaveFail);
@@ -105,9 +120,7 @@ public class UserProfileViewModel implements PropertyChangeSubject {
                 model.saveNewInfo(user);
                 System.out.println(newUsername.get());
             }
-        }
-
-        else if (newPassword.isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
+        } else if (newPassword.isNotEmpty().getValue() && confirmPassword.isNotEmpty().getValue()) {
             if ((newPassword.get().equals(confirmPassword.get()))) {
                 saveInfoLabel.setValue("Passwords do not match");
             }

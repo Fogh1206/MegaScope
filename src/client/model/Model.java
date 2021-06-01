@@ -16,6 +16,7 @@ public class Model implements UserModel {
 
     /**
      * One-argument constructor.
+     *
      * @param client
      */
     public Model(ClientImpl client) {
@@ -42,14 +43,12 @@ public class Model implements UserModel {
         client.addPropertyChangeListener(EventType.GETUSERRESERVATIONS_RESULT.toString(), this::onGetUserReservations);
         client.addPropertyChangeListener(EventType.REMOVERESERVATION_RESULT.toString(), this::onGetUserReservations);
 
-
         client.addPropertyChangeListener(EventType.ADMINBLOCKSEATS_RESULT.toString(), this::onGetAdminSeats);
         client.addPropertyChangeListener(EventType.GETADMINSEATS_RESULT.toString(), this::onGetAdminSeats);
 
         client.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(), this::onGetUserResult);
         client.addPropertyChangeListener(EventType.CHANGEUSERSTATUS_RESULT.toString(), this::onGetUserResult);
         client.addPropertyChangeListener(EventType.LOGINFAIL_RESULT.toString(), this::onLoginFail);
-
 
         client.addPropertyChangeListener(EventType.GETMOVIESFORADD_RESULT.toString(), this::onGetMoviesForAddResult);
     }
@@ -62,6 +61,7 @@ public class Model implements UserModel {
 
     /**
      * Event that is received from server with updated {@link SeatList} object of available and unavailable seats.
+     *
      * @param event
      */
     private void onGetAdminSeats(PropertyChangeEvent event) {
@@ -72,6 +72,7 @@ public class Model implements UserModel {
 
     /**
      * Event that tells {@link client.viewmodel.login.LoginViewModel} the user has inserted wrong login input.
+     *
      * @param event
      */
     private void onLoginFail(PropertyChangeEvent event) {
@@ -82,6 +83,7 @@ public class Model implements UserModel {
 
     /**
      * Event that tells {@link client.viewmodel.user.UserProfileViewModel} the username is already occupied.
+     *
      * @param event
      */
     private void onFailedSaveNewInfo(PropertyChangeEvent event) {
@@ -91,6 +93,7 @@ public class Model implements UserModel {
 
     /**
      * Event that tells {@link client.viewmodel.registration.RegisterViewModel} the username is already occupied.
+     *
      * @param propertyChangeEvent
      */
     private void onFailedRegister(PropertyChangeEvent propertyChangeEvent) {
@@ -100,6 +103,7 @@ public class Model implements UserModel {
 
     /**
      * Event that returns updated {@link User} to the {@link client.viewmodel.user.UserProfileViewModel}
+     *
      * @param propertyChangeEvent
      */
     private void onNewInfo(PropertyChangeEvent propertyChangeEvent) {
@@ -110,6 +114,7 @@ public class Model implements UserModel {
 
     /**
      * Event that returns a {@link ReservationList} object from server with updated reservations.
+     *
      * @param propertyChangeEvent
      */
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent) {
@@ -128,6 +133,7 @@ public class Model implements UserModel {
 
     /**
      * Event returns updated {@link ArrayList<String>} with reservations from server.
+     *
      * @param event
      */
     private void onGetReservation(PropertyChangeEvent event) {
@@ -139,6 +145,7 @@ public class Model implements UserModel {
     /**
      * Event returns updated {@link UserReservationInfoList} to
      * {@link client.viewmodel.frontPage.UserReservationViewModel} with updated reservations for the logged in user.
+     *
      * @param event
      */
     private void onGetUserReservations(PropertyChangeEvent event) {
@@ -149,6 +156,7 @@ public class Model implements UserModel {
 
     /**
      * Event returns updated {@link UserList} to the {@link client.viewmodel.admin}.
+     *
      * @param event
      */
     private void onGetUserResult(PropertyChangeEvent event) {
@@ -159,16 +167,19 @@ public class Model implements UserModel {
 
     /**
      * Event returns updated {@link MovieShowsList} to {@link client.viewmodel.frontPage.UserFrontPageViewModel}.
+     *
      * @param event
      */
     private void onGetMoviesResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetMoviesResult");
         MovieShowsList list = (MovieShowsList) event.getNewValue();
-        support.firePropertyChange("Movie Result", null, list);
+        support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
+
     }
 
     /**
      * Event returns {@link User} to {@link client.viewmodel.login.LoginViewModel} with the successfully logged in {@link User}.
+     *
      * @param event
      */
     private void onLoginResult(PropertyChangeEvent event) {
@@ -179,6 +190,7 @@ public class Model implements UserModel {
 
     /**
      * Event returns {@link User} to {@link client.viewmodel.registration.RegisterViewModel} with the successfully registered {@link User}.
+     *
      * @param event
      */
     private void onRegisterResult(PropertyChangeEvent event) {
@@ -189,12 +201,13 @@ public class Model implements UserModel {
 
     /**
      * Event returns updated {@link MovieShowsList} to {@link client.viewmodel.frontPage.UserFrontPageViewModel}.
+     *
      * @param event
      */
     private void onMoviesChanged(PropertyChangeEvent event) {
         System.out.println("Model: onMoviesChanged");
         MovieShowsList list = (MovieShowsList) event.getNewValue();
-        support.firePropertyChange("Movie Result", null, list);
+        support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
     }
 
     @Override

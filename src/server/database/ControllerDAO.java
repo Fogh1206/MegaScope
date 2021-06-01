@@ -4,15 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Controller {
-    private static Controller instance;
+public class ControllerDAO {
+    private static ControllerDAO instance;
 
-    private Controller() {
+    private ControllerDAO() {
     }
 
-    public static Controller getInstance() {
+    public static ControllerDAO getInstance() {
         if (instance == null) {
-            instance = new Controller();
+            instance = new ControllerDAO();
         }
         return instance;
     }
