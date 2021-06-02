@@ -3,31 +3,51 @@ package shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserReservationInfoList implements Serializable {
+public class UserReservationInfoList implements Serializable
+{
 
-    private ArrayList<UserReservationInfo> userReservationInfos;
+  /**
+   * Instance field
+   */
+  private ArrayList<UserReservationInfo> userReservationInfos;
 
-    public UserReservationInfoList()
-    {
-        userReservationInfos=new ArrayList<>();
-    }
+  /**
+   * No argument constructor
+   */
+  public UserReservationInfoList()
+  {
+    userReservationInfos = new ArrayList<>();
+  }
 
-    public void add(UserReservationInfo userReservationInfo)
-    {
-        userReservationInfos.add(userReservationInfo);
-    }
+  /**
+   * Method adds userReservationInfo to the arraylist
+   *
+   * @param userReservationInfo
+   */
+  public void add(UserReservationInfo userReservationInfo)
+  {
+    userReservationInfos.add(userReservationInfo);
+  }
 
-    public UserReservationInfo get(int index)
-    {
-        return userReservationInfos.get(index);
-    }
+  /**
+   * Method gets the index of the arraylist
+   *
+   * @param index
+   * @return
+   */
+  public UserReservationInfo get(int index)
+  {
+    return userReservationInfos.get(index);
+  }
 
-    public int getSize()
-    {
-        return userReservationInfos.size();
-    }
-
-
-
+  /**
+   * Method gets the size of the arraylist
+   *
+   * @return
+   */
+  public int getSize()
+  {
+    return userReservationInfos.size();
+  }
 
 }
