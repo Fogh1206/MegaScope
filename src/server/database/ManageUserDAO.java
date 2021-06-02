@@ -72,6 +72,12 @@ public class ManageUserDAO implements UserDAO {
     }
 
 
+    /**
+     * Return {@link MovieShowsList} object from retrieved {@link MovieShow} objects received from database.
+     *
+     * @return
+     */
+
     @Override
     public MovieShowsList getAllMoviesUnique() {
         MovieShowsList showList = new MovieShowsList();
@@ -236,6 +242,11 @@ public class ManageUserDAO implements UserDAO {
         return strings;
     }
 
+    /**
+     * Return {@link ReservationList} which contained the {@link Reservation} object from the parameter.
+     *
+     * @return
+     */
     @Override
     public ReservationList reserveMovie(ReservationList list) {
         ReservationList reservations = new ReservationList();
@@ -294,6 +305,11 @@ public class ManageUserDAO implements UserDAO {
 
     }
 
+    /**
+     * Return {@link UserReservationInfoList} which contained the {@link UserReservationInfo} object from the parameter after a certain reservation was canceled.
+     *
+     * @return
+     */
     @Override
     public UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo) {
         User user = null;
@@ -327,6 +343,11 @@ public class ManageUserDAO implements UserDAO {
         return null;
     }
 
+    /**
+     * Return {@link SeatList} which contained the {@link Seat} object from the parameter after the seats are blocked by the admin.
+     *
+     * @return
+     */
     @Override
     public SeatList adminConfirmSeats(SeatList seatList) {
         SeatList list = new SeatList();
@@ -352,6 +373,11 @@ public class ManageUserDAO implements UserDAO {
         return null;
     }
 
+    /**
+     * Return {@link SeatList} which contained the {@link Seat} object from the parameter.
+     *
+     * @return
+     */
     @Override
     public SeatList getAdminSeats() {
         SeatList seatList = new SeatList();
@@ -371,6 +397,11 @@ public class ManageUserDAO implements UserDAO {
     }
 
 
+    /**
+     * Return {@link UserReservationInfoList} which contained the {@link UserReservationInfo} object from the parameter.
+     *
+     * @return
+     */
     @Override
     public UserReservationInfoList getUserReservation(User user) {
         PreparedStatement statement;
@@ -400,6 +431,12 @@ public class ManageUserDAO implements UserDAO {
         return null;
     }
 
+
+    /**
+     * Return {@link UserList} which contained the {@link User} object from the parameter.
+     *
+     * @return
+     */
     @Override
     public UserList getAllUsers() {
         UserList users = new UserList();
@@ -423,6 +460,10 @@ public class ManageUserDAO implements UserDAO {
         return users;
     }
 
+    /**
+     * Return {@link UserList} which contained the {@link User} object from the parameter after an user is banned.
+     *
+     */
     @Override
     public UserList changeUserStatus(User user) {
         UserList users = new UserList();
@@ -454,6 +495,11 @@ public class ManageUserDAO implements UserDAO {
     }
 
 
+    /**
+     * Return {@link User} after it is saved in database.
+     *
+     * @return
+     */
     @Override
     public User registerUser(User user) {
         try (Connection connection = controllerDAO.getConnection()) {
@@ -486,6 +532,11 @@ public class ManageUserDAO implements UserDAO {
         return user;
     }
 
+    /**
+     * Return {@link User} after it is checked in the database successfully.
+     *
+     * @return
+     */
     @Override
     public User validateUser(String username, String password) {
         User user = null;
@@ -521,6 +572,11 @@ public class ManageUserDAO implements UserDAO {
         return user;
     }
 
+    /**
+     * Return {@link User} after the new information about it is saved.
+     *
+     * @return
+     */
     @Override
     public User saveNewInfo(User user) {
         User temp = null;
