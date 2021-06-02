@@ -94,7 +94,7 @@ public class ViewModelFactory {
      * Returns declared object of {@link BookTicketsViewModel} if existing otherwise creates and initializes a new one and returns new {@link BookTicketsViewModel} object.
      * @return
      */
-    public BookTicketsViewModel getCinemaHallPage() {
+    public BookTicketsViewModel getBookTicketsPage() {
         if (bookTicketsViewModel == null) {
             bookTicketsViewModel = new BookTicketsViewModel(mf.getUserModel());
         }

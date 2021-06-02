@@ -212,7 +212,7 @@ public class ViewHandler {
         try {
             Parent root = loader.load();
             BookTicketsController ctrl = loader.getController();
-            ctrl.init(vmf.getCinemaHallPage(), this, userLoggedIn, movieShow);
+            ctrl.init(vmf.getBookTicketsPage(), this, userLoggedIn, movieShow);
             mainStage.setTitle("Cinema Hall");
             Scene cinemaHallScene = new Scene(root);
             mainStage.setScene(cinemaHallScene);
