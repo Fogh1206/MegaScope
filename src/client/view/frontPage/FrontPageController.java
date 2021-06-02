@@ -162,7 +162,6 @@ public class FrontPageController {
     @FXML
     public void goToMyProfile() {
         if (userLoggedIn != null) {
-            System.out.println(userLoggedIn.getUsername());
             viewHandler.openUserProfile(userLoggedIn);
         }
     }

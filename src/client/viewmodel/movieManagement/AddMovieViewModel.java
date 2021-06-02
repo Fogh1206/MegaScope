@@ -49,7 +49,6 @@ public class AddMovieViewModel implements PropertyChangeSubject {
     }
 
     private void onGetMoviesForAdd(PropertyChangeEvent event) {
-        System.out.println("Hellow");
         ObservableList<MovieShow> observableList = FXCollections.observableArrayList();
         observableList.add(null);
         MovieShowsList movieShowsList = (MovieShowsList) event.getNewValue();
@@ -117,9 +116,6 @@ public class AddMovieViewModel implements PropertyChangeSubject {
                         mainActors.get(), description.get(),
                         hourTimeOfShow.get() + ":" + minuteTimeOfShow.get(),
                         dateOfShow.get().toString());
-
-                System.out.println(movieShow);
-
                 model.addMovie(movieShow);
                 addMovieLabel.setValue("Successful");
                 defaultFields();

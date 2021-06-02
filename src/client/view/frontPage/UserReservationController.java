@@ -99,7 +99,6 @@ public class UserReservationController {
         if (reservationTableView.getSelectionModel().getSelectedItem() != null) {
             int index = reservationTableView.getSelectionModel().getSelectedIndex();
             selectedInfo = reservationTableView.getItems().get(index);
-            System.out.println(selectedInfo);
         }
     }
 }

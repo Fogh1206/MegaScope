@@ -21,7 +21,7 @@ public class Server {
                 (new Thread(ssh)).start();
                 System.out.println("Client connected");
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+               e.printStackTrace();
             }
         }
     }

@@ -125,7 +125,6 @@ public class BookTicketsController {
                 int finalCol = column;
 
                 rectangle.setOnMouseClicked(t -> {
-                    System.out.println(rectangle.getFill().toString());
                     if (rectangle.getFill() == Color.YELLOW) {
                         rectangle.setFill(Color.GREEN);
                         myBooking[finalRow][finalCol] = null;
@@ -161,7 +160,6 @@ public class BookTicketsController {
                 int finalCol = column;
 
                 rectangle.setOnMouseClicked(t -> {
-                    System.out.println(rectangle.getFill().toString());
                     if (rectangle.getFill() == Color.RED) {
                         rectangle.setFill(Color.GREEN);
                         myBooking[finalRow][finalCol] =

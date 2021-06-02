@@ -60,7 +60,6 @@ public class LoginViewModel implements PropertyChangeSubject {
      */
     private void onLogin(PropertyChangeEvent event) {
         User result = (User) event.getNewValue();
-        System.out.println("LOLO");
         if (result == null) {
             Platform.runLater(() -> {
                 System.out.println("Null login");
@@ -98,7 +97,6 @@ public class LoginViewModel implements PropertyChangeSubject {
      */
     public void login() {
         if (username.get() == null || password.get() == null || username.get().equals("") || password.get().equals("")) {
-            System.out.println(Thread.currentThread().getId() + " 2");
             loginResult.set("Please input you login information");
         } else {
             model.login(username.get(), password.get());
