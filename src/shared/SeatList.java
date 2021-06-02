@@ -3,36 +3,84 @@ package shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SeatList implements Serializable {
+public class SeatList implements Serializable
+{
 
-    private ArrayList<Seat> seats;
+  /**
+   * Instance field
+   */
+  private ArrayList<Seat> seats;
 
-    public SeatList() {
-        seats = new ArrayList<>();
+  /**
+   * No argument constructor
+   */
+  public SeatList()
+  {
+    seats = new ArrayList<>();
+  }
+
+  /**
+   * Method adds a seat to the arraylist
+   *
+   * @param seat
+   */
+  public void add(Seat seat)
+  {
+    seats.add(seat);
+  }
+
+  /**
+   * Set method for seat
+   *
+   * @param seat
+   */
+  public void set(Seat seat)
+  {
+    int j = 0;
+    for (int i = 0; i < seats.size(); i++)
+    {
+      if (seats.get(i).getId() == seat.getId())
+      {
+        seats.set(i, seat);
+        System.out.println("Setting");
+        j++;
+      }
     }
-
-    public void add(Seat seat) {
-        seats.add(seat);
+    if (j == 0)
+    {
+      System.out.println("Adding");
+      add(seat);
     }
+  }
 
-    public void set(Seat seat) {
-        int j = 0;
-        for (int i = 0; i < seats.size(); i++) {
-            if (seats.get(i).getId() == seat.getId()) {
-                seats.set(i, seat);
-                j++;
-            }
-        }
-        if (j == 0) {
-            add(seat);
-        }
-    }
+  /**
+   * Get method for seat
+   *
+   * @param index
+   * @return
+   */
+  public Seat get(int index)
+  {
+    return seats.get(index);
+  }
 
-    public Seat get(int index) {
-        return seats.get(index);
-    }
+  /**
+   * Method removes seat from arraylist
+   *
+   * @param seat
+   */
+  public void remove(Seat seat)
+  {
+    seats.remove(seat);
+  }
 
-    public int size() {
-        return seats.size();
-    }
+  /**
+   * Method gets size of the arraylist
+   *
+   * @return
+   */
+  public int size()
+  {
+    return seats.size();
+  }
 }

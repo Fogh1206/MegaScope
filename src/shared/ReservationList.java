@@ -3,37 +3,82 @@ package shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ReservationList implements Serializable {
+public class ReservationList implements Serializable
+{
 
-    private boolean failed;
-    private ArrayList<Reservation> reservations;
+  /**
+   * Instance field
+   */
+  private boolean failed;
+  private ArrayList<Reservation> reservations;
 
-    public ReservationList() {
-        this.failed = false;
-        reservations = new ArrayList<>();
-    }
+  /**
+   * No argument constructor
+   */
+  public ReservationList()
+  {
+    this.failed = false;
+    reservations = new ArrayList<>();
+  }
 
-    public void add(Reservation reservation) {
-        reservations.add(reservation);
-    }
+  /**
+   * Method adds reservation to the arraylist
+   *
+   * @param reservation
+   */
+  public void add(Reservation reservation)
+  {
+    reservations.add(reservation);
+  }
 
-    public Reservation get(int index) {
-        return reservations.get(index);
-    }
+  /**
+   * Method gets index from the arraylist
+   *
+   * @param index
+   * @return
+   */
+  public Reservation get(int index)
+  {
+    return reservations.get(index);
+  }
 
-    public void remove(Reservation reservation) {
-        reservations.remove(reservation);
-    }
+  /**
+   * Method removes a reservation from the arraylist
+   *
+   * @param reservation
+   */
+  public void remove(Reservation reservation)
+  {
+    reservations.remove(reservation);
+  }
 
-    public int size() {
-        return reservations.size();
-    }
+  /**
+   * Method for returning the size of the arraylist
+   *
+   * @return
+   */
+  public int size()
+  {
+    return reservations.size();
+  }
 
-    public boolean isFailed() {
-        return failed;
-    }
+  /**
+   * Method to check if the reservation is failed
+   *
+   * @return
+   */
+  public boolean isFailed()
+  {
+    return failed;
+  }
 
-    public void setFailed(boolean failed) {
-        this.failed = failed;
-    }
+  /**
+   * Set method for failed
+   *
+   * @param failed
+   */
+  public void setFailed(boolean failed)
+  {
+    this.failed = failed;
+  }
 }

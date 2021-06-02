@@ -3,26 +3,54 @@ package shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MovieShowsList implements Serializable {
-    private ArrayList<MovieShow> movieShows;
+public class MovieShowsList implements Serializable
+{
+  /**
+   * Instance field with a arraylist of MovieShow
+   */
+  private ArrayList<MovieShow> movieShows;
 
-    public MovieShowsList() {
-        movieShows = new ArrayList<>();
-    }
+  /**
+   * No argument constructor
+   */
+  public MovieShowsList()
+  {
+    movieShows = new ArrayList<>();
+  }
 
-    public void addShow(MovieShow movieShow) {
-        movieShows.add(movieShow);
-    }
+  /**
+   * Method adds a movieShow to the arraylist
+   *
+   * @param movieShow
+   */
+  public void addShow(MovieShow movieShow)
+  {
+    movieShows.add(movieShow);
+  }
 
-    public void removeShow(MovieShow movieShow) {
-        movieShows.remove(movieShow);
-    }
+  /**
+   * Method removes a movieShow from the arraylist
+   *
+   * @param movieShow
+   */
+  public void removeShow(MovieShow movieShow)
+  {
+    movieShows.remove(movieShow);
+  }
 
-    public MovieShow get(int index) {
-        return movieShows.get(index);
-    }
+  /**
+   * Method gets the index of the arraylist
+   *
+   * @param index
+   * @return
+   */
+  public MovieShow get(int index)
+  {
+    return movieShows.get(index);
+  }
 
-    public int getSize() {
-        return movieShows.size();
-    }
+  public int getSize()
+  {
+    return movieShows.size();
+  }
 }
