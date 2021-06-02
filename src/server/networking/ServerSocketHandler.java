@@ -210,7 +210,6 @@ public class ServerSocketHandler implements Runnable {
         } else {
             return new Request(EventType.SAVENEWINFOFAIL_RESULT, null);
         }
-
     }
 
     /**
