@@ -10,6 +10,9 @@ public class ControllerDAO {
     private ControllerDAO() {
     }
 
+    /**
+     *Static method that returns an instance
+     */
     public static ControllerDAO getInstance() {
         if (instance == null) {
             instance = new ControllerDAO();
@@ -17,6 +20,11 @@ public class ControllerDAO {
         return instance;
     }
 
+    /**
+     * Method for making the database connection
+     * @return
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         String url = "jdbc:postgresql://tai.db.elephantsql.com:5432/seitjdhj";
         String username = "seitjdhj";

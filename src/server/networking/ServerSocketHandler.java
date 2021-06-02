@@ -20,6 +20,11 @@ public class ServerSocketHandler implements Runnable {
     private UserDAO userDAO;
     private boolean connected = true;
 
+    /**
+     * One-argument constructor for sending and receiving the objects in/from the client.
+     *
+     * @param socket
+     */
     public ServerSocketHandler(Socket socket) {
         this.socket = socket;
         try {
@@ -31,6 +36,10 @@ public class ServerSocketHandler implements Runnable {
         userDAO = ManageUserDAO.getInstance();
     }
 
+
+    /**
+     * Void method for reciving the requests from the client.
+     */
     @Override
     public void run() {
         while (connected) {
@@ -93,35 +102,60 @@ public class ServerSocketHandler implements Runnable {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-              this.connected=false;
+                this.connected = false;
             }
         }
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getUserRequest() {
         System.out.println("Get Users Requested");
         UserList users = userDAO.getAllUsers();
         return new Request(EventType.GETUSER_RESULT, users);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     private Request changeUserStatus(User user) {
         System.out.println("Get Change user status");
         UserList users = userDAO.changeUserStatus(user);
         return new Request(EventType.CHANGEUSERSTATUS_RESULT, users);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getMoviesRequest() {
         System.out.println("Get Movies Requested");
         MovieShowsList shows = userDAO.getAllMovies();
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     private Request getMoviesForAddRequest() {
         System.out.println("Get MoviesForAdd Requested");
         MovieShowsList shows = userDAO.getAllMoviesUnique();
         return new Request(EventType.GETMOVIESFORADD_RESULT, shows);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getLoginRequest(User user) {
         System.out.println("Login requested");
         User temp = userDAO.validateUser(user.getUsername(), user.getPassword());
@@ -137,6 +171,11 @@ public class ServerSocketHandler implements Runnable {
         return null;
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getRegisterRequest(User user) {
         System.out.println("Register requested");
         User temp = userDAO.registerUser(user);
@@ -147,12 +186,22 @@ public class ServerSocketHandler implements Runnable {
         }
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getEditMovieRequest(MovieShow movieShow) {
         System.out.println("EditMovie requested");
         MovieShowsList shows = userDAO.editMovie(movieShow);
         return new Request(EventType.EDITMOVIE_RESULT, shows);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getSaveNewInfoRequest(User user) {
         System.out.println("SaveNewInfo requested");
         User temp = userDAO.saveNewInfo(user);
@@ -164,58 +213,100 @@ public class ServerSocketHandler implements Runnable {
 
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getAddMovieRequest(MovieShow movieShow) {
         System.out.println("AddMovie requested");
         MovieShowsList shows = userDAO.addMovie(movieShow);
         return new Request(EventType.ADDMOVIE_RESULT, shows);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getRemoveMovieRequest(MovieShow movieShow) {
         System.out.println("RemoveMovie requested");
         MovieShowsList shows = userDAO.removeMovie(movieShow);
         return new Request(EventType.REMOVEMOVIE_RESULT, shows);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getCloseRequest() {
         System.out.println("Close requested");
         return new Request(EventType.CLOSE_RESULT, "Successful");
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getReservationsRequest(MovieShow movieShow) {
         System.out.println("GetReservations requested");
         ArrayList<String> seats = userDAO.getReservations(movieShow);
         return new Request(EventType.GETRESERVATIONS_RESULT, seats);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getReserveMovieRequest(ReservationList reservationList) {
         ReservationList reservations = userDAO.reserveMovie(reservationList);
         return new Request(EventType.RESERVEMOVIE_RESULT, reservations);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request getUserReservations(User user) {
         UserReservationInfoList information = userDAO.getUserReservation(user);
         return new Request(EventType.GETUSERRESERVATIONS_RESULT, information);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     public Request cancelReservation(UserReservationInfo userReservationInfo) {
         UserReservationInfoList updatedReservations = userDAO.cancelReservation(userReservationInfo);
         return new Request(EventType.REMOVERESERVATION_RESULT, updatedReservations);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     private Request adminConfirmSeats(SeatList arg) {
         System.out.println("AdminConfirmSeats Requested");
         SeatList list = userDAO.adminConfirmSeats(arg);
         return new Request(EventType.ADMINBLOCKSEATS_RESULT, list);
     }
 
+    /**
+     * Method that returns a specific request.
+     *
+     * @return
+     */
     private Request getAdminSeats() {
         System.out.println("GetAdminSeats Requested");
         SeatList list = userDAO.getAdminSeats();
         return new Request(EventType.GETADMINSEATS_RESULT, list);
     }
-
-
-
 
 
     /**
