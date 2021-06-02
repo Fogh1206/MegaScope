@@ -60,7 +60,6 @@ public class LoginViewModel implements PropertyChangeSubject {
      */
     private void onLogin(PropertyChangeEvent event) {
         User result = (User) event.getNewValue();
-        System.out.println("LOLO");
         if (result == null) {
             Platform.runLater(() -> {
                 System.out.println("Null login");
