@@ -146,7 +146,6 @@ public class BookTicketsViewModel {
     public void addDisabledSeat(String str) {
         seatList.get(Integer.parseInt(str) - 1).setDisabled(!seatList.get(Integer.parseInt(str) - 1).isDisabled());
         changedSeatList.set(seatList.get(Integer.parseInt(str) - 1));
-        System.out.println(changedSeatList.size() + "size of new list");
     }
 
     /**
