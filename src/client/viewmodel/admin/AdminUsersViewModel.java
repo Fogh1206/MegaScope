@@ -30,6 +30,11 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
     private StringProperty banButton;
 
 
+    /**
+     * Constructor for AdminUsersViewModel
+     *
+     * @param userModel
+     */
     public AdminUsersViewModel(UserModel userModel) {
         this.userModel = userModel;
         support = new PropertyChangeSupport(this);
@@ -43,6 +48,11 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
         userModel.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(), this::onGetUsers);
     }
 
+    /**
+     * Void method for viewing users in table
+     *
+     * @param event
+     */
     private void onGetUsers(PropertyChangeEvent event) {
         UserList users = (UserList) event.getNewValue();
         ObservableList<User> observableList = FXCollections.observableArrayList();
@@ -53,7 +63,9 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
         items = FXCollections.observableArrayList(observableList);
     }
 
-
+    /**
+     * Void method for sorting for users
+     */
     public void search() {
         if (searchPhrase.getValue() == null || searchPhrase.getValue().equals("")) {
             getUsers();
@@ -69,10 +81,16 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
         searchPhrase.setValue(null);
     }
 
+    /**
+     * Method that through model and client send request for UserList
+     */
     public void getUsers() {
         userModel.getUsers();
     }
 
+    /**
+     * Void method for saving changed ban status after changes
+     */
     public void manageUsers() {
 
         if (selectedUser != null) {
@@ -85,6 +103,9 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
         }
     }
 
+    /**
+     * Void method for setting the selected user with User object
+     */
     public void selectedUserToModel(User user) {
         selectedUser = user;
     }
@@ -101,15 +122,21 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
         return observableItems;
     }
 
-    public ObservableList<User> getItems() {
-        return items;
-    }
-
+    /**
+     * @param name
+     * @param listener Void method for adding the listener
+     * Void method for adding a Listener
+     */
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
         support.addPropertyChangeListener(name, listener);
     }
 
+    /**
+     * @param name
+     * @param listener Void method for adding the listener
+     * Void method for removing the first a Listener
+     */
     @Override
     public void removePropertyChangeListener(String name, PropertyChangeListener listener) {
         support.removePropertyChangeListener(support.getPropertyChangeListeners()[0]);

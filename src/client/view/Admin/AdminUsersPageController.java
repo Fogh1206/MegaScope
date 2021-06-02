@@ -49,22 +49,23 @@ public class AdminUsersPageController {
      * @param viewHandler         object used handling the views
      * @param userLoggedIn        object used temporarily storing the User
      */
-    public void init(AdminUsersViewModel adminUsersViewModel,
-                     ViewHandler viewHandler, User userLoggedIn) {
+    public void init(AdminUsersViewModel adminUsersViewModel, ViewHandler viewHandler, User userLoggedIn) {
         this.adminUsersViewModel = adminUsersViewModel;
         this.viewHandler = viewHandler;
         this.userLoggedIn = userLoggedIn;
         adminUsersViewModel.getUsers();
-        banButton.setText("Ban/Unban");
+
         userTableView.itemsProperty().bindBidirectional(adminUsersViewModel.observableItemsProperty());
+        searchBar.textProperty().bindBidirectional(adminUsersViewModel.searchPhraseProperty());
+        banButton.textProperty().bindBidirectional(adminUsersViewModel.banButtonProperty());
+
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         banCol.setCellValueFactory(new PropertyValueFactory<>("banned"));
 
-        searchBar.textProperty().bindBidirectional(adminUsersViewModel.searchPhraseProperty());
-        banButton.textProperty().bindBidirectional(adminUsersViewModel.banButtonProperty());
+        banButton.setText("Ban/Unban");
         usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());
 
         try {
@@ -76,6 +77,10 @@ public class AdminUsersPageController {
         }
     }
 
+    /**
+     * Method connected to FXML, so when button Ban is pressed this method will run.
+     * Method creates an Alert and then calls the manageUsers method from correspondent ViewModel
+     */
     public void onBanAction() {
         if (userTableView.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -99,14 +104,26 @@ public class AdminUsersPageController {
         }
     }
 
+    /**
+     * Method connected to FXML, so when button Back is pressed this method will run.
+     * Method changes the view to FrontPage
+     */
     public void onBackAction() {
         viewHandler.showFrontPage(userLoggedIn);
     }
 
+    /**
+     * Method connected to FXML, so when button Search is pressed this method will run.
+     * Method sorts the table by calling search method on corresponding ViewModel
+     */
     public void Search() {
         adminUsersViewModel.search();
     }
 
+    /**
+     * Method connected to FXML Table, so when a row in table is selected this method will run.
+     * Method passes the User object from table to View Model
+     */
     public void selectUser() {
         if (userTableView.getSelectionModel().getSelectedItem() != null) {
             int index = userTableView.getSelectionModel().getSelectedIndex();
@@ -117,6 +134,9 @@ public class AdminUsersPageController {
         }
     }
 
+    /**
+     * Method connected to FXML, so when a Enter Key is pressed, a Search method will run.
+     */
     public void onEnter(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             Search();
