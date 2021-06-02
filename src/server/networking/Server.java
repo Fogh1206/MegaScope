@@ -10,6 +10,10 @@ public class Server {
     private boolean running = true;
     private Socket socketClient;
 
+    /**
+     * Void method for starting the server and accepting the clients.
+     * @throws IOException
+     */
     public void startServer() throws IOException {
         serverSocket = new ServerSocket(2910);
         System.out.println("Server started..");
