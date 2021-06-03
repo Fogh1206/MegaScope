@@ -400,8 +400,8 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement(
                     "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show," +
                             " reservations.seat_id " + "FROM ((reservations " +
-                            "INNER JOIN show ON reservations.show_id = show.id) " +
-                            "INNER JOIN movies ON show.movie_id = movies.id) " +
+                            "INNER JOIN show ON reservations.show_id = show.show_id) " +
+                            "INNER JOIN movies ON show.movie_id = movies.movies_id) " +
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
