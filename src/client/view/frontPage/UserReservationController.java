@@ -71,7 +71,6 @@ public class UserReservationController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
     }
 

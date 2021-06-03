@@ -77,7 +77,6 @@ public class FrontPageController {
      * @param userLoggedIn
      */
     public void init(UserFrontPageViewModel frontPage, ViewHandler viewHandler, User userLoggedIn) {
-        System.out.println("Init");
         this.viewHandler = viewHandler;
         this.userFrontPageViewModel = frontPage;
         userFrontPageViewModel.getMovies();
@@ -140,7 +139,6 @@ public class FrontPageController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
     }
 
@@ -243,8 +241,6 @@ public class FrontPageController {
             if (result.get() == ButtonType.OK) {
                 userFrontPageViewModel.removeMovie();
             }
-        } else {
-            System.out.println("no movie");
         }
     }
 

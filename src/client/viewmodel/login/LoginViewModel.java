@@ -62,7 +62,6 @@ public class LoginViewModel implements PropertyChangeSubject {
         User result = (User) event.getNewValue();
         if (result == null) {
             Platform.runLater(() -> {
-                System.out.println("Null login");
                 loginResult.set("Wrong username or password");
             });
         }

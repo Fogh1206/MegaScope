@@ -125,7 +125,6 @@ public class BookTicketsViewModel {
      */
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
-            System.out.println("Called confirm seats");
             model.adminConfirmSeats(changedSeatList);
             changedSeatList = new SeatList();
         } else {
