@@ -44,17 +44,35 @@ public class ManageUserDAO implements UserDAO {
     private void getMovieList(MovieShowsList showList, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT movies.id, name, dateofrelease, " +
                 "mainactors," + " description, time_show, date_show, show.id FROM public.movies JOIN public.show " +
-                "on show.movie_id = movies.id ORDER BY movies.id");
+                "ON show.movie_id = movies.id ORDER BY movies.id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
+            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString("name"),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
                     resultSet.getString(7), resultSet.getInt(8));
             showList.addShow(temp);
         }
+        System.out.println(showList.getSize());
         statement.close();
     }
+
+    private ReservationList getReservationList(ReservationList list, ReservationList reservations, Connection connection) throws SQLException {
+        PreparedStatement statement;
+        Reservation temp;
+        statement = connection.prepareStatement(
+                "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            temp = new Reservation(resultSet.getInt(1),
+                    resultSet.getInt(4), resultSet.getInt(3),
+                    resultSet.getInt(2));
+            reservations.add(temp);
+        }
+        statement.close();
+        return reservations;
+    }
+
 
     /**
      * Return {@link MovieShowsList} object from retrieved {@link MovieShow} objects received from database.
@@ -203,7 +221,8 @@ public class ManageUserDAO implements UserDAO {
         ArrayList<String> strings = new ArrayList<>();
 
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
+            PreparedStatement statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE " +
+                    "blocked=true");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 strings.add(String.valueOf(resultSet.getInt(1)));
@@ -244,33 +263,12 @@ public class ManageUserDAO implements UserDAO {
                                 list.get(i).getShow_id() + "','" + list.get(i).getUser_id() + "')");
                 statement.executeUpdate();
             }
-            statement = connection.prepareStatement(
-                    "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                temp = new Reservation(resultSet.getInt(1),
-                        resultSet.getInt(4), resultSet.getInt(3),
-                        resultSet.getInt(2));
-                reservations.add(temp);
-            }
-            statement.close();
-            return reservations;
+            return getReservationList(list, reservations, connection);
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
                 reservations.setFailed(true);
                 try (Connection connection = controllerDAO.getConnection()) {
-
-                    statement = connection.prepareStatement(
-                            "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
-                    ResultSet resultSet = statement.executeQuery();
-                    while (resultSet.next()) {
-                        temp = new Reservation(resultSet.getInt(1),
-                                resultSet.getInt(4), resultSet.getInt(3),
-                                resultSet.getInt(2));
-                        reservations.add(temp);
-                    }
-                    statement.close();
-                    return reservations;
+                    return getReservationList(list, reservations, connection);
                 } catch (SQLException es) {
                     es.printStackTrace();
                 }
@@ -278,6 +276,7 @@ public class ManageUserDAO implements UserDAO {
             return reservations;
         }
     }
+
 
     /**
      * Return {@link UserReservationInfoList} which contained the {@link UserReservationInfo} object from the parameter after a certain reservation was canceled.
@@ -288,9 +287,8 @@ public class ManageUserDAO implements UserDAO {
     public UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo) {
         User user = null;
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT user_id FROM reservations WHERE reservation_id = " +
-                            userReservationInfo.getReservation_id());
+            PreparedStatement statement = connection.prepareStatement("SELECT user_id FROM reservations WHERE " +
+                    "reservation_id = " + userReservationInfo.getReservation_id());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -304,8 +302,8 @@ public class ManageUserDAO implements UserDAO {
                             resultSet.getString(7), resultSet.getBoolean(8));
                 }
             }
-            statement = connection.prepareStatement(
-                    "DELETE FROM reservations WHERE reservation_id=" + userReservationInfo.getReservation_id());
+            statement = connection.prepareStatement("DELETE FROM reservations WHERE reservation_id="
+                    + userReservationInfo.getReservation_id());
             statement.executeUpdate();
             statement.close();
 
@@ -366,7 +364,6 @@ public class ManageUserDAO implements UserDAO {
         }
         return seatList;
     }
-
 
     /**
      * Return {@link UserReservationInfoList} which contained the {@link UserReservationInfo} object from the parameter.

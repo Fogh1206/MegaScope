@@ -173,6 +173,7 @@ public class Model implements UserModel {
     private void onGetMoviesResult(PropertyChangeEvent event) {
         System.out.println("Model: onGetMoviesResult");
         MovieShowsList list = (MovieShowsList) event.getNewValue();
+        System.out.println(list.getSize());
         support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
 
     }

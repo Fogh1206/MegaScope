@@ -88,6 +88,9 @@ public class ViewModelFactory {
         if (userFrontPageViewModel == null) {
             userFrontPageViewModel = new UserFrontPageViewModel(mf.getUserModel());
         }
+        else{
+            System.out.println("kappa");
+        }
         return userFrontPageViewModel;
     }
     /**
