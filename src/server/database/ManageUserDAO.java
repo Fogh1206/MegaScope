@@ -141,7 +141,7 @@ public class ManageUserDAO implements UserDAO {
         int id = 0;
         try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement(
-                    "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" + "VALUES " +
+                    "INSERT INTO public.movies (movies_id, name, dateofrelease, mainactors, description)" + "VALUES " +
                             "(" + "DEFAULT" + ",'" + movieShow.getName() + "','" + movieShow.getDateOfRelease() + "','"
                             + movieShow.getMainActors() + "','" + movieShow.getDescription() + "') " +
                             "ON CONFLICT DO NOTHING");
@@ -152,7 +152,7 @@ public class ManageUserDAO implements UserDAO {
             while (resultSet.next()) {
                 id = resultSet.getInt(1);
             }
-            statement = connection.prepareStatement("INSERT INTO public.show (id, movie_id, time_show, date_show)" +
+            statement = connection.prepareStatement("INSERT INTO public.show (show_id, movie_id, time_show, date_show)" +
                     "VALUES (" + "DEFAULT" + ",'" + id + "','" + movieShow.getTimeOfShow() + "','"
                     + movieShow.getDateOfShow() + "')");
             statement.executeUpdate();
@@ -179,11 +179,11 @@ public class ManageUserDAO implements UserDAO {
                     "UPDATE public.movies SET name='" + movieShow.getName() + "',dateofrelease='" +
                             movieShow.getDateOfRelease() + "',mainactors='" + movieShow.getMainActors() +
                             "',description='" + movieShow.getDescription() +
-                            " 'WHERE id='" + movieShow.getMovie_id() + "'");
+                            " 'WHERE movies_id='" + movieShow.getMovie_id() + "'");
             statement.executeUpdate();
             statement = connection.prepareStatement(
                     "UPDATE public.show SET time_show='" + movieShow.getTimeOfShow() + "',date_show='"
-                            + movieShow.getDateOfShow() + "' WHERE id='" + movieShow.getShow_id() + "'");
+                            + movieShow.getDateOfShow() + "' WHERE show_id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
             statement.close();
             getMovieList(showList, connection);
@@ -204,7 +204,7 @@ public class ManageUserDAO implements UserDAO {
         MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "DELETE FROM show WHERE id='" + movieShow.getShow_id() + "'");
+                    "DELETE FROM show WHERE show_id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -300,7 +300,7 @@ public class ManageUserDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                statement = connection.prepareStatement("SELECT * FROM users WHERE id = "
+                statement = connection.prepareStatement("SELECT * FROM users WHERE users_id = "
                         + resultSet.getInt(1));
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
@@ -388,8 +388,8 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement(
                     "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show," +
                             " reservations.seat_id " + "FROM ((reservations " +
-                            "INNER JOIN show ON reservations.show_id = show_id) " +
-                            "INNER JOIN movies ON show.movie_id = movies_id) " +
+                            "INNER JOIN show ON reservations.show_id = show.show_id) " +
+                            "INNER JOIN movies ON show.movie_id = movies.movies_id) " +
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -418,7 +418,7 @@ public class ManageUserDAO implements UserDAO {
         PreparedStatement statement = null;
         try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' OR " +
-                    "type='VIP' Order BY id");
+                    "type='VIP' Order BY users_id");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -445,11 +445,11 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET banned='" + user.getBanned()
-                            + "' where id=" + user.getId() + "");
+                            + "' where users_id=" + user.getId() + "");
 
             statement.executeUpdate();
             statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' OR " +
-                    "type='VIP' Order BY id");
+                    "type='VIP' Order BY users_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User temp = new User(resultSet.getInt(1),
@@ -558,10 +558,10 @@ public class ManageUserDAO implements UserDAO {
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
                             + user.getLastName() + "',username='" + user.getUsername() + "',password='" +
                             user.getPassword() + "',phonenumber='" + user.getPhoneNumber() + "',type='" +
-                            user.getUserType() + "',banned='" + user.getBanned() + "' WHERE id=" + user.getId() + "");
+                            user.getUserType() + "',banned='" + user.getBanned() + "' WHERE users_id=" + user.getId() + "");
             statement.executeUpdate();
             statement = connection.prepareStatement(
-                    "SELECT * FROM public.users WHERE id='" + user.getId() + "'");
+                    "SELECT * FROM public.users WHERE users_id='" + user.getId() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 temp = new User(resultSet.getInt(1),
