@@ -56,11 +56,6 @@ public class ManageUserDAO implements UserDAO {
                 "ON show.movie_id = movies_id ORDER BY movies_id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            ResultSetMetaData rsmd = resultSet.getMetaData();
-            String name = rsmd.getColumnName(1);
-            String name1 = rsmd.getColumnName(8);
-            System.out.println(name);
-            System.out.println(name1);
             MovieShow temp = new MovieShow(resultSet.getInt("movies_id"), resultSet.getString("name"),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
