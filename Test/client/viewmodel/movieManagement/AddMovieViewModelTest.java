@@ -21,7 +21,7 @@ class AddMovieViewModelTest {
 
     @BeforeEach
     void setUp() {
-        clientFactory=new ClientFactory();
+        clientFactory = new ClientFactory();
         modelFactory = new ModelFactory(clientFactory);
         viewModelFactory = new ViewModelFactory(modelFactory);
         addMovieViewModel = viewModelFactory.getAddMovieViewModel();

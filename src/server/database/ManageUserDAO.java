@@ -1,6 +1,15 @@
 package server.database;
 
-import shared.*;
+import shared.MovieShow.MovieShow;
+import shared.MovieShow.MovieShowsList;
+import shared.Reservation.Reservation;
+import shared.Reservation.ReservationList;
+import shared.Seat.Seat;
+import shared.Seat.SeatList;
+import shared.User.User;
+import shared.User.UserList;
+import shared.UserReservationInfo.UserReservationInfo;
+import shared.UserReservationInfo.UserReservationInfoList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,15 +51,20 @@ public class ManageUserDAO implements UserDAO {
      * @throws SQLException
      */
     private void getMovieList(MovieShowsList showList, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("SELECT movies.id, name, dateofrelease, " +
-                "mainactors," + " description, time_show, date_show, show.id FROM public.movies JOIN public.show " +
-                "ON show.movie_id = movies.id ORDER BY movies.id");
+        PreparedStatement statement = connection.prepareStatement("SELECT movies_id, name, dateofrelease, " +
+                "mainactors," + " description, time_show, date_show, show_id FROM public.movies JOIN public.show " +
+                "ON show.movie_id = movies_id ORDER BY movies_id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString("name"),
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            String name = rsmd.getColumnName(1);
+            String name1 = rsmd.getColumnName(8);
+            System.out.println(name);
+            System.out.println(name1);
+            MovieShow temp = new MovieShow(resultSet.getInt("movies_id"), resultSet.getString("name"),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
-                    resultSet.getString(7), resultSet.getInt(8));
+                    resultSet.getString(7), resultSet.getInt("show_id"));
             showList.addShow(temp);
         }
         System.out.println(showList.getSize());
@@ -96,14 +110,13 @@ public class ManageUserDAO implements UserDAO {
      *
      * @return
      */
-
     @Override
     public MovieShowsList getAllMoviesUnique() {
         MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT movies.id, name, " +
+            PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT movies_id, name, " +
                     "dateofrelease, mainactors," + " description FROM public.movies JOIN public.show on " +
-                    "show.movie_id = movies.id ORDER BY movies.id");
+                    "show.movie_id = movies_id ORDER BY movies_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
@@ -138,7 +151,7 @@ public class ManageUserDAO implements UserDAO {
                             + movieShow.getMainActors() + "','" + movieShow.getDescription() + "') " +
                             "ON CONFLICT DO NOTHING");
             statement.executeUpdate();
-            statement = connection.prepareStatement("SELECT movies.id FROM movies WHERE name='" +
+            statement = connection.prepareStatement("SELECT movies_id FROM movies WHERE name='" +
                     movieShow.getName() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -200,7 +213,7 @@ public class ManageUserDAO implements UserDAO {
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies.id)");
+                    " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies_id)");
             statement.executeUpdate();
             statement.close();
             getMovieList(showList, connection);
@@ -380,8 +393,8 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement(
                     "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show," +
                             " reservations.seat_id " + "FROM ((reservations " +
-                            "INNER JOIN show ON reservations.show_id = show.id) " +
-                            "INNER JOIN movies ON show.movie_id = movies.id) " +
+                            "INNER JOIN show ON reservations.show_id = show_id) " +
+                            "INNER JOIN movies ON show.movie_id = movies_id) " +
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

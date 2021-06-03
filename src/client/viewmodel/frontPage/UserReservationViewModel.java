@@ -5,11 +5,14 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.*;
+import shared.Reservation.Reservation;
+import shared.User.User;
+import shared.UserReservationInfo.UserReservationInfo;
+import shared.UserReservationInfo.UserReservationInfoList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
 public class UserReservationViewModel implements PropertyChangeSubject
 {

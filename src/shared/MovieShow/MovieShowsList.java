@@ -1,4 +1,6 @@
-package shared;
+package shared.MovieShow;
+
+import shared.MovieShow.MovieShow;
 
 import java.io.Serializable;
 import java.util.ArrayList;

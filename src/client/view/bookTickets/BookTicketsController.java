@@ -15,9 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import shared.Reservation;
-import shared.MovieShow;
-import shared.User;
+import shared.Reservation.Reservation;
+import shared.MovieShow.MovieShow;
+import shared.User.User;
 
 import java.io.File;
 
@@ -75,7 +75,7 @@ public class BookTicketsController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
+            e.printStackTrace();
         }
 
         failLabel.textProperty().bindBidirectional(bookTicketsViewModel.getFailLabelProperty());

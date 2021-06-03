@@ -5,7 +5,7 @@ import client.viewmodel.movieManagement.EditMovieViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import shared.MovieShow;
+import shared.MovieShow.MovieShow;
 
 import java.time.LocalDate;
 

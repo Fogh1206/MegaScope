@@ -1,4 +1,4 @@
-package shared;
+package shared.UserReservationInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package shared;
+package shared.Seat;
 
 import java.io.Serializable;
 import java.util.ArrayList;

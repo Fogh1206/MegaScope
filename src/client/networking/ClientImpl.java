@@ -1,6 +1,11 @@
 package client.networking;
 
 import shared.*;
+import shared.MovieShow.MovieShow;
+import shared.Reservation.ReservationList;
+import shared.Seat.SeatList;
+import shared.User.User;
+import shared.UserReservationInfo.UserReservationInfo;
 
 public interface ClientImpl extends PropertyChangeSubject {
     void registerUser(User userToCreate);

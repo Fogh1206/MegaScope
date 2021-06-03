@@ -6,7 +6,7 @@ import client.viewmodel.ViewModelFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import shared.User;
+import shared.User.User;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +19,7 @@ class RegisterViewModelTest {
 
     @BeforeEach
     void setUp() {
-        clientFactory=new ClientFactory();
+        clientFactory = new ClientFactory();
         modelFactory = new ModelFactory(clientFactory);
         viewModelFactory = new ViewModelFactory(modelFactory);
         registerViewModel = viewModelFactory.getRegisterVM();
@@ -105,9 +105,4 @@ class RegisterViewModelTest {
             registerViewModel.isValidInput(user6);
         });
     }
-
-
-
-
-
 }
