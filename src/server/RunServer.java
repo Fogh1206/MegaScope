@@ -16,7 +16,6 @@ public class RunServer
     }
     catch (IOException e)
     {
-      System.out.println("Complete failure to launch");
       e.printStackTrace();
     }
   }

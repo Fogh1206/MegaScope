@@ -39,7 +39,7 @@ public class ClientSocketHandler implements Runnable
       }
       catch (IOException | ClassNotFoundException e)
       {
-        System.out.println("Connection lost");
+        e.printStackTrace();
       }
     }
   }

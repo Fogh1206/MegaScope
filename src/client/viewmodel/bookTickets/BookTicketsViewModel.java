@@ -47,7 +47,6 @@ public class BookTicketsViewModel {
         Platform.runLater(() -> {
             reservationList = new ReservationList();
             ArrayList<String> list = (ArrayList<String>) event.getNewValue();
-            System.out.println(list.toString() + " Hello Guys");
             for (int i = 0; i < list.size(); i++) {
                 colorIdMap.get(list.get(i)).setValue(Color.RED);
             }
@@ -85,8 +84,6 @@ public class BookTicketsViewModel {
     private void onGetReservations(PropertyChangeEvent event) {
         reservationList = new ReservationList();
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
-
-        System.out.println(list.toString() + " Hello Guys");
         for (String s : list) {
             colorIdMap.get(s).setValue(Color.RED);
         }
@@ -124,7 +121,6 @@ public class BookTicketsViewModel {
      */
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
-            System.out.println("Called confirm seats");
             model.adminConfirmSeats(changedSeatList);
             changedSeatList = new SeatList();
         } else {

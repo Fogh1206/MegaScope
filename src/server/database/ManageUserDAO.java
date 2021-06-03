@@ -190,10 +190,8 @@ public class ManageUserDAO implements UserDAO {
             PreparedStatement statement = connection.prepareStatement(
                     "Delete from show where id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
-            System.out.println("Hi");
             statement = connection.prepareStatement(
                     " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies.id)");
-            System.out.println("Ho");
             statement.executeUpdate();
             statement.close();
 
@@ -221,7 +219,6 @@ public class ManageUserDAO implements UserDAO {
             while (resultSet.next()) {
                 strings.add(String.valueOf(resultSet.getInt(1)));
             }
-            System.out.println(strings.size());
 
             if (movieShow != null) {
                 statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
@@ -233,7 +230,6 @@ public class ManageUserDAO implements UserDAO {
                     strings.add(resultSet.getString(4));
                 }
             } else {
-                System.out.println("Null show");
             }
             statement.close();
         } catch (SQLException e) {
@@ -287,7 +283,6 @@ public class ManageUserDAO implements UserDAO {
                         temp = new Reservation(resultSet.getInt(1),
                                 resultSet.getInt(4), resultSet.getInt(3),
                                 resultSet.getInt(2));
-                        System.out.println(temp);
                         reservations.add(temp);
                     }
                     statement.close();
@@ -298,7 +293,6 @@ public class ManageUserDAO implements UserDAO {
 
             }
             throwable.printStackTrace();
-            System.out.println(reservations.isFailed());
             return reservations;
         }
 
@@ -423,7 +417,6 @@ public class ManageUserDAO implements UserDAO {
                 userReservations.add(temp);
             }
             statement.close();
-            System.out.println(userReservations);
             return userReservations;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -487,9 +480,7 @@ public class ManageUserDAO implements UserDAO {
                 users.add(temp);
             }
         } catch (SQLException throwable) {
-            if (throwable.toString().contains("duplicate key")) {
-                System.out.println("same username");
-            }
+            throwable.printStackTrace();
         }
         return users;
     }
@@ -523,9 +514,6 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException throwable) {
-            if (throwable.toString().contains("duplicate key")) {
-                System.out.println("Register Fail");
-            }
             throwable.printStackTrace();
             return null;
         }
@@ -563,9 +551,6 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException throwable) {
-            if (throwable.toString().contains("duplicate key")) {
-                System.out.println("Login fail");
-            }
             throwable.printStackTrace();
             return null;
         }
@@ -597,15 +582,11 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getString(4), resultSet.getString(5),
                         resultSet.getString(6), resultSet.getString(7),
                         resultSet.getBoolean(8));
-                System.out.println(temp);
             }
             statement.close();
-            System.out.println(temp.getUsername());
             return temp;
         } catch (SQLException throwable) {
-            if (throwable.toString().contains("duplicate key")) {
-                System.out.println("same username");
-            }
+            throwable.printStackTrace();
             return null;
         }
     }

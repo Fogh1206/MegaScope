@@ -95,7 +95,6 @@ public class ServerSocketHandler implements Runnable {
                         outToClient.writeObject(changeUserStatus((User) request.arg));
                         break;
                     case CLOSE_REQUEST:
-                        System.out.println("Closing");
                         outToClient.writeObject(getCloseRequest());
                         close();
                         break;
@@ -113,7 +112,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getUserRequest() {
-        System.out.println("Get Users Requested");
         UserList users = userDAO.getAllUsers();
         return new Request(EventType.GETUSER_RESULT, users);
     }
@@ -124,7 +122,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     private Request changeUserStatus(User user) {
-        System.out.println("Get Change user status");
         UserList users = userDAO.changeUserStatus(user);
         return new Request(EventType.CHANGEUSERSTATUS_RESULT, users);
     }
@@ -135,7 +132,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getMoviesRequest() {
-        System.out.println("Get Movies Requested");
         MovieShowsList shows = userDAO.getAllMovies();
         return new Request(EventType.GETMOVIES_RESULT, shows);
     }
@@ -146,7 +142,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     private Request getMoviesForAddRequest() {
-        System.out.println("Get MoviesForAdd Requested");
         MovieShowsList shows = userDAO.getAllMoviesUnique();
         return new Request(EventType.GETMOVIESFORADD_RESULT, shows);
     }
@@ -157,7 +152,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getLoginRequest(User user) {
-        System.out.println("Login requested");
         User temp = userDAO.validateUser(user.getUsername(), user.getPassword());
         if (temp == null) {
             return new Request(EventType.LOGIN_RESULT, temp);
@@ -177,7 +171,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getRegisterRequest(User user) {
-        System.out.println("Register requested");
         User temp = userDAO.registerUser(user);
         if (temp != null) {
             return new Request(EventType.REGISTER_RESULT, temp);
@@ -192,7 +185,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getEditMovieRequest(MovieShow movieShow) {
-        System.out.println("EditMovie requested");
         MovieShowsList shows = userDAO.editMovie(movieShow);
         return new Request(EventType.EDITMOVIE_RESULT, shows);
     }
@@ -203,7 +195,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getSaveNewInfoRequest(User user) {
-        System.out.println("SaveNewInfo requested");
         User temp = userDAO.saveNewInfo(user);
         if (temp != null) {
             return new Request(EventType.SAVENEWINFO_RESULT, temp);
@@ -219,7 +210,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getAddMovieRequest(MovieShow movieShow) {
-        System.out.println("AddMovie requested");
         MovieShowsList shows = userDAO.addMovie(movieShow);
         return new Request(EventType.ADDMOVIE_RESULT, shows);
     }
@@ -230,7 +220,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getRemoveMovieRequest(MovieShow movieShow) {
-        System.out.println("RemoveMovie requested");
         MovieShowsList shows = userDAO.removeMovie(movieShow);
         return new Request(EventType.REMOVEMOVIE_RESULT, shows);
     }
@@ -241,7 +230,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getCloseRequest() {
-        System.out.println("Close requested");
         return new Request(EventType.CLOSE_RESULT, "Successful");
     }
 
@@ -251,7 +239,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     public Request getReservationsRequest(MovieShow movieShow) {
-        System.out.println("GetReservations requested");
         ArrayList<String> seats = userDAO.getReservations(movieShow);
         return new Request(EventType.GETRESERVATIONS_RESULT, seats);
     }
@@ -292,7 +279,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     private Request adminConfirmSeats(SeatList arg) {
-        System.out.println("AdminConfirmSeats Requested");
         SeatList list = userDAO.adminConfirmSeats(arg);
         return new Request(EventType.ADMINBLOCKSEATS_RESULT, list);
     }
@@ -303,7 +289,6 @@ public class ServerSocketHandler implements Runnable {
      * @return
      */
     private Request getAdminSeats() {
-        System.out.println("GetAdminSeats Requested");
         SeatList list = userDAO.getAdminSeats();
         return new Request(EventType.GETADMINSEATS_RESULT, list);
     }
@@ -314,7 +299,6 @@ public class ServerSocketHandler implements Runnable {
      */
     private void close() {
         try {
-            System.out.println("Closing the socket");
             inFromClient.close();
             outToClient.close();
             socket.close();

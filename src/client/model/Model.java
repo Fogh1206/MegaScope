@@ -54,7 +54,6 @@ public class Model implements UserModel {
     }
 
     private void onGetMoviesForAddResult(PropertyChangeEvent event) {
-        System.out.println("Model: onGetMoviesForAddResult");
         MovieShowsList list = (MovieShowsList) event.getNewValue();
         support.firePropertyChange(EventType.GETMOVIESFORADD_RESULT.toString(), null, list);
     }
@@ -65,7 +64,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onGetAdminSeats(PropertyChangeEvent event) {
-        System.out.println("Model: onGetAdminSeats");
         SeatList list = (SeatList) event.getNewValue();
         support.firePropertyChange(EventType.GETADMINSEATS_RESULT.toString(), null, list);
     }
@@ -76,7 +74,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onLoginFail(PropertyChangeEvent event) {
-        System.out.println("Model: onLoginFail");
         support.firePropertyChange(EventType.LOGINFAIL_RESULT.toString(), null, null);
     }
 
@@ -87,7 +84,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onFailedSaveNewInfo(PropertyChangeEvent event) {
-        System.out.println("Model: onFailedSaveNewInfo");
         support.firePropertyChange(EventType.SAVENEWINFOFAIL_RESULT.toString(), null, null);
     }
 
@@ -97,7 +93,6 @@ public class Model implements UserModel {
      * @param propertyChangeEvent
      */
     private void onFailedRegister(PropertyChangeEvent propertyChangeEvent) {
-        System.out.println("Model: onFailedRegister");
         support.firePropertyChange(EventType.REGISTERFAIL_RESULT.toString(), null, null);
     }
 
@@ -107,7 +102,6 @@ public class Model implements UserModel {
      * @param propertyChangeEvent
      */
     private void onNewInfo(PropertyChangeEvent propertyChangeEvent) {
-        System.out.println("Model: onNewInfo");
         User user = (User) propertyChangeEvent.getNewValue();
         support.firePropertyChange(EventType.SAVENEWINFO_RESULT.toString(), null, user);
     }
@@ -118,7 +112,6 @@ public class Model implements UserModel {
      * @param propertyChangeEvent
      */
     private void onReserveShow(PropertyChangeEvent propertyChangeEvent) {
-        System.out.println("Model: onReserveShow");
         ReservationList reservations = (ReservationList) propertyChangeEvent.getNewValue();
         ArrayList<String> idList = new ArrayList<>();
         for (int i = 0; i < reservations.size(); i++) {
@@ -137,7 +130,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onGetReservation(PropertyChangeEvent event) {
-        System.out.println("Model: onGetReservation");
         ArrayList<String> list = (ArrayList<String>) event.getNewValue();
         support.firePropertyChange(EventType.GETRESERVATIONS_RESULT.toString(), null, list);
     }
@@ -149,7 +141,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onGetUserReservations(PropertyChangeEvent event) {
-        System.out.println("Model: onGetUserReservations");
         UserReservationInfoList reservations = (UserReservationInfoList) event.getNewValue();
         support.firePropertyChange("Reservations result", null, reservations);
     }
@@ -160,7 +151,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onGetUserResult(PropertyChangeEvent event) {
-        System.out.println("Model: onGetUserResult");
         UserList users = (UserList) event.getNewValue();
         support.firePropertyChange(EventType.GETUSER_RESULT.toString(), null, users);
     }
@@ -171,7 +161,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onGetMoviesResult(PropertyChangeEvent event) {
-        System.out.println("Model: onGetMoviesResult");
         MovieShowsList list = (MovieShowsList) event.getNewValue();
         support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
 
@@ -183,7 +172,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onLoginResult(PropertyChangeEvent event) {
-        System.out.println("Model: onLoginResult");
         User loginResult = (User) event.getNewValue();
         support.firePropertyChange(EventType.LOGIN_RESULT.toString(), null, loginResult);
     }
@@ -194,7 +182,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onRegisterResult(PropertyChangeEvent event) {
-        System.out.println("Model: onRegisterResult");
         User user = (User) event.getNewValue();
         support.firePropertyChange(EventType.REGISTER_RESULT.toString(), null, user);
     }
@@ -205,7 +192,6 @@ public class Model implements UserModel {
      * @param event
      */
     private void onMoviesChanged(PropertyChangeEvent event) {
-        System.out.println("Model: onMoviesChanged");
         MovieShowsList list = (MovieShowsList) event.getNewValue();
         support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
     }

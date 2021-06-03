@@ -71,7 +71,6 @@ public class UserReservationController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
     }
 
@@ -99,7 +98,6 @@ public class UserReservationController {
         if (reservationTableView.getSelectionModel().getSelectedItem() != null) {
             int index = reservationTableView.getSelectionModel().getSelectedIndex();
             selectedInfo = reservationTableView.getItems().get(index);
-            System.out.println(selectedInfo);
         }
     }
 }

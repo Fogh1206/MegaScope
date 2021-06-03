@@ -64,7 +64,6 @@ public class RegisterController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("Problems with image");
         }
         registerViewModel.addPropertyChangeListener(EventType.REGISTER_RESULT.toString(), this::onRegister);
     }

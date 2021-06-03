@@ -84,8 +84,6 @@ public class AddMovieController {
         if (existingMovie.getSelectionModel().getSelectedItem() != null) {
             int index = existingMovie.getSelectionModel().getSelectedIndex();
             selectedMovieShow = existingMovie.getItems().get(index);
-            System.out.println("Kappa");
-            System.out.println(selectedMovieShow.getName());
         }
     }
 }

@@ -42,7 +42,6 @@ public class EditMovieController {
         this.viewHandler = viewHandler;
         this.movieShow = movieShow;
 
-        System.out.println("Id from edit movie controller" + movieShow.getMovie_id());
         movieNameTextField.textProperty().bindBidirectional(editMovieViewModel.movieNameProperty());
         dateOfReleaseTextField.textProperty().bindBidirectional(editMovieViewModel.dateOfReleaseProperty());
         mainActorsTextArea.textProperty().bindBidirectional(editMovieViewModel.mainActorsProperty());
@@ -69,7 +68,6 @@ public class EditMovieController {
 
         hourTextField.setText(times[0]);
         minuteTextField.setText(times[1]);
-        System.out.println(movieShow.getDateOfShow());
         dateOfShowDatePicker.setValue(LocalDate.parse(movieShow.getDateOfShow()));
 
     }

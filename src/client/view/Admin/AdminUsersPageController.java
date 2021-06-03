@@ -73,7 +73,7 @@ public class AdminUsersPageController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
+            e.printStackTrace();
         }
     }
 
@@ -99,8 +99,6 @@ public class AdminUsersPageController {
             if (result.get() == ButtonType.OK) {
                 adminUsersViewModel.manageUsers();
             }
-        } else {
-            System.out.println("no user");
         }
     }
 

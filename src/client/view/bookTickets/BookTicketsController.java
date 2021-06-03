@@ -60,7 +60,6 @@ public class BookTicketsController {
 
         gridPaneSeats.setPadding(new Insets(0, 0, 0, 40));
         if (user.getUserType().equals("ADMIN")) {
-            System.out.println("Open for admin");
             this.movieShow = null;
             openForAdmin();
         } else {
@@ -75,7 +74,6 @@ public class BookTicketsController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
 
         failLabel.textProperty().bindBidirectional(bookTicketsViewModel.getFailLabelProperty());
@@ -125,7 +123,6 @@ public class BookTicketsController {
                 int finalCol = column;
 
                 rectangle.setOnMouseClicked(t -> {
-                    System.out.println(rectangle.getFill().toString());
                     if (rectangle.getFill() == Color.YELLOW) {
                         rectangle.setFill(Color.GREEN);
                         myBooking[finalRow][finalCol] = null;
@@ -147,7 +144,6 @@ public class BookTicketsController {
      * Method for initializing the fields and for binding the values in case of Admin use.
      */
     private void openForAdmin() {
-        System.out.println("Call for admin");
         bookTicketsViewModel.getAdminSeats();
         int id = 1;
         for (int row = 0; row < gridPaneSeats.getRowCount(); row++) {
@@ -161,7 +157,6 @@ public class BookTicketsController {
                 int finalCol = column;
 
                 rectangle.setOnMouseClicked(t -> {
-                    System.out.println(rectangle.getFill().toString());
                     if (rectangle.getFill() == Color.RED) {
                         rectangle.setFill(Color.GREEN);
                         myBooking[finalRow][finalCol] =
@@ -223,8 +218,6 @@ public class BookTicketsController {
                     textSeats.clear();
                     myBooking = new String[4][6];
                 }
-            } else {
-                System.out.println("No change");
             }
         } else {
             bookTicketsViewModel.confirmSeats(user);
