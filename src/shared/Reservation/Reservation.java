@@ -1,4 +1,4 @@
-package shared;
+package shared.Reservation;
 
 import java.io.Serializable;
 

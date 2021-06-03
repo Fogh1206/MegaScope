@@ -1,6 +1,11 @@
 package client.networking;
 
 import shared.*;
+import shared.MovieShow.MovieShow;
+import shared.Reservation.ReservationList;
+import shared.Seat.SeatList;
+import shared.User.User;
+import shared.UserReservationInfo.UserReservationInfo;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeListener;
@@ -52,7 +57,6 @@ public class Client implements ClientImpl {
      */
     @Override
     public void deactivateClient() {
-        System.out.println("Client: Close Req");
         Request req = new Request(EventType.CLOSE_REQUEST, null);
         sendToServer(req, EventType.CLOSE_REQUEST);
         running = false;
@@ -66,56 +70,48 @@ public class Client implements ClientImpl {
 
     @Override
     public void saveNewInfo(User user) {
-        System.out.println("Client: SaveNewInfo Req");
         Request req = new Request(EventType.SAVENEWINFO_REQUEST, user);
         sendToServer(req, EventType.SAVENEWINFO_RESULT);
     }
 
     @Override
     public void removeMovie(MovieShow movieShow) {
-        System.out.println("Client: RemoveMovie Req");
         Request req = new Request(EventType.REMOVEMOVIE_REQUEST, movieShow);
         sendToServer(req, EventType.REMOVEMOVIE_RESULT);
     }
 
     @Override
     public void getReservation(MovieShow movieShow) {
-        System.out.println("Client: GetReservations Req");
         Request req = new Request(EventType.GETRESERVATIONS_REQUEST, movieShow);
         sendToServer(req, EventType.GETRESERVATIONS_RESULT);
     }
 
     @Override
     public void confirmSeats(ReservationList reservationList) {
-        System.out.println("Client: ConfirmSeats Req");
         Request req = new Request(EventType.RESERVEMOVIE_REQUEST, reservationList);
         sendToServer(req, EventType.RESERVEMOVIE_RESULT);
     }
 
     @Override
     public void cancelReservation(UserReservationInfo userReservationInfo) {
-        System.out.println("Client: CancelReservations Req");
         Request req = new Request(EventType.REMOVERESERVATION_REQUEST, userReservationInfo);
         sendToServer(req, EventType.REMOVERESERVATION_RESULT);
     }
 
     @Override
     public void adminConfirmSeats(SeatList seatList) {
-        System.out.println("Client: AdminConfirmSeats");
         Request request = new Request(EventType.ADMINBLOCKSEATS_REQUEST, seatList);
         sendToServer(request, EventType.ADMINBLOCKSEATS_RESULT);
     }
 
     @Override
     public void getAdminSeats() {
-        System.out.println("Client: getAdminSeats");
         Request request = new Request(EventType.GETADMINSEATS_REQUEST, null);
         sendToServer(request, EventType.GETADMINSEATS_RESULT);
     }
 
     @Override
     public void changeUserStatus(User user) {
-        System.out.println("Client: ChangeUserStatus");
         Request request = new Request(EventType.CHANGEUSERSTATUS_REQUEST, user);
         sendToServer(request, EventType.CHANGEUSERSTATUS_RESULT);
     }
@@ -124,56 +120,48 @@ public class Client implements ClientImpl {
 
     @Override
     public void registerUser(User newUser) {
-        System.out.println("Client: RegisterUser Req");
         Request req = new Request(EventType.REGISTER_REQUEST, newUser);
         sendToServer(req, EventType.REGISTER_RESULT);
     }
 
     @Override
     public void login(User user) {
-        System.out.println("Client: Login Req");
         Request req = new Request(EventType.LOGIN_REQUEST, user);
         sendToServer(req, EventType.LOGIN_RESULT);
     }
 
     @Override
     public void addMovie(MovieShow movieShow) {
-        System.out.println("Client: AddMovie Req");
         Request request = new Request(EventType.ADDMOVIE_REQUEST, movieShow);
         sendToServer(request, EventType.ADDMOVIE_RESULT);
     }
 
     @Override
     public void editMovie(MovieShow movieShow) {
-        System.out.println("Client: EditMovie Req");
         Request request = new Request(EventType.EDITMOVIE_RESQUEST, movieShow);
         sendToServer(request, EventType.EDITMOVIE_RESULT);
     }
 
     @Override
     public void getMoviesForAdd() {
-        System.out.println("Client: GetMoviesForAdd Req");
         Request req = new Request(EventType.GETMOVIESFORADD_REQUEST, null);
         sendToServer(req, EventType.GETMOVIESFORADD_RESULT);
     }
 
     @Override
     public void getMovies() {
-        System.out.println("Client: GetMovies Req");
         Request req = new Request(EventType.GETMOVIES_REQUEST, null);
         sendToServer(req, EventType.GETMOVIES_RESULT);
     }
 
     @Override
     public void getUsers() {
-        System.out.println("Client: GetUsers Req");
         Request req = new Request(EventType.GETUSER_REQUEST, null);
         sendToServer(req, EventType.GETUSER_RESULT);
     }
 
     @Override
     public void getUserReservations(User user) {
-        System.out.println("Client: GetUserReservations Req");
         Request req = new Request(EventType.GETUSERRESERVATIONS_REQUEST, user);
         sendToServer(req, EventType.GETUSERRESERVATIONS_RESULT);
     }
@@ -202,7 +190,6 @@ public class Client implements ClientImpl {
      */
     @Override
     public void receive(Request req) {
-        System.out.println("Received " + req.type.toString());
         support.firePropertyChange(req.type.toString(), null, req.arg);
     }
 }

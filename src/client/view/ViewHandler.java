@@ -16,8 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import shared.MovieShow;
-import shared.User;
+import shared.MovieShow.MovieShow;
+import shared.User.User;
 
 import java.io.IOException;
 

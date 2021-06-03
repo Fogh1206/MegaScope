@@ -1,6 +1,13 @@
 package server.database;
 
-import shared.*;
+import shared.MovieShow.MovieShow;
+import shared.MovieShow.MovieShowsList;
+import shared.Reservation.ReservationList;
+import shared.Seat.SeatList;
+import shared.User.User;
+import shared.User.UserList;
+import shared.UserReservationInfo.UserReservationInfo;
+import shared.UserReservationInfo.UserReservationInfoList;
 
 import java.util.ArrayList;
 

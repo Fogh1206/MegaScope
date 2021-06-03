@@ -1,4 +1,4 @@
-package shared;
+package shared.Seat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,13 +42,11 @@ public class SeatList implements Serializable
       if (seats.get(i).getId() == seat.getId())
       {
         seats.set(i, seat);
-        System.out.println("Setting");
         j++;
       }
     }
     if (j == 0)
     {
-      System.out.println("Adding");
       add(seat);
     }
   }

@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import shared.User;
-import shared.UserReservationInfo;
+import shared.User.User;
+import shared.UserReservationInfo.UserReservationInfo;
 
 import java.io.File;
 
@@ -71,7 +71,6 @@ public class UserReservationController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
     }
 

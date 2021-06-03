@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import shared.User;
+import shared.User.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -56,7 +56,6 @@ public class LoginViewController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
         loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
     }
@@ -93,7 +92,6 @@ public class LoginViewController {
      */
     public void onCancelAction() {
         viewHandler.close();
-        System.out.println("Cancelled");
     }
 
     /**

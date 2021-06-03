@@ -6,7 +6,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.PropertyChangeSubject;
-import shared.User;
+import shared.User.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -62,7 +62,6 @@ public class LoginViewModel implements PropertyChangeSubject {
         User result = (User) event.getNewValue();
         if (result == null) {
             Platform.runLater(() -> {
-                System.out.println("Null login");
                 loginResult.set("Wrong username or password");
             });
         }

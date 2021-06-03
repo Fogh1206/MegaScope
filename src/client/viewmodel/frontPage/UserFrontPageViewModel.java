@@ -5,8 +5,8 @@ import client.model.UserModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.MovieShow;
-import shared.MovieShowsList;
+import shared.MovieShow.MovieShow;
+import shared.MovieShow.MovieShowsList;
 import shared.PropertyChangeSubject;
 import shared.util.EventType;
 
@@ -52,7 +52,6 @@ public class UserFrontPageViewModel implements PropertyChangeSubject {
      * @param event
      */
     public void onGetMovies(PropertyChangeEvent event) {
-        System.out.println("On get movies");
         ObservableList<MovieShow> observableList = FXCollections.observableArrayList();
         MovieShowsList movieShowsList = (MovieShowsList) event.getNewValue();
         for (int i = 0; i < movieShowsList.getSize(); i++) {

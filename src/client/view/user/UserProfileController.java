@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import shared.User;
+import shared.User.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
@@ -105,7 +105,6 @@ public class UserProfileController {
             Image infoChange = new Image(infoFile.toURI().toString());
             changeInfo.setImage(infoChange);
         } catch (NullPointerException e) {
-            System.out.println("image problem");
         }
         userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
     }

@@ -4,8 +4,8 @@ import client.model.UserModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import shared.MovieShow;
-import shared.MovieShowsList;
+import shared.MovieShow.MovieShow;
+import shared.MovieShow.MovieShowsList;
 import shared.PropertyChangeSubject;
 import shared.util.EventType;
 

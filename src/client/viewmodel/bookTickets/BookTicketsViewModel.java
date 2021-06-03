@@ -5,7 +5,11 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import shared.*;
+import shared.MovieShow.MovieShow;
+import shared.Reservation.Reservation;
+import shared.Reservation.ReservationList;
+import shared.Seat.SeatList;
+import shared.User.User;
 import shared.util.EventType;
 
 
@@ -121,7 +125,6 @@ public class BookTicketsViewModel {
      */
     public void confirmSeats(User user) {
         if (user.getUserType().equals("ADMIN")) {
-            System.out.println("Called confirm seats");
             model.adminConfirmSeats(changedSeatList);
             changedSeatList = new SeatList();
         } else {

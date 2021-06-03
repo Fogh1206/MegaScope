@@ -32,7 +32,7 @@ public class Main extends Application {
         }
         catch (NullPointerException e)
         {
-            System.out.println("Everything closed");
+           e.printStackTrace();
         }
     }
 }
