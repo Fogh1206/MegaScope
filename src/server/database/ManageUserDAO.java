@@ -42,21 +42,26 @@ public class ManageUserDAO implements UserDAO {
      * @throws SQLException
      */
     private void getMovieList(MovieShowsList showList, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("SELECT movies.id, name, dateofrelease, " +
-                "mainactors," + " description, time_show, date_show, show.id FROM public.movies JOIN public.show " +
-                "ON show.movie_id = movies.id ORDER BY movies.id");
+        PreparedStatement statement = connection.prepareStatement("SELECT movies_id, name, dateofrelease, " +
+                "mainactors," + " description, time_show, date_show, show_id FROM public.movies JOIN public.show " +
+                "ON show.movie_id = movies_id ORDER BY movies_id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString("name"),
-                    resultSet.getString(3), resultSet.getString(4),
-                    resultSet.getString(5), resultSet.getString(6),
-                    resultSet.getString(7), resultSet.getInt(8));
+            MovieShow temp = new MovieShow(resultSet.getInt("movies_id"), resultSet.getString("name"),
+                    resultSet.getString("dateofrelease"), resultSet.getString("mainactors"),
+                    resultSet.getString("description"), resultSet.getString("time_show"),
+                    resultSet.getString("date_show"), resultSet.getInt("show_id"));
             showList.addShow(temp);
         }
         System.out.println(showList.getSize());
         statement.close();
     }
 
+    /**
+     * Return {@link ReservationList} object from retrieved {@link Reservation} objects received from database.
+     *
+     * @return
+     */
     private ReservationList getReservationList(ReservationList list, ReservationList reservations, Connection connection) throws SQLException {
         PreparedStatement statement;
         Reservation temp;
@@ -64,9 +69,9 @@ public class ManageUserDAO implements UserDAO {
                 "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            temp = new Reservation(resultSet.getInt(1),
-                    resultSet.getInt(4), resultSet.getInt(3),
-                    resultSet.getInt(2));
+            temp = new Reservation(resultSet.getInt("reservation_id"),
+                    resultSet.getInt("seat_id"), resultSet.getInt("show_id"),
+                    resultSet.getInt("user_id"));
             reservations.add(temp);
         }
         statement.close();
@@ -101,14 +106,14 @@ public class ManageUserDAO implements UserDAO {
     public MovieShowsList getAllMoviesUnique() {
         MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT movies.id, name, " +
+            PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT movies_id, name, " +
                     "dateofrelease, mainactors," + " description FROM public.movies JOIN public.show on " +
-                    "show.movie_id = movies.id ORDER BY movies.id");
+                    "show.movie_id = movies_id ORDER BY movies_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getString(4),
-                        resultSet.getString(5), null,
+                MovieShow temp = new MovieShow(resultSet.getInt("movies_id"), resultSet.getString("name"),
+                        resultSet.getString("dateofrelease"), resultSet.getString("mainactors"),
+                        resultSet.getString("show.movie_id"), null,
                         null, 0);
                 showList.addShow(temp);
             }
@@ -133,18 +138,18 @@ public class ManageUserDAO implements UserDAO {
         int id = 0;
         try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement(
-                    "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" + "VALUES " +
+                    "INSERT INTO public.movies (movies_id, name, dateofrelease, mainactors, description)" + "VALUES " +
                             "(" + "DEFAULT" + ",'" + movieShow.getName() + "','" + movieShow.getDateOfRelease() + "','"
                             + movieShow.getMainActors() + "','" + movieShow.getDescription() + "') " +
                             "ON CONFLICT DO NOTHING");
             statement.executeUpdate();
-            statement = connection.prepareStatement("SELECT movies.id FROM movies WHERE name='" +
+            statement = connection.prepareStatement("SELECT movies_id FROM movies WHERE name='" +
                     movieShow.getName() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                id = resultSet.getInt(1);
+                id = resultSet.getInt("movies_id");
             }
-            statement = connection.prepareStatement("INSERT INTO public.show (id, movie_id, time_show, date_show)" +
+            statement = connection.prepareStatement("INSERT INTO public.show (shpw_id, movie_id, time_show, date_show)" +
                     "VALUES (" + "DEFAULT" + ",'" + id + "','" + movieShow.getTimeOfShow() + "','"
                     + movieShow.getDateOfShow() + "')");
             statement.executeUpdate();
@@ -200,7 +205,7 @@ public class ManageUserDAO implements UserDAO {
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies.id)");
+                    " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies_id)");
             statement.executeUpdate();
             statement.close();
             getMovieList(showList, connection);
@@ -225,14 +230,14 @@ public class ManageUserDAO implements UserDAO {
                     "blocked=true");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                strings.add(String.valueOf(resultSet.getInt(1)));
+                strings.add(String.valueOf(resultSet.getInt("seat_id")));
             }
             if (movieShow != null) {
                 statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
                         movieShow.getShow_id() + "'");
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
-                    strings.add(resultSet.getString(4));
+                    strings.add(resultSet.getString("seat_id"));
                 }
             } else {
                 System.out.println("Null show");
@@ -287,19 +292,19 @@ public class ManageUserDAO implements UserDAO {
     public UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo) {
         User user = null;
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT user_id FROM reservations WHERE " +
+            PreparedStatement statement = connection.prepareStatement("SELECT users_id FROM reservations WHERE " +
                     "reservation_id = " + userReservationInfo.getReservation_id());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 statement = connection.prepareStatement("SELECT * FROM users WHERE id = "
-                        + resultSet.getInt(1));
+                        + resultSet.getInt("users_id"));
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
-                    user = new User(resultSet.getInt(1), resultSet.getString(2),
-                            resultSet.getString(3), resultSet.getString(4),
-                            resultSet.getString(5), resultSet.getString(6),
-                            resultSet.getString(7), resultSet.getBoolean(8));
+                    user = new User(resultSet.getInt("users_id"), resultSet.getString("firstname"),
+                            resultSet.getString("lastname"), resultSet.getString("username"),
+                            resultSet.getString("password"), resultSet.getString("phonenumber"),
+                            resultSet.getString("type"), resultSet.getBoolean("banned"));
                 }
             }
             statement = connection.prepareStatement("DELETE FROM reservations WHERE reservation_id="
@@ -332,7 +337,7 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement("SELECT * FROM public.seats ORDER by seat_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Seat temp = new Seat(resultSet.getInt(1), resultSet.getBoolean(2));
+                Seat temp = new Seat(resultSet.getInt("seat_id"), resultSet.getBoolean("blocked"));
                 list.add(temp);
             }
             statement.close();
@@ -355,7 +360,7 @@ public class ManageUserDAO implements UserDAO {
             statement = connection.prepareStatement("SELECT * FROM public.seats ORDER by seat_id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Seat temp = new Seat(resultSet.getInt(1), resultSet.getBoolean(2));
+                Seat temp = new Seat(resultSet.getInt("seat_id"), resultSet.getBoolean("blocked"));
                 seatList.add(temp);
             }
             statement.close();
@@ -385,9 +390,9 @@ public class ManageUserDAO implements UserDAO {
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new UserReservationInfo(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getString(4),
-                        resultSet.getInt(5));
+                temp = new UserReservationInfo(resultSet.getInt("reservations.reservation_id"), resultSet.getString("movies.name"),
+                        resultSet.getString("show.time_show"), resultSet.getString("show.date_show"),
+                        resultSet.getInt("reservations.seat_id"));
                 userReservations.add(temp);
             }
             statement.close();
@@ -414,11 +419,11 @@ public class ManageUserDAO implements UserDAO {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User temp = new User(resultSet.getInt(1),
-                        resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getBoolean(8));
+                User temp = new User(resultSet.getInt("users_id"),
+                        resultSet.getString("firstname"), resultSet.getString("lastname"),
+                        resultSet.getString("username"), resultSet.getString("password"),
+                        resultSet.getString("phonenumber"), resultSet.getString("type"),
+                        resultSet.getBoolean("banned"));
                 users.add(temp);
             }
             statement.close();
@@ -444,11 +449,11 @@ public class ManageUserDAO implements UserDAO {
                     "type='VIP' Order BY id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User temp = new User(resultSet.getInt(1),
-                        resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getBoolean(8));
+                User temp = new User(resultSet.getInt("users_id"),
+                        resultSet.getString("firstname"), resultSet.getString("lastname"),
+                        resultSet.getString("username"), resultSet.getString("password"),
+                        resultSet.getString("phonenumber"), resultSet.getString("type"),
+                        resultSet.getBoolean("banned"));
                 users.add(temp);
             }
             statement.close();
@@ -480,12 +485,12 @@ public class ManageUserDAO implements UserDAO {
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new User(resultSet.getInt(1),
-                        resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getBoolean(8));
-                user = temp;
+                 temp = new User(resultSet.getInt("users_id"),
+                        resultSet.getString("firstname"), resultSet.getString("lastname"),
+                        resultSet.getString("username"), resultSet.getString("password"),
+                        resultSet.getString("phonenumber"), resultSet.getString("type"),
+                        resultSet.getBoolean("banned"));
+                user=temp;
             }
             statement.close();
         } catch (SQLException e) {
@@ -518,11 +523,11 @@ public class ManageUserDAO implements UserDAO {
                     resultSet = statement.executeQuery();
 
                     while (resultSet.next()) {
-                        user = new User(resultSet.getInt(1),
-                                resultSet.getString(2), resultSet.getString(3),
-                                resultSet.getString(4), resultSet.getString(5),
-                                resultSet.getString(6), resultSet.getString(7),
-                                resultSet.getBoolean(8));
+                        user = new User(resultSet.getInt("users_id"),
+                                resultSet.getString("firstname"), resultSet.getString("lastname"),
+                                resultSet.getString("username"), resultSet.getString("password"),
+                                resultSet.getString("phonenumber"), resultSet.getString("type"),
+                                resultSet.getBoolean("banned"));
                     }
                     return user;
                 }
@@ -556,11 +561,11 @@ public class ManageUserDAO implements UserDAO {
                     "SELECT * FROM public.users WHERE id='" + user.getId() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new User(resultSet.getInt(1),
-                        resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getBoolean(8));
+                temp = new User(resultSet.getInt("users_id"),
+                        resultSet.getString("firstname"), resultSet.getString("lastname"),
+                        resultSet.getString("username"), resultSet.getString("password"),
+                        resultSet.getString("phonenumber"), resultSet.getString("type"),
+                        resultSet.getBoolean("banned"));
             }
             statement.close();
             return temp;
