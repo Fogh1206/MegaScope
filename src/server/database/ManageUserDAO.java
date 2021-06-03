@@ -191,6 +191,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -216,6 +217,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -319,6 +321,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -348,6 +351,7 @@ public class ManageUserDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -579,5 +583,6 @@ public class ManageUserDAO implements UserDAO {
             }
             e.printStackTrace();
         }
+        return null;
     }
 }
