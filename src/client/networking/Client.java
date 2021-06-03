@@ -1,6 +1,11 @@
 package client.networking;
 
 import shared.*;
+import shared.MovieShow.MovieShow;
+import shared.Reservation.ReservationList;
+import shared.Seat.SeatList;
+import shared.User.User;
+import shared.UserReservationInfo.UserReservationInfo;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeListener;

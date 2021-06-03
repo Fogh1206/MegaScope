@@ -6,9 +6,6 @@ import java.sql.SQLException;
 
 public class ControllerDAO {
     private static ControllerDAO instance;
-    private final String url = "jdbc:postgresql://tai.db.elephantsql.com:5432/seitjdhj";
-    private final String username = "seitjdhj";
-    private final String password = "9LEmAjua_Uo0YR5sGqAFHn0Kgm9DDKu1";
 
     private ControllerDAO() {
     }
@@ -30,6 +27,9 @@ public class ControllerDAO {
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException {
+        String url = "jdbc:postgresql://tai.db.elephantsql.com:5432/seitjdhj";
+        String username = "seitjdhj";
+        String password = "9LEmAjua_Uo0YR5sGqAFHn0Kgm9DDKu1";
         return DriverManager.getConnection(url, username, password);
     }
 }

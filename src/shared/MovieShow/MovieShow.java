@@ -1,4 +1,4 @@
-package shared;
+package shared.MovieShow;
 
 import java.io.Serializable;
 

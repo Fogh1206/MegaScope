@@ -9,8 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import shared.PropertyChangeSubject;
-import shared.User;
-import shared.UserList;
+import shared.User.User;
+import shared.User.UserList;
 import shared.util.EventType;
 
 
@@ -43,7 +43,6 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
         banButton = new SimpleStringProperty();
         searchPhrase = new SimpleStringProperty();
         selectedUser = null;
-        banButton.setValue("Ban");
 
         userModel.addPropertyChangeListener(EventType.GETUSER_RESULT.toString(), this::onGetUsers);
     }

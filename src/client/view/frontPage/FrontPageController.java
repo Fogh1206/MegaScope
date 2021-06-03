@@ -13,8 +13,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
-import shared.MovieShow;
-import shared.User;
+import shared.MovieShow.MovieShow;
+import shared.User.User;
 
 import java.io.File;
 import java.time.LocalDate;

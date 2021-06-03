@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.PropertyChangeSubject;
-import shared.User;
+import shared.User.User;
 import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
