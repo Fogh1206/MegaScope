@@ -189,7 +189,7 @@ public class ManageUserDAO implements UserDAO {
             getMovieList(showList, connection);
             return showList;
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
     }
 
@@ -214,7 +214,7 @@ public class ManageUserDAO implements UserDAO {
             getMovieList(showList, connection);
             return showList;
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
     }
 
@@ -317,7 +317,7 @@ public class ManageUserDAO implements UserDAO {
 
             return getUserReservation(user);
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
     }
 
@@ -346,7 +346,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
     }
 
@@ -368,7 +368,7 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
         return seatList;
     }
@@ -462,7 +462,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
-                throw new RuntimeException("SQL ERROR " + e);
+                e.printStackTrace();
             }
         }
         return users;
@@ -500,7 +500,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 System.out.println("Register Fail");
             }
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
         return user;
     }
@@ -540,7 +540,8 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 System.out.println("Login fail");
             }
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
+           
         }
         return user;
     }
@@ -576,7 +577,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 System.out.println("same username");
             }
-            throw new RuntimeException("SQL ERROR " + e);
+            e.printStackTrace();
         }
     }
 }
