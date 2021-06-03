@@ -104,6 +104,7 @@ public class BookTicketsViewModel {
         try {
             return colorIdMap.get("" + id);
         } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
             return null;
         }
     }

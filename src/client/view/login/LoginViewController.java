@@ -56,6 +56,7 @@ public class LoginViewController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
         loginViewModel.addPropertyChangeListener(EventType.LOGIN_RESULT.toString(), this::newLogin);
     }
