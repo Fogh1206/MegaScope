@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import shared.MovieShow;
 import shared.MovieShowsList;
 import shared.PropertyChangeSubject;
+import shared.util.EventType;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -41,7 +42,7 @@ public class UserFrontPageViewModel implements PropertyChangeSubject {
         searchPhrase = new SimpleStringProperty();
         observableItems = new SimpleListProperty<>();
 
-        userModel.addPropertyChangeListener("Movie Result", this::onGetMovies);
+        userModel.addPropertyChangeListener(EventType.GETMOVIES_RESULT.toString(), this::onGetMovies);
     }
 
     /**

@@ -16,8 +16,8 @@ public class ManageUserDAO implements UserDAO {
     private ManageUserDAO() {
         try {
             DriverManager.registerDriver(new org.postgresql.Driver());
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         controllerDAO = ControllerDAO.getInstance();
     }
@@ -42,18 +42,37 @@ public class ManageUserDAO implements UserDAO {
      * @throws SQLException
      */
     private void getMovieList(MovieShowsList showList, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("select movies.id, name, dateofrelease, mainactors," +
-                " description, time_show, date_show, show.id from public.movies join public.show on show.movie_id = movies.id order by movies.id");
+        PreparedStatement statement = connection.prepareStatement("SELECT movies.id, name, dateofrelease, " +
+                "mainactors," + " description, time_show, date_show, show.id FROM public.movies JOIN public.show " +
+                "ON show.movie_id = movies.id ORDER BY movies.id");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
+            MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString("name"),
                     resultSet.getString(3), resultSet.getString(4),
                     resultSet.getString(5), resultSet.getString(6),
                     resultSet.getString(7), resultSet.getInt(8));
             showList.addShow(temp);
         }
+        System.out.println(showList.getSize());
         statement.close();
     }
+
+    private ReservationList getReservationList(ReservationList list, ReservationList reservations, Connection connection) throws SQLException {
+        PreparedStatement statement;
+        Reservation temp;
+        statement = connection.prepareStatement(
+                "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            temp = new Reservation(resultSet.getInt(1),
+                    resultSet.getInt(4), resultSet.getInt(3),
+                    resultSet.getInt(2));
+            reservations.add(temp);
+        }
+        statement.close();
+        return reservations;
+    }
+
 
     /**
      * Return {@link MovieShowsList} object from retrieved {@link MovieShow} objects received from database.
@@ -82,8 +101,9 @@ public class ManageUserDAO implements UserDAO {
     public MovieShowsList getAllMoviesUnique() {
         MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("select distinct movies.id, name, dateofrelease, mainactors," +
-                    " description from public.movies join public.show on show.movie_id = movies.id order by movies.id");
+            PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT movies.id, name, " +
+                    "dateofrelease, mainactors," + " description FROM public.movies JOIN public.show on " +
+                    "show.movie_id = movies.id ORDER BY movies.id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 MovieShow temp = new MovieShow(resultSet.getInt(1), resultSet.getString(2),
@@ -110,35 +130,27 @@ public class ManageUserDAO implements UserDAO {
 
         MovieShowsList showList = new MovieShowsList();
         PreparedStatement statement;
+        int id = 0;
         try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement(
-                    "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" +
-                            "VALUES (" + "DEFAULT" + ",'"
-                            + movieShow.getName() + "','" + movieShow.getDateOfRelease() + "','"
-                            + movieShow.getMainActors() + "','" + movieShow.getDescription() + "') ON CONFLICT DO NOTHING");
+                    "INSERT INTO public.movies (id, name, dateofrelease, mainactors, description)" + "VALUES " +
+                            "(" + "DEFAULT" + ",'" + movieShow.getName() + "','" + movieShow.getDateOfRelease() + "','"
+                            + movieShow.getMainActors() + "','" + movieShow.getDescription() + "') " +
+                            "ON CONFLICT DO NOTHING");
             statement.executeUpdate();
-
-            int id = 0;
-            statement = connection.prepareStatement(
-                    "select movies.id from movies where name='" + movieShow.getName() + "'");
-
+            statement = connection.prepareStatement("SELECT movies.id FROM movies WHERE name='" +
+                    movieShow.getName() + "'");
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 id = resultSet.getInt(1);
             }
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO public.show (id, movie_id, time_show, date_show)" +
-                            "VALUES (" + "DEFAULT" + ",'"
-                            + id + "','" + movieShow.getTimeOfShow() + "','"
-                            + movieShow.getDateOfShow() + "')");
-
+            statement = connection.prepareStatement("INSERT INTO public.show (id, movie_id, time_show, date_show)" +
+                    "VALUES (" + "DEFAULT" + ",'" + id + "','" + movieShow.getTimeOfShow() + "','"
+                    + movieShow.getDateOfShow() + "')");
             statement.executeUpdate();
             statement.close();
             getMovieList(showList, connection);
             return showList;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -159,21 +171,17 @@ public class ManageUserDAO implements UserDAO {
                     "UPDATE public.movies SET name='" + movieShow.getName() + "',dateofrelease='" +
                             movieShow.getDateOfRelease() + "',mainactors='" + movieShow.getMainActors() +
                             "',description='" + movieShow.getDescription() +
-                            " 'where id='" + movieShow.getMovie_id() + "'");
-
+                            " 'WHERE id='" + movieShow.getMovie_id() + "'");
             statement.executeUpdate();
-
             statement = connection.prepareStatement(
-                    "UPDATE public.show SET time_show='" + movieShow.getTimeOfShow() + "',date_show='" + movieShow.getDateOfShow() +
-                            "' where id='" + movieShow.getShow_id() + "'");
+                    "UPDATE public.show SET time_show='" + movieShow.getTimeOfShow() + "',date_show='"
+                            + movieShow.getDateOfShow() + "' WHERE id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
             statement.close();
-
             getMovieList(showList, connection);
             return showList;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL ERROR " + e);
         }
     }
 
@@ -188,19 +196,18 @@ public class ManageUserDAO implements UserDAO {
         MovieShowsList showList = new MovieShowsList();
         try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "Delete from show where id='" + movieShow.getShow_id() + "'");
+                    "DELETE FROM show WHERE id='" + movieShow.getShow_id() + "'");
             statement.executeUpdate();
+
             statement = connection.prepareStatement(
                     " DELETE FROM movies WHERE NOT EXISTS(SELECT FROM show WHERE show.movie_id = movies.id)");
             statement.executeUpdate();
             statement.close();
-
             getMovieList(showList, connection);
             return showList;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL ERROR " + e);
         }
-        return null;
     }
 
     /**
@@ -214,22 +221,21 @@ public class ManageUserDAO implements UserDAO {
         ArrayList<String> strings = new ArrayList<>();
 
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE blocked=true");
+            PreparedStatement statement = connection.prepareStatement("SELECT seat_id FROM public.seats WHERE " +
+                    "blocked=true");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 strings.add(String.valueOf(resultSet.getInt(1)));
             }
-
             if (movieShow != null) {
                 statement = connection.prepareStatement("SELECT * FROM public.reservations WHERE show_id='" +
                         movieShow.getShow_id() + "'");
-
                 resultSet = statement.executeQuery();
-
                 while (resultSet.next()) {
                     strings.add(resultSet.getString(4));
                 }
             } else {
+                System.out.println("Null show");
             }
             statement.close();
         } catch (SQLException e) {
@@ -250,54 +256,27 @@ public class ManageUserDAO implements UserDAO {
         Reservation temp;
 
         try (Connection connection = controllerDAO.getConnection()) {
-
             for (int i = 0; i < list.size(); i++) {
-
                 statement = connection.prepareStatement(
                         "INSERT INTO public.reservations (reservation_id,seat_id,show_id ,user_id)"
-                                + "VALUES (" + "DEFAULT" + ",'" + list.get(i).getSeat_no() + "','" + list.get(i).getShow_id()
-                                + "','" + list.get(i).getUser_id() + "')");
-
+                                + "VALUES (" + "DEFAULT" + ",'" + list.get(i).getSeat_no() + "','" +
+                                list.get(i).getShow_id() + "','" + list.get(i).getUser_id() + "')");
                 statement.executeUpdate();
             }
-            statement = connection.prepareStatement(
-                    "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                temp = new Reservation(resultSet.getInt(1),
-                        resultSet.getInt(4), resultSet.getInt(3),
-                        resultSet.getInt(2));
-                reservations.add(temp);
-            }
-            statement.close();
-            return reservations;
-        } catch (SQLException throwable) {
-            if (throwable.toString().contains("duplicate key")) {
+            return getReservationList(list, reservations, connection);
+        } catch (SQLException e) {
+            if (e.toString().contains("duplicate key")) {
                 reservations.setFailed(true);
                 try (Connection connection = controllerDAO.getConnection()) {
-
-                    statement = connection.prepareStatement(
-                            "SELECT * FROM public.reservations WHERE show_id='" + list.get(0).getShow_id() + "'");
-                    ResultSet resultSet = statement.executeQuery();
-                    while (resultSet.next()) {
-                        temp = new Reservation(resultSet.getInt(1),
-                                resultSet.getInt(4), resultSet.getInt(3),
-                                resultSet.getInt(2));
-                        reservations.add(temp);
-                    }
-                    statement.close();
-                    return reservations;
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                    return getReservationList(list, reservations, connection);
+                } catch (SQLException es) {
+                    es.printStackTrace();
                 }
-
             }
-            throwable.printStackTrace();
             return reservations;
         }
-
-
     }
+
 
     /**
      * Return {@link UserReservationInfoList} which contained the {@link UserReservationInfo} object from the parameter after a certain reservation was canceled.
@@ -308,13 +287,13 @@ public class ManageUserDAO implements UserDAO {
     public UserReservationInfoList cancelReservation(UserReservationInfo userReservationInfo) {
         User user = null;
         try (Connection connection = controllerDAO.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT user_id FROM reservations WHERE reservation_id = " + userReservationInfo.getReservation_id());
+            PreparedStatement statement = connection.prepareStatement("SELECT user_id FROM reservations WHERE " +
+                    "reservation_id = " + userReservationInfo.getReservation_id());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                statement = connection.prepareStatement(
-                        "SELECT * FROM users WHERE id = " + resultSet.getInt(1));
+                statement = connection.prepareStatement("SELECT * FROM users WHERE id = "
+                        + resultSet.getInt(1));
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     user = new User(resultSet.getInt(1), resultSet.getString(2),
@@ -323,18 +302,15 @@ public class ManageUserDAO implements UserDAO {
                             resultSet.getString(7), resultSet.getBoolean(8));
                 }
             }
-            statement.close();
-
-            statement = connection.prepareStatement(
-                    "DELETE FROM reservations WHERE reservation_id=" + userReservationInfo.getReservation_id());
+            statement = connection.prepareStatement("DELETE FROM reservations WHERE reservation_id="
+                    + userReservationInfo.getReservation_id());
             statement.executeUpdate();
             statement.close();
 
             return getUserReservation(user);
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL ERROR " + e);
         }
-        return null;
     }
 
     /**
@@ -362,9 +338,8 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
             return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("SQL ERROR " + e);
         }
-        return null;
     }
 
     /**
@@ -385,11 +360,10 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("SQL ERROR " + e);
         }
         return seatList;
     }
-
 
     /**
      * Return {@link UserReservationInfoList} which contained the {@link UserReservationInfo} object from the parameter.
@@ -404,8 +378,8 @@ public class ManageUserDAO implements UserDAO {
 
         try (Connection connection = controllerDAO.getConnection()) {
             statement = connection.prepareStatement(
-                    "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show, reservations.seat_id " +
-                            "FROM ((reservations " +
+                    "SELECT reservations.reservation_id, movies.name, show.time_show, show.date_show," +
+                            " reservations.seat_id " + "FROM ((reservations " +
                             "INNER JOIN show ON reservations.show_id = show.id) " +
                             "INNER JOIN movies ON show.movie_id = movies.id) " +
                             "WHERE user_id = " + user.getId() + ";");
@@ -418,8 +392,8 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
             return userReservations;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -435,7 +409,8 @@ public class ManageUserDAO implements UserDAO {
         UserList users = new UserList();
         PreparedStatement statement = null;
         try (Connection connection = controllerDAO.getConnection()) {
-            statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' or type='VIP' Order by id");
+            statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' OR " +
+                    "type='VIP' Order BY id");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -455,7 +430,6 @@ public class ManageUserDAO implements UserDAO {
 
     /**
      * Return {@link UserList} which contained the {@link User} object from the parameter after an user is banned.
-     *
      */
     @Override
     public UserList changeUserStatus(User user) {
@@ -466,10 +440,8 @@ public class ManageUserDAO implements UserDAO {
                             + "' where id=" + user.getId() + "");
 
             statement.executeUpdate();
-            statement.close();
-            statement = connection.prepareStatement(
-                    "SELECT * FROM public.users WHERE type ='NORM' or type='VIP' Order by id");
-
+            statement = connection.prepareStatement("SELECT * FROM public.users WHERE type ='NORM' OR " +
+                    "type='VIP' Order BY id");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User temp = new User(resultSet.getInt(1),
@@ -479,8 +451,11 @@ public class ManageUserDAO implements UserDAO {
                         resultSet.getBoolean(8));
                 users.add(temp);
             }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+            statement.close();
+        } catch (SQLException e) {
+            if (e.toString().contains("duplicate key")) {
+                throw new RuntimeException("SQL ERROR " + e);
+            }
         }
         return users;
     }
@@ -513,9 +488,11 @@ public class ManageUserDAO implements UserDAO {
                 user = temp;
             }
             statement.close();
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-            return null;
+        } catch (SQLException e) {
+            if (e.toString().contains("duplicate key")) {
+                System.out.println("Register Fail");
+            }
+            throw new RuntimeException("SQL ERROR " + e);
         }
         return user;
     }
@@ -530,7 +507,8 @@ public class ManageUserDAO implements UserDAO {
         User user = null;
         PreparedStatement statement;
         try (Connection connection = controllerDAO.getConnection()) {
-            statement = connection.prepareStatement("SELECT password FROM public.users WHERE username='" + username + "'");
+            statement = connection.prepareStatement("SELECT password FROM public.users WHERE username='" +
+                    username + "'");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -550,9 +528,11 @@ public class ManageUserDAO implements UserDAO {
                 }
             }
             statement.close();
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-            return null;
+        } catch (SQLException e) {
+            if (e.toString().contains("duplicate key")) {
+                System.out.println("Login fail");
+            }
+            throw new RuntimeException("SQL ERROR " + e);
         }
         return user;
     }
@@ -568,10 +548,9 @@ public class ManageUserDAO implements UserDAO {
         try (Connection connection = controllerDAO.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
-                            + user.getLastName() + "',username='" + user.getUsername() + "',password='" + user.getPassword()
-                            + "',phonenumber='" + user.getPhoneNumber() + "',type='" + user.getUserType() + "',banned='" + user.getBanned()
-                            + "' where id=" + user.getId() + "");
-
+                            + user.getLastName() + "',username='" + user.getUsername() + "',password='" +
+                            user.getPassword() + "',phonenumber='" + user.getPhoneNumber() + "',type='" +
+                            user.getUserType() + "',banned='" + user.getBanned() + "' WHERE id=" + user.getId() + "");
             statement.executeUpdate();
             statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE id='" + user.getId() + "'");
@@ -585,9 +564,11 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
             return temp;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-            return null;
+        } catch (SQLException e) {
+            if (e.toString().contains("duplicate key")) {
+                System.out.println("same username");
+            }
+            throw new RuntimeException("SQL ERROR " + e);
         }
     }
 }

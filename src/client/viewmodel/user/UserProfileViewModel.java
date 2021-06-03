@@ -121,6 +121,7 @@ public class UserProfileViewModel implements PropertyChangeSubject {
                 saveInfoLabel.setValue("Passwords do not match");
             }
         } else {
+            System.out.println("password dont match or you dont want to change the password");
             User user = new User(userLoggedIn.getId(), newFirstName.get(),
                     newLastName.get(), newUsername.get(), userLoggedIn.getPassword(),
                     newPhoneNumber.get(), currentUsertype.get(), banned.get());
