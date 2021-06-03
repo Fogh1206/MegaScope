@@ -405,9 +405,9 @@ public class ManageUserDAO implements UserDAO {
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new UserReservationInfo(resultSet.getInt("reservations.reservation_id"), resultSet.getString("movies.name"),
-                        resultSet.getString("show.time_show"), resultSet.getString("show.date_show"),
-                        resultSet.getInt("reservations.seat_id"));
+                temp = new UserReservationInfo(resultSet.getInt("reservation_id"), resultSet.getString("name"),
+                        resultSet.getString("time_show"), resultSet.getString("date_show"),
+                        resultSet.getInt("seat_id"));
                 userReservations.add(temp);
             }
             statement.close();
