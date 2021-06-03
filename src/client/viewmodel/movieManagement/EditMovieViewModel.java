@@ -24,49 +24,48 @@ public class EditMovieViewModel {
 
     /**
      * One-argument constructor for initializing the fields
+     *
      * @param model
      */
-    public EditMovieViewModel(UserModel model){
+    public EditMovieViewModel(UserModel model) {
         this.model = model;
-        movieName       = new SimpleStringProperty();
-        dateOfRelease   = new SimpleStringProperty();
-        mainActors      = new SimpleStringProperty();
-        description     = new SimpleStringProperty();
-        hourTimeOfShow  = new SimpleStringProperty();
-        minuteTimeOfShow= new SimpleStringProperty();
-        dateOfShow      = new SimpleObjectProperty<>();
-        editMovieLabel=new SimpleStringProperty();
-
+        movieName = new SimpleStringProperty();
+        dateOfRelease = new SimpleStringProperty();
+        mainActors = new SimpleStringProperty();
+        description = new SimpleStringProperty();
+        hourTimeOfShow = new SimpleStringProperty();
+        minuteTimeOfShow = new SimpleStringProperty();
+        dateOfShow = new SimpleObjectProperty<>();
+        editMovieLabel = new SimpleStringProperty();
     }
 
-    public StringProperty movieNameProperty(){
+    public StringProperty movieNameProperty() {
         return movieName;
     }
 
-    public StringProperty dateOfReleaseProperty(){
+    public StringProperty dateOfReleaseProperty() {
         return dateOfRelease;
     }
 
-    public StringProperty mainActorsProperty(){
+    public StringProperty mainActorsProperty() {
         return mainActors;
     }
 
-    public StringProperty descriptionProperty(){
+    public StringProperty descriptionProperty() {
         return description;
     }
 
-    public StringProperty hourTimeOfShowProperty(){
+    public StringProperty hourTimeOfShowProperty() {
         return hourTimeOfShow;
     }
 
-    public StringProperty minuteTimeOfShowProperty(){
+    public StringProperty minuteTimeOfShowProperty() {
         return minuteTimeOfShow;
     }
 
-    public ObjectProperty dateOfShowProperty(){
+    public ObjectProperty dateOfShowProperty() {
         return dateOfShow;
     }
-
 
 
     public StringProperty editMovieLabelProperty() {
@@ -74,12 +73,10 @@ public class EditMovieViewModel {
     }
 
     /**
-     *
      * @param id
-     * @param show_id
-     * Void method for editing the movie
+     * @param show_id Void method for editing the movie
      */
-    public void editMovie(int id, int show_id){
+    public void editMovie(int id, int show_id) {
 
         if (movieName.get().isEmpty() || dateOfRelease.get().isEmpty() || dateOfShow.get().equals(null) ||
                 mainActors.get().isEmpty() || description.get().isEmpty() ||

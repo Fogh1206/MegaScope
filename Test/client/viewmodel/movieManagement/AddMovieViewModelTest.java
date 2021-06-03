@@ -3,14 +3,11 @@ package client.viewmodel.movieManagement;
 import client.core.ClientFactory;
 import client.core.ModelFactory;
 import client.viewmodel.ViewModelFactory;
-import client.viewmodel.login.LoginViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class AddMovieViewModelTest {
 

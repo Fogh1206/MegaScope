@@ -3,12 +3,12 @@ package client.viewmodel.bookTickets;
 import client.core.ClientFactory;
 import client.core.ModelFactory;
 import client.viewmodel.ViewModelFactory;
-import client.viewmodel.movieManagement.AddMovieViewModel;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BookTicketsViewModelTest {
 

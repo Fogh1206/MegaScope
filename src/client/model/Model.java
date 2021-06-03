@@ -149,7 +149,7 @@ public class Model implements UserModel {
      */
     private void onGetUserReservations(PropertyChangeEvent event) {
         UserReservationInfoList reservations = (UserReservationInfoList) event.getNewValue();
-        support.firePropertyChange("Reservations result", null, reservations);
+        support.firePropertyChange(EventType.GETUSERRESERVATIONS_RESULT.toString(), null, reservations);
     }
 
     /**
@@ -169,9 +169,7 @@ public class Model implements UserModel {
      */
     private void onGetMoviesResult(PropertyChangeEvent event) {
         MovieShowsList list = (MovieShowsList) event.getNewValue();
-        System.out.println(list.getSize());
         support.firePropertyChange(EventType.GETMOVIES_RESULT.toString(), null, list);
-
     }
 
     /**

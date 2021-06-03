@@ -3,7 +3,6 @@ package client.view.frontPage;
 import client.view.CustomTextFieldTableCell;
 import client.view.ViewHandler;
 import client.viewmodel.frontPage.UserFrontPageViewModel;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-
 import shared.MovieShow.MovieShow;
 import shared.User.User;
 
@@ -236,7 +234,7 @@ public class FrontPageController {
             alert.setTitle("Warning");
             alert.setHeaderText("You are about to delete a movie from the database");
             alert.setContentText("Are you sure you want to delete the movie [" + selectedMovieShow.getName()
-                            + "] from the movie database?");
+                    + "] from the movie database?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {

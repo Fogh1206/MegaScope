@@ -26,17 +26,15 @@ public class ViewHandler {
     private Stage mainStage;
     private ViewModelFactory vmf;
     private Stage stage;
-    private User userLoggedIn;
-
 
     /**
      * One-argument constructor for initializing Stage
+     *
      * @param vmf
      */
     public ViewHandler(ViewModelFactory vmf) {
         this.vmf = vmf;
         mainStage = new Stage();
-
     }
 
     /**
@@ -50,6 +48,7 @@ public class ViewHandler {
 
     /**
      * Changes scene in stage to the content of the Login.fxml file.
+     *
      * @param userLoggedIn
      */
     public void openLoginView(User userLoggedIn) {
@@ -94,9 +93,9 @@ public class ViewHandler {
         }
     }
 
-
     /**
      * Changes scene in stage to the content of the editMovie.fxml file.
+     *
      * @param movieShow
      */
     public void openEditMovie(MovieShow movieShow) {
@@ -120,6 +119,7 @@ public class ViewHandler {
 
     /**
      * Changes scene in stage to the content of the adminUsers.fxml file.
+     *
      * @param userLoggedIn
      */
     public void openAdminUsersPage(User userLoggedIn) {
@@ -137,7 +137,6 @@ public class ViewHandler {
             e.printStackTrace();
         }
     }
-
 
     /**
      * Changes scene in stage to the content of the Register.fxml file.
@@ -162,9 +161,9 @@ public class ViewHandler {
         }
     }
 
-
     /**
      * Changes scene in stage to the content of the userFrontPage.fxml file.
+     *
      * @param userLoggedIn
      */
     public void showFrontPage(User userLoggedIn) {
@@ -184,6 +183,7 @@ public class ViewHandler {
 
     /**
      * Changes scene in stage to the content of the userReservations.fxml file.
+     *
      * @param userLoggedIn
      */
     public void showUserReservationPage(User userLoggedIn) {
@@ -203,8 +203,9 @@ public class ViewHandler {
 
     /**
      * Changes scene in stage to the content of the bookTickets.fxml file.
+     *
      * @param userLoggedIn
-     * @param movieShow Show that is being booked
+     * @param movieShow    Show that is being booked
      */
     public void openCinemaHallPage(User userLoggedIn, MovieShow movieShow) {
         FXMLLoader loader = new FXMLLoader();
@@ -221,9 +222,9 @@ public class ViewHandler {
         }
     }
 
-
     /**
      * Changes scene in stage to the content of the userProfile.fxml file.
+     *
      * @param userLoggedIn
      */
     public void openUserProfile(User userLoggedIn) {

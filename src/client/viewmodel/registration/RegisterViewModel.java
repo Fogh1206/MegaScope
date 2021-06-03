@@ -77,7 +77,7 @@ public class RegisterViewModel implements PropertyChangeSubject {
             return false;
         } else if (user.getPassword() == null || "".equals(user.getPassword())) {
             return false;
-        }  else if (user.getPassword().length() < 3 || user.getPassword().length() > 15) {
+        } else if (user.getPassword().length() < 3 || user.getPassword().length() > 15) {
             if (user.getPassword().length() < 3) {
                 throw new IllegalArgumentException("Password is too short");
             } else if (user.getPassword().length() > 15) {

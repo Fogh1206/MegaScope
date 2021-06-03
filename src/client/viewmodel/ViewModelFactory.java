@@ -30,6 +30,7 @@ public class ViewModelFactory {
 
     /**
      * Returns declared object of {@link RegisterViewModel} if existing otherwise creates and initializes a new one and returns new {@link RegisterViewModel} object.
+     *
      * @return
      */
     public RegisterViewModel getRegisterVM() {
@@ -38,8 +39,10 @@ public class ViewModelFactory {
         }
         return registerViewModel;
     }
+
     /**
      * Returns declared object of {@link AddMovieViewModel} if existing otherwise creates and initializes a new one and returns new {@link AddMovieViewModel} object.
+     *
      * @return
      */
     public AddMovieViewModel getAddMovieViewModel() {
@@ -48,8 +51,10 @@ public class ViewModelFactory {
         }
         return addMovieViewModel;
     }
+
     /**
      * Returns declared object of {@link EditMovieViewModel} if existing otherwise creates and initializes a new one and returns new {@link EditMovieViewModel} object.
+     *
      * @return
      */
     public EditMovieViewModel getEditMovieViewModel() {
@@ -61,6 +66,7 @@ public class ViewModelFactory {
 
     /**
      * Returns declared object of {@link AdminUsersViewModel} if existing otherwise creates and initializes a new one and returns new {@link AdminUsersViewModel} object.
+     *
      * @return
      */
     public AdminUsersViewModel getUsersVM() {
@@ -70,8 +76,10 @@ public class ViewModelFactory {
         }
         return adminUsersViewModel;
     }
+
     /**
      * Returns declared object of {@link LoginViewModel} if existing otherwise creates and initializes a new one and returns new {@link LoginViewModel} object.
+     *
      * @return
      */
     public LoginViewModel getLoginViewModel() {
@@ -80,21 +88,22 @@ public class ViewModelFactory {
         }
         return loginViewModel;
     }
+
     /**
      * Returns declared object of {@link UserFrontPageViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserFrontPageViewModel} object.
+     *
      * @return
      */
     public UserFrontPageViewModel getFrontPage() {
         if (userFrontPageViewModel == null) {
             userFrontPageViewModel = new UserFrontPageViewModel(mf.getUserModel());
         }
-        else{
-            System.out.println("kappa");
-        }
         return userFrontPageViewModel;
     }
+
     /**
      * Returns declared object of {@link BookTicketsViewModel} if existing otherwise creates and initializes a new one and returns new {@link BookTicketsViewModel} object.
+     *
      * @return
      */
     public BookTicketsViewModel getBookTicketsPage() {
@@ -103,8 +112,10 @@ public class ViewModelFactory {
         }
         return bookTicketsViewModel;
     }
+
     /**
      * Returns declared object of {@link UserProfileViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserProfileViewModel} object.
+     *
      * @return
      */
     public UserProfileViewModel getUserProfileVM() {
@@ -113,8 +124,10 @@ public class ViewModelFactory {
         }
         return userProfileViewModel;
     }
+
     /**
      * Returns declared object of {@link UserReservationViewModel} if existing otherwise creates and initializes a new one and returns new {@link UserReservationViewModel} object.
+     *
      * @return
      */
     public UserReservationViewModel getUserReservationVM() {

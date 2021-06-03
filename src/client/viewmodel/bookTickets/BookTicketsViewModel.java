@@ -12,7 +12,6 @@ import shared.Seat.SeatList;
 import shared.User.User;
 import shared.util.EventType;
 
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class BookTicketsViewModel {
 
         for (int i = 1; i < 26; i++) {
 
-            colorIdMap.put("" + i, new SimpleObjectProperty<>(Color.GREEN));
+            colorIdMap.put(String.valueOf(i), new SimpleObjectProperty<>(Color.GREEN));
         }
 
         model.addPropertyChangeListener(EventType.GETRESERVATIONS_RESULT.toString(), this::onGetReservations);
@@ -66,9 +65,9 @@ public class BookTicketsViewModel {
         seatList = (SeatList) event.getNewValue();
         for (int i = 0; i < seatList.size(); i++) {
             if (seatList.get(i).isDisabled()) {
-                colorIdMap.get("" + seatList.get(i).getId()).setValue(Color.RED);
+                colorIdMap.get(String.valueOf(seatList.get(i).getId())).setValue(Color.RED);
             } else {
-                colorIdMap.get("" + seatList.get(i).getId()).setValue(Color.GREEN);
+                colorIdMap.get(String.valueOf(seatList.get(i).getId())).setValue(Color.GREEN);
             }
         }
     }
@@ -78,7 +77,7 @@ public class BookTicketsViewModel {
      */
     public void resetColors() {
         for (int i = 1; i < 26; i++) {
-            colorIdMap.get("" + i).setValue(Color.GREEN);
+            colorIdMap.get(String.valueOf(i)).setValue(Color.GREEN);
         }
     }
 
@@ -102,7 +101,7 @@ public class BookTicketsViewModel {
 
     public Property<Paint> getFillProperty(String id) {
         try {
-            return colorIdMap.get("" + id);
+            return colorIdMap.get(String.valueOf(id));
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
             return null;
@@ -131,7 +130,6 @@ public class BookTicketsViewModel {
         } else {
             model.confirmSeats(reservationList);
         }
-
     }
 
     /**

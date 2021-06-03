@@ -7,12 +7,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import shared.PropertyChangeSubject;
 import shared.User.User;
 import shared.User.UserList;
 import shared.util.EventType;
-
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -124,7 +122,7 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
     /**
      * @param name
      * @param listener Void method for adding the listener
-     * Void method for adding a Listener
+     *                 Void method for adding a Listener
      */
     @Override
     public void addPropertyChangeListener(String name, PropertyChangeListener listener) {
@@ -134,7 +132,7 @@ public class AdminUsersViewModel implements PropertyChangeSubject {
     /**
      * @param name
      * @param listener Void method for adding the listener
-     * Void method for removing the first a Listener
+     *                 Void method for removing the first a Listener
      */
     @Override
     public void removePropertyChangeListener(String name, PropertyChangeListener listener) {

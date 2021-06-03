@@ -38,12 +38,12 @@ public class MovieShow implements Serializable {
         return movie_id;
     }
 
-    public int getShow_id() {
-        return show_id;
-    }
-
     public void setMovie_id(int movie_id) {
         this.movie_id = movie_id;
+    }
+
+    public int getShow_id() {
+        return show_id;
     }
 
     public void setShow_id(int show_id) {

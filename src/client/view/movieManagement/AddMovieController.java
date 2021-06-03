@@ -2,7 +2,6 @@ package client.view.movieManagement;
 
 import client.view.ViewHandler;
 import client.viewmodel.movieManagement.AddMovieViewModel;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import shared.MovieShow.MovieShow;

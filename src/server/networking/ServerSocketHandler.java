@@ -2,9 +2,9 @@ package server.networking;
 
 import server.database.ManageUserDAO;
 import server.database.UserDAO;
-import shared.*;
 import shared.MovieShow.MovieShow;
 import shared.MovieShow.MovieShowsList;
+import shared.Request;
 import shared.Reservation.ReservationList;
 import shared.Seat.SeatList;
 import shared.User.User;
@@ -20,7 +20,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ServerSocketHandler implements Runnable {
-
 
     private Socket socket;
     private ObjectOutputStream outToClient;

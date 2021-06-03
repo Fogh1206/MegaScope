@@ -26,7 +26,6 @@ public class UserProfileController {
     private UserProfileViewModel userProfileViewModel;
     private User userLoggedIn;
 
-
     @FXML
     private Label userCurrentFirstNameLabel;
     @FXML
@@ -73,6 +72,7 @@ public class UserProfileController {
         this.viewHandler = viewHandler;
         this.userProfileViewModel = userProfileViewModel;
         this.userLoggedIn = userLoggedIn;
+
         userProfileViewModel.clearMessages();
 
         vipCheckBox.setVisible(!(userLoggedIn.getUserType().equals("ADMIN")));
@@ -90,6 +90,7 @@ public class UserProfileController {
         confirmPasswordField.textProperty().bindBidirectional(userProfileViewModel.confirmPasswordProperty());
         vipCheckBox.selectedProperty().bindBidirectional(userProfileViewModel.vipCheckProperty());
         saveInfoLabel.textProperty().bindBidirectional(userProfileViewModel.saveInfoLabelProperty());
+
         userProfileViewModel.updateCurrentInfo(userLoggedIn);
 
         usernameLabel.setText("Logged in as " + userLoggedIn.getUsername());

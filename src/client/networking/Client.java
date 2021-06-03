@@ -41,6 +41,7 @@ public class Client implements ClientImpl {
 
     /**
      * Sending {@link Request} object and {@link EventType} enum object to server with {@link ObjectOutputStream}.
+     *
      * @param request
      * @param Result
      */
@@ -117,7 +118,6 @@ public class Client implements ClientImpl {
     }
 
 
-
     @Override
     public void registerUser(User newUser) {
         Request req = new Request(EventType.REGISTER_REQUEST, newUser);
@@ -186,6 +186,7 @@ public class Client implements ClientImpl {
 
     /**
      * Receive all incoming {@link Request} objects from Server and use ObserverPattern to tell {@link client.model.Model} class about received {@link Request}.
+     *
      * @param req
      */
     @Override

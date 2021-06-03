@@ -16,23 +16,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        clientFactory=new ClientFactory();
+        clientFactory = new ClientFactory();
         model = new ModelFactory(clientFactory);
         viewModelFactory = new ViewModelFactory(model);
         viewHandler = new ViewHandler(viewModelFactory);
         viewHandler.start();
     }
 
-    /** Method ro run before client GUI closes */
-    @Override public void stop()
-    {
-        try
-        {
+    /**
+     * Method ro run before client GUI closes
+     */
+    @Override
+    public void stop() {
+        try {
             viewModelFactory.getFrontPage().close();
-        }
-        catch (NullPointerException e)
-        {
-           e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 }

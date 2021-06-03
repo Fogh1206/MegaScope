@@ -35,7 +35,7 @@ public class EditMovieController {
     /**
      * @param editMovieViewModel
      * @param viewHandler
-     * @param movieShow               Method for initializing the fields and for binding the values.
+     * @param movieShow          Method for initializing the fields and for binding the values.
      */
     public void init(EditMovieViewModel editMovieViewModel, ViewHandler viewHandler, MovieShow movieShow) {
         this.editMovieViewModel = editMovieViewModel;

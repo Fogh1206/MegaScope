@@ -1,7 +1,6 @@
 package client.viewmodel.frontPage;
 
 import client.model.UserModel;
-
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

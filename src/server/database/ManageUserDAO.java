@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class ManageUserDAO implements UserDAO {
 
-    private ControllerDAO controllerDAO;
     private static ManageUserDAO instance;
+    private ControllerDAO controllerDAO;
 
     /**
      * Private zero-argument constructor (Singleton class).
@@ -63,7 +63,6 @@ public class ManageUserDAO implements UserDAO {
                     resultSet.getString("date_show"), resultSet.getInt("show_id"));
             showList.addShow(temp);
         }
-        System.out.println(showList.getSize());
         statement.close();
     }
 
@@ -197,7 +196,7 @@ public class ManageUserDAO implements UserDAO {
             return showList;
         } catch (SQLException e) {
 
-             e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
     }
@@ -223,7 +222,7 @@ public class ManageUserDAO implements UserDAO {
             getMovieList(showList, connection);
             return showList;
         } catch (SQLException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -252,8 +251,6 @@ public class ManageUserDAO implements UserDAO {
                 while (resultSet.next()) {
                     strings.add(resultSet.getString("seat_id"));
                 }
-            } else {
-                System.out.println("Null show");
             }
             statement.close();
         } catch (SQLException e) {
@@ -327,7 +324,7 @@ public class ManageUserDAO implements UserDAO {
 
             return getUserReservation(user);
         } catch (SQLException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -357,7 +354,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
             return list;
         } catch (SQLException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -380,7 +377,7 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return seatList;
     }
@@ -405,9 +402,9 @@ public class ManageUserDAO implements UserDAO {
                             "WHERE user_id = " + user.getId() + ";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp = new UserReservationInfo(resultSet.getInt("reservation_id"), resultSet.getString("name"),
-                        resultSet.getString("time_show"), resultSet.getString("date_show"),
-                        resultSet.getInt("seat_id"));
+                temp = new UserReservationInfo(resultSet.getInt("reservation_id"),
+                        resultSet.getString("name"), resultSet.getString("time_show"),
+                        resultSet.getString("date_show"), resultSet.getInt("seat_id"));
                 userReservations.add(temp);
             }
             statement.close();
@@ -474,7 +471,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
-                 e.printStackTrace();
+                e.printStackTrace();
             }
         }
         return users;
@@ -500,12 +497,12 @@ public class ManageUserDAO implements UserDAO {
                     "SELECT * FROM public.users WHERE username='" + user.getUsername() + "'");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                 temp = new User(resultSet.getInt("users_id"),
+                temp = new User(resultSet.getInt("users_id"),
                         resultSet.getString("firstname"), resultSet.getString("lastname"),
                         resultSet.getString("username"), resultSet.getString("password"),
                         resultSet.getString("phonenumber"), resultSet.getString("type"),
                         resultSet.getBoolean("banned"));
-                user=temp;
+                user = temp;
             }
             statement.close();
         } catch (SQLException e) {
@@ -552,7 +549,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 e.printStackTrace();
             }
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return user;
     }
@@ -570,7 +567,8 @@ public class ManageUserDAO implements UserDAO {
                     "UPDATE public.users SET firstname='" + user.getFirstName() + "',lastname='"
                             + user.getLastName() + "',username='" + user.getUsername() + "',password='" +
                             user.getPassword() + "',phonenumber='" + user.getPhoneNumber() + "',type='" +
-                            user.getUserType() + "',banned='" + user.getBanned() + "' WHERE users_id=" + user.getId() + "");
+                            user.getUserType() + "',banned='" + user.getBanned() + "' " +
+                            "WHERE users_id=" + user.getId() + "");
             statement.executeUpdate();
             statement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE users_id='" + user.getId() + "'");
@@ -588,7 +586,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 e.printStackTrace();
             }
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }

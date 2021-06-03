@@ -89,12 +89,30 @@ public class User implements Serializable {
     }
 
     /**
+     * Set method for banned
+     *
+     * @param banned
+     */
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+
+    /**
      * Get method for phone number
      *
      * @return phoneNumber
      */
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    /**
+     * Set method for phone number
+     *
+     * @param phoneNumber
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     /**
@@ -152,15 +170,6 @@ public class User implements Serializable {
     }
 
     /**
-     * Set method for banned
-     *
-     * @param banned
-     */
-    public void setBanned(boolean banned) {
-        this.banned = banned;
-    }
-
-    /**
      * To string method
      *
      * @return
@@ -172,14 +181,5 @@ public class User implements Serializable {
                 + ", password='" + password + '\'' + ", phoneNumber='" + phoneNumber
                 + '\'' + ", userType='" + userType + '\'' + ", banned='" + banned + '\''
                 + '}';
-    }
-
-    /**
-     * Set method for phone number
-     *
-     * @param phoneNumber
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 }
