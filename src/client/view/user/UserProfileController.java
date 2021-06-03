@@ -105,6 +105,7 @@ public class UserProfileController {
             Image infoChange = new Image(infoFile.toURI().toString());
             changeInfo.setImage(infoChange);
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
         userProfileViewModel.addPropertyChangeListener(EventType.SAVENEWINFO_RESULT.toString(), this::newSavedInfo);
     }

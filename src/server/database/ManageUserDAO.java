@@ -490,7 +490,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
-                System.out.println("Register Fail");
+                e.printStackTrace();
             }
             throw new RuntimeException("SQL ERROR " + e);
         }
@@ -530,7 +530,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
-                System.out.println("Login fail");
+                e.printStackTrace();
             }
             throw new RuntimeException("SQL ERROR " + e);
         }
@@ -566,7 +566,7 @@ public class ManageUserDAO implements UserDAO {
             return temp;
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
-                System.out.println("same username");
+                e.printStackTrace();
             }
             throw new RuntimeException("SQL ERROR " + e);
         }
