@@ -29,13 +29,13 @@ class BookTicketsViewModelTest {
     void resetColors() {
 
         for (int i = 1; i < 26; i++) {
-            bookTicketsViewModel.getFillProperty("" + i).setValue(Color.BLUEVIOLET);
+            bookTicketsViewModel.getFillProperty(String.valueOf(i)).setValue(Color.BLUEVIOLET);
         }
 
         bookTicketsViewModel.resetColors();
 
         for (int i = 1; i < 26; i++) {
-            assertEquals(Color.GREEN, bookTicketsViewModel.getFillProperty("" + i).getValue());
+            assertEquals(Color.GREEN, bookTicketsViewModel.getFillProperty(String.valueOf(i)).getValue());
         }
 
     }
@@ -51,23 +51,23 @@ class BookTicketsViewModelTest {
 
     @Test
     void disablePropertyOne() {
-        bookTicketsViewModel.getFillProperty("" + 1).setValue(Color.GREEN);
-        bookTicketsViewModel.disableProperty("" + 1);
-        assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty("" + 1).getValue());
+        bookTicketsViewModel.getFillProperty(String.valueOf(1)).setValue(Color.GREEN);
+        bookTicketsViewModel.disableProperty(String.valueOf(1));
+        assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty(String.valueOf(1)).getValue());
     }
 
     @Test
     void disablePropertyMany() {
         for (int i = 1; i < 5; i++) {
-            bookTicketsViewModel.getFillProperty("" + i).setValue(Color.BLUEVIOLET);
+            bookTicketsViewModel.getFillProperty(String.valueOf(i)).setValue(Color.BLUEVIOLET);
         }
 
         for (int i = 1; i < 5; i++) {
-            bookTicketsViewModel.disableProperty("" + i);
+            bookTicketsViewModel.disableProperty(String.valueOf(i));
         }
 
         for (int i = 1; i < 5; i++) {
-            assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty("" + i).getValue());
+            assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty(String.valueOf(i)).getValue());
         }
 
     }
@@ -80,15 +80,15 @@ class BookTicketsViewModelTest {
         // Lower right boundary: 1 [Already done in disablePropertyOne()]
 
         // Upper right boundary: 25
-        bookTicketsViewModel.getFillProperty("" + 25).setValue(Color.GREEN);
-        bookTicketsViewModel.disableProperty("" + 25);
-        assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty("" + 25).getValue());
+        bookTicketsViewModel.getFillProperty(String.valueOf(25)).setValue(Color.GREEN);
+        bookTicketsViewModel.disableProperty(String.valueOf(25));
+        assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty(String.valueOf(25)).getValue());
 
         // Upper left boundary: 26
         assertThrows(NullPointerException.class, () -> {
-            bookTicketsViewModel.getFillProperty("" + 26).setValue(Color.GREEN);
-            bookTicketsViewModel.disableProperty("" + 26);
-            assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty("" + 26).getValue());
+            bookTicketsViewModel.getFillProperty(String.valueOf(26)).setValue(Color.GREEN);
+            bookTicketsViewModel.disableProperty(String.valueOf(26));
+            assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty(String.valueOf(26)).getValue());
         });
 
 
@@ -134,8 +134,5 @@ class BookTicketsViewModelTest {
             bookTicketsViewModel.disableProperty(String.valueOf(28));
             assertEquals(Color.GRAY, bookTicketsViewModel.getFillProperty(String.valueOf(28)).getValue());
         });
-
     }
-
-
 }

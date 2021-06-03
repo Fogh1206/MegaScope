@@ -1,6 +1,5 @@
 package server;
 
-
 import server.networking.Server;
 
 import java.io.IOException;

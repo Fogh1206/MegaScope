@@ -87,6 +87,7 @@ public class RegisterViewModel implements PropertyChangeSubject {
         } else if (user.getPhoneNumber() == null || "".equals(user.getPhoneNumber())) {
             return false;
         } else {
+            System.out.println(7);
             return true;
         }
     }
