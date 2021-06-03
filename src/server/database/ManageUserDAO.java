@@ -1,6 +1,16 @@
 package server.database;
 
-import shared.*;
+
+import shared.MovieShow.MovieShow;
+import shared.MovieShow.MovieShowsList;
+import shared.Reservation.Reservation;
+import shared.Reservation.ReservationList;
+import shared.Seat.Seat;
+import shared.Seat.SeatList;
+import shared.User.User;
+import shared.User.UserList;
+import shared.UserReservationInfo.UserReservationInfo;
+import shared.UserReservationInfo.UserReservationInfoList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -186,9 +196,10 @@ public class ManageUserDAO implements UserDAO {
             getMovieList(showList, connection);
             return showList;
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+
+             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -212,7 +223,7 @@ public class ManageUserDAO implements UserDAO {
             getMovieList(showList, connection);
             return showList;
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+             e.printStackTrace();
         }
         return null;
     }
@@ -316,7 +327,7 @@ public class ManageUserDAO implements UserDAO {
 
             return getUserReservation(user);
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+             e.printStackTrace();
         }
         return null;
     }
@@ -346,7 +357,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+             e.printStackTrace();
         }
         return null;
     }
@@ -369,7 +380,7 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException e) {
-            throw new RuntimeException("SQL ERROR " + e);
+             e.printStackTrace();
         }
         return seatList;
     }
@@ -463,7 +474,7 @@ public class ManageUserDAO implements UserDAO {
             statement.close();
         } catch (SQLException e) {
             if (e.toString().contains("duplicate key")) {
-                throw new RuntimeException("SQL ERROR " + e);
+                 e.printStackTrace();
             }
         }
         return users;
@@ -501,7 +512,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 e.printStackTrace();
             }
-            throw new RuntimeException("SQL ERROR " + e);
+            return null;
         }
         return user;
     }
@@ -541,7 +552,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 e.printStackTrace();
             }
-            throw new RuntimeException("SQL ERROR " + e);
+             e.printStackTrace();
         }
         return user;
     }
@@ -577,7 +588,7 @@ public class ManageUserDAO implements UserDAO {
             if (e.toString().contains("duplicate key")) {
                 e.printStackTrace();
             }
-            throw new RuntimeException("SQL ERROR " + e);
+             e.printStackTrace();
         }
         return null;
     }
