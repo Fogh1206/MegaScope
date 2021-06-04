@@ -207,7 +207,7 @@ public class ViewHandler {
      * @param userLoggedIn
      * @param movieShow    Show that is being booked
      */
-    public void openCinemaHallPage(User userLoggedIn, MovieShow movieShow) {
+    public void openBookTicketsPage(User userLoggedIn, MovieShow movieShow) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/bookTickets.fxml"));
         try {

@@ -180,13 +180,13 @@ public class FrontPageController {
     }
 
     /**
-     * Opens cinemahall page for users
+     * Opens book tickets page page for users
      */
     public void onBookMovieButton() {
         if (userLoggedIn != null && selectedMovieShow != null) {
-            viewHandler.openCinemaHallPage(userLoggedIn, selectedMovieShow);
+            viewHandler.openBookTicketsPage(userLoggedIn, selectedMovieShow);
         } else if (userLoggedIn.getUserType().equals("ADMIN")) {
-            viewHandler.openCinemaHallPage(userLoggedIn, null);
+            viewHandler.openBookTicketsPage(userLoggedIn, null);
         }
     }
 
