@@ -4,7 +4,7 @@ import client.view.Admin.AdminUsersPageController;
 import client.view.bookTickets.BookTicketsController;
 import client.view.frontPage.FrontPageController;
 import client.view.frontPage.UserReservationController;
-import client.view.login.LoginViewController;
+import client.view.login.LoginController;
 import client.view.movieManagement.AddMovieController;
 import client.view.movieManagement.EditMovieController;
 import client.view.registration.RegisterController;
@@ -56,7 +56,7 @@ public class ViewHandler {
         loader.setLocation(getClass().getResource("../fxml/Login.fxml"));
         try {
             Parent root = loader.load();
-            LoginViewController ctrl = loader.getController();
+            LoginController ctrl = loader.getController();
             ctrl.init(vmf.getLoginViewModel(), this, userLoggedIn);
             mainStage.setTitle("Log in");
             Scene loginScene = new Scene(root);
@@ -207,16 +207,16 @@ public class ViewHandler {
      * @param userLoggedIn
      * @param movieShow    Show that is being booked
      */
-    public void openCinemaHallPage(User userLoggedIn, MovieShow movieShow) {
+    public void openBookTicketsPage(User userLoggedIn, MovieShow movieShow) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/bookTickets.fxml"));
         try {
             Parent root = loader.load();
             BookTicketsController ctrl = loader.getController();
             ctrl.init(vmf.getBookTicketsPage(), this, userLoggedIn, movieShow);
-            mainStage.setTitle("Cinema Hall");
-            Scene cinemaHallScene = new Scene(root);
-            mainStage.setScene(cinemaHallScene);
+            mainStage.setTitle("Book tickets page");
+            Scene openTicketsScene = new Scene(root);
+            mainStage.setScene(openTicketsScene);
         } catch (IOException e) {
             e.printStackTrace();
         }
