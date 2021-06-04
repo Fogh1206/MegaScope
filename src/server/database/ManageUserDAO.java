@@ -546,9 +546,6 @@ public class ManageUserDAO implements UserDAO {
             }
             statement.close();
         } catch (SQLException e) {
-            if (e.toString().contains("duplicate key")) {
-                e.printStackTrace();
-            }
             e.printStackTrace();
         }
         return user;
