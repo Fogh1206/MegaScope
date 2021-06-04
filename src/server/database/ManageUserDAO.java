@@ -184,8 +184,8 @@ public class ManageUserDAO implements UserDAO {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE public.movies SET name='" + movieShow.getName() + "',dateofrelease='" +
                             movieShow.getDateOfRelease() + "',mainactors='" + movieShow.getMainActors() +
-                            "',description='" + movieShow.getDescription() +
-                            " 'WHERE movies_id='" + movieShow.getMovie_id() + "'");
+                            "',description='" + movieShow.getDescription() + "' WHERE movies_id='" +
+                            movieShow.getMovie_id() + "'");
             statement.executeUpdate();
             statement = connection.prepareStatement(
                     "UPDATE public.show SET time_show='" + movieShow.getTimeOfShow() + "',date_show='"
