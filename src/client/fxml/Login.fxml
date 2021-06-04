@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="414.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.view.login.LoginViewController">
+      fx:controller="client.view.login.LoginController">
     <children>
         <AnchorPane prefHeight="82.0" prefWidth="600.0" style="-fx-background-color: #E96151;">
             <children>

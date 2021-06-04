@@ -1,6 +1,7 @@
 package client.viewmodel.login;
 
 import client.model.UserModel;
+import client.view.login.LoginController;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -92,7 +93,7 @@ public class LoginViewModel implements PropertyChangeSubject {
     }
 
     /**
-     * Method used by {@link client.view.login.LoginViewController} which links with a method in {@link client.model.Model}
+     * Method used by {@link LoginController} which links with a method in {@link client.model.Model}
      */
     public void login() {
         if (username.get() == null || password.get() == null || username.get().equals("") || password.get().equals("")) {

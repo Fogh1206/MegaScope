@@ -13,7 +13,8 @@ import shared.util.EventType;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 
-public class LoginViewController {
+public class LoginController
+{
 
     @FXML
     private TextField usernameTextField;

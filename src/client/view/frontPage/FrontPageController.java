@@ -137,7 +137,6 @@ public class FrontPageController {
             Image logo = new Image(logoFile.toURI().toString());
             logoView.setImage(logo);
         } catch (NullPointerException e) {
-            e.printStackTrace();
         }
     }
 
